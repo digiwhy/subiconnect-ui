@@ -1,0 +1,10 @@
+*
+README.md
+node_modules
+.github
+.changeset
+storybook-static/**/*
+
+!dist/*
+!dist/**/*
+!package.json
