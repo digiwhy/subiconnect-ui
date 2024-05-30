@@ -9,29 +9,29 @@ type PostPayrollIntegration = {
 };
 
 export type UsePostPayrollIntegrationProps = {
-  payrollSystemId: number;
+  payrollSystem: string;
   integrationParams: PostPayrollIntegration;
 };
 
 export const usePostPayrollIntegration = () => {
   return useMutation({
     mutationFn: ({
-      payrollSystemId,
+      payrollSystem,
       integrationParams,
     }: UsePostPayrollIntegrationProps) => {
-      return integratePayroll({ payrollSystemId, integrationParams });
+      return integratePayroll({ payrollSystem, integrationParams });
     },
   });
 };
 
 export type UsePostConnectPayrollProps = {
-  payrollSystemId: number;
+  payroll: string;
 };
 
 export const usePostConnectPayroll = () => {
   return useMutation({
-    mutationFn: ({ payrollSystemId }: UsePostConnectPayrollProps) => {
-      return connectPayroll({ payrollSystemId });
+    mutationFn: ({ payroll }: UsePostConnectPayrollProps) => {
+      return connectPayroll({ payroll });
     },
   });
 };

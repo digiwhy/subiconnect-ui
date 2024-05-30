@@ -52,7 +52,7 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
 
           await mutateAsync(
             {
-              payrollSystemId: payrollSystem.payrollId,
+              payrollSystem: payrollSystem.name,
               integrationParams: finalData,
             },
             {

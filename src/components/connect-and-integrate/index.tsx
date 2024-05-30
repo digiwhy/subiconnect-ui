@@ -101,7 +101,7 @@ const Integrate: React.FC<{
 
       await mutateAsync(
         {
-          payrollSystemId: payrollSystem.payrollId,
+          payroll: payrollSystem.name,
         },
         {
           onSuccess: (data) => {
