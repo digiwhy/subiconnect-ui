@@ -9,7 +9,7 @@ const queryClient = new QueryClient({});
 
 const connectionFn = async () => {
   const result = await axios.post(
-    'http://localhost:8082/subi-connect/authentication/company-access-token',
+    `${process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL}authentication/company-access-token`,
     { company: { referenceId: 'abc', name: 'sample company' } },
     {
       headers: {
