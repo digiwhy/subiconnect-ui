@@ -12,7 +12,9 @@
   "scripts": {
     "build": "rimraf dist && rollup --config rollup.config.mjs --bundleConfigAsCjs",
     "rollup": "rollup -c",
-    "release": "npm run build && changeset publish",
+    "release": "NODE_ENV=production npm run build && changeset publish",
+    "release:dev": "NODE_ENV=development npm run build && changeset publish",
+    "release:local": "NODE_ENV=local npm run build && changeset publish",
     "lint": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -36,6 +38,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@storybook/addon-essentials": "^8.0.8",
@@ -55,6 +58,7 @@
     "@types/react": "^18.2.79",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.3",
+    "dotenv": "^16.4.5",
     "lucide-react": "^0.368.0",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",

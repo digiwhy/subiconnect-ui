@@ -5,3 +5,5 @@ storybook-static
 .env.*
 .npmrc
 .DS_Store
+
+subifinancial-subi-connect-*.tgz

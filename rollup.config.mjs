@@ -9,7 +9,10 @@ import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
 import path from 'path';
+import dotenv from 'dotenv';
+import replace from '@rollup/plugin-replace';
 
+dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.development'});
 
 import packageJson from "./package.json" assert { type: 'json' };
 
@@ -30,6 +33,11 @@ export default [
       },
     ],
     plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL': JSON.stringify(process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL),
+        preventAssignment: true
+      }),
       peerDepsExternal(),
       resolve({
         browser: true,
