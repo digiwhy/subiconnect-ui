@@ -41,21 +41,21 @@ export const listConnectedPayrollSystems = async (): Promise<
 };
 
 export const integratePayroll = async ({
-  payrollSystemId,
+  payrollSystem,
   integrationParams,
 }: UsePostPayrollIntegrationProps): Promise<void> => {
   const response = await axiosClient.post<void>(
-    getIntegratePayrollURL(payrollSystemId),
+    getIntegratePayrollURL(payrollSystem),
     integrationParams,
   );
   return response.data;
 };
 
 export const connectPayroll = async ({
-  payrollSystemId,
+  payroll,
 }: UsePostConnectPayrollProps): Promise<ConnectPayrollResponse> => {
   const response = await axiosClient.post<ConnectPayrollResponse>(
-    getConnectPayrollURL(payrollSystemId),
+    getConnectPayrollURL(payroll.toLowerCase()),
   );
   return response.data;
 };

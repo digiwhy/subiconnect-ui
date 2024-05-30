@@ -6,7 +6,7 @@ import axios from 'axios';
 export const BASE_URL =
   process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL ??
   'http://localhost:8082/subi-connect/';
-// 'https://subiconnect.api.subi.au/';
+//'https://subiconnect.dev.api.subi.au/';
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,
@@ -15,6 +15,7 @@ const axiosClient = axios.create({
     'Content-Type': 'application/json',
     accept: 'application/json',
   },
+  withCredentials: process.env.NODE_ENV === 'local',
 });
 
 axiosClient.interceptors.request.use(onRequest, onErrorResponse);
