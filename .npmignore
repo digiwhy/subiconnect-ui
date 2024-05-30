@@ -1,10 +1,14 @@
-*
-README.md
 node_modules
 .github
 .changeset
+.storybook
+src
 storybook-static/**/*
+.gitignore
+postcss.config.js
+rollup.config.mjs
+tailwind.config.js
 
+!assets
 !dist/*
 !dist/**/*
-!package.json

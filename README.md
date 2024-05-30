@@ -1,4 +1,7 @@
-<img draggable="false" src="./assets/subi-connect-banner.png" alt="Subi Connect Banner" width="100%" />
+# Subi Connect - React
+<img draggable="false" src="https://raw.githubusercontent.com/subifinancial/subi-connect/main/assets/subi-connect-banner.png" alt="Subi Connect Banner" width="100%" />
+
+<br />
 
 # 🔗 Links
 
