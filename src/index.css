@@ -4,9 +4,10 @@
 
 /* Scoped Styles */
 @layer components {
-  .my-component-library {
+  .subi-connect {
     :root {
       /* Colour Variables */
+
       --background: 0 0% 100%;
       --foreground: 222.2 47.4% 11.2%;
 
