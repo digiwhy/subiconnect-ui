@@ -1,5 +1,5 @@
-import { getOrganisationsFromPayrollURL } from '@/services/api/payroll/paths';
-import { OrganisationSyncStatus } from '@/types/organisation';
+import { getOrganisationsFromPayrollURL } from '../../services/api/payroll/paths';
+import { OrganisationSyncStatus } from '../../types/organisation';
 
 export const _useOrganisationsMockData = {
   url: getOrganisationsFromPayrollURL(1),

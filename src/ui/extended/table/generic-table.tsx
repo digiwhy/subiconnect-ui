@@ -1,13 +1,13 @@
-import { DataTablePaginationProvider } from '@/context/table/pagination-context';
-import { DataTableSearchProvider } from '@/context/table/search-context';
-import { DataTableProvider } from '@/context/table/table-context';
+import { DataTablePaginationProvider } from '../../../context/table/pagination-context';
+import { DataTableSearchProvider } from '../../../context/table/search-context';
+import { DataTableProvider } from '../../../context/table/table-context';
 import type {
-  BaseQueryData,
-  ColumnDef,
   ListRequest,
   PaginationResponse,
-} from '@/types/components/data-table';
-import { DataTable } from '@/ui/data-table';
+  BaseQueryData,
+  ColumnDef,
+} from '../../../types/components/data-table';
+import { DataTable } from '../../data-table';
 import type { QueryKey, UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 

@@ -1,5 +1,5 @@
-import { getCompany } from '@/services/api/company/actions';
-import type { Company } from '@/types/company';
+import { getCompany } from '../services/api/company/actions';
+import type { Company } from '../types/company';
 import {
   useQuery,
   type UndefinedInitialDataOptions,

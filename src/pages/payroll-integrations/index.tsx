@@ -1,9 +1,9 @@
+import { PayrollIntegrationList } from '../../components';
+import { useCompany } from '../../hooks/use-company';
+import { usePayrollSystems } from '../../hooks/use-payroll-systems';
+import { cn } from '../../lib/utils';
+import { Skeleton } from '../../ui/skeleton';
 import PayrollIntegrationManagementPage from '../payroll-integration-management';
-import { PayrollIntegrationList } from '@/components';
-import { useCompany } from '@/hooks/company/use-company';
-import { usePayrollSystems } from '@/hooks/use-payroll-systems';
-import { cn } from '@/lib/utils';
-import { Skeleton } from '@/ui/skeleton';
 import React from 'react';
 
 const PayrollIntegrationsListPage: React.FC<{ className?: string }> = ({

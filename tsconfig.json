@@ -1,30 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "declaration": true,
+    "declarationDir": "types",
+    "outDir": "dist",
+    "rootDir": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-
     "jsx": "react",
-    "declaration": true,
-    "declarationDir": "types",
     "sourceMap": true,
-    "outDir": "dist",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["./*"]
-    },
-
+    // TODO: Integrate this with rollup config
+    // "baseUrl": ".",
+    // "paths": {
+    //   // "@/*": ["src/*"]
+    // },
     "verbatimModuleSyntax": true,
     "allowJs": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "moduleDetection": "force",
     "noUncheckedIndexedAccess": true,
-    "moduleResolution": "node",
-    "module": "ESNext",
-    "noEmit": true,
-    "lib": ["es2022", "dom", "dom.iterable"]
-  }
+    "noEmit": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

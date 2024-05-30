@@ -1,9 +1,9 @@
+import { useCompany } from '../../../../hooks/use-company';
+import { Button } from '../../../../ui/button';
+import { Skeleton } from '../../../../ui/skeleton';
 import { usePayrollSystemContext } from '../../context';
 import { Banner } from '../banner';
 import { BaseCard } from '../base-card';
-import { useCompany } from '@/hooks/company/use-company';
-import { Button } from '@/ui/button';
-import { Skeleton } from '@/ui/skeleton';
 import React from 'react';
 
 const ComingSoonCardBanner = <Banner>Coming soon</Banner>;

@@ -1,4 +1,4 @@
-import { logOnDev } from '@/lib/utils';
+import { logOnDev } from '../../../lib/utils';
 
 /**
  * Function to handle token retrieval.

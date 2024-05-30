@@ -1,4 +1,4 @@
-import type { PayrollConnectionTypeEnum } from '@/services/api/payroll/types';
+import type { PayrollConnectionTypeEnum } from '../services/api/payroll/types';
 
 export type AccountPayrollSystemExtended = {
   /** The Subi UID of the account payroll system. */
@@ -8,10 +8,10 @@ export type AccountPayrollSystemExtended = {
   name: string;
 
   /** The payroll system logo. */
-  bannerImg: string;
+  bannerImg?: string;
 
   /** The background colour for the system banner. */
-  backgroundColour: string;
+  backgroundColour?: string;
 
   /**
    * A boolean flag to determine if the user has connected/integrated with the

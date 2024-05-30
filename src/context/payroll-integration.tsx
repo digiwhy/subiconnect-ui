@@ -1,4 +1,4 @@
-import type { ConnectPayrollResponse } from '@/services/api/payroll/types';
+import type { ConnectPayrollResponse } from '../services/api/payroll/types';
 import React from 'react';
 
 type PayrollIntegrationContext = {

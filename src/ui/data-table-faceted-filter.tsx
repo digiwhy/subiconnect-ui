@@ -1,3 +1,4 @@
+import { cn } from '../lib/utils';
 import { Badge } from './badge';
 import { Button } from './button';
 import {
@@ -11,7 +12,6 @@ import {
 } from './command';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Separator } from './separator';
-import { cn } from '@/lib/utils';
 import type { Column } from '@tanstack/react-table';
 import { CheckIcon, PlusCircleIcon } from 'lucide-react';
 import React from 'react';

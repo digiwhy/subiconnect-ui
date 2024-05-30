@@ -1,7 +1,7 @@
+import { useDataTablePaginationContext } from '../context/table/pagination-context';
+import { useDataTableContext } from '../context/table/table-context';
 import { Button } from './button';
 import { Input } from './input';
-import { useDataTablePaginationContext } from '@/context/table/pagination-context';
-import { useDataTableContext } from '@/context/table/table-context';
 import type { Table } from '@tanstack/react-table';
 import axios from 'axios';
 import {

@@ -1,25 +1,7 @@
-import { EmployeesTable } from '@/components';
-import { columns } from '@/components/employees-table/columns/company-specific';
-import { cn } from '@/lib/utils';
-import { Button } from '@/ui/button';
-import { PlusIcon } from 'lucide-react';
+import { EmployeesTable } from '../../components';
+import { columns } from '../../components/employees-table/columns/company-specific';
+import { cn } from '../../lib/utils';
 import React from 'react';
-
-const Trigger = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
->(({ ...props }, ref) => (
-  <Button
-    size='sm'
-    variant='outline'
-    className='sc-flex sc-items-center sc-gap-2'
-    {...props}
-    ref={ref}
-  >
-    <PlusIcon className='sc-h-4 sc-w-4' />
-    <span>Add another organisation</span>
-  </Button>
-));
 
 const EmployeeManagementPage: React.FC<{
   className?: string;

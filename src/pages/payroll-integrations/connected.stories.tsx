@@ -1,12 +1,11 @@
 import PayrollIntegrationsListPage from '.';
-import { _useCompanyMockData } from '@/stories/mock-data/company';
-import { _useOrganisationsMockData } from '@/stories/mock-data/organisation';
+import { _useCompanyMockData } from '../../stories/mock-data/company';
+import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import {
-  _useConnectedPayrollsMockData,
-  _useHasConnectedPayrollsMockData,
   _usePayrollsMockData,
-} from '@/stories/mock-data/payroll';
-import { withSubiConnectProvider } from '@/stories/wrapper';
+  _useHasConnectedPayrollsMockData,
+} from '../../stories/mock-data/payroll';
+import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

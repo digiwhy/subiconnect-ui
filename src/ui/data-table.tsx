@@ -1,3 +1,8 @@
+import { DataTableError } from '../components/payroll-integration/get-error';
+import { Loading } from '../components/payroll-integration/loading';
+import { useDataTablePaginationContext } from '../context/table/pagination-context';
+import { useDataTableContext } from '../context/table/table-context';
+import type { ColumnDef } from '../types/components/data-table';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import {
@@ -8,11 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from './table';
-import { DataTableError } from '@/components/payroll-integration/get-error';
-import { Loading } from '@/components/payroll-integration/loading';
-import { useDataTablePaginationContext } from '@/context/table/pagination-context';
-import { useDataTableContext } from '@/context/table/table-context';
-import type { ColumnDef } from '@/types/components/data-table';
 import {
   flexRender,
   getCoreRowModel,

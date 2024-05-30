@@ -1,5 +1,5 @@
+import { cn, getPayrollBannerImgUrl } from '../../../lib/utils';
 import { usePayrollSystemContext } from '../context';
-import { cn } from '@/lib/utils';
 import React from 'react';
 
 export type CardProps = {
@@ -13,6 +13,7 @@ export const BaseCard: React.FC<CardProps> = ({
   action,
 }) => {
   const { payrollSystem } = usePayrollSystemContext();
+  const bannerSrc = getPayrollBannerImgUrl(payrollSystem.name);
   return (
     <div
       className={cn(
@@ -25,7 +26,7 @@ export const BaseCard: React.FC<CardProps> = ({
       >
         <img
           alt={`${payrollSystem.name} Logo`}
-          src='https://upload.wikimedia.org/wikipedia/en/9/9f/Xero_software_logo.svg'
+          src={bannerSrc}
           className='sc-h-full sc-w-full sc-object-contain'
           draggable={false}
         ></img>

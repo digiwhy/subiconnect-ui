@@ -1,6 +1,6 @@
-import { SubiConnectProvider } from '@/context/subi-connect';
-import axios from '@/services/axios';
+import { SubiConnectProvider } from '../context/subi-connect';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import axios from 'axios';
 import React from 'react';
 
 const queryClient = new QueryClient({});

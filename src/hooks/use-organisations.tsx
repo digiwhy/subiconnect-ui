@@ -1,9 +1,9 @@
-import { listOrganisationsFromPayroll } from '@/services/api/payroll/actions';
+import { listOrganisationsFromPayroll } from '../services/api/payroll/actions';
 import type {
-  ListOptions,
   PaginationResponse,
-} from '@/types/components/data-table';
-import type { Organisation } from '@/types/organisation';
+  ListOptions,
+} from '../types/components/data-table';
+import type { Organisation } from '../types/organisation';
 import {
   useQuery,
   type UseQueryOptions,

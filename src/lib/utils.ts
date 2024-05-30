@@ -28,3 +28,7 @@ const intl = new Intl.NumberFormat('en-AU', {
 export const formatMoney = (number: number): string => {
   return intl.format(number);
 };
+
+export const getPayrollBannerImgUrl = (payrollName: string): string => {
+  return `https://TODO/payroll/${payrollName}.png`;
+};

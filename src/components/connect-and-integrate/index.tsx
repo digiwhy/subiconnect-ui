@@ -1,14 +1,14 @@
-import { usePayrollSystemContext } from '../payroll-integration/context';
-import { usePayrollIntegrationContext } from '@/context/payroll-integration';
-import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
-import { usePostConnectPayroll } from '@/integration-pages/custom/mutation';
+import { usePayrollIntegrationContext } from '../../context/payroll-integration';
+import { CustomPayrollIntegrationWorkflow } from '../../integration-pages/custom';
+import { usePostConnectPayroll } from '../../integration-pages/custom/mutation';
 import {
-  PayrollConnectionTypeEnum,
   type ConnectPayrollResponse,
-} from '@/services/api/payroll/types';
-import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
-import { Button } from '@/ui/button';
-import { Dialogue, DialogueTrigger, DialogueContent } from '@/ui/dialogue';
+  PayrollConnectionTypeEnum,
+} from '../../services/api/payroll/types';
+import { handleOAuth2OnSuccess } from '../../services/auth2.0/auth-window';
+import { Button } from '../../ui/button';
+import { Dialogue, DialogueTrigger, DialogueContent } from '../../ui/dialogue';
+import { usePayrollSystemContext } from '../payroll-integration/context';
 import React from 'react';
 
 const Integrate: React.FC<{

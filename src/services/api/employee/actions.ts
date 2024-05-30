@@ -1,7 +1,7 @@
+import type { PaginationResponse } from '../../../types/components/data-table';
+import type { Employee } from '../../../types/employee';
 import axiosClient from '../../axios';
 import { getAllEmployeesURL, getEmployeesFromOrganisationURL } from './paths';
-import type { PaginationResponse } from '@/types/components/data-table';
-import type { Employee } from '@/types/employee';
 
 /**
  * List all the employees for a company within a given organisation.

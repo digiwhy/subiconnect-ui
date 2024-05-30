@@ -1,4 +1,14 @@
 import { constructAPIURL } from '..';
+import type {
+  UsePostPayrollIntegrationProps,
+  UsePostConnectPayrollProps,
+} from '../../../integration-pages/custom/mutation';
+import type { AccountPayrollSystemExtended } from '../../../types/application';
+import type {
+  PaginationResponse,
+  ListOptions,
+} from '../../../types/components/data-table';
+import type { Organisation } from '../../../types/organisation';
 import axiosClient from '../../axios';
 import {
   CONNECTED_PAYROLL_APPLICATIONS_URL,
@@ -8,16 +18,6 @@ import {
   getOrganisationsFromPayrollURL,
 } from './paths';
 import type { ConnectPayrollResponse } from './types';
-import type {
-  UsePostConnectPayrollProps,
-  UsePostPayrollIntegrationProps,
-} from '@/integration-pages/custom/mutation';
-import type { AccountPayrollSystemExtended } from '@/types/application';
-import type {
-  ListOptions,
-  PaginationResponse,
-} from '@/types/components/data-table';
-import { type Organisation } from '@/types/organisation';
 
 export const listPayrollSystems = async (): Promise<
   PaginationResponse<AccountPayrollSystemExtended>

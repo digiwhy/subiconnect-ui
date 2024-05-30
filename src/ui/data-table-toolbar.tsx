@@ -1,9 +1,9 @@
+import { useDataTableSearchContext } from '../context/table/search-context';
+import { useDataTableContext } from '../context/table/table-context';
+import { cn } from '../lib/utils';
 import { Button } from './button';
 import { type DataTableFacetedFilterProps } from './data-table-faceted-filter';
 import { Input } from './input';
-import { useDataTableSearchContext } from '@/context/table/search-context';
-import { useDataTableContext } from '@/context/table/table-context';
-import { cn } from '@/lib/utils';
 import type { Table } from '@tanstack/react-table';
 import { RefreshCwIcon, XIcon } from 'lucide-react';
 import React from 'react';

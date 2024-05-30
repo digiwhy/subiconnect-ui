@@ -1,10 +1,10 @@
+import { PayrollIntegrationProvider } from '../../context/payroll-integration';
+import { usePayrollSystems } from '../../hooks/use-payroll-systems';
 import { DataTableError } from './get-error';
 import PayrollIntegrationListGrid, {
   type PayrollIntegrationListGridProps,
 } from './grid';
 import { Loading } from './loading';
-import { PayrollIntegrationProvider } from '@/context/payroll-integration';
-import { usePayrollSystems } from '@/hooks/use-payroll-systems';
 import React from 'react';
 
 type OmittedGridProps = keyof Pick<

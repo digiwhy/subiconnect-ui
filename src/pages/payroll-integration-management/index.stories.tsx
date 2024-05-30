@@ -1,7 +1,7 @@
 import PayrollIntegrationManagementPage from '.';
-import { PayrollConnectionTypeEnum } from '@/services/api/payroll/types';
-import { _useOrganisationsMockData } from '@/stories/mock-data/organisation';
-import { withSubiConnectProvider } from '@/stories/wrapper';
+import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
+import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
+import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -23,8 +23,7 @@ export const Primary: Story = {
     payroll: {
       id: 1,
       name: 'Xero Payroll',
-      bannerImg: '',
-      backgroundColour: '#19B4D7',
+      // backgroundColour: '#19B4D7',
       isConnected: true,
       payrollId: 1,
       mdxIntegrationInstructions: null,

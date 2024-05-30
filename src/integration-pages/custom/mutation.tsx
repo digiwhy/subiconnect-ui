@@ -1,7 +1,7 @@
 import {
   connectPayroll,
   integratePayroll,
-} from '@/services/api/payroll/actions';
+} from '../../services/api/payroll/actions';
 import { useMutation } from '@tanstack/react-query';
 
 type PostPayrollIntegration = {

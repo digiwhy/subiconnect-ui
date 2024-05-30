@@ -1,6 +1,6 @@
-import { useCompany } from './company/use-company';
-import { listEmployees } from '@/services/api/employee/actions';
-import type { Employee } from '@/types/employee';
+import { listEmployees } from '../services/api/employee/actions';
+import type { Employee } from '../types/employee';
+import { useCompany } from './use-company';
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 import React from 'react';
 

@@ -1,6 +1,6 @@
+import { listOrganisationsFromPayroll } from '../../services/api/payroll/actions';
+import GenericTable from '../../ui/extended/table/generic-table';
 import { columns } from './columns';
-import { listOrganisationsFromPayroll } from '@/services/api/payroll/actions';
-import GenericTable from '@/ui/extended/table/generic-table';
 import React from 'react';
 
 const PayrollIntegrationManagementTable: React.FC<{ payrollId: number }> = ({

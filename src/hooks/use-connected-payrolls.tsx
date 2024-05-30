@@ -1,7 +1,7 @@
-import { useCompany } from './company/use-company';
-import { listConnectedPayrollSystems } from '@/services/api/payroll/actions';
-import type { AccountPayrollSystemExtended } from '@/types/application';
-import type { PaginationResponse } from '@/types/components/data-table';
+import { listConnectedPayrollSystems } from '../services/api/payroll/actions';
+import type { AccountPayrollSystemExtended } from '../types/application';
+import type { PaginationResponse } from '../types/components/data-table';
+import { useCompany } from './use-company';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 

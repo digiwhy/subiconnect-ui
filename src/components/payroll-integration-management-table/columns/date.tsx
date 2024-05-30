@@ -1,6 +1,9 @@
-import { DATE_FORMAT } from '@/constants';
-import type { ColumnDef, ColumnProps } from '@/types/components/data-table';
-import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import { DATE_FORMAT } from '../../../constants';
+import type {
+  ColumnDef,
+  ColumnProps,
+} from '../../../types/components/data-table';
+import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
 import { format } from 'date-fns';
 import React from 'react';
 

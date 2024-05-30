@@ -1,8 +1,8 @@
+import { useCompany } from '../../../../hooks/use-company';
+import { Button } from '../../../../ui/button';
+import { Skeleton } from '../../../../ui/skeleton';
 import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
-import { useCompany } from '@/hooks/company/use-company';
-import { Button } from '@/ui/button';
-import { Skeleton } from '@/ui/skeleton';
 import React from 'react';
 
 const ConnectedAction = () => {

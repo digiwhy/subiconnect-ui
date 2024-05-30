@@ -1,11 +1,11 @@
+import { usePayrollIntegrationContext } from '../../context/payroll-integration';
+import { cn } from '../../lib/utils';
+import { handleOAuth2OnSuccess } from '../../services/auth2.0/auth-window';
+import type { AccountPayrollSystemExtended } from '../../types/application';
+import { Button } from '../../ui/button';
 import { Card } from './card';
 import { PayrollSystemProvider } from './context';
 import { Loading } from './loading';
-import { usePayrollIntegrationContext } from '@/context/payroll-integration';
-import { cn } from '@/lib/utils';
-import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
-import type { AccountPayrollSystemExtended } from '@/types/application';
-import { Button } from '@/ui/button';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 

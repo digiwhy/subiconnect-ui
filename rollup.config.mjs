@@ -1,7 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs';
+import typescript from '@rollup/plugin-typescript';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
 import { babel } from '@rollup/plugin-babel';
 import {dts} from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
@@ -10,7 +10,9 @@ import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
 import path from 'path';
 
+
 import packageJson from "./package.json" assert { type: 'json' };
+
 
 export default [
   {
@@ -37,8 +39,18 @@ export default [
       commonjs(),
       json(),
       typescript({
-        tsconfig: './tsconfig.json',
-        exclude: ['**/*.stories.ts', '**/*.stories.tsx', 'storybook-static/*', 'storybook-static/**/*', 'storybook-static/**/*.js', 'src/stories/*'],
+        exclude: [
+          '**/*.stories.ts',
+          '**/*.stories.tsx',
+          'storybook-static/*',
+          'storybook-static/**/*',
+          'storybook-static/**/*.js',
+          'src/stories/*',
+          'src/stories/**/*',
+          'src/ui/*',
+          'src/lib/*',
+          'src/mdx/*'
+        ],
       }),
       postcss({
         extensions: ['.css'],

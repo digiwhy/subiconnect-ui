@@ -1,10 +1,10 @@
-import Integrate from '@/components/connect-and-integrate';
-import PayrollIntegrationManagementTable from '@/components/payroll-integration-management-table';
-import { PayrollSystemProvider } from '@/components/payroll-integration/context';
-import { PayrollIntegrationProvider } from '@/context/payroll-integration';
-import { cn } from '@/lib/utils';
-import type { AccountPayrollSystemExtended } from '@/types/application';
-import { Button } from '@/ui/button';
+import { PayrollIntegrationManagementTable } from '../../components';
+import Integrate from '../../components/connect-and-integrate';
+import { PayrollSystemProvider } from '../../components/payroll-integration/context';
+import { PayrollIntegrationProvider } from '../../context/payroll-integration';
+import { cn } from '../../lib/utils';
+import type { AccountPayrollSystemExtended } from '../../types/application';
+import { Button } from '../../ui/button';
 import { PlusIcon } from 'lucide-react';
 import React from 'react';
 

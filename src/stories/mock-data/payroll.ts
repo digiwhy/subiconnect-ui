@@ -1,11 +1,11 @@
-import { constructAPIURL } from '@/services/api';
+import { constructAPIURL } from '../../services/api';
 import {
-  CONNECTED_PAYROLL_APPLICATIONS_URL,
   PAYROLL_APPLICATIONS_URL,
+  CONNECTED_PAYROLL_APPLICATIONS_URL,
   getConnectPayrollURL,
   getIntegratePayrollURL,
-} from '@/services/api/payroll/paths';
-import { PayrollConnectionTypeEnum } from '@/services/api/payroll/types';
+} from '../../services/api/payroll/paths';
+import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
 
 export const _usePayrollsMockData = {
   url: constructAPIURL(PAYROLL_APPLICATIONS_URL),

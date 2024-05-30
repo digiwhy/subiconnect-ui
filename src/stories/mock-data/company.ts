@@ -1,5 +1,5 @@
-import { constructAPIURL } from '@/services/api';
-import { COMPANY_URL } from '@/services/api/company/paths';
+import { constructAPIURL } from '../../services/api';
+import { COMPANY_URL } from '../../services/api/company/paths';
 
 export const _useCompanyMockData = {
   url: constructAPIURL(COMPANY_URL),

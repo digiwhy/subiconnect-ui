@@ -1,4 +1,4 @@
-import type { Employee } from '@/types/employee';
+import type { Employee } from '../types/employee';
 import React from 'react';
 
 type EmployeesContext = {

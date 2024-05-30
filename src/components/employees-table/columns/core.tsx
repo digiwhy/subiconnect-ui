@@ -1,17 +1,22 @@
-import { cn } from '@/lib/utils';
-import type { ColumnDef } from '@/types/components/data-table';
-import type { Employee } from '@/types/employee';
-import { Button } from '@/ui/button';
-import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import { cn } from '../../../lib/utils';
+import type { ColumnDef } from '../../../types/components/data-table';
+import type { Employee } from '../../../types/employee';
+import { Button } from '../../../ui/button';
+import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
+import ClipboardButton from '../../../ui/extended/table/columns/copy';
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/ui/dropdown-menu';
-import ClipboardButton from '@/ui/extended/table/columns/copy';
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/ui/select';
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+} from '@radix-ui/react-dropdown-menu';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from '@radix-ui/react-select';
 import type { CellContext } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import React from 'react';

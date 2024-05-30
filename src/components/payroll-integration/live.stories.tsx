@@ -1,5 +1,5 @@
+import { SubiConnectProvider } from '../../context/subi-connect';
 import PayrollIntegrationList from './payroll-integration-list';
-import { SubiConnectProvider } from '@/context/subi-connect';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';

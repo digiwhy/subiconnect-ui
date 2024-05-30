@@ -1,4 +1,4 @@
-import type { Organisation } from '@/types/organisation';
+import type { Organisation } from '../types/organisation';
 import React from 'react';
 
 type OrganisationsContext = {

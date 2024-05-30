@@ -1,7 +1,7 @@
-import { getAllEmployeesURL } from '@/services/api/employee/paths';
-import type { PaginationResponse } from '@/types/components/data-table';
-import type { Employee } from '@/types/employee';
-import { OrganisationSyncStatus } from '@/types/organisation';
+import { getAllEmployeesURL } from '../../services/api/employee/paths';
+import type { PaginationResponse } from '../../types/components/data-table';
+import type { Employee } from '../../types/employee';
+import { OrganisationSyncStatus } from '../../types/organisation';
 
 export const _useEmployeesMockData = {
   url: getAllEmployeesURL(),

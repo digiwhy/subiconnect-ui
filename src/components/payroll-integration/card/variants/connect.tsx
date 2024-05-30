@@ -1,9 +1,9 @@
+import { useCompany } from '../../../../hooks/use-company';
+import { Button } from '../../../../ui/button';
+import { Skeleton } from '../../../../ui/skeleton';
+import Integrate from '../../../connect-and-integrate';
 import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
-import Integrate from '@/components/connect-and-integrate';
-import { useCompany } from '@/hooks/company/use-company';
-import { Button } from '@/ui/button';
-import { Skeleton } from '@/ui/skeleton';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 

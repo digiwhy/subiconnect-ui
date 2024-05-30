@@ -1,4 +1,4 @@
-import { logOnDev } from '@/lib/utils';
+import { logOnDev } from '../../../lib/utils';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 const onRequest = (

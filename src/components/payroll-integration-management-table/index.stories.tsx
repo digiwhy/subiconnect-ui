@@ -1,10 +1,10 @@
 import PayrollIntegrationManagementTable from '.';
-import { _useOrganisationsMockData } from '@/stories/mock-data/organisation';
+import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import {
   _usePayrollConnectMockData,
   _usePayrollIntegrateMockData,
-} from '@/stories/mock-data/payroll';
-import { withSubiConnectProvider } from '@/stories/wrapper';
+} from '../../stories/mock-data/payroll';
+import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

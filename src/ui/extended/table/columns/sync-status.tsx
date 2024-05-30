@@ -1,7 +1,7 @@
-import { DATE_FORMAT } from '@/constants';
-import type { ColumnDef } from '@/types/components/data-table';
-import { OrganisationSyncStatus } from '@/types/organisation';
-import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import { DATE_FORMAT } from '../../../../constants';
+import type { ColumnDef } from '../../../../types/components/data-table';
+import { OrganisationSyncStatus } from '../../../../types/organisation';
+import { DataTableColumnHeader } from '../../../data-table-column-header';
 import { format } from 'date-fns';
 import { CircleAlertIcon, LoaderCircleIcon } from 'lucide-react';
 import React from 'react';

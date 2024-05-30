@@ -1,8 +1,8 @@
-import useSearchParams from '@/hooks/internal/use-serach-params';
+import useSearchParams from '../../hooks/internal/use-serach-params';
 import type {
-  ListRequest,
   PaginationResponse,
-} from '@/types/components/data-table';
+  ListRequest,
+} from '../../types/components/data-table';
 import {
   type QueryFunctionContext,
   type QueryKey,

@@ -1,3 +1,4 @@
+import { cn } from '../lib/utils';
 import { Button } from './button';
 import {
   DropdownMenu,
@@ -6,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
-import { cn } from '@/lib/utils';
 import { type Column } from '@tanstack/react-table';
 import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from 'lucide-react';
 import React from 'react';

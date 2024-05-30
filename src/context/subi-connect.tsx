@@ -1,9 +1,7 @@
-import { ACCESS_TOKEN_NAME } from '@/constants';
-import axiosClient from '@/services/axios';
-import ConnectionService from '@/services/axios/connection-service';
+import { ACCESS_TOKEN_NAME } from '../constants';
+import axiosClient from '../services/axios';
+import ConnectionService from '../services/axios/connection-service';
 import React from 'react';
-
-type SubiConnectAccessToken = string;
 
 type SubiConnectContext = {
   isLoading: boolean;

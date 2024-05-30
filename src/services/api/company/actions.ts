@@ -1,7 +1,7 @@
 import { constructAPIURL } from '..';
+import type { Company } from '../../../types/company';
 import axiosClient from '../../axios';
 import { COMPANY_URL } from './paths';
-import type { Company } from '@/types/company';
 
 /**
  * Gets the company that is attached to the authorisation headers.

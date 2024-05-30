@@ -1,4 +1,4 @@
-import { logOnDev } from '@/lib/utils';
+import { logOnDev } from '../../../lib/utils';
 import type { AxiosResponse } from 'axios';
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {

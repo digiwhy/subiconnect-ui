@@ -1,8 +1,8 @@
-import axiosClient from '..';
+import { logOnDev } from '../../../lib/utils';
+import axiosClient from '../config';
 import ConnectionService from '../connection-service';
 import type { InternalAxiosRequestConfig } from '../types';
 import { getAccessToken } from '../utils/get-token';
-import { logOnDev } from '@/lib/utils';
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 
 const onErrorResponse = async (

@@ -1,4 +1,4 @@
-import { Input } from '@/ui/input';
+import { Input } from '../../ui/input';
 import React from 'react';
 
 type DomainInputProps = React.InputHTMLAttributes<HTMLInputElement>;
