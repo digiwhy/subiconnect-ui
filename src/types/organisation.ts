@@ -1,9 +1,3 @@
-// export enum OrganisationSyncStatus {
-//   SUCCESS = 'SUCCESS',
-//   FAILED = 'FAILED',
-//   SYNCING = 'SYNCING',
-// }
-
 export enum OrganisationSyncStatus {
   FAILED = 'FAILED',
   FAILED_FIRST = 'FAILED_FIRST',
