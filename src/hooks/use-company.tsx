@@ -1,5 +1,6 @@
 import { getCompany } from '../services/api/company/actions';
 import type { Company } from '../types/company';
+import type { BaseQueryOptions } from '../types/query';
 import {
   useQuery,
   type UndefinedInitialDataOptions,
@@ -7,12 +8,11 @@ import {
 } from '@tanstack/react-query';
 
 export type UseCompany = UseQueryResult<Company>;
-type BaseQueryOptions<T> = Omit<T, 'queryKey' | 'queryFn'>;
-type Options = BaseQueryOptions<UndefinedInitialDataOptions<Company>>;
+type UseCompanyOptions = BaseQueryOptions<UndefinedInitialDataOptions<Company>>;
 
 const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'company', 'detail'] as const;
 
-export const useCompany = (options?: Options): UseCompany => {
+export const useCompany = (options?: UseCompanyOptions): UseCompany => {
   return useQuery({
     queryKey: BASE_EMPLOYEES_QUERY_KEY,
     queryFn: getCompany,

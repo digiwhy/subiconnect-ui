@@ -6,6 +6,7 @@ import {
   getIntegratePayrollURL,
 } from '../../services/api/payroll/paths';
 import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
+import { Payroll } from '../../types/payroll';
 
 export const _usePayrollsMockData = {
   url: constructAPIURL(PAYROLL_APPLICATIONS_URL),
@@ -18,7 +19,7 @@ export const _usePayrollsMockData = {
     results: [
       {
         id: 1,
-        name: 'QuickBooks',
+        name: Payroll.QUICKBOOKS,
         bannerImg: 'https://example.com/images/quickbooks-logo.png',
         backgroundColour: '#4CAF50',
         isConnected: true,
@@ -29,7 +30,7 @@ export const _usePayrollsMockData = {
       },
       {
         id: 2,
-        name: 'ADP',
+        name: Payroll.KEYPAY,
         bannerImg: 'https://example.com/images/adp-logo.png',
         backgroundColour: '#FF5733',
         isConnected: false,
@@ -39,7 +40,7 @@ export const _usePayrollsMockData = {
       },
       {
         id: 3,
-        name: 'Gusto',
+        name: Payroll.MYOB,
         bannerImg: 'https://example.com/images/gusto-logo.png',
         backgroundColour: '#FFC107',
         isConnected: false,
@@ -50,7 +51,7 @@ export const _usePayrollsMockData = {
       },
       {
         id: 4,
-        name: 'Paychex',
+        name: Payroll.QUICKBOOKS,
         bannerImg: 'https://example.com/images/paychex-logo.png',
         backgroundColour: '#2196F3',
         isConnected: false,
@@ -61,7 +62,7 @@ export const _usePayrollsMockData = {
       },
       {
         id: 5,
-        name: 'Wave',
+        name: Payroll.XERO,
         bannerImg: 'https://example.com/images/wave-logo.png',
         backgroundColour: '#9C27B0',
         isConnected: true,
@@ -97,7 +98,7 @@ export const _useHasConnectedPayrollsMockData = {
     results: [
       {
         id: 1,
-        name: 'ADP',
+        name: Payroll.QUICKBOOKS,
         bannerImg: 'https://example.com/images/adp-logo.png',
         backgroundColour: '#FF5733',
         isConnected: false,

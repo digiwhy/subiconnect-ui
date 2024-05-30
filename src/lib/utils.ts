@@ -1,3 +1,4 @@
+import type { Payroll } from '../types/payroll';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
 
@@ -29,6 +30,6 @@ export const formatMoney = (number: number): string => {
   return intl.format(number);
 };
 
-export const getPayrollBannerImgUrl = (payrollName: string): string => {
-  return `https://TODO/payroll/${payrollName}.png`;
+export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
+  return `https://subiconnect-devportal.subi.au/images/${payrollName}.svg`;
 };

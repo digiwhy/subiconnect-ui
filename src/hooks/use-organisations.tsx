@@ -4,6 +4,7 @@ import type {
   ListOptions,
 } from '../types/components/data-table';
 import type { Organisation } from '../types/organisation';
+import type { BaseQueryOptions } from '../types/query';
 import {
   useQuery,
   type UseQueryOptions,
@@ -15,14 +16,13 @@ export type UseOrganisations = UseQueryResult<PaginationResponse<Organisation>>;
 
 const BASE_ORGANISATIONS_QUERY_KEY = ['subi-connect', 'organisation'] as const;
 
-type Options = Omit<
-  UseQueryOptions<PaginationResponse<Organisation>>,
-  'queryKey' | 'queryFn'
+type UseOrganisationsOptions = BaseQueryOptions<
+  UseQueryOptions<PaginationResponse<Organisation>>
 >;
 
 export const useOrganisations = (
   payrollId: number | undefined,
-  options?: Options,
+  options?: UseOrganisationsOptions,
 ): UseOrganisations => {
   const queryKey = React.useMemo(
     () => [...BASE_ORGANISATIONS_QUERY_KEY, 'list', { payrollId: payrollId }],
@@ -45,7 +45,7 @@ export const useOrganisations = (
 
 export const useOrganisation = (
   organisationId: number | undefined,
-  options?: Options,
+  options?: UseOrganisationsOptions,
 ): UseOrganisations => {
   const queryKey = React.useMemo(
     () => [...BASE_ORGANISATIONS_QUERY_KEY, 'detail', organisationId],

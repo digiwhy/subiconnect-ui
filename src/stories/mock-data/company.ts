@@ -1,5 +1,6 @@
 import { constructAPIURL } from '../../services/api';
 import { COMPANY_URL } from '../../services/api/company/paths';
+import { Payroll } from '../../types/payroll';
 
 export const _useCompanyMockData = {
   url: constructAPIURL(COMPANY_URL),
@@ -11,7 +12,7 @@ export const _useCompanyMockData = {
     externalReferenceId: '0123',
     account: {
       id: 11,
-      name: 'WorldPay',
+      name: Payroll.BAMBOO,
     },
   },
 };
