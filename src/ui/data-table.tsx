@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
   }
 
   return (
-    <div className='sc-flex sc-flex-col sc-gap-2'>
+    <div className='subi-connect sc-flex sc-flex-col sc-gap-2'>
       <DataTableToolbar table={table} />
       <div className='sc-rounded-md sc-border'>
         <Table>

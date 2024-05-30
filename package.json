@@ -1,11 +1,13 @@
 {
   "name": "@subifinancial/subi-connect",
-  "version": "0.0.16",
+  "version": "0.0.19",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "style": "dist/styles.css",
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "scripts": {
     "build": "rimraf dist && rollup --config rollup.config.mjs --bundleConfigAsCjs",
