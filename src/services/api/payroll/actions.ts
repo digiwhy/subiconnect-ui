@@ -55,7 +55,7 @@ export const connectPayroll = async ({
   payroll,
 }: UsePostConnectPayrollProps): Promise<ConnectPayrollResponse> => {
   const response = await axiosClient.post<ConnectPayrollResponse>(
-    getConnectPayrollURL(payroll.toLowerCase()),
+    getConnectPayrollURL(payroll),
   );
   return response.data;
 };

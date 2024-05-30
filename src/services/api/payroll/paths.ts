@@ -1,4 +1,5 @@
 import { constructAPIURL } from '..';
+import type { Payroll } from '../../../types/payroll';
 
 export const PAYROLL_APPLICATIONS_URL = 'payroll/';
 
@@ -10,10 +11,8 @@ export const getIntegratePayrollURL = (payrollSystemId: number | string) => {
   );
 };
 
-export const getConnectPayrollURL = (payroll: string) => {
-  return constructAPIURL(
-    PAYROLL_APPLICATIONS_URL + `${payroll.toLowerCase()}/connect/`,
-  );
+export const getConnectPayrollURL = (payroll: Payroll) => {
+  return constructAPIURL(PAYROLL_APPLICATIONS_URL + `${payroll}/connect/`);
 };
 
 export const getOrganisationsFromPayrollURL = (payrollId: number | string) => {

@@ -2,6 +2,7 @@ import {
   connectPayroll,
   integratePayroll,
 } from '../../services/api/payroll/actions';
+import type { Payroll } from '../../types/payroll';
 import { useMutation } from '@tanstack/react-query';
 
 type PostPayrollIntegration = {
@@ -25,7 +26,7 @@ export const usePostPayrollIntegration = () => {
 };
 
 export type UsePostConnectPayrollProps = {
-  payroll: string;
+  payroll: Payroll;
 };
 
 export const usePostConnectPayroll = () => {

@@ -111,7 +111,7 @@ export const _useHasConnectedPayrollsMockData = {
 };
 
 export const _usePayrollConnectMockData = {
-  url: getConnectPayrollURL(1),
+  url: getConnectPayrollURL(Payroll.XERO),
   method: 'POST',
   status: 200,
   response: {
