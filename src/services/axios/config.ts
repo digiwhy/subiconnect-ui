@@ -11,7 +11,7 @@ const axiosClient = axios.create({
     'Content-Type': 'application/json',
     accept: 'application/json',
   },
-  withCredentials: process.env.NODE_ENV === 'local',
+  withCredentials: true,
 });
 
 export default axiosClient;
