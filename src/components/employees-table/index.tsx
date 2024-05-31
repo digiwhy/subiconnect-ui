@@ -9,7 +9,7 @@ const EmployeesTable: React.FC<{ columns: ColumnDef<Employee>[] }> = ({
 }) => {
   return (
     <GenericTable
-      name='Employees'
+      name='Employee'
       listAction={listAllEmployees}
       columns={columns}
     />

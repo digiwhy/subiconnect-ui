@@ -1,4 +1,4 @@
-import PayrollIntegrationsListPage from '.';
+import PayrollIntegrationsPage from '.';
 import { _useCompanyMockData } from '../../stories/mock-data/company';
 import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import {
@@ -9,8 +9,8 @@ import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: 'PayrollIntegrationsListPage - Has Connected',
-  component: withSubiConnectProvider(PayrollIntegrationsListPage),
+  title: 'PayrollIntegrationsPage - Has Connected',
+  component: withSubiConnectProvider(PayrollIntegrationsPage),
   parameters: {
     layout: 'fullscreen',
     mockData: [
@@ -22,7 +22,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof PayrollIntegrationsListPage>;
+} satisfies Meta<typeof PayrollIntegrationsPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

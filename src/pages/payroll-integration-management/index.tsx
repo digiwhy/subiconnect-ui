@@ -2,9 +2,11 @@ import { PayrollIntegrationManagementTable } from '../../components';
 import Integrate from '../../components/connect-and-integrate';
 import { PayrollSystemProvider } from '../../components/payroll-integration/context';
 import { PayrollIntegrationProvider } from '../../context/payroll-integration';
+import { BASE_ORGANISATION_QUERY_KEY } from '../../hooks/use-organisations';
 import { cn } from '../../lib/utils';
 import type { AccountPayrollSystemExtended } from '../../types/application';
 import { Button } from '../../ui/button';
+import { useQueryClient } from '@tanstack/react-query';
 import { PlusIcon } from 'lucide-react';
 import React from 'react';
 
@@ -25,11 +27,15 @@ const Trigger = React.forwardRef<
 ));
 
 const PayrollIntegrationManagementPage: React.FC<{
-  payroll: AccountPayrollSystemExtended;
+  accountPayroll: AccountPayrollSystemExtended;
   className?: string;
-}> = ({ payroll, className }) => {
+}> = ({ accountPayroll: payroll, className }) => {
+  const queryClient = useQueryClient();
+
   const handleIntegrateOnSuccess = React.useCallback(() => {
-    console.log('on success!');
+    queryClient.invalidateQueries({
+      queryKey: [...BASE_ORGANISATION_QUERY_KEY, 'list'],
+    });
   }, []);
 
   return (
@@ -44,7 +50,7 @@ const PayrollIntegrationManagementPage: React.FC<{
           <div className='sc-flex sc-w-full sc-justify-between sc-gap-4'>
             <div className='sc-flex sc-flex-col sc-gap-1'>
               <span className='sc-font-mainMedium sc-text-lg sc-text-secondary'>
-                Integrations
+                Connected Integration
               </span>
               <span className='sc-font-mainMedium sc-text-xs sc-text-secondary/50'>
                 {payroll.name}
@@ -54,7 +60,7 @@ const PayrollIntegrationManagementPage: React.FC<{
             <Integrate Trigger={Trigger} onSuccess={handleIntegrateOnSuccess} />
           </div>
           <div className='sc-h-full sc-w-full'>
-            <PayrollIntegrationManagementTable payrollId={payroll.id} />
+            <PayrollIntegrationManagementTable accountPayrollId={payroll.id} />
           </div>
         </div>
       </PayrollIntegrationProvider>

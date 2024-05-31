@@ -18,13 +18,13 @@ export type PayrollIntegrationListProps = {
 const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
   gridProps,
 }) => {
-  const { data: payrollSystems, isLoading } = usePayrollSystems();
+  const { data: payrollSystems, isLoading, isError } = usePayrollSystems();
 
-  if (isLoading) {
+  if (isLoading || !payrollSystems) {
     return <Loading title={'Loading Payroll Integrations'} />;
   }
 
-  if (!payrollSystems) {
+  if (isError) {
     return <DataTableError context='the payroll integrations' />;
   }
 

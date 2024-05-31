@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    payroll: {
+    accountPayroll: {
       id: 1,
       name: Payroll.XERO,
       // backgroundColour: '#19B4D7',

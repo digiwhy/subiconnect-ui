@@ -26,5 +26,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { payrollId: 1 },
+  args: { accountPayrollId: 1 },
 };

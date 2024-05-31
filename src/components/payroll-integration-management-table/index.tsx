@@ -1,21 +1,24 @@
 import { listOrganisationsFromPayroll } from '../../services/api/payroll/actions';
+import type { ListOptions } from '../../types/components/data-table';
 import GenericTable from '../../ui/extended/table/generic-table';
 import { columns } from './columns';
 import React from 'react';
 
-const PayrollIntegrationManagementTable: React.FC<{ payrollId: number }> = ({
-  payrollId,
-}) => {
+const PayrollIntegrationManagementTable: React.FC<{
+  accountPayrollId: number;
+}> = ({ accountPayrollId }) => {
   const listAction = React.useCallback(
-    async () => await listOrganisationsFromPayroll(payrollId),
-    [payrollId],
+    async (options: ListOptions | undefined) =>
+      await listOrganisationsFromPayroll(accountPayrollId, options),
+    [accountPayrollId],
   );
+
   return (
     <GenericTable
       name={'Organisation'}
       listAction={listAction}
       columns={columns}
-      queryKeyFilters={[{ payrollId }]}
+      queryKeyFilters={[{ accountPayrollId }]}
     />
   );
 };

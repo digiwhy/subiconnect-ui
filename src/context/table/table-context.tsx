@@ -93,7 +93,7 @@ export const DataTableProvider = <TData,>({
   queryKeyFilters = [],
   queryOptions,
 }: DataTableProviderProps<TData>) => {
-  const [searchParam, setSearchParam] = useSearchParams();
+  const [getSearchParam, setSearchParam] = useSearchParams();
 
   const getParamName = React.useCallback((param: string) => {
     return `${param}`;
@@ -101,9 +101,9 @@ export const DataTableProvider = <TData,>({
 
   const getParamValue = React.useCallback(
     (param: string) => {
-      return searchParam(getParamName(param));
+      return getSearchParam(getParamName(param));
     },
-    [searchParam],
+    [getSearchParam],
   );
 
   const setParamValue = React.useCallback(
@@ -125,7 +125,13 @@ export const DataTableProvider = <TData,>({
   }, [getParamValue]);
 
   const queryKey: QueryKey = React.useMemo(() => {
-    return [name.toLowerCase(), 'list', ...queryKeyFilters, params];
+    return [
+      'subi-connect',
+      name.toLowerCase(),
+      'list',
+      ...queryKeyFilters,
+      params,
+    ];
   }, [name, queryKeyFilters, params]);
 
   const queryFunction = async ({ signal }: QueryFunctionContext<QueryKey>) => {
