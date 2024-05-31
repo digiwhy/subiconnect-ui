@@ -6,21 +6,21 @@ import { Skeleton } from '../../ui/skeleton';
 import PayrollIntegrationManagementPage from '../payroll-integration-management';
 import React from 'react';
 
-const PayrollIntegrationsListPage: React.FC<{ className?: string }> = ({
+const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
   className,
 }) => {
   const { data: company } = useCompany();
   const { data: connectedPayrolls } = usePayrollSystems();
 
   const connectedPayroll = React.useMemo(() => {
-    return (
-      connectedPayrolls?.results?.find((item) => item.isConnected) || undefined
-    );
+    return connectedPayrolls?.results?.find((item) => item.isConnected);
   }, [connectedPayrolls]);
 
   // TODO: migrate to multi payroll management
   if (connectedPayrolls && connectedPayroll) {
-    return <PayrollIntegrationManagementPage payroll={connectedPayroll} />;
+    return (
+      <PayrollIntegrationManagementPage accountPayroll={connectedPayroll} />
+    );
   }
 
   return (
@@ -49,4 +49,4 @@ const PayrollIntegrationsListPage: React.FC<{ className?: string }> = ({
   );
 };
 
-export default PayrollIntegrationsListPage;
+export default PayrollIntegrationsPage;
