@@ -1,11 +1,12 @@
-import { constructAPIURL } from '..';
 import type { Organisation } from '../../../types/organisation';
 import axiosClient from '../../axios';
-import { ORGANISATION_URL } from './paths';
+import { getOrganisationURL } from './paths';
 
-export const getOrganisation = async (): Promise<Organisation> => {
+export const getOrganisation = async (
+  organisationId: number | string,
+): Promise<Organisation> => {
   const response = await axiosClient.get<Organisation>(
-    constructAPIURL(ORGANISATION_URL),
+    getOrganisationURL(organisationId),
   );
   return response.data;
 };

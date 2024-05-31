@@ -12,9 +12,11 @@ const BASE_PAYROLL_APPLICATION_QUERY_KEY = [
   'list',
 ] as const;
 
-type UsePayrollSystemsOptions = BaseQueryOptions<
-  UseQueryOptions<PaginationResponse<AccountPayrollSystemExtended>>
->;
+type UsePayrollSystemsOptions = {
+  queryOptions?: BaseQueryOptions<
+    UseQueryOptions<PaginationResponse<AccountPayrollSystemExtended>>
+  >;
+};
 
 export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
   const { data: company } = useCompany();
@@ -24,12 +26,14 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
     [company?.id],
   );
 
-  const { enabled, ...rest } = options ?? { enabled: true };
+  const { enabled, ...restOfQueryOptions } = options?.queryOptions ?? {
+    enabled: true,
+  };
 
   return useQuery({
     queryKey: queryKey,
     queryFn: listPayrollSystems,
     enabled: !!company?.id && enabled,
-    ...rest,
+    ...restOfQueryOptions,
   });
 };

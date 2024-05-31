@@ -1,21 +1,18 @@
 import { getCompany } from '../services/api/company/actions';
 import type { Company } from '../types/company';
 import type { BaseQueryOptions } from '../types/query';
-import {
-  useQuery,
-  type UndefinedInitialDataOptions,
-  type UseQueryResult,
-} from '@tanstack/react-query';
-
-export type UseCompany = UseQueryResult<Company>;
-type UseCompanyOptions = BaseQueryOptions<UndefinedInitialDataOptions<Company>>;
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'company', 'detail'] as const;
 
-export const useCompany = (options?: UseCompanyOptions): UseCompany => {
+type UseCompanyOptions = {
+  queryOptions?: BaseQueryOptions<UseQueryOptions<Company>>;
+};
+
+export const useCompany = (options?: UseCompanyOptions) => {
   return useQuery({
     queryKey: BASE_EMPLOYEES_QUERY_KEY,
     queryFn: getCompany,
-    ...options,
+    ...options?.queryOptions,
   });
 };

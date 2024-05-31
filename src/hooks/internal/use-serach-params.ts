@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SUBI_CONNECT_QUERY_PREFIX = 'sc_';
+export const SUBI_CONNECT_QUERY_PREFIX = 'sc_';
 
 const getQuery = () => {
   if (typeof window !== 'undefined') {

@@ -61,11 +61,11 @@ export const connectPayroll = async ({
 };
 
 export const listOrganisationsFromPayroll = async (
-  payrollId: number | string,
+  accountPayrollId: number | string,
   options?: ListOptions,
 ): Promise<PaginationResponse<Organisation>> => {
   const response = await axiosClient.get<PaginationResponse<Organisation>>(
-    getOrganisationsFromPayrollURL(payrollId),
+    getOrganisationsFromPayrollURL(accountPayrollId),
     options,
   );
   return response.data;

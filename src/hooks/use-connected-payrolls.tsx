@@ -12,11 +12,13 @@ const BASE_PAYROLL_APPLICATION_QUERY_KEY = [
   'list',
 ] as const;
 
-type useConnectedPayrollsOptions = BaseQueryOptions<
-  UseQueryOptions<PaginationResponse<AccountPayrollSystemExtended>>
->;
+type UseConnectedPayrollsOptions = {
+  queryOptions?: BaseQueryOptions<
+    UseQueryOptions<PaginationResponse<AccountPayrollSystemExtended>>
+  >;
+};
 
-export const useConnectedPayrolls = (options?: useConnectedPayrollsOptions) => {
+export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
   const { data: company } = useCompany();
 
   const queryKey = React.useMemo(
@@ -27,7 +29,7 @@ export const useConnectedPayrolls = (options?: useConnectedPayrollsOptions) => {
     [company?.id],
   );
 
-  const { enabled, ...rest } = options ?? { enabled: true };
+  const { enabled, ...rest } = options?.queryOptions ?? { enabled: true };
 
   return useQuery({
     queryKey: queryKey,

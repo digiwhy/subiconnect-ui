@@ -1,29 +1,42 @@
-import { listEmployees } from '../services/api/employee/actions';
+import { listAllEmployees } from '../services/api/employee/actions';
+import type {
+  ListOptions,
+  PaginationResponse,
+} from '../types/components/data-table';
 import type { Employee } from '../types/employee';
-import { useCompany } from './use-company';
-import { useQuery, type UseQueryResult } from '@tanstack/react-query';
+import type { BaseQueryOptions } from '../types/query';
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
-
-export type UseEmployees = UseQueryResult<Array<Employee>>;
 
 const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee', 'list'] as const;
 
-export const useEmployees = (): UseEmployees => {
-  const { data: company } = useCompany();
+type EmployeeFilterFields = Pick<
+  Employee,
+  'firstName' | 'lastName' | 'organisationId'
+>;
 
-  const queryKey = React.useMemo(
-    () => [...BASE_EMPLOYEES_QUERY_KEY, { companyId: company?.id }],
-    [company?.id],
-  );
-
+type UseEmployeesOptions = {
+  filters?: Partial<EmployeeFilterFields>;
+  queryOptions?: BaseQueryOptions<
+    UseQueryOptions<PaginationResponse<Employee>>
+  >;
+};
+export const useEmployees = (options?: UseEmployeesOptions) => {
   const queryFn = React.useCallback(
-    () => listEmployees(company!.id),
-    [company?.id],
+    async (listOptions: ListOptions) =>
+      listAllEmployees({
+        ...listOptions,
+        params: {
+          ...listOptions.params,
+          ...options?.filters,
+        },
+      }),
+    [options],
   );
 
   return useQuery({
-    queryKey: queryKey,
+    queryKey: BASE_EMPLOYEES_QUERY_KEY,
     queryFn: queryFn,
-    enabled: !!company?.id,
+    ...options?.queryOptions,
   });
 };
