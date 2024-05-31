@@ -24,7 +24,9 @@ export const withSubiConnectProvider = <T extends object>(
   return (props: T) => (
     <QueryClientProvider client={queryClient}>
       <SubiConnectProvider connectionFn={connectionFn}>
-        <Component {...props} />
+        <div className='subi-connect'>
+          <Component {...props} />
+        </div>
       </SubiConnectProvider>
     </QueryClientProvider>
   );

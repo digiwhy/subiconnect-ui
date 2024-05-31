@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    /* Colour Variables */
+
     --sc-background: 0 0% 100%;
     --sc-foreground: 222.2 47.4% 11.2%;
 
@@ -68,66 +70,61 @@
 
     --sc-radius: 0.5rem;
   }
-}
 
-/* Scoped Styles */
-@layer components {
-  .subi-connect {
-    /* Global Styles Scoped */
-    * {
-      font-family: 'Moderat-Light', sans-serif;
+  /* Global Styles Scoped */
+  * {
+    font-family: 'Moderat-Light', sans-serif;
+  }
+
+  /* Component Specific Styles Scoped */
+  #subi-connect-payroll-integration-worflow {
+    h1 {
+      @apply sc-font-mainMedium sc-text-3xl sc-leading-loose sc-text-secondary;
     }
-
-    /* Component Specific Styles Scoped */
-    #subi-connect-payroll-integration-worflow {
-      h1 {
-        @apply sc-font-mainMedium sc-text-3xl sc-leading-loose sc-text-secondary;
-      }
-      h2 {
-        @apply sc-font-mainMedium sc-text-xl sc-leading-relaxed sc-text-secondary;
-      }
-      h3 {
-        @apply sc-font-mainMedium sc-text-lg sc-text-secondary;
-      }
-      .sc-iframe-container {
-        /* Percentage for 16:9 aspect ratio */
-        @apply sc-relative sc-w-full sc-rounded-lg sc-border sc-pt-[56.25%];
-      }
-      .sc-iframe-container iframe {
-        @apply sc-absolute sc-left-0 sc-top-0 sc-h-full sc-w-full sc-rounded-2xl sc-p-2;
-      }
-      img {
-        @apply sc-my-2 sc-rounded-lg sc-border sc-p-2;
-      }
-      a {
-        @apply sc-cursor-auto sc-text-primary sc-underline;
-      }
+    h2 {
+      @apply sc-font-mainMedium sc-text-xl sc-leading-relaxed sc-text-secondary;
+    }
+    h3 {
+      @apply sc-font-mainMedium sc-text-lg sc-text-secondary;
+    }
+    .sc-iframe-container {
+      /* Percentage for 16:9 aspect ratio */
+      @apply sc-relative sc-w-full sc-rounded-lg sc-border sc-pt-[56.25%];
+    }
+    .sc-iframe-container iframe {
+      @apply sc-absolute sc-left-0 sc-top-0 sc-h-full sc-w-full sc-rounded-2xl sc-p-2;
+    }
+    img {
+      @apply sc-my-2 sc-rounded-lg sc-border sc-p-2;
+    }
+    a {
+      @apply sc-cursor-auto sc-text-primary sc-underline;
+    }
+    ul > li {
+      padding-bottom: 0.5rem;
+      padding-top: 0.75rem;
       ul > li {
-        padding-bottom: 0.5rem;
-        padding-top: 0.75rem;
-        ul > li {
-          padding-left: 1rem;
-        }
-      }
-      b,
-      strong {
-        @apply sc-font-mainMedium sc-font-normal;
+        padding-left: 1rem;
       }
     }
-
-    /* Scoped Font Faces */
-    @font-face {
-      font-family: 'Moderat-Light';
-      src: url('./assets/fonts/Moderat-Light.ttf') format('truetype');
-      font-weight: 300;
-      font-style: normal;
+    b,
+    strong {
+      @apply sc-font-mainMedium sc-font-normal;
     }
+  }
 
-    @font-face {
-      font-family: 'Moderat';
-      src: url('./assets/fonts/Moderat-Medium.ttf') format('truetype');
-      font-weight: 500;
-      font-style: normal;
-    }
+  /* Scoped Font Faces */
+  @font-face {
+    font-family: 'Moderat-Light';
+    src: url('./assets/fonts/Moderat-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Moderat';
+    src: url('./assets/fonts/Moderat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
   }
 }
