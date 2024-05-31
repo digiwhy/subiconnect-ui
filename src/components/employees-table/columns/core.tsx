@@ -3,20 +3,20 @@ import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { Button } from '../../../ui/button';
 import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
-import ClipboardButton from '../../../ui/extended/table/columns/copy';
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuItem,
-} from '@radix-ui/react-dropdown-menu';
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from '../../../ui/dropdown-menu';
+import ClipboardButton from '../../../ui/extended/table/columns/copy';
 import {
   Select,
-  SelectTrigger,
   SelectContent,
   SelectItem,
-} from '@radix-ui/react-select';
+  SelectTrigger,
+} from '../../../ui/select';
 import type { CellContext } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import React from 'react';
@@ -95,7 +95,7 @@ export const emailColumn: ColumnDef<Employee> = {
 export const actionsColumn: ColumnDef<Employee> = {
   id: 'actions',
   accessorKey: undefined,
-  cell: ({ row }) => {
+  cell: () => {
     return (
       <div className='sc-flex sc-justify-end'>
         <DropdownMenu>
