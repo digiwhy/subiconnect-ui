@@ -9,6 +9,6 @@ postcss.config.js
 rollup.config.mjs
 tailwind.config.js
 
-!assets
 !dist/*
 !dist/**/*
+!styles.css

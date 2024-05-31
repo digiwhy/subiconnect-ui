@@ -1,7 +1,9 @@
 node_modules
 dist
+styles.css
 *storybook.log
 storybook-static
+.env
 .env.*
 .npmrc
 .DS_Store

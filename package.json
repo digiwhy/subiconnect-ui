@@ -7,10 +7,10 @@
   "style": "dist/styles.css",
   "files": [
     "dist",
-    "assets"
+    "styles.css"
   ],
   "scripts": {
-    "build": "rimraf dist && rollup --config rollup.config.mjs --bundleConfigAsCjs",
+    "build": "rimraf dist styles.css && rollup --config rollup.config.mjs --bundleConfigAsCjs && mv dist/styles.css styles.css",
     "rollup": "rollup -c",
     "release": "NODE_ENV=production npm run build && changeset publish",
     "release:dev": "NODE_ENV=development npm run build && changeset publish",
