@@ -2,7 +2,7 @@ import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
 import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-status';
-import { actionsColumn, emailColumn, fullNameColumn } from './core';
+import { emailColumn, fullNameColumn } from './core';
 import React from 'react';
 
 export const columns: ColumnDef<Employee>[] = [
@@ -21,5 +21,4 @@ export const columns: ColumnDef<Employee>[] = [
     },
   },
   lastSyncedColumn(),
-  actionsColumn,
 ];

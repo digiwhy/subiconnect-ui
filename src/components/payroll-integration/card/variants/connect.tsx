@@ -24,7 +24,6 @@ const ConnectAction: React.FC = () => {
   const queryClient = useQueryClient();
 
   const handleIntegrateOnSuccess = React.useCallback(() => {
-    console.log('ConnectAction on success!');
     queryClient.invalidateQueries({
       queryKey: ['subi-connect', 'payroll system', 'list', { connected: true }],
     });

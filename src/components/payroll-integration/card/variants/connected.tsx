@@ -6,13 +6,8 @@ import { BaseCard } from '../base-card';
 import React from 'react';
 
 const ConnectedAction = () => {
-  const handleClick = () => console.log('[ComingSoonCardAction] [handleClick]');
   return (
-    <Button
-      className='sc-w-full sc-whitespace-normal'
-      onClick={handleClick}
-      disabled
-    >
+    <Button className='sc-w-full sc-whitespace-normal' disabled>
       Connected
     </Button>
   );

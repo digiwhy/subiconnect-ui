@@ -8,10 +8,6 @@ export type ConnectPayrollResponse =
   | ConnectPayrollCustomResponse
   | ConnectPayrollOAuth2Response
   | ConnectPayrollOAuth2AndCustomResponse;
-// {
-//   redirectUri: string | undefined;
-//   type: PayrollConnectionTypeEnum;
-// };
 
 type ConnectPayrollCustomResponse = {
   redirectUri: undefined;

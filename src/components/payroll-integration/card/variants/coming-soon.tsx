@@ -9,7 +9,8 @@ import React from 'react';
 const ComingSoonCardBanner = <Banner>Coming soon</Banner>;
 
 const ComingSoonCardAction = () => {
-  const handleClick = () => console.log('[ComingSoonCardAction] [handleClick]');
+  const handleClick = () =>
+    console.log('[ComingSoonCardAction] [not implemented]');
   return (
     <Button
       variant='outline'
