@@ -51,6 +51,7 @@ type UseOrganisationOptions = {
   queryOptions?: BaseQueryOptions<UseQueryOptions<Organisation>>;
 };
 
+// N.B.: Not currently exposed
 export const useOrganisation = (
   organisationId: number | undefined,
   options?: UseOrganisationOptions,

@@ -28,6 +28,14 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
     return <DataTableError context='the payroll integrations' />;
   }
 
+  if (payrollSystems.count === 0) {
+    return (
+      <div className='sc-flex sc-h-full sc-w-full sc-items-center sc-justify-center'>
+        No Payroll Integrations
+      </div>
+    );
+  }
+
   return (
     <PayrollIntegrationProvider>
       <PayrollIntegrationListGrid

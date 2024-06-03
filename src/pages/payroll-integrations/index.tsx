@@ -36,7 +36,7 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
         </span>
         {company ? (
           <span className='sc-text-xs sc-text-secondary/50'>
-            Connect {company?.account.name} with your payroll tool.
+            Connect your payroll tool to your {company?.account.name} account.
           </span>
         ) : (
           <Skeleton className='sc-h-5 sc-w-64' />
