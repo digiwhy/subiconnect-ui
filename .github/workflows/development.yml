@@ -1,0 +1,39 @@
+name: Development
+
+on:
+  push:
+    branches:
+      - dev
+
+concurrency:
+  group: dev
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    environment: Development
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Lint
+        run: |
+          npm run lint
+
+      - name: Test build
+        run: |
+          npm run build
