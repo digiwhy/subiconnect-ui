@@ -1,5 +1,5 @@
 import EmployeesTable from '.';
-import { _useEmployeesMockData } from '../../stories/mock-data/employee';
+import { useEmployeesMockData } from '../../stories/mock-data/employee';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import { columns } from './columns/organisation-specific';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -9,7 +9,7 @@ const meta = {
   component: withSubiConnectProvider(EmployeesTable),
   parameters: {
     layout: 'fullscreen',
-    mockData: [_useEmployeesMockData],
+    mockData: [useEmployeesMockData],
   },
   tags: ['autodocs'],
   argTypes: {},
