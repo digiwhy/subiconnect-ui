@@ -11,10 +11,9 @@
   ],
   "scripts": {
     "build": "rimraf dist styles.css && rollup --config rollup.config.mjs --bundleConfigAsCjs && mv dist/styles.css styles.css",
+    "pack": "./scripts/pack.sh",
     "rollup": "rollup -c",
     "release": "NODE_ENV=production npm run build && changeset publish",
-    "release:dev": "NODE_ENV=development npm run build && changeset publish",
-    "release:local": "NODE_ENV=local npm run build && changeset publish",
     "lint": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
