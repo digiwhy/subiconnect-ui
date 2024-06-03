@@ -1,5 +1,5 @@
 import EmployeeManagementPage from '.';
-import { _useEmployeesMockData } from '../../stories/mock-data/employee';
+import { useEmployeesMockData } from '../../stories/mock-data/employee';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -8,7 +8,7 @@ const meta = {
   component: withSubiConnectProvider(EmployeeManagementPage),
   parameters: {
     layout: 'fullscreen',
-    mockData: [_useEmployeesMockData],
+    mockData: [useEmployeesMockData],
   },
   tags: ['autodocs'],
   argTypes: {},

@@ -1,8 +1,9 @@
 import { getOrganisationsFromPayrollURL } from '../../services/api/payroll/paths';
+import { BASE_URL } from '../../services/axios/config';
 import { OrganisationSyncStatus } from '../../types/organisation';
 
-export const _useOrganisationsMockData = {
-  url: getOrganisationsFromPayrollURL(1),
+export const useOrganisationsMockData = (id: number) => ({
+  url: BASE_URL + getOrganisationsFromPayrollURL(id),
   method: 'GET',
   status: 200,
   response: {
@@ -53,4 +54,4 @@ export const _useOrganisationsMockData = {
       },
     ],
   },
-};
+});

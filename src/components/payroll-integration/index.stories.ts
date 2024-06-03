@@ -1,9 +1,11 @@
-import { _useCompanyMockData } from '../../stories/mock-data/company';
 import {
-  _usePayrollsMockData,
-  _useConnectedPayrollsMockData,
-  _usePayrollConnectMockData,
-  _usePayrollIntegrateMockData,
+  useCompanyAccessTokenMockData,
+  useCompanyMockData,
+} from '../../stories/mock-data/company';
+import {
+  usePayrollsMockData,
+  usePayrollConnectMockData,
+  usePayrollIntegrateMockData,
 } from '../../stories/mock-data/payroll';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import PayrollIntegrationList from './payroll-integration-list';
@@ -15,11 +17,11 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
     mockData: [
-      _usePayrollsMockData,
-      _useConnectedPayrollsMockData,
-      _useCompanyMockData,
-      _usePayrollConnectMockData,
-      _usePayrollIntegrateMockData,
+      useCompanyAccessTokenMockData,
+      useCompanyMockData,
+      usePayrollsMockData,
+      usePayrollConnectMockData(),
+      usePayrollIntegrateMockData(),
     ],
   },
   tags: ['autodocs'],

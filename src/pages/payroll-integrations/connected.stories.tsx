@@ -1,10 +1,7 @@
 import PayrollIntegrationsPage from '.';
-import { _useCompanyMockData } from '../../stories/mock-data/company';
-import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
-import {
-  _usePayrollsMockData,
-  _useHasConnectedPayrollsMockData,
-} from '../../stories/mock-data/payroll';
+import { useCompanyMockData } from '../../stories/mock-data/company';
+import { useOrganisationsMockData } from '../../stories/mock-data/organisation';
+import { useConnectedPayrollsMockData } from '../../stories/mock-data/payroll';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -14,10 +11,9 @@ const meta = {
   parameters: {
     layout: 'fullscreen',
     mockData: [
-      _usePayrollsMockData,
-      _useHasConnectedPayrollsMockData,
-      _useCompanyMockData,
-      _useOrganisationsMockData,
+      useConnectedPayrollsMockData,
+      useCompanyMockData,
+      useOrganisationsMockData(1),
     ],
   },
   tags: ['autodocs'],

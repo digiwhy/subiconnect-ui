@@ -1,6 +1,6 @@
 import PayrollIntegrationManagementPage from '.';
 import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
-import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
+import { useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import { Payroll } from '../../types/payroll';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -10,7 +10,7 @@ const meta = {
   component: withSubiConnectProvider(PayrollIntegrationManagementPage),
   parameters: {
     layout: 'fullscreen',
-    mockData: [_useOrganisationsMockData],
+    mockData: [useOrganisationsMockData(1)],
   },
   tags: ['autodocs'],
   argTypes: {},

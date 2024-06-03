@@ -1,10 +1,11 @@
 import { getAllEmployeesURL } from '../../services/api/employee/paths';
+import { BASE_URL } from '../../services/axios/config';
 import type { PaginationResponse } from '../../types/components/data-table';
 import type { Employee } from '../../types/employee';
 import { OrganisationSyncStatus } from '../../types/organisation';
 
-export const _useEmployeesMockData = {
-  url: getAllEmployeesURL(),
+export const useEmployeesMockData = {
+  url: BASE_URL + getAllEmployeesURL(),
   method: 'GET',
   status: 200,
   response: {

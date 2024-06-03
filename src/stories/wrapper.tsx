@@ -3,7 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
 
-const queryClient = new QueryClient({});
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 0 } },
+});
 
 const connectionFn = async () => {
   const result = await axios.post(

@@ -1,24 +1,20 @@
 import PayrollIntegrationsPage from '.';
-import { _useCompanyMockData } from '../../stories/mock-data/company';
-import { _useOrganisationsMockData } from '../../stories/mock-data/organisation';
+import { useCompanyMockData } from '../../stories/mock-data/company';
+import { useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import {
-  _usePayrollsMockData,
-  _useConnectedPayrollsMockData,
+  usePayrollsMockData,
+  usePayrollsEmptyMockData,
 } from '../../stories/mock-data/payroll';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
+const BASE_MOCK_DATA = [useCompanyMockData, useOrganisationsMockData(1)];
 const meta = {
   title: 'PayrollIntegrationsPage',
   component: withSubiConnectProvider(PayrollIntegrationsPage),
   parameters: {
     layout: 'fullscreen',
-    mockData: [
-      _usePayrollsMockData,
-      _useConnectedPayrollsMockData,
-      _useCompanyMockData,
-      _useOrganisationsMockData,
-    ],
+    mockData: BASE_MOCK_DATA,
   },
   tags: ['autodocs'],
   argTypes: {},
@@ -29,4 +25,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {},
+  parameters: {
+    mockData: [usePayrollsMockData, ...BASE_MOCK_DATA],
+  },
+};
+
+export const Empty: Story = {
+  args: {},
+  parameters: {
+    layout: 'fullscreen',
+    mockData: [usePayrollsEmptyMockData, ...BASE_MOCK_DATA],
+  },
 };
