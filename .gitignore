@@ -386,4 +386,5 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node,nextjs,storybookjs,visualstudiocode,intellij
 
 # Custom
-subifinancial-subi-connect-*.tgz
+.npmrc
+types
