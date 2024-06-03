@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: Lint
+  build:
+    name: Lint and Test Build
     runs-on: ubuntu-latest
     environment: Development
     permissions:
