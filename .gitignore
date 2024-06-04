@@ -387,7 +387,7 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,node,nextjs,storybookjs,visualstudiocode,intellij
 
 # Custom
-demo/lib/*
+demo/lib/*.tgz
 styles.css
 *storybook.log
 .env.*
