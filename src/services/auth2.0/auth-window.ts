@@ -6,16 +6,21 @@ const waitForWindowClose = (
   onSuccess: () => void,
 ): Promise<void> => {
   return new Promise((resolve) => {
+    const reset = () => {
+      clearInterval(checkWindowClosed);
+      setPending(false);
+      resolve();
+    };
+
     const checkWindowClosed = setInterval(() => {
       if (authWindow?.closed) {
-        clearInterval(checkWindowClosed);
-        setPending(false);
-        resolve();
+        reset();
       }
     }, 500);
 
     const handleMessage = (event: MessageEvent) => {
       if (event.data === 'auth_complete') {
+        authWindow?.close();
         clearInterval(checkWindowClosed);
         setPending(false);
         onSuccess();
@@ -28,8 +33,7 @@ const waitForWindowClose = (
 
     // Cleanup listener in case of resolve or unmount
     return () => {
-      window.removeEventListener('message', handleMessage);
-      clearInterval(checkWindowClosed);
+      window.removeEventListener('message', reset);
     };
   });
 };
