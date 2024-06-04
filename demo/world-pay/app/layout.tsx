@@ -1,5 +1,5 @@
 import './globals.css';
-import '@subifinancial/subi-connect/styles.css';
+import '@subifinancial/subi-connect/dist/styles.css';
 
 // import './sc-override.css';
 

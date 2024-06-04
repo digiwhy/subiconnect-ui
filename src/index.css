@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: 'Moderat-Light';
+    src: url('./assets/fonts/Moderat-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Moderat';
+    src: url('./assets/fonts/Moderat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+}
+
+@layer base {
   :root {
     --sc-background: 0 0% 100%;
     --sc-foreground: 222.2 47.4% 11.2%;
@@ -73,7 +89,6 @@
 /* Scoped Styles */
 @layer components {
   .subi-connect {
-    /* Global Styles Scoped */
     * {
       font-family: 'Moderat-Light', sans-serif;
     }
@@ -115,19 +130,4 @@
   strong {
     @apply sc-font-mainMedium sc-font-normal;
   }
-}
-
-/* Scoped Font Faces */
-@font-face {
-  font-family: 'Moderat-Light';
-  src: url('./assets/fonts/Moderat-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Moderat';
-  src: url('./assets/fonts/Moderat-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
 }
