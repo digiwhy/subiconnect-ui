@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL =
-  process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL ??
-  'https://subiconnect-api.subi.au/subi-connect/';
+export const BASE_URL = process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL;
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,

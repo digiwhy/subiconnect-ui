@@ -6,14 +6,17 @@
   "types": "dist/index.d.ts",
   "style": "dist/styles.css",
   "files": [
-    "dist",
-    "styles.css"
+    "dist"
   ],
   "scripts": {
-    "build": "rimraf dist styles.css && rollup --config rollup.config.mjs --bundleConfigAsCjs && mv dist/styles.css styles.css",
+    "build": "rimraf dist styles.css && rollup --config rollup.config.mjs --bundleConfigAsCjs",
+    "build:prod": "NODE_ENV=production npm run build",
     "pack": "./scripts/pack.sh",
-    "rollup": "rollup -c",
     "release": "NODE_ENV=production npm run build && changeset publish",
+    "cs": "changeset",
+    "cs:check": "changeset status --since=main",
+    "cs:version": "changeset version",
+    "cs:publish": "changeset publish",
     "lint": "tsc",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -21,7 +24,7 @@
   "keywords": [
     "Subi",
     "Subi Connect",
-    "@subi/subi-connect",
+    "@subifinancial/subi-connect",
     "subi-connect"
   ],
   "author": "Subi",
