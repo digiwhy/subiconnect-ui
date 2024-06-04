@@ -72,7 +72,7 @@ process_env() {
     print_env $ENV
 
     echo "Building..."
-    npm run build
+    NODE_ENV=$ENV npm run build
 
     # Remove existing tarballs matching the pattern
     # Remove existing tarballs matching the pattern unless --no-delete is active
