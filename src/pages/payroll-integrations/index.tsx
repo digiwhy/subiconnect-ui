@@ -1,7 +1,11 @@
 import { PayrollIntegrationList } from '../../components';
+import useSearchParams, {
+  SEARCH_PARAM_UPDATE_EVENT,
+} from '../../hooks/internal/use-serach-params';
 import { useCompany } from '../../hooks/use-company';
-import { usePayrollSystems } from '../../hooks/use-payroll-systems';
 import { cn } from '../../lib/utils';
+import type { Payroll } from '../../types/payroll';
+import { SearchParam } from '../../types/query';
 import { Skeleton } from '../../ui/skeleton';
 import PayrollIntegrationManagementPage from '../payroll-integration-management';
 import React from 'react';
@@ -10,17 +14,32 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
   className,
 }) => {
   const { data: company } = useCompany();
-  const { data: connectedPayrolls } = usePayrollSystems();
+  const [getSearchParam] = useSearchParams();
+  const [payroll, setPayroll] = React.useState<Payroll | null>(null);
 
-  const connectedPayroll = React.useMemo(() => {
-    return connectedPayrolls?.results?.find((item) => item.isConnected);
-  }, [connectedPayrolls]);
+  React.useEffect(() => {
+    const handleSearchChange = () => {
+      const newPayroll = getSearchParam(
+        SearchParam.PAYROLL_SYSTEM,
+      ) as Payroll | null;
 
-  // TODO: migrate to multi payroll management
-  if (connectedPayrolls && connectedPayroll) {
-    return (
-      <PayrollIntegrationManagementPage accountPayroll={connectedPayroll} />
-    );
+      console.log('handleSearchChange', newPayroll);
+      setPayroll(newPayroll);
+    };
+
+    // Set initial value
+    handleSearchChange();
+
+    // Listen for changes to the search parameters
+    window.addEventListener(SEARCH_PARAM_UPDATE_EVENT, handleSearchChange);
+
+    return () => {
+      window.removeEventListener(SEARCH_PARAM_UPDATE_EVENT, handleSearchChange);
+    };
+  }, [getSearchParam]);
+
+  if (payroll) {
+    return <PayrollIntegrationManagementPage payroll={payroll} />;
   }
 
   return (

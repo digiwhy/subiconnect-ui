@@ -1,36 +1,46 @@
-import { listConnectedPayrollSystems } from '../services/api/payroll/actions';
+import { getAccountPayroll } from '../services/api/payroll/actions';
 import type { AccountPayrollSystemExtended } from '../types/application';
-import type { PaginationResponse } from '../types/components/data-table';
+import type { Payroll } from '../types/payroll';
 import type { BaseQueryOptions } from '../types/query';
 import { useCompany } from './use-company';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
-type UseConnectedPayrollsOptions = {
+type UsePayrollSystemsOptions = {
   queryOptions?: BaseQueryOptions<
-    UseQueryOptions<PaginationResponse<AccountPayrollSystemExtended>>
+    UseQueryOptions<AccountPayrollSystemExtended>
   >;
 };
 
-export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
+export const useAccountPayrollSystem = (
+  payroll: Payroll,
+  options?: UsePayrollSystemsOptions,
+) => {
   const { data: company } = useCompany();
 
   const queryKey = React.useMemo(
     () => [
       ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
-      'list',
-      { connected: true, companyId: company?.id },
+      'detail',
+      { companyId: company?.id },
     ],
     [company?.id],
   );
 
-  const { enabled, ...rest } = options?.queryOptions ?? { enabled: true };
+  const { enabled, ...restOfQueryOptions } = options?.queryOptions ?? {
+    enabled: true,
+  };
+
+  const queryFn = React.useCallback(
+    async () => getAccountPayroll({ payroll }),
+    [payroll],
+  );
 
   return useQuery({
     queryKey: queryKey,
-    queryFn: listConnectedPayrollSystems,
+    queryFn: queryFn,
     enabled: !!company?.id && enabled,
-    ...rest,
+    ...restOfQueryOptions,
   });
 };

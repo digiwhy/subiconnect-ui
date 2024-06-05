@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
-    "@subifinancial/subi-connect": "file:../lib/subi-connect@local-5c467.tgz",
+    "@subifinancial/subi-connect": "file:../lib/subi-connect@local-01c2f.tgz",
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-table": "^8.17.3",
     "@types/node": "20.12.11",

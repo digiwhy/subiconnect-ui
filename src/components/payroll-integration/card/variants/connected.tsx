@@ -1,14 +1,28 @@
+import useSearchParams from '../../../../hooks/internal/use-serach-params';
 import { useCompany } from '../../../../hooks/use-company';
+import { SearchParam } from '../../../../types/query';
 import { Button } from '../../../../ui/button';
 import { Skeleton } from '../../../../ui/skeleton';
 import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
+import { MoveRightIcon } from 'lucide-react';
 import React from 'react';
 
 const ConnectedAction = () => {
+  const { payrollSystem } = usePayrollSystemContext();
+  const [_, setSearchParam] = useSearchParams();
+
+  const handleClick = () => {
+    setSearchParam(SearchParam.PAYROLL_SYSTEM, payrollSystem.name);
+  };
+
   return (
-    <Button className='sc-w-full sc-whitespace-normal' disabled>
+    <Button
+      onClick={handleClick}
+      className='sc-group sc-flex sc-w-full sc-gap-2 sc-whitespace-normal'
+    >
       Connected
+      <MoveRightIcon className='sc-h-4 sc-w-4 sc-transition-transform group-hover:sc-translate-x-1' />
     </Button>
   );
 };

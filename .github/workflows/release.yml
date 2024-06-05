@@ -35,6 +35,11 @@ jobs:
       - name: 📖 Check Changesets
         run: npm run cs:check
 
+      - name: 🔏 'Create env file'
+        run: |
+          touch .env.production
+          echo SUBI_CONNECT_PUBLIC_BASE_URL=${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }} >> .env.production
+
       - name: 🏗️ Build
         run: npm run build:prod
 
