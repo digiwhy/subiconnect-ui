@@ -3,6 +3,7 @@ import type {
   PaginationResponse,
   ListRequest,
 } from '../../types/components/data-table';
+import { SearchParam } from '../../types/query';
 import {
   type QueryFunctionContext,
   type QueryKey,
@@ -25,7 +26,7 @@ interface IDataTableContext<TData> {
    *
    * @returns the verbose parameter name.
    */
-  getParamName: (param: string) => string;
+  getParamName: (param: SearchParam) => string;
 
   /**
    * Get the value of a parameter.
@@ -34,14 +35,14 @@ interface IDataTableContext<TData> {
    *
    * @returns the parameter value.
    */
-  getParamValue: (param: string) => string | null;
+  getParamValue: (param: SearchParam) => string | null;
 
   /**
    * Set the value of a parameter.
    * @param param the base name of the parameter.
    * @param value (optional) the value to set. If no value is provided, delete the parameter.
    */
-  setParamValue: (param: string, value?: string) => void;
+  setParamValue: (param: SearchParam, value?: string) => void;
 
   /**
    * The useQuery result.
@@ -95,27 +96,27 @@ export const DataTableProvider = <TData,>({
 }: DataTableProviderProps<TData>) => {
   const [getSearchParam, setSearchParam] = useSearchParams();
 
-  const getParamName = React.useCallback((param: string) => {
+  const getParamName = React.useCallback((param: SearchParam) => {
     return `${param}`;
   }, []);
 
   const getParamValue = React.useCallback(
-    (param: string) => {
+    (param: SearchParam) => {
       return getSearchParam(getParamName(param));
     },
     [getSearchParam],
   );
 
   const setParamValue = React.useCallback(
-    (param: string, value?: string) => {
+    (param: SearchParam, value?: string) => {
       setSearchParam(getParamName(param), value);
     },
     [setSearchParam],
   );
 
   const params = React.useMemo(() => {
-    const page = getParamValue('page');
-    const search = getParamValue('search');
+    const page = getParamValue(SearchParam.PAGE);
+    const search = getParamValue(SearchParam.SEARCH);
 
     return {
       ...(page !== '' && { page: page }),

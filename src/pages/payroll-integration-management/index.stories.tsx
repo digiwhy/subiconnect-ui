@@ -1,5 +1,4 @@
 import PayrollIntegrationManagementPage from '.';
-import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
 import { useOrganisationsMockData } from '../../stories/mock-data/organisation';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import { Payroll } from '../../types/payroll';
@@ -21,14 +20,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    accountPayroll: {
-      id: 1,
-      name: Payroll.XERO,
-      // backgroundColour: '#19B4D7',
-      isConnected: true,
-      payrollId: 1,
-      mdxIntegrationInstructions: null,
-      payrollConnectionType: PayrollConnectionTypeEnum.OAUTH2,
-    },
+    payroll: Payroll.XERO,
   },
 };

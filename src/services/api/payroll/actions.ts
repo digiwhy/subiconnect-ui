@@ -13,30 +13,31 @@ import axiosClient from '../../axios';
 import {
   CONNECTED_PAYROLL_APPLICATIONS_URL,
   PAYROLL_APPLICATIONS_URL,
+  getAccountPayrollURL,
   getConnectPayrollURL,
   getIntegratePayrollURL,
   getOrganisationsFromPayrollURL,
 } from './paths';
 import type { ConnectPayrollResponse } from './types';
 
-export const listPayrollSystems = async (): Promise<
-  PaginationResponse<AccountPayrollSystemExtended>
-> => {
+export const listPayrollSystems = async (
+  options?: ListOptions,
+): Promise<PaginationResponse<AccountPayrollSystemExtended>> => {
   const response = await axiosClient.get<
     PaginationResponse<AccountPayrollSystemExtended>
-  >(constructAPIURL(PAYROLL_APPLICATIONS_URL));
+  >(constructAPIURL(PAYROLL_APPLICATIONS_URL), options);
   return response.data;
 };
 
 /**
  * Get all the payroll systems the company has connected to.
  */
-export const listConnectedPayrollSystems = async (): Promise<
-  PaginationResponse<AccountPayrollSystemExtended>
-> => {
+export const listConnectedPayrollSystems = async (
+  options?: ListOptions,
+): Promise<PaginationResponse<AccountPayrollSystemExtended>> => {
   const response = await axiosClient.get<
     PaginationResponse<AccountPayrollSystemExtended>
-  >(constructAPIURL(CONNECTED_PAYROLL_APPLICATIONS_URL));
+  >(constructAPIURL(CONNECTED_PAYROLL_APPLICATIONS_URL), options);
   return response.data;
 };
 
@@ -67,6 +68,15 @@ export const listOrganisationsFromPayroll = async (
   const response = await axiosClient.get<PaginationResponse<Organisation>>(
     getOrganisationsFromPayrollURL(accountPayrollId),
     options,
+  );
+  return response.data;
+};
+
+export const getAccountPayroll = async ({
+  payroll,
+}: UsePostConnectPayrollProps): Promise<AccountPayrollSystemExtended> => {
+  const response = await axiosClient.get<AccountPayrollSystemExtended>(
+    getAccountPayrollURL(payroll),
   );
   return response.data;
 };

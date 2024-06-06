@@ -15,6 +15,12 @@ export const getConnectPayrollURL = (payroll: Payroll) => {
   return constructAPIURL(PAYROLL_APPLICATIONS_URL + `${payroll}/connect/`);
 };
 
+export const getAccountPayrollURL = (payroll: Payroll) => {
+  return constructAPIURL(
+    PAYROLL_APPLICATIONS_URL + `${payroll}/account-payroll/`,
+  );
+};
+
 export const getOrganisationsFromPayrollURL = (payrollId: number | string) => {
   return constructAPIURL(
     `${PAYROLL_APPLICATIONS_URL}${payrollId}/organisations/`,

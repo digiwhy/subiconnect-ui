@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.PUBLIC_SUBI_CONNECT_PUBLIC_BASE_URL;
+export const BASE_URL = process.env.SUBI_CONNECT_PUBLIC_BASE_URL;
 
 const axiosClient = axios.create({
   baseURL: BASE_URL,

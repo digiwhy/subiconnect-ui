@@ -1,6 +1,7 @@
-import { useDataTablePaginationContext } from "./pagination-context";
-import { useDataTableContext } from "./table-context";
-import React, { createContext, useContext, useCallback, useMemo } from "react";
+import { SearchParam } from '../../types/query';
+import { useDataTablePaginationContext } from './pagination-context';
+import { useDataTableContext } from './table-context';
+import React, { createContext, useContext, useCallback, useMemo } from 'react';
 
 interface IDataTableSearchContext {
   search: string;
@@ -13,11 +14,11 @@ export const DataTableSearchContext = createContext<
 
 export const useDataTableSearchContext = (): IDataTableSearchContext => {
   const context = useContext(
-    DataTableSearchContext as React.Context<IDataTableSearchContext>
+    DataTableSearchContext as React.Context<IDataTableSearchContext>,
   );
   if (!context) {
     throw new Error(
-      "useDataTableSearchContext must be used within a DataTableSearchProvider"
+      'useDataTableSearchContext must be used within a DataTableSearchProvider',
     );
   }
   return context;
@@ -32,19 +33,22 @@ export const DataTableSearchProvider = ({
 }: DataTableSearchProviderProps) => {
   const { getParamValue, setParamValue } = useDataTableContext();
   const { setPage } = useDataTablePaginationContext();
-  const search = useMemo(() => getParamValue("search") ?? "", [getParamValue]);
+  const search = useMemo(
+    () => getParamValue(SearchParam.SEARCH) ?? '',
+    [getParamValue],
+  );
 
   const handleSetSearch = useCallback(
     (value: string) => {
       // Change the page to DEFAULT when going from '' to 'x'
       // Change the page back to DEFAULT when going from 'x' to ''
-      if ((search === "" && value !== "") || (search !== "" && value === "")) {
+      if ((search === '' && value !== '') || (search !== '' && value === '')) {
         setPage(); // Set page to DEFAULT
       }
 
-      setParamValue("search", value);
+      setParamValue(SearchParam.SEARCH, value);
     },
-    [setParamValue, search]
+    [setParamValue, search],
   );
 
   return (

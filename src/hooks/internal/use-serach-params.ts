@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const SUBI_CONNECT_QUERY_PREFIX = 'sc_';
+export const SEARCH_PARAM_UPDATE_EVENT = 'search-param-update';
 
 const getQuery = () => {
   if (typeof window !== 'undefined') {
@@ -43,6 +44,10 @@ const useSearchParams = () => {
       const newUrl = `${protocol}//${host}${pathname}?${query.toString()}`;
       window.history.pushState({}, '', newUrl);
       setSearchParams(query);
+
+      // A hack to allow you to listen to changes
+      let _queryStringChange = new Event(SEARCH_PARAM_UPDATE_EVENT);
+      window.dispatchEvent(_queryStringChange);
     }
   };
 

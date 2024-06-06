@@ -35,7 +35,7 @@ export const usePayrollsMockData = {
         name: Payroll.QUICKBOOKS,
         bannerImg: 'https://example.com/images/quickbooks-logo.png',
         backgroundColour: '#4CAF50',
-        isConnected: false,
+        isConnected: true,
         payrollId: 101,
         mdxIntegrationInstructions:
           '# QuickBooks Integration Instructions\n\n1. Go to the QuickBooks website.\n2. Sign in with your account.\n3. Follow the on-screen instructions to integrate.',
