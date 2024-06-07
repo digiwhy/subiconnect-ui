@@ -22,6 +22,7 @@ export const useEmployeesMockData = {
         organisationName: 'Johns Bricklaying',
         syncStatus: OrganisationSyncStatus.SYNCED,
         lastSynced: new Date(),
+        salaries: [6323200, 5000000],
       },
       {
         id: 2,
@@ -32,6 +33,7 @@ export const useEmployeesMockData = {
         organisationName: 'Johns Bricklaying',
         syncStatus: OrganisationSyncStatus.SYNCED,
         lastSynced: new Date(),
+        salaries: [6323200],
       },
       {
         id: 3,
@@ -42,6 +44,7 @@ export const useEmployeesMockData = {
         organisationName: 'Bobs Bricklaying',
         syncStatus: OrganisationSyncStatus.FAILED,
         lastSynced: new Date(),
+        salaries: [6323200],
       },
       {
         id: 4,
@@ -52,6 +55,7 @@ export const useEmployeesMockData = {
         organisationName: 'Bobs Bricklaying',
         syncStatus: OrganisationSyncStatus.SYNCING,
         lastSynced: null,
+        salaries: [6323200],
       },
       {
         id: 5,
@@ -62,6 +66,7 @@ export const useEmployeesMockData = {
         organisationName: 'Bobs Bricklaying',
         syncStatus: OrganisationSyncStatus.FAILED,
         lastSynced: null,
+        salaries: [],
       },
     ],
   } satisfies PaginationResponse<Employee>,

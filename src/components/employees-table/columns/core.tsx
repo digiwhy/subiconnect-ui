@@ -1,4 +1,4 @@
-import { cn } from '../../../lib/utils';
+import { cn, formatMoney, getMoneyFromDecimals } from '../../../lib/utils';
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { Button } from '../../../ui/button';
@@ -82,6 +82,60 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
     </div>
   );
 };
+
+const SalaryColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
+  if (!row.original.salaries[0]) return '';
+
+  const salaryFormatted = getMoneyFromDecimals(row.original.salaries[0]);
+
+  const [value, setValue] = React.useState<string | undefined>(salaryFormatted);
+
+  if (!value) return null;
+
+  const getValue = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    return value;
+  };
+
+  const id = `dropdown-menu-${row.id}`;
+
+  if (row.original.salaries.length === 1) {
+    return (
+      <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
+        {value}
+      </ClipboardButton>
+    );
+  }
+
+  const salaries = row.original.salaries.map((salary) =>
+    getMoneyFromDecimals(salary),
+  );
+
+  return (
+    <div id={id} className='sc-flex sc-gap-4' data-email-value={value}>
+      <ClipboardButton data-email-value={value} getValue={getValue}>
+        {value}
+      </ClipboardButton>
+
+      <Select value={value} onValueChange={setValue}>
+        <SelectTrigger
+          className={cn('sc-flex sc-w-auto sc-gap-2 sc-border-none')}
+        >
+          {salaries.length}
+        </SelectTrigger>
+        <SelectContent>
+          {salaries.map((salary) => (
+            <SelectItem key={salary} value={salary}>
+              {salary}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
+
 export const emailColumn: ColumnDef<Employee> = {
   accessorKey: 'emails',
   id: 'emails',
@@ -89,6 +143,16 @@ export const emailColumn: ColumnDef<Employee> = {
     <DataTableColumnHeader column={column} title={'Email'} />
   ),
   cell: EmailColum,
+  headerClassName: 'sc-w-full',
+};
+
+export const salaryColumn: ColumnDef<Employee> = {
+  accessorKey: 'salaries',
+  id: 'salaries',
+  header: ({ column }) => (
+    <DataTableColumnHeader column={column} title={'Salary'} />
+  ),
+  cell: SalaryColum,
   headerClassName: 'sc-w-full',
 };
 

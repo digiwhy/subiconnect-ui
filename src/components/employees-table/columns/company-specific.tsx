@@ -2,12 +2,13 @@ import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
 import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-status';
-import { emailColumn, fullNameColumn } from './core';
+import { emailColumn, fullNameColumn, salaryColumn } from './core';
 import React from 'react';
 
 export const columns: ColumnDef<Employee>[] = [
   fullNameColumn,
   emailColumn,
+  salaryColumn,
   {
     accessorKey: 'organisation',
     header: ({ column }) => (
