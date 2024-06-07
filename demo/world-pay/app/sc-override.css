@@ -3,22 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Change the Subi Connect primary colour */
-    --sc-primary: 22.2 47.4% 11.2%;
-    --sc-primary-foreground: 21 40% 98%;
-  }
+  #custom-styles {
+    /* Change the Subi Connect colours */
+    & {
+      --sc-primary: 2.2 47.4% 11.2%;
+      --sc-primary-foreground: 21 40% 98%;
 
-  .dark {
-    --sc-primary: 210 40% 98%;
-    --sc-primary-foreground: 222.2 47.4% 11.2%;
-  }
-}
+      /* Secondary Colours (Orange) */
+      --sc-secondary: 33 100% 50%;
+      --sc-secondary-foreground: 21 40% 98%;
+    }
 
-@layer base {
-  /* Change the default font */
-  body {
-    @apply bg-background text-foreground;
+    .dark {
+      --sc-primary: 210 40% 98%;
+      --sc-primary-foreground: 222.2 47.4% 11.2%;
+    }
+
+    /* Change the default font */
     .sc-font-mainMedium,
     .sc-font {
       @apply font-mono;

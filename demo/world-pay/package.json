@@ -7,7 +7,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "@subifinancial/subi-connect": "file:../lib/subi-connect@local-01c2f.tgz",
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-table": "^8.17.3",
@@ -24,8 +26,10 @@
     "next": "14.2.3",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
+    "prism-react-renderer": "^2.3.1",
     "prop-types": "^15.8.1",
     "react": "18.3.1",
+    "react-code-block": "^1.0.0",
     "react-dom": "18.3.1",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.3.0",
