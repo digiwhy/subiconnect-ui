@@ -22,8 +22,6 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
       const newPayroll = getSearchParam(
         SearchParam.PAYROLL_SYSTEM,
       ) as Payroll | null;
-
-      console.log('handleSearchChange', newPayroll);
       setPayroll(newPayroll);
     };
 

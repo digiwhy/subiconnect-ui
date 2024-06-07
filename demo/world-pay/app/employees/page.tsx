@@ -1,6 +1,15 @@
 'use client';
 
-import { EmployeeManagementPage } from '@subifinancial/subi-connect';
+import LiftedComponent from '@/components/lifted';
+import dynamic from 'next/dynamic';
+
+const EmployeeManagementPage = dynamic(
+  () =>
+    import('@subifinancial/subi-connect').then(
+      (mod) => mod.EmployeeManagementPage
+    ),
+  { ssr: false }
+);
 
 export default function EmployeesPage() {
   return (
@@ -10,9 +19,9 @@ export default function EmployeesPage() {
           WorldPay - Employees
         </h1>
       </div>
-      <div className="w-full h-full">
+      <LiftedComponent>
         <EmployeeManagementPage />
-      </div>
+      </LiftedComponent>
     </main>
   );
 }
