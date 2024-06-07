@@ -1,0 +1,55 @@
+name: Development
+
+on:
+  push:
+    branches:
+      - dev
+
+concurrency:
+  group: dev
+  cancel-in-progress: true
+
+env:
+  WORKSPACE_DEFAULT: dev-ap-southeast-2
+  DEST_PACK_TGZ_FILE: ./demo/lib/
+  TGZ_FILE_NAME: initial-file-name
+
+jobs:
+  build:
+    name: Lint and Test Build
+    runs-on: ubuntu-latest
+    environment: ${{ env.WORKSPACE_DEFAULT }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm clean-install
+
+      - name: Lint
+        run: |
+          npm run lint
+
+      - name: Build tgz lib
+        env:
+          SUBI_CONNECT_PUBLIC_BASE_URL: ${{ secrets.SUBI_CONNECT_PUBLIC_DEFAULT_BASE_URL }}
+        run: |
+          export TGZ_FILE=$(npm pack --pack-destination="${{ env.DEST_PACK_TGZ_FILE }}")
+          echo $TGZ_FILE
+          "TGZ_FILE=${TGZ_FILE}" >> $TGZ_FILE_NAME
+          echo $TGZ_FILE_NAME
+
+      - name: Save Build tgz as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: tgz-pack
+          path: ${{ env.DEST_PACK_TGZ_FILE }}
