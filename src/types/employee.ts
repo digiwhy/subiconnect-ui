@@ -6,6 +6,7 @@ export type Employee = {
   lastName: string;
 
   emails: string[];
+  salaries: number[];
 
   organisationId: number;
   organisationName: string;

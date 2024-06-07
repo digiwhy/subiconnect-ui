@@ -30,6 +30,15 @@ export const formatMoney = (number: number): string => {
   return intl.format(number);
 };
 
+export const getMoneyFromDecimals = (
+  value: number,
+  decimals: number = 2,
+): string => {
+  const denominator = Math.pow(10, decimals);
+
+  return formatMoney(value / denominator);
+};
+
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
   return `https://subiconnect-devportal.subi.au/images/${payrollName}.svg`;
 };
