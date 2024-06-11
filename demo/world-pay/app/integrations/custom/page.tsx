@@ -1,5 +1,3 @@
-'use client';
-
 import IntegrationsPage from '../page';
 
 const CustomIntegrationsPage = () => {
