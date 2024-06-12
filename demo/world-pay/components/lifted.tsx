@@ -10,13 +10,27 @@ const LiftedComponent = ({ children }: { children: ReactNode }) => {
   return (
     <div
       className={cn(
-        'relative border border-transparent rounded-md shadow-sm transition',
+        'relative border border-transparent rounded-md shadow-sm transition overflow-hidden p-[1.5px]',
         {
-          'border-border z-50 -translate-y-0.5': liftMode
+          'border-border z-40 -translate-y-0.5': liftMode
         }
       )}
     >
-      {children}
+      <div
+        className={cn({
+          'bg-background rounded-sm z-50': liftMode
+        })}
+      >
+        {children}
+      </div>
+      <div
+        className={cn(
+          'animate-rotate hidden absolute -z-10 inset-0 h-full w-full rounded-full bg-[conic-gradient(transparent_0deg,hsl(var(--sc-primary))_120deg,transparent_0deg)]',
+          {
+            block: liftMode
+          }
+        )}
+      ></div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { getUser } from '@/services/api/authentication/actions';
-import { Me } from '../types/user';
+import { AccountUserRole, Me } from '../types/user';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useContext, useMemo, useState } from 'react';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Me } from 'types/user';
 
 export const getUser = async (): Promise<Me> => {

@@ -8,10 +8,10 @@ import { NavItem } from './nav-item';
 import { useAuthenticationContext } from 'context/authentication';
 import LiftModeSwitch from '@/components/extended/lift-switch';
 import { useLiftMode } from '@/context/lift-mode';
+import ProtectedRoute from '@/components/protected-route';
+import { cn } from '@/lib/utils';
 
 import dynamic from 'next/dynamic';
-import { cn } from '@/lib/utils';
-import ProtectedRoute from '@/components/protected-route';
 
 const SubiConnectProviderWrapper = dynamic(
   () => import('context/subi-connect-wrapper'),

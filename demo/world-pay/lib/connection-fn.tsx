@@ -1,3 +1,5 @@
+'use client';
+
 export const connectionFn = async (apiKey: string) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}authentication/company-access-token`,
