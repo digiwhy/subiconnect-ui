@@ -10,6 +10,7 @@ import copy from 'rollup-plugin-copy';
 import { dts } from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import banner2 from 'rollup-plugin-banner2'
 
 dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.production'});
 
@@ -30,6 +31,11 @@ export default [
         sourcemap: true,
       },
     ],
+    onwarn(warning, warn) {
+    if (warning.code !== 'MODULE_LEVEL_DIRECTIVE') {
+      warn(warning);
+    }
+  },
     plugins: [
       replace({
         'process.env.NODE_ENV': JSON.stringify(
@@ -41,6 +47,7 @@ export default [
         preventAssignment: true,
       }),
       peerDepsExternal(),
+      banner2(() => `'use client';`,),
       resolve({
         browser: true,
         preferBuiltins: false,
@@ -83,7 +90,7 @@ export default [
           '@babel/preset-typescript',
         ],
       }),
-      terser(),
+      terser({ compress: { directives: false } }),
       copy({
         targets: [
           {

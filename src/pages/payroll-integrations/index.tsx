@@ -1,3 +1,5 @@
+'use client';
+
 import { PayrollIntegrationList } from '../../components';
 import useSearchParams, {
   SEARCH_PARAM_UPDATE_EVENT,

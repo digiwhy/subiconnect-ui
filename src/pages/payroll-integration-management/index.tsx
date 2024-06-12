@@ -1,3 +1,5 @@
+'use client';
+
 import { PayrollIntegrationManagementTable } from '../../components';
 import Integrate from '../../components/connect-and-integrate';
 import { PayrollSystemProvider } from '../../components/payroll-integration/context';
@@ -75,7 +77,7 @@ const PayrollIntegrationManagementPage: React.FC<{
             <div className='sc-flex sc-flex-col sc-gap-1'>
               <div
                 onClick={handleBack}
-                className='sc-flex sc-flex-row sc-gap-2'
+                className='sc-flex sc-cursor-pointer sc-flex-row sc-items-center sc-gap-2'
               >
                 <ChevronLeftIcon className='sc-h-4 sc-w-4' />
                 <span className='sc-font-mainMedium sc-text-lg sc-text-secondary'>

@@ -1,3 +1,5 @@
+'use client';
+
 import { ACCESS_TOKEN_NAME } from '../constants';
 import axiosClient from '../services/axios';
 import ConnectionService from '../services/axios/connection-service';
