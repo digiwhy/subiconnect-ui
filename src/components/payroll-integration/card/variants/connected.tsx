@@ -19,9 +19,10 @@ const ConnectedAction = () => {
   return (
     <Button
       onClick={handleClick}
-      className='sc-group sc-flex sc-w-full sc-gap-2 sc-whitespace-normal'
+      variant={'outline'}
+      className='sc-group sc-flex sc-w-full sc-items-center sc-gap-2 sc-whitespace-normal'
     >
-      Connected
+      Manage
       <MoveRightIcon className='sc-h-4 sc-w-4 sc-transition-transform group-hover:sc-translate-x-1' />
     </Button>
   );

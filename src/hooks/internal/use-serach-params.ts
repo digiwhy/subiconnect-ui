@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const SUBI_CONNECT_QUERY_PREFIX = 'sc_';
-export const SEARCH_PARAM_UPDATE_EVENT = 'search-param-update';
+export const SEARCH_PARAM_UPDATE_EVENT = 'sc-search-param-update';
 
 const getQuery = () => {
   if (typeof window !== 'undefined') {
