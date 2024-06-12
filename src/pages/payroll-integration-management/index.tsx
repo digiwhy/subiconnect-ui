@@ -32,6 +32,8 @@ const Trigger = React.forwardRef<
   </Button>
 ));
 
+Trigger.displayName = 'Trigger';
+
 const PayrollIntegrationManagementPage: React.FC<{
   payroll: Payroll;
   className?: string;

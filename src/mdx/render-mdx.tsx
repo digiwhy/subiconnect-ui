@@ -4,7 +4,9 @@ import * as runtime from 'react/jsx-runtime';
 
 type RenderMDXProps = {
   mdxString: string;
-  components?: Record<string, React.ComponentType<any>>;
+  components?: {
+    [x: string]: React.FC<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  };
 };
 
 const jsxWrapper = (
@@ -30,3 +32,5 @@ export const RenderMDX: React.FC<RenderMDXProps> = React.memo(
     return <Content components={components} />;
   },
 );
+
+RenderMDX.displayName = 'RenderMDX';

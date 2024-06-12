@@ -46,7 +46,7 @@ const useSearchParams = () => {
       setSearchParams(query);
 
       // A hack to allow you to listen to changes
-      let _queryStringChange = new Event(SEARCH_PARAM_UPDATE_EVENT);
+      const _queryStringChange = new Event(SEARCH_PARAM_UPDATE_EVENT);
       window.dispatchEvent(_queryStringChange);
     }
   };

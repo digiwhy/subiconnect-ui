@@ -17,14 +17,17 @@ const API_KEY_NOT_VALID =
 
 // Mapping other components
 const otherComponents = Object.keys(otherComponentsMap).reduce(
-  (acc: Record<string, React.FC<any>>, key) => {
+  (
+    acc: Record<string, React.FC<any>>, // eslint-disable-line @typescript-eslint/no-explicit-any
+    key,
+  ) => {
     const Component = otherComponentsMap[key];
     if (!Component)
       throw new Error(
         `Component for key "${key}" is not defined in the components map.`,
       );
     // Register each component with its name as the form field key
-    acc[key] = (props: React.FC<any>) => <Component {...props} />;
+    acc[key] = (props: React.FC<any>) => <Component {...props} />; // eslint-disable-line @typescript-eslint/no-explicit-any
     return acc;
   },
   {},
@@ -73,7 +76,17 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
     const formComponents = React.useMemo(
       () =>
         Object.keys(formComponentsMap).reduce(
-          (acc: Record<string, React.ComponentType<any>>, key) => {
+          (
+            acc: Record<
+              string,
+              React.FC<
+                React.PropsWithoutRef<
+                  React.InputHTMLAttributes<HTMLInputElement>
+                >
+              >
+            >,
+            key,
+          ) => {
             const Component = formComponentsMap[key];
             if (!Component)
               throw new Error(
@@ -81,7 +94,9 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
               );
             // Register each component with its name as the form field key
             acc[Component.displayName ?? key] = (
-              props: React.ComponentType<any>,
+              props: React.PropsWithoutRef<
+                React.InputHTMLAttributes<HTMLInputElement>
+              >,
             ) => (
               <Component {...props} {...register(key, { required: true })} />
             );
@@ -126,3 +141,6 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
       </div>
     );
   });
+
+CustomPayrollIntegrationWorkflow.displayName =
+  'CustomPayrollIntegrationWorkflow';

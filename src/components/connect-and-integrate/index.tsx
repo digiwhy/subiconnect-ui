@@ -131,4 +131,6 @@ const Integrate: React.FC<{
   );
 });
 
+Integrate.displayName = 'Integrate';
+
 export default Integrate;

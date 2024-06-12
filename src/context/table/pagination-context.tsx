@@ -1,13 +1,7 @@
 import { SearchParam } from '../../types/query';
 import { useDataTableContext } from './table-context';
 import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import React from 'react';
 
 const DEFAULT_PAGE = 1 as const;
 const DEFAULT_PAGE_SIZE = 10 as const;
@@ -18,13 +12,13 @@ interface IDataTablePaginationContext {
   setPage: (page?: number) => void;
 }
 
-export const DataTablePaginationContext = createContext<
+export const DataTablePaginationContext = React.createContext<
   IDataTablePaginationContext | undefined
 >(undefined);
 
 export const useDataTablePaginationContext =
   (): IDataTablePaginationContext => {
-    const context = useContext(
+    const context = React.useContext(
       DataTablePaginationContext as React.Context<IDataTablePaginationContext>,
     );
     if (!context) {
@@ -66,17 +60,19 @@ export const DataTablePaginationProvider = ({
 }: DataTablePaginationProviderProps) => {
   const { getParamValue, setParamValue } = useDataTableContext();
 
-  const page = useMemo(
+  const page = React.useMemo(
     () => handlePageParams(getParamValue(SearchParam.PAGE), DEFAULT_PAGE),
     [getParamValue],
   );
 
-  const [paginationState, setPaginationState] = useState<PaginationState>({
-    pageIndex: page - 1,
-    pageSize: DEFAULT_PAGE_SIZE,
-  });
+  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+    {
+      pageIndex: page - 1,
+      pageSize: DEFAULT_PAGE_SIZE,
+    },
+  );
 
-  const handleSetPage = useCallback((page: number = DEFAULT_PAGE) => {
+  const handleSetPage = React.useCallback((page: number = DEFAULT_PAGE) => {
     const validatedPage = Math.max(page, DEFAULT_PAGE);
 
     setPaginationState((prev) => {

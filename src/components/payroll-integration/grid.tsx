@@ -60,7 +60,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
               {!!data && windowFailed && (
                 <div className='sc-flex sc-flex-col'>
                   <span>
-                    If you can't see the authenitcation window, please{' '}
+                    If you can&apos;t see the authenitcation window, please{' '}
                   </span>
                   <Button onClick={handleAuthWindow} variant={'link'}>
                     click here.

@@ -1,19 +1,19 @@
 import { SearchParam } from '../../types/query';
 import { useDataTablePaginationContext } from './pagination-context';
 import { useDataTableContext } from './table-context';
-import React, { createContext, useContext, useCallback, useMemo } from 'react';
+import React from 'react';
 
 interface IDataTableSearchContext {
   search: string;
   setSearch: (value: string) => void;
 }
 
-export const DataTableSearchContext = createContext<
+export const DataTableSearchContext = React.createContext<
   IDataTableSearchContext | undefined
 >(undefined);
 
 export const useDataTableSearchContext = (): IDataTableSearchContext => {
-  const context = useContext(
+  const context = React.useContext(
     DataTableSearchContext as React.Context<IDataTableSearchContext>,
   );
   if (!context) {
@@ -33,12 +33,12 @@ export const DataTableSearchProvider = ({
 }: DataTableSearchProviderProps) => {
   const { getParamValue, setParamValue } = useDataTableContext();
   const { setPage } = useDataTablePaginationContext();
-  const search = useMemo(
+  const search = React.useMemo(
     () => getParamValue(SearchParam.SEARCH) ?? '',
     [getParamValue],
   );
 
-  const handleSetSearch = useCallback(
+  const handleSetSearch = React.useCallback(
     (value: string) => {
       // Change the page to DEFAULT when going from '' to 'x'
       // Change the page back to DEFAULT when going from 'x' to ''

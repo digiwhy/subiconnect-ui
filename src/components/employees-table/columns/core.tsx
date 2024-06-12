@@ -1,4 +1,4 @@
-import { cn, formatMoney, getMoneyFromDecimals } from '../../../lib/utils';
+import { cn, getMoneyFromDecimals } from '../../../lib/utils';
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { Button } from '../../../ui/button';

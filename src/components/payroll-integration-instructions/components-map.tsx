@@ -5,7 +5,9 @@ import React from 'react';
 
 export const formComponentsMap: Record<
   string,
-  React.ForwardRefExoticComponent<any>
+  React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<React.InputHTMLAttributes<HTMLInputElement>>
+  >
 > = {
   apiKey: ApiKeyInput,
   domain: DomainInput,
@@ -13,7 +15,7 @@ export const formComponentsMap: Record<
 
 export const otherComponentsMap: Record<
   string,
-  React.FunctionComponent<any>
+  React.FunctionComponent<any> // eslint-disable-line @typescript-eslint/no-explicit-any
 > = {
   VideoTutorial,
 };
