@@ -20,6 +20,8 @@ const Trigger = React.forwardRef<
   </Button>
 ));
 
+Trigger.displayName = 'Trigger';
+
 const ConnectAction: React.FC = () => {
   const queryClient = useQueryClient();
 

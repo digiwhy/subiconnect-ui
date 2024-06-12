@@ -1,6 +1,8 @@
 import React from 'react';
 
-type VideoTutorialProps = React.InputHTMLAttributes<HTMLIFrameElement>;
+type VideoTutorialProps = {
+  src: string;
+};
 
 const VideoTutorial: React.FC<VideoTutorialProps> = (props) => (
   <div className='sc-iframe-container'>
@@ -11,7 +13,7 @@ const VideoTutorial: React.FC<VideoTutorialProps> = (props) => (
       loading='lazy'
     >
       Your browser does not support our video player. You can view the video{' '}
-      <a href={props.src} target='_blank'>
+      <a href={props.src} target='_blank' rel='noreferrer'>
         here
       </a>
       {/*

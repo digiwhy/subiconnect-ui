@@ -17,7 +17,7 @@ type DataTableToolbarProps<TData, TValue = unknown> = {
 export function DataTableToolbar<TData, TCreate>({
   table,
   hideSearchBar = false,
-  filterOptions = [],
+  // filterOptions = [], // TODO: implement filter options
 }: Readonly<DataTableToolbarProps<TData, TCreate>>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const {

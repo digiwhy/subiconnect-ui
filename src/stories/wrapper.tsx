@@ -23,7 +23,7 @@ const connectionFn = async () => {
 export const withSubiConnectProvider = <T extends object>(
   Component: React.ComponentType<T>,
 ) => {
-  return (props: T) => (
+  const WrappedComponent = (props: T) => (
     <QueryClientProvider client={queryClient}>
       <SubiConnectProvider connectionFn={connectionFn}>
         <div className='subi-connect'>
@@ -32,4 +32,6 @@ export const withSubiConnectProvider = <T extends object>(
       </SubiConnectProvider>
     </QueryClientProvider>
   );
+
+  return WrappedComponent;
 };

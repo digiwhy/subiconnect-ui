@@ -40,6 +40,7 @@ const CommandInput = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     className='sc-flex sc-items-center sc-border-b sc-px-3'
+    /* eslint-disable react/no-unknown-property */
     cmdk-input-wrapper=''
   >
     <Search className='sc-mr-2 sc-h-4 sc-w-4 sc-shrink-0 sc-opacity-50' />
