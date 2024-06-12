@@ -1,12 +1,11 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
 
 interface WindowDisplayProps {
   searchBar?: string;
   className?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 const WindowDisplay = ({

@@ -2,9 +2,8 @@
 
 import { cn } from '@/lib/utils';
 import { useLiftMode } from 'context/lift-mode';
-import { ReactNode } from 'react';
 
-const LiftedComponent = ({ children }: { children: ReactNode }) => {
+const LiftedComponent = ({ children }: { children: React.ReactNode }) => {
   const { liftMode } = useLiftMode();
 
   return (

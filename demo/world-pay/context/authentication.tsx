@@ -1,9 +1,9 @@
 'use client';
 
 import { getUser } from '@/services/api/authentication/actions';
-import { AccountUserRole, Me } from '../types/user';
+import { Me } from '../types/user';
 import { useQuery } from '@tanstack/react-query';
-import { createContext, useContext, useMemo, useState } from 'react';
+import React from 'react';
 
 interface IAutheticationContext {
   isLoading: boolean;
@@ -20,14 +20,14 @@ interface IAutheticationContextNotAuthenticated extends IAutheticationContext {
   user: undefined;
 }
 
-export const AuthenticationContext = createContext<
+export const AuthenticationContext = React.createContext<
   | IAutheticationContextNotAuthenticated
   | IAutheticationContextAuthenticated
   | undefined
 >(undefined);
 
 export const useAuthenticationContext = (): IAutheticationContext => {
-  const context = useContext(AuthenticationContext);
+  const context = React.useContext(AuthenticationContext);
   if (!context) {
     throw new Error(
       'useAuthenticationContext must be used within a AuthenticationProvider'
@@ -38,7 +38,7 @@ export const useAuthenticationContext = (): IAutheticationContext => {
 
 export const useAuthenticationAuthenticatedContext =
   (): IAutheticationContextAuthenticated => {
-    const context = useContext(AuthenticationContext);
+    const context = React.useContext(AuthenticationContext);
     if (!context) {
       throw new Error(
         'useAuthenticationAuthenticatedContext must be used within a AuthenticationProvider'
@@ -60,16 +60,16 @@ interface AuthenticationProviderProps {
 export const AuthenticationProvider = ({
   children
 }: AuthenticationProviderProps) => {
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKey, setApiKey] = React.useState<string>('');
 
   const { data: user, isLoading } = useQuery<Me>({
     queryKey: ['me'],
     queryFn: getUser
   });
 
-  const isLoggedIn = useMemo(() => user !== undefined, [user]);
+  const isLoggedIn = React.useMemo(() => user !== undefined, [user]);
 
-  const value = useMemo(
+  const value = React.useMemo(
     () => ({
       user,
       isLoggedIn,

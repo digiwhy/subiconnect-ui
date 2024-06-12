@@ -1,7 +1,7 @@
 'use client';
 
 import { SubiConnectProvider } from '@subifinancial/subi-connect';
-import { useCallback } from 'react';
+import React from 'react';
 import { useAuthenticationAuthenticatedContext } from './authentication';
 import { connectionFn } from '@/lib/connection-fn';
 
@@ -12,7 +12,7 @@ const SubiConnectProviderWrapper = ({
 }) => {
   const { apiKey } = useAuthenticationAuthenticatedContext();
 
-  const completeConnectionFn = useCallback(async () => {
+  const completeConnectionFn = React.useCallback(async () => {
     return await connectionFn(apiKey);
   }, [apiKey]);
 

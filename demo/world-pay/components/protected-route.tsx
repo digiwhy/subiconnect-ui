@@ -1,10 +1,9 @@
 import { useAuthenticationContext } from 'context/authentication';
 import { LoaderCircle } from 'lucide-react';
 import Link from 'next/link';
-import { ReactNode } from 'react';
 
 interface ProtectedRouteProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
