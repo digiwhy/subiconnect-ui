@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import { useAuthenticationAuthenticatedContext } from 'context/authentication';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { CodeBlock } from 'react-code-block';
 
 const codeTemplate = `const connectionFn = async ({referenceId, name}: {referenceId: string, name: string}) => {
@@ -99,10 +99,10 @@ const API_KEY_LINE = 8;
 
 const SimulatedBackendCodeBlock = () => {
   const { apiKey, setApiKey } = useAuthenticationAuthenticatedContext();
-  const [hide, setHide] = useState<boolean>(true);
-  const [localApi, setLocalApi] = useState<string>(apiKey);
+  const [hide, setHide] = React.useState<boolean>(true);
+  const [localApi, setLocalApi] = React.useState<string>(apiKey);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (hide && localApi !== apiKey) {
       setApiKey(localApi);
     }
@@ -187,7 +187,7 @@ const SimulatedBackendCodeBlock = () => {
           </div>
 
           <CodeBlock.Code className="!px-0 text-sm">
-            {({ isLineHighlighted, lineNumber }) => (
+            {({ isLineHighlighted }) => (
               <div
                 className={`table-row flex items-center ${
                   isLineHighlighted && apiKey ? 'bg-emerald-400/25' : ''

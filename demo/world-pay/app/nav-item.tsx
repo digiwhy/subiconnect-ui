@@ -3,13 +3,12 @@
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ComponentProps } from 'react';
 
 type NavItemProps = {
   href: string;
   disabled?: boolean;
   children: React.ReactNode;
-} & ComponentProps<typeof Link>;
+} & React.ComponentProps<typeof Link>;
 export function NavItem({
   href,
   children,

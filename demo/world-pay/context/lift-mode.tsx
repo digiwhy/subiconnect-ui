@@ -1,19 +1,19 @@
 'use client';
 
-import { createContext, useState, ReactNode, useContext } from 'react';
+import React from 'react';
 
 interface LiftModeContextType {
   liftMode: boolean;
   setLiftMode: (value: boolean) => void;
 }
 
-export const LiftModeContext = createContext<LiftModeContextType>({
+export const LiftModeContext = React.createContext<LiftModeContextType>({
   liftMode: false,
   setLiftMode: () => {}
 });
 
 export const useLiftMode = (): LiftModeContextType => {
-  const context = useContext(LiftModeContext);
+  const context = React.useContext(LiftModeContext);
   if (!context) {
     throw new Error('useLiftMode must be used within a LiftModeProvider');
   }
@@ -21,8 +21,12 @@ export const useLiftMode = (): LiftModeContextType => {
   return context;
 };
 
-export const LiftModeProvider = ({ children }: { children: ReactNode }) => {
-  const [liftMode, setLiftMode] = useState(false);
+export const LiftModeProvider = ({
+  children
+}: {
+  children: React.ReactNode;
+}) => {
+  const [liftMode, setLiftMode] = React.useState(false);
 
   return (
     <LiftModeContext.Provider value={{ liftMode, setLiftMode }}>
