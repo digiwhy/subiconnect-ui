@@ -8,6 +8,10 @@ storybook-static/**/*
 postcss.config.js
 rollup.config.mjs
 tailwind.config.js
+demo
+assets
+scripts
+
 
 !dist/*
 !dist/**/*

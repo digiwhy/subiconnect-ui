@@ -1,8 +1,7 @@
-'use client';
-
 import { ACCESS_TOKEN_NAME } from '../constants';
 import axiosClient from '../services/axios';
 import ConnectionService from '../services/axios/connection-service';
+import type { SubiConnectAccessToken } from '../types/main';
 import React from 'react';
 
 type SubiConnectContext = {
