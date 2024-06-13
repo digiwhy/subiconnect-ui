@@ -9,6 +9,7 @@ import { handleOAuth2OnSuccess } from '../../services/auth2.0/auth-window';
 import { Button } from '../../ui/button';
 import { Dialogue, DialogueTrigger, DialogueContent } from '../../ui/dialogue';
 import { usePayrollSystemContext } from '../payroll-integration/context';
+import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
 const Integrate: React.FC<{
@@ -22,6 +23,19 @@ const Integrate: React.FC<{
   const { mutateAsync, isPending } = usePostConnectPayroll();
   const { setIsPending, setData, setWindowFailed } =
     usePayrollIntegrationContext();
+  const queryClient = useQueryClient();
+
+  const handleSetPending = React.useCallback(
+    (pending: React.SetStateAction<boolean>) => {
+      setIsPending(pending);
+
+      // Invalidate query after setting the pending state
+      queryClient.invalidateQueries({
+        queryKey: ['subi-connect', 'payroll system'],
+      });
+    },
+    [setIsPending],
+  );
 
   const handleWorkflowOnSuccess = React.useCallback(() => {
     onSuccess();
@@ -48,7 +62,7 @@ const Integrate: React.FC<{
           await handleOAuth2OnSuccess(
             authWindow,
             data.redirectUri,
-            setIsPending,
+            handleSetPending,
             setWindowFailed,
             onSuccess,
           );

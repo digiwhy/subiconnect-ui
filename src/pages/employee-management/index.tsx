@@ -1,17 +1,14 @@
-'use client';
-
 import { EmployeesTable } from '../../components';
 import { columns } from '../../components/employees-table/columns/company-specific';
-// import { useOrganisations } from '../../hooks';
 import { cn } from '../../lib/utils';
 import React from 'react';
 
 const EmployeeManagementPage: React.FC<{
   className?: string;
 }> = ({ className }) => {
-  // TODO:
-
+  // TODO: get the sync status of the organisation -- indicate if employees are still being synced
   // const {} = useOrganisations;
+
   return (
     <div
       className={cn(

@@ -1,4 +1,5 @@
 import { logOnDev } from '../../../lib/utils';
+import type { SubiConnectAccessToken } from '../../../types/main';
 
 /**
  * Function to handle token retrieval.
