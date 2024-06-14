@@ -1,12 +1,12 @@
-name: Development
+name: Staging
 
 on:
   push:
     branches:
-      - dev
+      - staging
 
 concurrency:
-  group: dev
+  group: stg
   cancel-in-progress: true
   
 env:
@@ -19,7 +19,7 @@ jobs:
   build-lib-tgz:
     name: Build subi-connect lib
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: stg-ap-southeast-2
     env:
       SUBI_CONNECT_PUBLIC_BASE_URL: ${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }}
     permissions:
@@ -54,7 +54,7 @@ jobs:
     name: Build subi-connect demo
     runs-on: ubuntu-latest
     needs: [build-lib-tgz]
-    environment: dev-ap-southeast-2
+    environment: stg-ap-southeast-2
     env:
       VITE_BASE_COMPONENTS_API: ${{ secrets.VITE_BASE_COMPONENTS_API }}
       VITE_BASE_PORTAL_API: ${{ secrets.VITE_BASE_PORTAL_API }}
@@ -96,7 +96,7 @@ jobs:
   deploy-demo:
     name: Deploy subi-connect demo
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: stg-ap-southeast-2
     needs: [build-demo]
     permissions:
       id-token: write
@@ -122,7 +122,7 @@ jobs:
   invalidate-demo-cache:
     name: Invalidate subi-connect demo cache
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: stg-ap-southeast-2
     needs: [deploy-demo]
     permissions:
       id-token: write
