@@ -7,7 +7,7 @@ import { CodeBlock } from 'react-code-block';
 
 const codeTemplate = `const connectionFn = async ({referenceId, name}: {referenceId: string, name: string}) => {
   const response = await fetch(
-    '${import.meta.env.VITE_BASE_API_URL}authentication/company-access-token',
+    '${import.meta.env.VITE_BASE_COMPONENTS_API}authentication/company-access-token',
     {
       method: 'POST',
       headers: {

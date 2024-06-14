@@ -4,7 +4,7 @@ import { Me } from 'types/user';
 
 export const getUser = async (): Promise<Me> => {
   const response = await fetch(
-    `${import.meta.env.VITE_BASE_API_URL}account-user/me/`,
+    `${import.meta.env.VITE_BASE_PORTAL_API}account-user/me/`,
     {
       method: 'GET',
       headers: {
