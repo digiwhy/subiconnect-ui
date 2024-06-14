@@ -1,4 +1,4 @@
-import { cn, getMoneyFromDecimals } from '../../../lib/utils';
+import { getMoneyFromDecimals } from '../../../lib/utils';
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { Button } from '../../../ui/button';
@@ -11,12 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '../../../ui/dropdown-menu';
 import ClipboardButton from '../../../ui/extended/table/columns/copy';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-} from '../../../ui/select';
 import type { CellContext } from '@tanstack/react-table';
 import { MoreHorizontal } from 'lucide-react';
 import React from 'react';
@@ -27,21 +21,19 @@ export const fullNameColumn: ColumnDef<Employee> = {
     <DataTableColumnHeader column={column} title={'Employee'} />
   ),
   cell: ({ row }) => {
-    const firstName = row.original.firstName;
-    const lastName = row.original.lastName;
+    const firstName = row.original.info.firstName;
+    const lastName = row.original.info.lastName;
 
     return `${firstName} ${lastName}`;
   },
 };
 
 const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
-  const [value, setValue] = React.useState<string | undefined>(
-    row.original.emails[0],
+  const [value, _setValue] = React.useState<string | undefined>(
+    row.original.info.email,
   );
 
   if (!value) return null;
-
-  const emails = row.original.emails;
 
   const getValue = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -51,44 +43,21 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
 
   const id = `dropdown-menu-${row.id}`;
 
-  if (emails.length === 1) {
-    return (
-      <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
-        {value}
-      </ClipboardButton>
-    );
-  }
-
   return (
-    <div id={id} className='sc-flex sc-gap-4' data-email-value={value}>
-      <ClipboardButton data-email-value={value} getValue={getValue}>
-        {value}
-      </ClipboardButton>
-
-      <Select value={value} onValueChange={setValue}>
-        <SelectTrigger
-          className={cn('sc-flex sc-w-auto sc-gap-2 sc-border-none')}
-        >
-          {emails.length}
-        </SelectTrigger>
-        <SelectContent>
-          {row.original.emails.map((email) => (
-            <SelectItem key={email} value={email}>
-              {email}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
+      {value}
+    </ClipboardButton>
   );
 };
 
 const SalaryColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
-  if (!row.original.salaries[0]) return '';
+  if (!row.original.info.salary?.value) return '';
 
-  const salaryFormatted = getMoneyFromDecimals(row.original.salaries[0]);
+  const salaryFormatted = getMoneyFromDecimals(row.original.info.salary.value);
 
-  const [value, setValue] = React.useState<string | undefined>(salaryFormatted);
+  const [value, _setValue] = React.useState<string | undefined>(
+    salaryFormatted,
+  );
 
   if (!value) return null;
 
@@ -100,45 +69,16 @@ const SalaryColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
 
   const id = `dropdown-menu-${row.id}`;
 
-  if (row.original.salaries.length === 1) {
-    return (
-      <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
-        {value}
-      </ClipboardButton>
-    );
-  }
-
-  const salaries = row.original.salaries.map((salary) =>
-    getMoneyFromDecimals(salary),
-  );
-
   return (
-    <div id={id} className='sc-flex sc-gap-4' data-email-value={value}>
-      <ClipboardButton data-email-value={value} getValue={getValue}>
-        {value}
-      </ClipboardButton>
-
-      <Select value={value} onValueChange={setValue}>
-        <SelectTrigger
-          className={cn('sc-flex sc-w-auto sc-gap-2 sc-border-none')}
-        >
-          {salaries.length}
-        </SelectTrigger>
-        <SelectContent>
-          {salaries.map((salary) => (
-            <SelectItem key={salary} value={salary}>
-              {salary}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
+      {value}
+    </ClipboardButton>
   );
 };
 
 export const emailColumn: ColumnDef<Employee> = {
-  accessorKey: 'emails',
-  id: 'emails',
+  accessorKey: 'email',
+  id: 'email',
   header: ({ column }) => (
     <DataTableColumnHeader column={column} title={'Email'} />
   ),
@@ -147,8 +87,8 @@ export const emailColumn: ColumnDef<Employee> = {
 };
 
 export const salaryColumn: ColumnDef<Employee> = {
-  accessorKey: 'salaries',
-  id: 'salaries',
+  accessorKey: 'salary',
+  id: 'salary',
   header: ({ column }) => (
     <DataTableColumnHeader column={column} title={'Salary'} />
   ),

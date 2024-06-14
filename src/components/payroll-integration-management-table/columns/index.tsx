@@ -1,7 +1,7 @@
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Organisation } from '../../../types/organisation';
 import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
-import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-status';
+import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-date';
 import { dateConnectedColumn } from './date';
 import React from 'react';
 

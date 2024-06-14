@@ -1,12 +1,15 @@
 import { EmployeesTable } from '../../components';
 import { columns } from '../../components/employees-table/columns/company-specific';
 import { cn } from '../../lib/utils';
+import { EmployeeAllowedSelectProps } from '../../services/api/employee/types';
 import React from 'react';
 
 const EmployeeManagementPage: React.FC<{
   className?: string;
-}> = ({ className }) => {
-  // TODO: get the sync status of the organisation -- indicate if employees are still being synced
+  enabledColumns?: EmployeeAllowedSelectProps[];
+}> = ({ className, enabledColumns = [] }) => {
+  // TODO:
+
   // const {} = useOrganisations;
 
   return (
@@ -24,7 +27,7 @@ const EmployeeManagementPage: React.FC<{
         </div>
       </div>
       <div className='sc-h-full sc-w-full'>
-        <EmployeesTable columns={columns} />
+        <EmployeesTable columns={columns} enabledColumns={enabledColumns} />
       </div>
     </div>
   );

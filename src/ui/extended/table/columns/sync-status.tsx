@@ -1,14 +1,13 @@
-import { DATE_FORMAT } from '../../../../constants';
 import type { ColumnDef } from '../../../../types/components/data-table';
+import type { Employee } from '../../../../types/employee';
 import { OrganisationSyncStatus } from '../../../../types/organisation';
 import { DataTableColumnHeader } from '../../../data-table-column-header';
-import { format } from 'date-fns';
-import { CircleAlertIcon, LoaderCircleIcon } from 'lucide-react';
+import { CircleAlertIcon, CircleCheck, LoaderCircleIcon } from 'lucide-react';
 import React from 'react';
 
 const SyncFailed: React.FC = () => {
   return (
-    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-text-right'>
+    <div className='sc-items-left sc-flex sc-flex-row sc-justify-end sc-gap-2 sc-text-left'>
       <CircleAlertIcon className='sc-h-4 sc-w-4 sc-text-red-500' />
       <span className='sc-text-red-500'>Sync failed</span>
     </div>
@@ -27,38 +26,30 @@ const Syncing: React.FC = () => {
 const Success: React.FC<{ lastSynced: Date | null }> = ({ lastSynced }) => {
   if (!lastSynced) return;
 
-  const formatted = format(lastSynced, DATE_FORMAT);
-
   return (
-    <div className='sc-flex sc-items-center sc-justify-end sc-whitespace-nowrap sc-text-right'>
-      <span>{formatted}</span>
+    <div className='sc-items-left sc-flex sc-flex-row sc-justify-end sc-gap-2 sc-text-left'>
+      <CircleCheck className='sc-h-4 sc-w-4 sc-text-green-500' />
+      <span className='sc-text-green-500'>Sync success</span>
     </div>
   );
-};
-
-type BaseColumn = {
-  lastSynced: Date | null;
-  syncStatus: OrganisationSyncStatus;
 };
 
 type OmittedProps<T> = keyof Pick<ColumnDef<T>, 'accessorKey'>;
 type Props<T> = Omit<ColumnDef<T>, OmittedProps<T>>;
 
-export const lastSyncedColumn = <T extends BaseColumn>(props?: Props<T>) =>
+export const syncStatusColumn = <T extends Employee>(props?: Props<T>) =>
   ({
     accessorKey: 'syncStatus',
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title={'Last synced'}
+        title={'Sync Status'}
         className='sc-flex sc-justify-end'
       />
     ),
     cell: ({ row }) => {
-      const label = row.original.syncStatus;
-      const lastSynced: Date | null = row.original.lastSynced;
-
-      if (!label) return null;
+      const label = row.original.metadata.sync.status;
+      const lastSynced: Date | null = row.original.metadata.sync.lastSyncAt;
 
       switch (label) {
         case OrganisationSyncStatus.SYNCED:

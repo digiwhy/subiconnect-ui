@@ -1,4 +1,5 @@
 import EmployeeManagementPage from '.';
+import { EmployeeAllowedSelectProps } from '../../services/api/employee/types';
 import { withSubiConnectProvider } from '../../stories/wrapper';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -15,4 +16,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  args: {
+    enabledColumns: [EmployeeAllowedSelectProps.SALARY],
+  },
+};
