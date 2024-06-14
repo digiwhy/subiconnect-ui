@@ -3,7 +3,7 @@
 import LiftedComponent from '@/components/lifted';
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
 import { PayrollIntegrationsPage } from '@subifinancial/subi-connect';
-import { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const IntegrationsComponent = () => {

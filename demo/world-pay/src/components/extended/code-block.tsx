@@ -2,7 +2,7 @@
 
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
 import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { CodeBlock } from 'react-code-block';
 
 const codeTemplate = `const connectionFn = async ({referenceId, name}: {referenceId: string, name: string}) => {

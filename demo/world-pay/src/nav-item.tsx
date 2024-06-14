@@ -1,7 +1,6 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { ComponentProps } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 type NavItemProps = {
