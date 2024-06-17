@@ -1,5 +1,9 @@
 import { EmployeesTable } from '../../components';
-import { columns } from '../../components/employees-table/columns/company-specific';
+import {
+  endColumns,
+  startColumns,
+} from '../../components/employees-table/columns/company-specific';
+import { EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP } from '../../components/employees-table/consts';
 import { cn } from '../../lib/utils';
 import { EmployeeAllowedSelectProps } from '../../services/api/employee/types';
 import React from 'react';
@@ -8,9 +12,18 @@ const EmployeeManagementPage: React.FC<{
   className?: string;
   enabledColumns?: EmployeeAllowedSelectProps[];
 }> = ({ className, enabledColumns = [] }) => {
-  // TODO:
+  const enabledColumnsComponents = React.useMemo(
+    () =>
+      enabledColumns.map(
+        (enabledColumn) => EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP[enabledColumn],
+      ),
+    [enabledColumns],
+  );
 
-  // const {} = useOrganisations;
+  const finalColumns = React.useMemo(
+    () => [...startColumns, ...enabledColumnsComponents, ...endColumns],
+    [enabledColumnsComponents],
+  );
 
   return (
     <div
@@ -27,7 +40,10 @@ const EmployeeManagementPage: React.FC<{
         </div>
       </div>
       <div className='sc-h-full sc-w-full'>
-        <EmployeesTable columns={columns} enabledColumns={enabledColumns} />
+        <EmployeesTable
+          columns={finalColumns}
+          enabledColumns={enabledColumns}
+        />
       </div>
     </div>
   );

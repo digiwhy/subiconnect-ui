@@ -10,7 +10,13 @@ const queryClient = new QueryClient({});
 const connectionFn = async () => {
   const result = await axios.post(
     `${process.env.SUBI_CONNECT_PUBLIC_BASE_URL}authentication/company-access-token`,
-    { company: { referenceId: 'abc', name: 'sample company' } },
+    {
+      // company: { referenceId: 'abc', name: 'sample company' }
+      company: {
+        referenceId: 'world-pay-demo-referenceId-1',
+        name: 'Demo Company',
+      },
+    },
     {
       headers: {
         'x-api-key': process.env.VITE_DRAFT_API_KEY,

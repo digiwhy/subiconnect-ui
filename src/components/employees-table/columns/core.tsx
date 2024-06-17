@@ -29,9 +29,7 @@ export const fullNameColumn: ColumnDef<Employee> = {
 };
 
 const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
-  const [value, _setValue] = React.useState<string | undefined>(
-    row.original.info.email,
-  );
+  const value = row.original.info.email;
 
   if (!value) return null;
 
@@ -53,11 +51,7 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
 const SalaryColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
   if (!row.original.info.salary?.value) return '';
 
-  const salaryFormatted = getMoneyFromDecimals(row.original.info.salary.value);
-
-  const [value, _setValue] = React.useState<string | undefined>(
-    salaryFormatted,
-  );
+  const value = getMoneyFromDecimals(row.original.info.salary.value);
 
   if (!value) return null;
 

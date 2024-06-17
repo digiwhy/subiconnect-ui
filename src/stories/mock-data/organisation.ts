@@ -1,6 +1,6 @@
 import { getOrganisationsFromPayrollURL } from '../../services/api/payroll/paths';
 import { BASE_URL } from '../../services/axios/config';
-import { OrganisationSyncStatus } from '../../types/organisation';
+import { SyncStatus } from '../../types/main';
 
 export const useOrganisationsMockData = (id: number) => ({
   url: BASE_URL + getOrganisationsFromPayrollURL(id),
@@ -17,7 +17,7 @@ export const useOrganisationsMockData = (id: number) => ({
         numberOfEmployees: 50,
         dateConnected: new Date(),
         lastSynced: null,
-        syncStatus: OrganisationSyncStatus.SYNCING,
+        syncStatus: SyncStatus.SYNCING,
       },
 
       {
@@ -26,7 +26,7 @@ export const useOrganisationsMockData = (id: number) => ({
         numberOfEmployees: 5,
         dateConnected: new Date(),
         lastSynced: null,
-        syncStatus: OrganisationSyncStatus.SYNCING,
+        syncStatus: SyncStatus.SYNCING,
       },
       {
         id: 3,
@@ -34,7 +34,7 @@ export const useOrganisationsMockData = (id: number) => ({
         numberOfEmployees: 93,
         dateConnected: new Date(),
         lastSynced: null,
-        syncStatus: OrganisationSyncStatus.SYNCING,
+        syncStatus: SyncStatus.SYNCING,
       },
       {
         id: 4,
@@ -42,7 +42,7 @@ export const useOrganisationsMockData = (id: number) => ({
         numberOfEmployees: 55,
         dateConnected: new Date(),
         lastSynced: null,
-        syncStatus: OrganisationSyncStatus.FAILED,
+        syncStatus: SyncStatus.FAILED,
       },
       {
         id: 5,
@@ -50,7 +50,7 @@ export const useOrganisationsMockData = (id: number) => ({
         numberOfEmployees: 102,
         dateConnected: new Date(),
         lastSynced: new Date(),
-        syncStatus: OrganisationSyncStatus.SYNCED,
+        syncStatus: SyncStatus.SYNCED,
       },
     ],
   },

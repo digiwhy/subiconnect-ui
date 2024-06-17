@@ -54,9 +54,12 @@ export const integratePayroll = async ({
 
 export const connectPayroll = async ({
   payroll,
+  options,
 }: UsePostConnectPayrollProps): Promise<ConnectPayrollResponse> => {
   const response = await axiosClient.post<ConnectPayrollResponse>(
     getConnectPayrollURL(payroll),
+    {},
+    options,
   );
   return response.data;
 };

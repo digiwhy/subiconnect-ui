@@ -1,41 +1,55 @@
 import { listAllEmployees } from '../services/api/employee/actions';
 import type {
+  EmployeeAllowedSelectProps,
+  EmployeeFilterFields,
+} from '../services/api/employee/types';
+import type {
   ListOptions,
   PaginationResponse,
 } from '../types/components/data-table';
 import type { Employee } from '../types/employee';
+import type { DeepPartial } from '../types/main';
 import type { BaseQueryOptions } from '../types/query';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
-const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee', 'list'] as const;
-
-type EmployeeFilterFields = Pick<
-  Employee,
-  'firstName' | 'lastName' | 'organisationId'
->;
+const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee'] as const;
 
 type UseEmployeesOptions = {
-  filters?: Partial<EmployeeFilterFields>;
+  fields?: EmployeeAllowedSelectProps[];
+  filters?: DeepPartial<EmployeeFilterFields>;
+  listOptions?: ListOptions;
   queryOptions?: BaseQueryOptions<
     UseQueryOptions<PaginationResponse<Employee>>
   >;
 };
+
 export const useEmployees = (options?: UseEmployeesOptions) => {
+  const params = React.useMemo(
+    () => ({
+      ...options?.listOptions?.params,
+      ...options?.filters,
+      fields: options?.fields,
+    }),
+    [options?.listOptions?.params, options?.filters],
+  );
+
+  const queryKey = React.useMemo(
+    () => [...BASE_EMPLOYEES_QUERY_KEY, 'list', { filters: params }],
+    [params],
+  );
+
   const queryFn = React.useCallback(
-    async (listOptions: ListOptions) =>
+    async () =>
       listAllEmployees({
-        ...listOptions,
-        params: {
-          ...listOptions.params,
-          ...options?.filters,
-        },
+        ...options?.listOptions,
+        params: params,
       }),
-    [options],
+    [options?.listOptions, params],
   );
 
   return useQuery({
-    queryKey: BASE_EMPLOYEES_QUERY_KEY,
+    queryKey: queryKey,
     queryFn: queryFn,
     ...options?.queryOptions,
   });

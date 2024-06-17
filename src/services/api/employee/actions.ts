@@ -5,6 +5,7 @@ import type {
 import type { Employee } from '../../../types/employee';
 import axiosClient from '../../axios';
 import { getAllEmployeesURL, getEmployeesFromOrganisationURL } from './paths';
+import type { ListAllEmployeesOptions } from './types';
 
 /**
  * List all the employees for a company within a given organisation.
@@ -25,7 +26,7 @@ export const listEmployees = async (
  * List all the employees for a company in all connected organisations.
  */
 export const listAllEmployees = async (
-  options?: ListOptions,
+  options?: ListAllEmployeesOptions,
 ): Promise<PaginationResponse<Employee>> => {
   const response = await axiosClient.get<PaginationResponse<Employee>>(
     getAllEmployeesURL(),

@@ -14,7 +14,14 @@ export const BASE_ORGANISATION_QUERY_KEY = [
   'organisation',
 ] as const;
 
+type OrganisationFilterFields = Pick<
+  Organisation,
+  'name' | 'lastSynced' | 'dateConnected' | 'numberOfEmployees' | 'syncStatus'
+>;
+
 type UseOrganisationsOptions = {
+  filters?: OrganisationFilterFields;
+  listOptions?: ListOptions;
   queryOptions?: BaseQueryOptions<
     UseQueryOptions<PaginationResponse<Organisation>>
   >;
@@ -24,15 +31,30 @@ export const useOrganisations = (
   accountPayrollId: number | undefined,
   options?: UseOrganisationsOptions,
 ) => {
+  const params = React.useMemo(
+    () => ({
+      ...options?.listOptions?.params,
+      ...options?.filters,
+    }),
+    [options?.listOptions?.params, options?.filters],
+  );
+
   const queryKey = React.useMemo(
-    () => [...BASE_ORGANISATION_QUERY_KEY, 'list', { accountPayrollId }],
-    [accountPayrollId],
+    () => [
+      ...BASE_ORGANISATION_QUERY_KEY,
+      'list',
+      { accountPayrollId, filters: params },
+    ],
+    [accountPayrollId, params],
   );
 
   const queryFn = React.useCallback(
-    async (listOptions: ListOptions) =>
-      await listOrganisationsFromPayroll(accountPayrollId!, listOptions),
-    [accountPayrollId],
+    () =>
+      listOrganisationsFromPayroll(accountPayrollId!, {
+        ...options?.listOptions,
+        params: params,
+      }),
+    [accountPayrollId, options?.listOptions, params],
   );
 
   const { enabled, ...restOfQueryOptions } = options?.queryOptions ?? {

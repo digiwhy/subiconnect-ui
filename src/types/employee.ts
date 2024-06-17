@@ -1,4 +1,4 @@
-import type { OrganisationSyncStatus } from './organisation';
+import type { SyncStatus } from './main';
 import type { Payroll } from './payroll';
 
 export interface EmployeeSalary {
@@ -9,7 +9,7 @@ export interface EmployeeSalary {
 export interface EmployeeSync {
   lastSyncAt: Date;
   syncedAt?: Date;
-  status: OrganisationSyncStatus;
+  status: SyncStatus;
 }
 
 export interface EmployeeInfo {
@@ -20,7 +20,7 @@ export interface EmployeeInfo {
   email?: string;
   salary?: EmployeeSalary;
 }
-export interface EmployeePayrollOrganization {
+export interface EmployeePayrollOrganisation {
   id: number;
   name: string;
   referenceId: string;
@@ -35,7 +35,7 @@ export interface EmployeeMetadata {
 export interface EmployeePayroll {
   name: Payroll;
   referenceEmployeeId: string;
-  organisation: EmployeePayrollOrganization;
+  organisation: EmployeePayrollOrganisation;
 }
 
 export type Employee = {

@@ -115,11 +115,11 @@ export const DataTableProvider = <TData,>({
   );
 
   const params = React.useMemo(() => {
-    const page = getParamValue(SearchParam.PAGE);
+    const page = Number.parseInt(getParamValue(SearchParam.PAGE) ?? '');
     const search = getParamValue(SearchParam.SEARCH);
 
     return {
-      ...(page !== '' && { page: page }),
+      ...(!Number.isNaN(page) && { page: page }),
       ...(search && { search }),
       // TODO: [pageSizeParam]: paginationState.pageSize,
     };
@@ -130,8 +130,7 @@ export const DataTableProvider = <TData,>({
       'subi-connect',
       name.toLowerCase(),
       'list',
-      ...queryKeyFilters,
-      params,
+      { filters: { ...params, ...queryKeyFilters } },
     ];
   }, [name, queryKeyFilters, params]);
 
