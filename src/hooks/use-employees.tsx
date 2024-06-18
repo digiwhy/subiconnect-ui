@@ -1,13 +1,10 @@
 import { listAllEmployees } from '../services/api/employee/actions';
-import type {
-  EmployeeAllowedSelectProps,
-  EmployeeFilterFields,
-} from '../services/api/employee/types';
+import type { EmployeeFilterFields } from '../services/api/employee/types';
 import type {
   ListOptions,
   PaginationResponse,
 } from '../types/components/data-table';
-import type { Employee } from '../types/employee';
+import type { Employee, SelectableEmployeeColumns } from '../types/employee';
 import type { DeepPartial } from '../types/main';
 import type { BaseQueryOptions } from '../types/query';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
@@ -16,7 +13,7 @@ import React from 'react';
 const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee'] as const;
 
 type UseEmployeesOptions = {
-  fields?: EmployeeAllowedSelectProps[];
+  fields?: SelectableEmployeeColumns[];
   filters?: DeepPartial<EmployeeFilterFields>;
   listOptions?: ListOptions;
   queryOptions?: BaseQueryOptions<

@@ -5,12 +5,12 @@ import {
 } from '../../components/employees-table/columns/company-specific';
 import { EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP } from '../../components/employees-table/consts';
 import { cn } from '../../lib/utils';
-import { EmployeeAllowedSelectProps } from '../../services/api/employee/types';
+import type { SelectableEmployeeColumns } from '../../types/employee';
 import React from 'react';
 
 const EmployeeManagementPage: React.FC<{
   className?: string;
-  enabledColumns?: EmployeeAllowedSelectProps[];
+  enabledColumns?: SelectableEmployeeColumns[];
 }> = ({ className, enabledColumns = [] }) => {
   const enabledColumnsComponents = React.useMemo(
     () =>

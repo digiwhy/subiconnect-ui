@@ -1,13 +1,12 @@
 import { listAllEmployees } from '../../services/api/employee/actions';
-import { EmployeeAllowedSelectProps } from '../../services/api/employee/types';
 import type { ColumnDef, ListOptions } from '../../types/components/data-table';
-import type { Employee } from '../../types/employee';
+import type { Employee, SelectableEmployeeColumns } from '../../types/employee';
 import GenericTable from '../../ui/extended/table/generic-table';
 import React from 'react';
 
 const EmployeesTable: React.FC<{
   columns: ColumnDef<Employee>[];
-  enabledColumns?: EmployeeAllowedSelectProps[];
+  enabledColumns?: SelectableEmployeeColumns[];
 }> = ({ columns, enabledColumns = [] }) => {
   const listAction = React.useCallback(
     (options: ListOptions | undefined) =>

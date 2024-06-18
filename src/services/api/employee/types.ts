@@ -1,10 +1,9 @@
 import type { ListOptions } from '../../../types/components/data-table';
-import type { Employee } from '../../../types/employee';
+import type {
+  Employee,
+  SelectableEmployeeColumns,
+} from '../../../types/employee';
 import type { DeepPartial } from '../../../types/main';
-
-export enum EmployeeAllowedSelectProps {
-  SALARY = 'salary',
-}
 
 export type GetEmployeesResponse = Employee[];
 
@@ -17,6 +16,6 @@ export type ListAllEmployeesOptions = ListOptions &
   Partial<EmployeeFilterFields> & {
     params?: ListOptions['params'] &
       DeepPartial<EmployeeFilterFields> & {
-        fields?: EmployeeAllowedSelectProps[];
+        fields?: SelectableEmployeeColumns[];
       };
   };
