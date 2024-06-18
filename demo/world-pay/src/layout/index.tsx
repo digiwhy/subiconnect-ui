@@ -43,6 +43,11 @@ export default function MainLayout() {
                 Employees
               </NavItem>
 
+              <NavItem to="/employees/custom" disabled={!apiKey}>
+                <UsersIcon className="h-4 w-4" />
+                Employees - Custom Columns
+              </NavItem>
+
               <br />
               <NavItem to="/backend">
                 <ServerIcon className="h-4 w-4" />

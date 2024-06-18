@@ -15,6 +15,7 @@ import IndexPage from '@/page';
 import IntegrationsPage from '@/pages/integrations/page';
 import CustomIntegrationsPage from '@/pages/integrations/custom/page';
 import SimulatedBackend from '@/pages/backend/page';
+import CustomColumnsEmployeesPage from '@/pages/employees/custom-columns-page';
 
 function Routing() {
   const { isLoggedIn, isLoading } = useAuthenticationContext();
@@ -29,8 +30,10 @@ function Routing() {
               <Route index element={<IntegrationsPage />} />
               <Route path="custom" element={<CustomIntegrationsPage />} />
             </Route>
-
-            <Route path="employees" element={<EmployeesPage />} />
+            <Route path="employees">
+              <Route index element={<EmployeesPage />} />
+              <Route path="custom" element={<CustomColumnsEmployeesPage />} />
+            </Route>
             <Route path="backend" element={<SimulatedBackend />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Route>

@@ -111,6 +111,12 @@ const SimulatedBackendCodeBlock = () => {
   const handleHoverOn = () => setHide(false);
   const handleHoverOff = () => setHide(true);
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && localApi !== apiKey) {
+      setApiKey(localApi);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-10">
       <CodeBlock
@@ -123,6 +129,7 @@ const SimulatedBackendCodeBlock = () => {
           className="relative bg-gray-900 rounded-xl overflow-hidden shadow-lg"
           onMouseEnter={handleHoverOn}
           onMouseLeave={handleHoverOff}
+          onKeyDown={handleKeyPress}
         >
           <div className="text-sm text-gray-400 px-6 py-4">
             connection-fn.ts
