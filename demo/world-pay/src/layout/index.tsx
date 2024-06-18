@@ -1,7 +1,7 @@
 'use client';
 
 import { Logo } from '@/components/icons';
-import { BlocksIcon, ServerIcon, UsersIcon } from 'lucide-react';
+import { BlocksIcon, ServerIcon, SkullIcon, UsersIcon } from 'lucide-react';
 import { NavItem } from '../nav-item';
 
 import LiftModeSwitch from '@/components/extended/lift-switch';
@@ -13,7 +13,7 @@ import SubiConnectProviderWrapper from '@/context/subi-connect-wrapper';
 import { useAuthenticationContext } from '../context/authentication';
 
 export default function MainLayout() {
-  const { apiKey } = useAuthenticationContext();
+  const { apiKey, apiKeyLocalStorage } = useAuthenticationContext();
   const { liftMode } = useLiftMode();
 
   return (
@@ -49,9 +49,14 @@ export default function MainLayout() {
               </NavItem>
 
               <br />
-              <NavItem to="/backend">
-                <ServerIcon className="h-4 w-4" />
-                Simulated Backend
+              <NavItem to="/backend" className="flex flex-row justify-between">
+                <div className="flex flex-row gap-2 items-center">
+                  <ServerIcon className="h-4 w-4" />
+                  <span>Simulated Backend</span>
+                </div>
+                {apiKeyLocalStorage && (
+                  <SkullIcon className="w-4 h-4 text-red-500/50" />
+                )}
               </NavItem>
             </nav>
           </div>
