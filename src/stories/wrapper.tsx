@@ -10,7 +10,14 @@ const queryClient = new QueryClient({
 const connectionFn = async () => {
   const result = await axios.post(
     'http://localhost:8082/subi-connect/authentication/company-access-token',
-    { company: { referenceId: 'abc', name: 'sample company' } },
+    {
+      company:
+        // Use the 'storybook company'
+        // { referenceId: 'abc', name: 'sample company' }
+
+        // Use the WorldPay demo company
+        { referenceId: 'world-pay-demo-referenceId-1', name: 'Demo Company' },
+    },
     {
       headers: {
         'x-api-key': process.env.VITE_DRAFT_API_KEY,

@@ -23,7 +23,13 @@ export type PaginationResponse<T> = {
   results: T[];
 };
 
-export interface ListOptions extends AxiosRequestConfig {}
+export interface ListOptions extends AxiosRequestConfig {
+  params?: {
+    page?: number | null;
+    search?: string | null;
+    limit?: number | null;
+  } & Record<string, unknown>;
+}
 
 export interface ListRequest<ParamsType, ReturnType> {
   (

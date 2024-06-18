@@ -1,7 +1,7 @@
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Organisation } from '../../../types/organisation';
 import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
-import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-status';
+import { syncStatusColumn } from '../../../ui/extended/table/columns/sync/sync-status';
 import { dateConnectedColumn } from './date';
 import React from 'react';
 
@@ -22,5 +22,5 @@ export const columns: ColumnDef<Organisation>[] = [
     title: 'Date connected',
     accessorKey: 'dateConnected',
   }),
-  lastSyncedColumn(),
+  syncStatusColumn({ accessorKey: 'syncStatus' }),
 ];

@@ -3,8 +3,8 @@ import { useDataTableContext } from './table-context';
 import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
 import React from 'react';
 
-const DEFAULT_PAGE = 1 as const;
-const DEFAULT_PAGE_SIZE = 10 as const;
+export const DEFAULT_PAGE = 1 as const;
+export const DEFAULT_PAGE_SIZE = 10 as const;
 
 interface IDataTablePaginationContext {
   paginationState: PaginationState;

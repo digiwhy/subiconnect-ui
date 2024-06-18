@@ -1,10 +1,10 @@
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
-import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync-status';
+import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync/sync-date';
 import { emailColumn, fullNameColumn } from './core';
 
 export const columns: ColumnDef<Employee>[] = [
   fullNameColumn,
   emailColumn,
-  lastSyncedColumn(),
+  lastSyncedColumn({ accessorKey: 'metadata.sync' }),
 ];

@@ -8,6 +8,4 @@ export const getEmployeesFromOrganisationURL = (
   return constructAPIURL(EMPLOYEES_URL + `${organisationId}/`);
 };
 
-export const getAllEmployeesURL = () => {
-  return constructAPIURL(EMPLOYEES_URL);
-};
+export const getAllEmployeesURL = () => constructAPIURL(EMPLOYEES_URL);
