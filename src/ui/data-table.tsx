@@ -2,6 +2,7 @@ import { DataTableError } from '../components/payroll-integration/get-error';
 import { Loading } from '../components/payroll-integration/loading';
 import { useDataTablePaginationContext } from '../context/table/pagination-context';
 import { useDataTableContext } from '../context/table/table-context';
+import { cn } from '../lib/utils';
 import type { ColumnDef } from '../types/components/data-table';
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
@@ -76,7 +77,7 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className={columnDef.headerClassName}
+                      className={cn('sc-w-auto', columnDef.headerClassName)}
                     >
                       {header.isPlaceholder
                         ? null

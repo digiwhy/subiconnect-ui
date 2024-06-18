@@ -92,7 +92,7 @@ export function DataTablePagination<TData>({
           />{' '}
           of {table.getPageCount()}
         </div>
-        <div className='sc-flex sc-items-center sc-space-x-2'>
+        <div className='sc-flex sc-items-center sc-space-x-2 [&>button]:sc-border-border'>
           <Button
             variant='outline'
             className='sc-hidden sc-h-8 sc-w-8 sc-p-0 lg:sc-flex'
