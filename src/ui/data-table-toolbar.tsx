@@ -5,7 +5,7 @@ import { Button } from './button';
 import { type DataTableFacetedFilterProps } from './data-table-faceted-filter';
 import { Input } from './input';
 import type { Table } from '@tanstack/react-table';
-import { RefreshCwIcon, XIcon } from 'lucide-react';
+import { LoaderCircleIcon, RefreshCwIcon, XIcon } from 'lucide-react';
 import React from 'react';
 
 type DataTableToolbarProps<TData, TValue = unknown> = {
@@ -21,7 +21,7 @@ export function DataTableToolbar<TData, TCreate>({
 }: Readonly<DataTableToolbarProps<TData, TCreate>>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const {
-    query: { refetch, data, isFetching },
+    query: { refetch, data, isRefetching, isLoading },
   } = useDataTableContext();
   const { search, setSearch } = useDataTableSearchContext();
 
@@ -56,12 +56,25 @@ export function DataTableToolbar<TData, TCreate>({
     <div className='sc-flex sc-items-center sc-justify-between'>
       <div className='sc-flex sc-flex-1 sc-items-center sc-space-x-2'>
         {!hideSearchBar && (
-          <Input
-            placeholder='Filter'
-            value={search}
-            onChange={handleOnChange}
-            className='sc-h-8 sc-w-[150px] lg:sc-w-[250px]'
-          />
+          <div className='sc-relative sc-flex sc-flex-row sc-items-center sc-justify-between sc-gap-2'>
+            <Input
+              placeholder='Filter'
+              value={search}
+              onChange={handleOnChange}
+              className='sc-h-8 sc-w-[150px] sc-pr-7 lg:sc-w-[250px]'
+            />
+
+            <div className='_sc-pl-2 sc-absolute sc-right-0 sc-mx-2 sc-flex sc-h-fit sc-w-fit sc-items-center sc-justify-center sc-rounded-full sc-bg-background sc-pt-[0.125rem]'>
+              <LoaderCircleIcon
+                className={cn(
+                  'sc-hidden sc-h-3 sc-w-3 sc-text-muted-foreground/50',
+                  {
+                    'sc-block sc-animate-spin': isLoading,
+                  },
+                )}
+              />
+            </div>
+          </div>
         )}
 
         {/* {filterOptions.map(({ title, column, options }) => (
@@ -93,7 +106,7 @@ export function DataTableToolbar<TData, TCreate>({
           onClick={handleRefresh}
         >
           <RefreshCwIcon
-            className={cn('sc-h-4 sc-w-4', { 'sc-animate-spin': isFetching })}
+            className={cn('sc-h-4 sc-w-4', { 'sc-animate-spin': isRefetching })}
           />
         </Button>
       </div>

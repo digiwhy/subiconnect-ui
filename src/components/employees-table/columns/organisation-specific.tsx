@@ -6,5 +6,5 @@ import { emailColumn, fullNameColumn } from './core';
 export const columns: ColumnDef<Employee>[] = [
   fullNameColumn,
   emailColumn,
-  lastSyncedColumn({ accessorKey: 'metadata.sync' }),
+  lastSyncedColumn({ accessorKey: 'metadata.sync', id: 'lastSynced' }),
 ];
