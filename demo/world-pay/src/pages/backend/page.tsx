@@ -16,7 +16,7 @@ const SimulatedBackend = () => {
         context. If you would like to store your API key, please toggle the{' '}
         <i>API Key Storage</i> switch.{' '}
         <b>
-          Please remember to regenrate your API key when you are done testing.
+          Please remember to regenerate your API key when you are done testing.
         </b>
       </p>
       <SimulatedBackendCodeBlock />
