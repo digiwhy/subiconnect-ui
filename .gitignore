@@ -392,5 +392,5 @@ styles.css
 *storybook.log
 .env.*
 .npmrc
-types
+/types
 subifinancial-subi-connect-*.tgz

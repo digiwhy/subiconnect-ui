@@ -5,11 +5,15 @@ import { Me } from '../../types/user';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
+const API_KEY_STORAGE_NAME = 'sc-api-key';
+
 interface IAutheticationContext {
   isLoading: boolean;
   isLoggedIn: boolean;
   apiKey: string;
   setApiKey: (value: string) => void;
+  apiKeyLocalStorage: boolean;
+  setApiKeyLocalStorage: (value: boolean) => void;
 }
 
 interface IAutheticationContextAuthenticated extends IAutheticationContext {
@@ -61,11 +65,45 @@ export const AuthenticationProvider = ({
   children
 }: AuthenticationProviderProps) => {
   const [apiKey, setApiKey] = React.useState<string>('');
+  const [apiKeyLocalStorage, setApiKeyLocalStorage] =
+    React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const storedApiKey = localStorage.getItem(API_KEY_STORAGE_NAME);
+
+    if (storedApiKey) {
+      setApiKey(storedApiKey);
+      setApiKeyLocalStorage(true);
+    } else {
+      setApiKeyLocalStorage(false);
+    }
+  }, []);
 
   const { data: user, isLoading } = useQuery<Me>({
     queryKey: ['me'],
     queryFn: getUser
   });
+
+  const handleSetApiKeyLocalStorage = React.useCallback(
+    (value: boolean) => {
+      if (value) {
+        localStorage.setItem(API_KEY_STORAGE_NAME, apiKey);
+      } else {
+        localStorage.removeItem(API_KEY_STORAGE_NAME);
+      }
+
+      setApiKeyLocalStorage(value);
+    },
+    [setApiKeyLocalStorage]
+  );
+
+  const handleSetApiKey = (value: string) => {
+    setApiKey(value);
+
+    if (apiKeyLocalStorage) {
+      localStorage.setItem(API_KEY_STORAGE_NAME, value);
+    }
+  };
 
   const isLoggedIn = React.useMemo(() => user !== undefined, [user]);
 
@@ -75,9 +113,19 @@ export const AuthenticationProvider = ({
       isLoggedIn,
       isLoading: isLoading,
       apiKey,
-      setApiKey
+      setApiKey: handleSetApiKey,
+      apiKeyLocalStorage,
+      setApiKeyLocalStorage: handleSetApiKeyLocalStorage
     }),
-    [user, isLoggedIn, isLoading, apiKey, setApiKey]
+    [
+      user,
+      isLoggedIn,
+      isLoading,
+      apiKey,
+      setApiKey,
+      apiKeyLocalStorage,
+      setApiKeyLocalStorage
+    ]
   );
 
   return (
