@@ -45,3 +45,7 @@ export type Employee = {
   metadata: EmployeeMetadata;
   payroll: EmployeePayroll;
 };
+
+export enum SelectableEmployeeColumns {
+  SALARY = 'salary',
+}

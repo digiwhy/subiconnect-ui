@@ -48,26 +48,14 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
   );
 };
 
-const SalaryColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
+const SalaryColumnCell: React.FC<CellContext<Employee, unknown>> = ({
+  row,
+}) => {
   if (!row.original.info.salary?.value) return '';
 
   const value = getMoneyFromDecimals(row.original.info.salary.value);
 
-  if (!value) return null;
-
-  const getValue = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    return value;
-  };
-
-  const id = `dropdown-menu-${row.id}`;
-
-  return (
-    <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
-      {value}
-    </ClipboardButton>
-  );
+  return value;
 };
 
 export const emailColumn: ColumnDef<Employee> = {
@@ -82,12 +70,10 @@ export const emailColumn: ColumnDef<Employee> = {
 
 export const salaryColumn: ColumnDef<Employee> = {
   accessorKey: 'salary',
-  id: 'salary',
   header: ({ column }) => (
     <DataTableColumnHeader column={column} title={'Salary'} />
   ),
-  cell: SalaryColum,
-  headerClassName: 'sc-w-full',
+  cell: SalaryColumnCell,
 };
 
 export const actionsColumn: ColumnDef<Employee> = {

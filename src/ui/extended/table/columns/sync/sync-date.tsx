@@ -66,5 +66,6 @@ export const lastSyncedColumn = <
     meta: {
       style: 'right',
     },
+    headerClassName: 'sc-min-w-[200px]',
     ...props,
   }) satisfies ColumnDef<T>;

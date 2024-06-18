@@ -22,5 +22,5 @@ export const columns: ColumnDef<Organisation>[] = [
     title: 'Date connected',
     accessorKey: 'dateConnected',
   }),
-  syncStatusColumn({ accessorKey: 'syncStatus' }),
+  syncStatusColumn({ accessorKey: 'syncStatus', id: 'syncStatus' }),
 ];

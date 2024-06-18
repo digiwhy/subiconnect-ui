@@ -18,14 +18,18 @@ export const startColumns: ColumnDef<Employee>[] = [
       const organisationName = row.original.payroll.organisation.name;
 
       if (!organisationName) return null;
-      return <div className='sc-whitespace-nowrap'>{organisationName}</div>;
+      return (
+        <div className='sc-min-w-[200px] sc-whitespace-nowrap'>
+          {organisationName}
+        </div>
+      );
     },
   },
 ];
 
 export const endColumns: ColumnDef<Employee>[] = [
-  lastSyncedColumn({ accessorKey: 'metadata.sync' }),
-  syncStatusColumn({ accessorKey: 'metadata.sync' }),
+  lastSyncedColumn({ accessorKey: 'metadata.sync', id: 'lastSynced' }),
+  syncStatusColumn({ accessorKey: 'metadata.sync', id: 'syncStatus' }),
 ];
 
 export const columns: ColumnDef<Employee>[] = [...startColumns, ...endColumns];
