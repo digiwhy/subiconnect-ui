@@ -3,7 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
-import { EmployeeAllowedSelectProps } from '@subifinancial/subi-connect';
+import { SelectableEmployeeColumns } from '@subifinancial/subi-connect';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmployeesComponent from './component';
@@ -12,7 +12,7 @@ const CustomColumnsEmployeesComponent = () => {
   const { apiKey } = useAuthenticationAuthenticatedContext();
   const navigate = useNavigate();
   const [selectedColumns, setSelectedColumns] = React.useState<
-    EmployeeAllowedSelectProps[]
+    SelectableEmployeeColumns[]
   >([]);
 
   React.useEffect(() => {
@@ -21,7 +21,7 @@ const CustomColumnsEmployeesComponent = () => {
     }
   }, [apiKey]);
 
-  const handleToggle = (column: EmployeeAllowedSelectProps) => {
+  const handleToggle = (column: SelectableEmployeeColumns) => {
     setSelectedColumns((prevSelectedColumns) =>
       prevSelectedColumns.includes(column)
         ? prevSelectedColumns.filter((col) => col !== column)
@@ -34,7 +34,7 @@ const CustomColumnsEmployeesComponent = () => {
       <div className="flex flex-col gap-2">
         <h3>Select columns</h3>
         <div className="flex flex-row gap-2">
-          {Object.values(EmployeeAllowedSelectProps).map((column) => (
+          {Object.values(SelectableEmployeeColumns).map((column) => (
             <div
               key={column}
               className="flex flex-row gap-2 justify-between items-center"

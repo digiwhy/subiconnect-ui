@@ -12,6 +12,7 @@ export function NavItem({
   to,
   children,
   disabled = false,
+  className,
   ...props
 }: NavItemProps) {
   const location = useLocation();
@@ -23,8 +24,11 @@ export function NavItem({
       to={to}
       className={cn(
         'flex items-center gap-3 rounded-lg px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-50',
-        isActive ? 'bg-gray-50 dark:bg-gray-800' : '[&>svg]:hover:scale-105',
-        { 'pointer-events-none opacity-50': disabled }
+        isActive
+          ? 'bg-gray-50 dark:bg-gray-800'
+          : '[&_svg:first-child]:hover:scale-105',
+        { 'pointer-events-none opacity-50': disabled },
+        className
       )}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
