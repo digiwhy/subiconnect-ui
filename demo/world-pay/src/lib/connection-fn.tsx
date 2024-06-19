@@ -1,8 +1,10 @@
 'use client';
 
+import { VITE_BASE_COMPONENTS_API } from "@/envs";
+
 export const connectionFn = async (apiKey: string) => {
   const response = await fetch(
-    `${import.meta.env.VITE_BASE_COMPONENTS_API}authentication/company-access-token`,
+    `${VITE_BASE_COMPONENTS_API}authentication/company-access-token`,
     {
       method: 'POST',
       headers: {
