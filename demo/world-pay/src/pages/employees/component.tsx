@@ -3,14 +3,14 @@
 import LiftedComponent from '@/components/lifted';
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
 import {
-  EmployeeAllowedSelectProps,
+  SelectableEmployeeColumns,
   EmployeeManagementPage
 } from '@subifinancial/subi-connect';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const EmployeesComponent: React.FC<{
-  enabledColumns?: EmployeeAllowedSelectProps[];
+  enabledColumns?: SelectableEmployeeColumns[];
 }> = ({ enabledColumns }) => {
   const { apiKey } = useAuthenticationAuthenticatedContext();
   const navigate = useNavigate();
