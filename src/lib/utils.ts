@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // For Make Log on Develop Mode
 export const logOnDev = (...message: unknown[]) => {
-  console.log(...message);
+  if (process.env.NODE_ENV === 'local') console.log(...message);
 };
 
 export const removeUndefinedValues = (obj: object) => {

@@ -10,6 +10,7 @@ export const startColumns: ColumnDef<Employee>[] = [
   fullNameColumn,
   emailColumn,
   {
+    id: 'organisation',
     accessorKey: 'organisation',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title={'Organisation'} />

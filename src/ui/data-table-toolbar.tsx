@@ -1,23 +1,33 @@
 import { useDataTableSearchContext } from '../context/table/search-context';
 import { useDataTableContext } from '../context/table/table-context';
 import { cn } from '../lib/utils';
+import type { TypedOmit } from '../types/utils';
 import { Button } from './button';
-import { type DataTableFacetedFilterProps } from './data-table-faceted-filter';
+import {
+  DataTableFacetedFilter,
+  type DataTableFacetedFilterProps,
+} from './data-table-faceted-filter';
 import { Input } from './input';
 import type { Table } from '@tanstack/react-table';
 import { LoaderCircleIcon, RefreshCwIcon, XIcon } from 'lucide-react';
 import React from 'react';
 
-type DataTableToolbarProps<TData, TValue = unknown> = {
+export type DataTableToolbarFilterOptions<TData, TValue> = Array<
+  TypedOmit<DataTableFacetedFilterProps<TData, TValue>, 'column'> & {
+    columnId: string;
+  }
+>;
+
+export type DataTableToolbarProps<TData, TValue = unknown> = {
   table: Table<TData>;
   hideSearchBar?: boolean;
-  filterOptions?: DataTableFacetedFilterProps<TData, TValue>[];
+  filterOptions?: DataTableToolbarFilterOptions<TData, TValue>;
 };
 
 export function DataTableToolbar<TData, TCreate>({
   table,
   hideSearchBar = false,
-  // filterOptions = [], // TODO: implement filter options
+  filterOptions = [], // TODO: implement filter options
 }: Readonly<DataTableToolbarProps<TData, TCreate>>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const {
@@ -77,14 +87,19 @@ export function DataTableToolbar<TData, TCreate>({
           </div>
         )}
 
-        {/* {filterOptions.map(({ title, column, options }) => (
-          <DataTableFacetedFilter
-            column={table.getColumn(columnId.toString())}
-            title={title}
-            options={options}
-            key={columnId.toString()}
-          />
-        ))} */}
+        <div>
+          {filterOptions.map(({ title, columnId, options }) => {
+            console.log(columnId);
+            return (
+              <DataTableFacetedFilter
+                column={table.getColumn(columnId)}
+                title={title}
+                options={options}
+                key={columnId}
+              />
+            );
+          })}
+        </div>
 
         {isFiltered && (
           <Button

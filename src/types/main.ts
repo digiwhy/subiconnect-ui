@@ -9,7 +9,3 @@ export enum SyncStatus {
   SYNCING = 'SYNCING',
   SYNCING_FIRST = 'SYNCING_FIRST',
 }
-
-export type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};

@@ -9,9 +9,11 @@ import useSearchParams from '../../hooks/internal/use-serach-params';
 import { useAccountPayrollSystem } from '../../hooks/use-account-payroll';
 import { BASE_ORGANISATION_QUERY_KEY } from '../../hooks/use-organisations';
 import { cn } from '../../lib/utils';
+import type { AccountPayrollSystemExtended } from '../../types/application';
 import type { Payroll } from '../../types/payroll';
 import { SearchParam } from '../../types/query';
 import { Button } from '../../ui/button';
+import { Skeleton } from '../../ui/skeleton';
 import { useQueryClient } from '@tanstack/react-query';
 import { ChevronLeftIcon, PlusIcon } from 'lucide-react';
 import React from 'react';
@@ -34,17 +36,20 @@ const Trigger = React.forwardRef<
 
 Trigger.displayName = 'Trigger';
 
-const PayrollIntegrationManagementPage: React.FC<{
-  payroll: Payroll;
-  className?: string;
-}> = ({ payroll, className }) => {
+const BackLeftChevrons = () => {
+  return (
+    <div className='pr-2 sc-absolute sc-h-4 sc-w-4 sc-opacity-0 sc-duration-200 group-hover:sc-opacity-100 group-hover:sc-delay-100'>
+      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-top-0 sc-my-auto sc-h-4 sc-w-4 group-hover:-sc-translate-x-1 group-hover:sc-delay-100' />
+      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-h-4 sc-w-4 group-hover:-sc-translate-x-2 group-hover:sc-delay-100' />
+    </div>
+  );
+};
+
+const Header: React.FC<{
+  accountPayroll: AccountPayrollSystemExtended | undefined;
+}> = ({ accountPayroll }) => {
   const queryClient = useQueryClient();
   const [_, setSearchParam] = useSearchParams();
-  const {
-    data: accountPayroll,
-    isLoading,
-    isError,
-  } = useAccountPayrollSystem(payroll);
 
   const handleBack = () => {
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
@@ -56,12 +61,72 @@ const PayrollIntegrationManagementPage: React.FC<{
     });
   }, []);
 
+  return (
+    <div className='sc-flex sc-w-full sc-justify-between sc-gap-4'>
+      <div className='sc-flex sc-flex-col sc-gap-1'>
+        <div
+          onClick={handleBack}
+          className='sc-group sc-relative sc-flex sc-cursor-pointer sc-flex-row sc-items-center [&_*]:sc-transition [&_*]:sc-duration-300 [&_*]:sc-ease-in-out'
+        >
+          <BackLeftChevrons />
+          <span className='sc-font-mainMedium sc-text-lg sc-text-secondary sc-delay-100 group-hover:sc-translate-x-4 group-hover:sc-delay-0'>
+            Connected Integration
+          </span>
+        </div>
+        {!accountPayroll ? (
+          <Skeleton className='sc-h-4 sc-w-10' />
+        ) : (
+          <span className='sc-font-mainMedium sc-text-xs sc-text-secondary/50'>
+            {accountPayroll.name}
+          </span>
+        )}
+      </div>
+
+      {!!accountPayroll && (
+        <Integrate Trigger={Trigger} onSuccess={handleIntegrateOnSuccess} />
+      )}
+    </div>
+  );
+};
+
+const PayrollIntegrationManagementPage: React.FC<{
+  payroll: Payroll;
+  className?: string;
+}> = ({ payroll, className }) => {
+  const [_, setSearchParam] = useSearchParams();
+  const {
+    data: accountPayroll,
+    isLoading,
+    isError,
+  } = useAccountPayrollSystem(payroll);
+
+  // const handleBack = () => {
+  //   setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
+  // };
+
+  // const handleIntegrateOnSuccess = React.useCallback(() => {
+  //   queryClient.invalidateQueries({
+  //     queryKey: [...BASE_ORGANISATION_QUERY_KEY, 'list'],
+  //   });
+  // }, []);
+
   if (isLoading || !accountPayroll) {
-    return <Loading title={'Loading Organisations'} />;
+    return (
+      <div
+        className={cn(
+          'subi-connect sc-flex sc-h-full sc-w-full sc-flex-col sc-gap-4 sc-p-4',
+          className,
+        )}
+      >
+        <Header accountPayroll={accountPayroll} />
+        <div className='sc-h-full sc-w-full'>
+          <Loading title={'Loading Organisations'} />
+        </div>
+      </div>
+    );
   }
 
   if (isError) {
-    // TODO
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
     return null;
   }
@@ -75,24 +140,8 @@ const PayrollIntegrationManagementPage: React.FC<{
             className,
           )}
         >
-          <div className='sc-flex sc-w-full sc-justify-between sc-gap-4'>
-            <div className='sc-flex sc-flex-col sc-gap-1'>
-              <div
-                onClick={handleBack}
-                className='sc-flex sc-cursor-pointer sc-flex-row sc-items-center sc-gap-2'
-              >
-                <ChevronLeftIcon className='sc-h-4 sc-w-4' />
-                <span className='sc-font-mainMedium sc-text-lg sc-text-secondary'>
-                  Connected Integration
-                </span>
-              </div>
-              <span className='sc-font-mainMedium sc-text-xs sc-text-secondary/50'>
-                {accountPayroll.name}
-              </span>
-            </div>
+          <Header accountPayroll={accountPayroll} />
 
-            <Integrate Trigger={Trigger} onSuccess={handleIntegrateOnSuccess} />
-          </div>
           <div className='sc-h-full sc-w-full'>
             <PayrollIntegrationManagementTable
               accountPayrollId={accountPayroll.id}

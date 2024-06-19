@@ -7,7 +7,8 @@ import type {
   BaseQueryData,
   ColumnDef,
 } from '../../../types/components/data-table';
-import { DataTable } from '../../data-table';
+import type { TypedOmit } from '../../../types/utils';
+import { DataTable, type DataTableProps } from '../../data-table';
 import type { QueryKey, UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -24,6 +25,7 @@ type GenericTableProps<TData, TValue> = {
     'initialData' | 'queryKey'
   >;
   columns: ColumnDef<TData, TValue>[];
+  dataTableProps?: TypedOmit<DataTableProps<TData, TValue>, 'columns'>;
   queryKeyFilters?: QueryKey;
 };
 
@@ -32,6 +34,7 @@ const GenericTable = <TData extends BaseQueryData, TValue>({
   listAction,
   queryOptions,
   columns,
+  dataTableProps,
   queryKeyFilters,
 }: GenericTableProps<TData, TValue>) => {
   return (
@@ -43,7 +46,7 @@ const GenericTable = <TData extends BaseQueryData, TValue>({
     >
       <DataTablePaginationProvider>
         <DataTableSearchProvider>
-          <DataTable columns={columns} />
+          <DataTable columns={columns} {...dataTableProps} />
         </DataTableSearchProvider>
       </DataTablePaginationProvider>
     </DataTableProvider>
