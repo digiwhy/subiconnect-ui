@@ -49,7 +49,7 @@ const Header: React.FC<{
   accountPayroll: AccountPayrollSystemExtended | undefined;
 }> = ({ accountPayroll }) => {
   const queryClient = useQueryClient();
-  const [_, setSearchParam] = useSearchParams();
+  const { setSearchParam } = useSearchParams();
 
   const handleBack = () => {
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
@@ -93,7 +93,7 @@ const PayrollIntegrationManagementPage: React.FC<{
   payroll: Payroll;
   className?: string;
 }> = ({ payroll, className }) => {
-  const [_, setSearchParam] = useSearchParams();
+  const { setSearchParam } = useSearchParams();
   const {
     data: accountPayroll,
     isLoading,

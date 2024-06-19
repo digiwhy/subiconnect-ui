@@ -1,5 +1,13 @@
 import { getOrganisation } from '../services/api/organisation/actions';
-import { listOrganisationsFromPayroll } from '../services/api/payroll/actions';
+import {
+  listAllOrganisations,
+  listOrganisationsFromPayroll,
+  listSyncingOrganisations,
+} from '../services/api/payroll/actions';
+import type {
+  AllOrganinisationsResponse,
+  FindAllSyncingOrganisationsByCompanyIdResult,
+} from '../services/api/payroll/types';
 import type {
   PaginationResponse,
   ListOptions,
@@ -66,6 +74,67 @@ export const useOrganisations = (
     queryFn: queryFn,
     enabled: !!accountPayrollId && enabled,
     ...restOfQueryOptions,
+  });
+};
+
+type UseAllOrganisationsOptions = {
+  filters?: OrganisationFilterFields;
+  listOptions?: ListOptions;
+  queryOptions?: BaseQueryOptions<
+    UseQueryOptions<PaginationResponse<AllOrganinisationsResponse>>
+  >;
+};
+
+export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
+  const params = React.useMemo(
+    () => ({
+      limit: 100,
+      ...options?.listOptions?.params,
+      ...options?.filters,
+    }),
+    [options?.listOptions?.params, options?.filters],
+  );
+
+  const queryKey = React.useMemo(
+    () => [...BASE_ORGANISATION_QUERY_KEY, 'list', { filters: params }],
+    [params],
+  );
+
+  const queryFn = React.useCallback(
+    () =>
+      listAllOrganisations({
+        ...options?.listOptions,
+        params: params,
+      }),
+    [options?.listOptions, params],
+  );
+
+  return useQuery({
+    queryKey: queryKey,
+    queryFn: queryFn,
+    ...options?.queryOptions,
+  });
+};
+
+type UseSyncingOrganisationsOptions = {
+  queryOptions?: BaseQueryOptions<
+    UseQueryOptions<FindAllSyncingOrganisationsByCompanyIdResult>
+  >;
+};
+
+const useSyncingOrganisationsQueryKey = [
+  ...BASE_ORGANISATION_QUERY_KEY,
+  'list',
+  'syncing',
+] as const;
+
+export const useSyncingOrganisations = (
+  options?: UseSyncingOrganisationsOptions,
+) => {
+  return useQuery({
+    queryKey: useSyncingOrganisationsQueryKey,
+    queryFn: listSyncingOrganisations,
+    ...options?.queryOptions,
   });
 };
 

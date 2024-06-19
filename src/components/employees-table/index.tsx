@@ -1,6 +1,5 @@
-import { useOrganisations } from '../../hooks';
-import { useOrganisation } from '../../hooks/use-organisations';
 import { listAllEmployees } from '../../services/api/employee/actions';
+import { listAllOrganisations } from '../../services/api/payroll/actions';
 import type { ColumnDef, ListOptions } from '../../types/components/data-table';
 import type { Employee, SelectableEmployeeColumns } from '../../types/employee';
 import type { DataTableToolbarFilterOptions } from '../../ui/data-table-toolbar';
@@ -24,13 +23,8 @@ const EmployeesTable: React.FC<{
     {
       columnId: 'organisation',
       title: 'Organisation',
-      options: [
-        {
-          label: 'Johns Bricklaying',
-          value: 'Johns Bricklaying',
-          // icon?: React.ComponentType<{ className?: string }>;
-        },
-      ],
+      accessorKey: 'payrollCompanyOrganisationId',
+      listAction: listAllOrganisations,
     },
   ] satisfies DataTableToolbarFilterOptions<Employee, unknown>;
 

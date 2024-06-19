@@ -42,3 +42,14 @@ export const getMoneyFromDecimals = (
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
   return `${process.env.SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
 };
+
+export const createNestedObjectFromString = <T>(
+  key: string,
+  value: T,
+): Record<string, unknown> => {
+  return key
+    .split('.')
+    .reduceRight<
+      Record<string, unknown>
+    >((acc, keyPart) => ({ [keyPart]: acc }), value as unknown as Record<string, unknown>);
+};

@@ -26,3 +26,11 @@ export const getOrganisationsFromPayrollURL = (payrollId: number | string) => {
     `${PAYROLL_APPLICATIONS_URL}/${payrollId}/organisations`,
   );
 };
+
+export const getAllOrganisationsURL = () => {
+  return constructAPIURL(`${PAYROLL_APPLICATIONS_URL}/organisations`);
+};
+
+export const getSyncingOrganisationsURL = () => {
+  return constructAPIURL(`${PAYROLL_APPLICATIONS_URL}/organisations/syncing`);
+};

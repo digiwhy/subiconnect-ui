@@ -10,8 +10,7 @@ export type GetEmployeesResponse = Employee[];
 export type EmployeeFilterFields = Pick<
   Employee['info'],
   'firstName' | 'lastName' | 'tfn' | 'email'
->;
-
+> & { payrollCompanyOrganisationId: string | number };
 export type ListAllEmployeesOptions = ListOptions &
   Partial<EmployeeFilterFields> & {
     params?: ListOptions['params'] &
