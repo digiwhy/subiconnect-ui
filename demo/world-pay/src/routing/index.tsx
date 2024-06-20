@@ -34,7 +34,7 @@ function Routing() {
             <Route path="custom" element={<CustomColumnsEmployeesPage />} />
           </Route>
           <Route path="backend" element={<SimulatedBackend />} />
-          <Route path="*" element={<Navigate replace to="/" />} />
+          <Route path="*" element={<Navigate replace to="/dashboard" />} />
         </Route>
       )}
     </Routes>
