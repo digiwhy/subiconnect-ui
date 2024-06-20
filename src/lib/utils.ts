@@ -1,3 +1,4 @@
+import { SUBI_CONNECT_IMAGES_BASE_URL } from '../envs';
 import type { Payroll } from '../types/payroll';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
@@ -40,5 +41,5 @@ export const getMoneyFromDecimals = (
 };
 
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
-  return `https://subiconnect-devportal.subi.au/images/${payrollName}.svg`;
+  return `${SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
 };

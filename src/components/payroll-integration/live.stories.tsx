@@ -1,4 +1,5 @@
 import { SubiConnectProvider } from '../../context/subi-connect';
+import { SUBI_CONNECT_PUBLIC_BASE_URL } from '../../envs';
 import PayrollIntegrationList from './payroll-integration-list';
 import type { Meta, StoryObj } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -9,7 +10,7 @@ const queryClient = new QueryClient({});
 
 const connectionFn = async () => {
   const result = await axios.post(
-    `${process.env.SUBI_CONNECT_PUBLIC_BASE_URL}authentication/company-access-token`,
+    `${SUBI_CONNECT_PUBLIC_BASE_URL}authentication/company-access-token`,
     {
       // company: { referenceId: 'abc', name: 'sample company' }
       company: {
