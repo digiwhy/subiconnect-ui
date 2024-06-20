@@ -56,6 +56,10 @@ jobs:
     needs: [build-lib-tgz]
     environment: stg-ap-southeast-2
     env:
+      VITE_AUTH0_AUDIENCE: ${{ secrets.VITE_AUTH0_AUDIENCE }}
+      VITE_AUTH0_CLIENT_ID: ${{ secrets.VITE_AUTH0_CLIENT_ID }}
+      VITE_AUTH0_COOKIE_DOMAIN: ${{ secrets.VITE_AUTH0_COOKIE_DOMAIN }}
+      VITE_AUTH0_DOMAIN: ${{ secrets.VITE_AUTH0_DOMAIN }}
       VITE_BASE_COMPONENTS_API: ${{ secrets.VITE_BASE_COMPONENTS_API }}
       VITE_BASE_PORTAL_API: ${{ secrets.VITE_BASE_PORTAL_API }}
       VITE_BASE_PORTAL_URL: ${{ secrets.VITE_BASE_PORTAL_URL }}

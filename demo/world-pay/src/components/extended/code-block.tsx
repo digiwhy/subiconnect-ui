@@ -1,13 +1,14 @@
 'use client';
 
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
+import { VITE_BASE_COMPONENTS_API } from '@/envs';
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { CodeBlock } from 'react-code-block';
 
 const codeTemplate = `const connectionFn = async ({referenceId, name}: {referenceId: string, name: string}) => {
   const response = await fetch(
-    '${import.meta.env.VITE_BASE_COMPONENTS_API}authentication/company-access-token',
+    '${VITE_BASE_COMPONENTS_API}authentication/company-access-token',
     {
       method: 'POST',
       headers: {
