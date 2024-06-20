@@ -12,7 +12,6 @@ export interface UseRouteProps {
 }
 
 function useRoute({
-  // getToken,
   isAuthenticated,
   isLoadingLibrary,
   login,
@@ -41,30 +40,6 @@ function useRoute({
 
     navigate('/dashboard');
   }, [isLoadingLibrary, isAuthenticated, navigate, hasUser, pathname]);
-
-  /**
-   * Axios auth header
-   */
-  // useEffect(() => {
-  //   (async () => {
-  //     if (isLoadingLibrary) return;
-
-  //     if (isAuthenticated) {
-  //       const accessToken = await getToken();
-  //       axiosClient.defaults.headers['authorization'] = `Bearer ${accessToken}`;
-  //       prodAxiosClient.defaults.headers['authorization'] =
-  //         `Bearer ${accessToken}`;
-  //     } else {
-  //       delete axiosClient.defaults.headers.common['authorization'];
-  //       delete prodAxiosClient.defaults.headers.common['authorization'];
-  //     }
-  //   })();
-
-  //   return () => {
-  //     delete axiosClient.defaults.headers.common['authorization'];
-  //     delete prodAxiosClient.defaults.headers.common['authorization'];
-  //   };
-  // }, [getToken, isAuthenticated, isLoadingLibrary]);
 }
 
 export default useRoute;
