@@ -1,58 +1,44 @@
-import { useMemo } from 'react';
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-  Navigate
-} from 'react-router-dom';
-import EmployeesPage from '../pages/employees/page';
 import Loading from '@/components/layout/loading';
-import Login from '@/components/layout/login';
-import { useAuthenticationContext } from '../context/authentication';
-import MainLayout from '../layout';
+import useAuth from '@/features/auth/hooks/useAuth.hook';
+import useRoute from '@/features/auth/hooks/useRoute.hook';
 import IndexPage from '@/page';
-import IntegrationsPage from '@/pages/integrations/page';
-import CustomIntegrationsPage from '@/pages/integrations/custom/page';
 import SimulatedBackend from '@/pages/backend/page';
 import CustomColumnsEmployeesPage from '@/pages/employees/custom-columns-page';
+import EmployeesPage from '@/pages/employees/page';
+import CustomIntegrationsPage from '@/pages/integrations/custom/page';
+import IntegrationsPage from '@/pages/integrations/page';
+import {
+  Navigate,
+  Route,
+  Routes
+} from 'react-router-dom';
+import MainLayout from '../layout';
 
 function Routing() {
-  const { isLoggedIn, isLoading } = useAuthenticationContext();
+  const { getToken, isAuthenticated, isLoadingLibrary, login, user } = useAuth();
+  useRoute({ getToken, isAuthenticated, isLoadingLibrary, login, hasUser: !!user, });
 
-  const _routes = useMemo(() => {
-    return createRoutesFromElements(
-      <>
-        {isLoggedIn && !isLoading && (
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<IndexPage />} />
-            <Route path="integrations">
-              <Route index element={<IntegrationsPage />} />
-              <Route path="custom" element={<CustomIntegrationsPage />} />
-            </Route>
-            <Route path="employees">
-              <Route index element={<EmployeesPage />} />
-              <Route path="custom" element={<CustomColumnsEmployeesPage />} />
-            </Route>
-            <Route path="backend" element={<SimulatedBackend />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+  return (
+    <Routes>
+      <Route path="*" element={<Loading />} />
+
+      {isAuthenticated && !isLoadingLibrary && (
+        <Route path="/" element={<MainLayout />}>
+          <Route path="/dashboard" element={<IndexPage />} />
+          <Route path="integrations">
+            <Route index element={<IntegrationsPage />} />
+            <Route path="custom" element={<CustomIntegrationsPage />} />
           </Route>
-        )}
-
-        {isLoading ? (
-          <Route path="*" element={<Loading />} />
-        ) : (
-          <Route path="*" element={<Login />} />
-        )}
-      </>
-    );
-  }, [isLoading, isLoggedIn]);
-
-  if (isLoading) return <Loading />;
-
-  const router = createBrowserRouter(_routes);
-
-  return <RouterProvider router={router} fallbackElement={<Loading />} />;
+          <Route path="employees">
+            <Route index element={<EmployeesPage />} />
+            <Route path="custom" element={<CustomColumnsEmployeesPage />} />
+          </Route>
+          <Route path="backend" element={<SimulatedBackend />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
+        </Route>
+      )}
+    </Routes>
+  );
 }
 
 export default Routing;
