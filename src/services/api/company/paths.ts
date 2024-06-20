@@ -1,1 +1,1 @@
-export const COMPANY_URL = 'company/';
+export const COMPANY_URL = 'company';

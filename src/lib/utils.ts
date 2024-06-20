@@ -40,5 +40,5 @@ export const getMoneyFromDecimals = (
 };
 
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
-  return `https://subiconnect-devportal.subi.au/images/${payrollName}.svg`;
+  return `${process.env.SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
 };
