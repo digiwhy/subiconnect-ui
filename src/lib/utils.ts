@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // For Make Log on Develop Mode
 export const logOnDev = (...message: unknown[]) => {
-  console.log(...message);
+  if (process.env.NODE_ENV === 'local') console.log(...message);
 };
 
 export const removeUndefinedValues = (obj: object) => {
@@ -41,4 +41,15 @@ export const getMoneyFromDecimals = (
 
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
   return `${process.env.SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
+};
+
+export const createNestedObjectFromString = <T>(
+  key: string,
+  value: T,
+): Record<string, unknown> => {
+  return key
+    .split('.')
+    .reduceRight<
+      Record<string, unknown>
+    >((acc, keyPart) => ({ [keyPart]: acc }), value as unknown as Record<string, unknown>);
 };

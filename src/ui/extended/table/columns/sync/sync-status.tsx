@@ -39,8 +39,6 @@ const Success: React.FC<{ lastSynced: Date | null }> = ({ lastSynced }) => {
   );
 };
 
-// type OmittedProps<T> = keyof Pick<ColumnDef<T>, 'accessorKey'>;
-// type Props<T> = Omit<ColumnDef<T>, OmittedProps<T>>;
 type SyncStatusColumnProps<T> = ColumnDef<T> & {
   accessorKey: `${string}.sync` | keyof T;
 };

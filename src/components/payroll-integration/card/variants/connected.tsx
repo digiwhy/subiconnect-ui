@@ -10,7 +10,7 @@ import React from 'react';
 
 const ConnectedAction = () => {
   const { payrollSystem } = usePayrollSystemContext();
-  const [_, setSearchParam] = useSearchParams();
+  const { setSearchParam } = useSearchParams();
 
   const handleClick = () => {
     setSearchParam(SearchParam.PAYROLL_SYSTEM, payrollSystem.name);

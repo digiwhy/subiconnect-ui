@@ -57,6 +57,30 @@ module.exports = {
         md: 'calc(var(--sc-radius) - 2px)',
         sm: 'calc(var(--sc-radius) - 4px)',
       },
+      keyframes: {
+        'hover-move': {
+          '0%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(-10px)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        'spring-back': {
+          '0%': { transform: 'translateX(0px)' },
+          '25%': { transform: 'translateX(-2px)' },
+          '50%': { transform: 'translateX(2px)' },
+          '100%': { transform: 'translateX(0px)' },
+        },
+        'spring-more': {
+          '0%': { transform: 'translateX(0px)' },
+          '25%': { transform: 'translateX(-2px)' },
+          '50%': { transform: 'translateX(7px)' },
+          '100%': { transform: 'translateX(5px)' },
+        },
+      },
+      animation: {
+        'hover-move': 'hover-move 0.5s ease-in-out forwards',
+        'spring-back': 'spring-back 0.5s ease-in-out forwards',
+        'spring-more': 'spring-more 0.5s ease-in-out forwards',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

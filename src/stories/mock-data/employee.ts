@@ -10,7 +10,7 @@ export const useEmployeesMockData = {
   method: 'GET',
   status: 200,
   response: {
-    count: 5,
+    count: 2,
     previous: null,
     next: null,
     results: [
@@ -34,6 +34,40 @@ export const useEmployeesMockData = {
           },
           name: Payroll.MYOB,
           referenceEmployeeId: 'john.doe@example.com',
+        },
+        metadata: {
+          createdAt: new Date(),
+          sync: {
+            status: SyncStatus.SYNCED,
+            lastSyncAt: new Date(),
+          },
+        },
+        // organisationId: 10,
+        // organisationName: 'Johns Bricklaying',
+        // syncStatus: OrganisationSyncStatus.SYNCED,
+        // lastSynced: new Date(),
+        // salaries: [6323200, 5000000],
+      },
+      {
+        active: true,
+        id: 1,
+        info: {
+          firstName: 'James',
+          lastName: 'May',
+          email: 'james@may.com',
+          salary: {
+            value: 16323200,
+            decimal: 2,
+          },
+        },
+        payroll: {
+          organisation: {
+            id: 11,
+            name: 'Bobbys Demo',
+            referenceId: 'bb-demo',
+          },
+          name: Payroll.MYOB,
+          referenceEmployeeId: 'james@may.com',
         },
         metadata: {
           createdAt: new Date(),

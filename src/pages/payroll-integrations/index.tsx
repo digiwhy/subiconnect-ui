@@ -9,7 +9,6 @@ import { useCompany } from '../../hooks/use-company';
 import { cn } from '../../lib/utils';
 import type { Payroll } from '../../types/payroll';
 import { SearchParam } from '../../types/query';
-import { Button } from '../../ui/button';
 import { Skeleton } from '../../ui/skeleton';
 import PayrollIntegrationManagementPage from '../payroll-integration-management';
 import { RefreshCwIcon } from 'lucide-react';
@@ -19,8 +18,8 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
   className,
 }) => {
   const { data: company } = useCompany();
-  const { refetch, isFetching } = usePayrollSystems();
-  const [getSearchParam] = useSearchParams();
+  const { isFetching } = usePayrollSystems();
+  const { getSearchParam } = useSearchParams();
   const [payroll, setPayroll] = React.useState<Payroll | null>(null);
 
   React.useEffect(() => {
@@ -42,10 +41,6 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
     };
   }, [getSearchParam]);
 
-  const handleRefresh = React.useCallback(() => {
-    refetch();
-  }, [refetch]);
-
   if (payroll) {
     return <PayrollIntegrationManagementPage payroll={payroll} />;
   }
@@ -57,7 +52,7 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
         className,
       )}
     >
-      <div className='sc-flex sc-items-center sc-justify-between'>
+      <div className='sc-flex sc-items-start sc-justify-between'>
         <div className='sc-flex sc-flex-col sc-gap-1'>
           <span className='sc-font-mainMedium sc-text-lg sc-text-secondary'>
             Integrations
@@ -72,17 +67,12 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
           )}
         </div>
 
-        <Button
-          size='icon'
-          variant='ghost'
-          type='button'
-          className={cn('sc-flex sc-h-8 sc-flex-row')}
-          onClick={handleRefresh}
-        >
-          <RefreshCwIcon
-            className={cn('sc-h-4 sc-w-4', { 'sc-animate-spin': isFetching })}
-          />
-        </Button>
+        {isFetching && (
+          <div className='sc-flex sc-flex-row sc-items-center sc-justify-between sc-gap-2 sc-text-xs sc-text-muted-foreground/50'>
+            <span>Refreshing</span>
+            <RefreshCwIcon className='sc-h-3 sc-w-3 sc-animate-spin' />
+          </div>
+        )}
       </div>
       <div className='sc-h-full sc-w-full'>
         <PayrollIntegrationList />

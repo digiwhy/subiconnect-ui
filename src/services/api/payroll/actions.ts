@@ -14,11 +14,17 @@ import {
   CONNECTED_PAYROLL_APPLICATIONS_URL,
   PAYROLL_APPLICATIONS_URL,
   getAccountPayrollURL,
+  getAllOrganisationsURL,
   getConnectPayrollURL,
   getIntegratePayrollURL,
   getOrganisationsFromPayrollURL,
+  getSyncingOrganisationsURL,
 } from './paths';
-import type { ConnectPayrollResponse } from './types';
+import type {
+  AllOrganinisationsResponse,
+  ConnectPayrollResponse,
+  FindAllSyncingOrganisationsByCompanyIdResult,
+} from './types';
 
 export const listPayrollSystems = async (
   options?: ListOptions,
@@ -74,6 +80,24 @@ export const listOrganisationsFromPayroll = async (
   );
   return response.data;
 };
+
+export const listAllOrganisations = async (
+  options?: ListOptions,
+): Promise<PaginationResponse<AllOrganinisationsResponse>> => {
+  const response = await axiosClient.get<
+    PaginationResponse<AllOrganinisationsResponse>
+  >(getAllOrganisationsURL(), options);
+  return response.data;
+};
+
+export const listSyncingOrganisations =
+  async (): Promise<FindAllSyncingOrganisationsByCompanyIdResult> => {
+    const response =
+      await axiosClient.get<FindAllSyncingOrganisationsByCompanyIdResult>(
+        getSyncingOrganisationsURL(),
+      );
+    return response.data;
+  };
 
 export const getAccountPayroll = async ({
   payroll,

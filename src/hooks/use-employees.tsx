@@ -5,8 +5,8 @@ import type {
   PaginationResponse,
 } from '../types/components/data-table';
 import type { Employee, SelectableEmployeeColumns } from '../types/employee';
-import type { DeepPartial } from '../types/main';
 import type { BaseQueryOptions } from '../types/query';
+import type { DeepPartial } from '../types/utils';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 

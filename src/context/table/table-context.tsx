@@ -1,4 +1,7 @@
-import useSearchParams from '../../hooks/internal/use-serach-params';
+import useSearchParams, {
+  FILTER_SEARCH_PARAM_PREFIX,
+} from '../../hooks/internal/use-serach-params';
+import { createNestedObjectFromString } from '../../lib/utils';
 import type {
   PaginationResponse,
   ListRequest,
@@ -26,7 +29,7 @@ interface IDataTableContext<TData> {
    *
    * @returns the verbose parameter name.
    */
-  getParamName: (param: SearchParam) => string;
+  getParamName: (param: SearchParam | string) => string;
 
   /**
    * Get the value of a parameter.
@@ -35,14 +38,26 @@ interface IDataTableContext<TData> {
    *
    * @returns the parameter value.
    */
-  getParamValue: (param: SearchParam) => string | null;
+  getParamValue: (param: SearchParam | string) => string | string[] | null;
 
   /**
    * Set the value of a parameter.
    * @param param the base name of the parameter.
    * @param value (optional) the value to set. If no value is provided, delete the parameter.
    */
-  setParamValue: (param: SearchParam, value?: string) => void;
+  setParamValue: (param: SearchParam | string, value?: string) => void;
+
+  /**
+   * Reset all filters.
+   */
+  resetFilters: () => void;
+
+  /**
+   * Get all the filters in the current search state.
+   *
+   * @returns the filters.
+   */
+  getFilters: () => Record<string, string | string[] | undefined>;
 
   /**
    * The useQuery result.
@@ -94,34 +109,66 @@ export const DataTableProvider = <TData,>({
   queryKeyFilters = [],
   queryOptions,
 }: DataTableProviderProps<TData>) => {
-  const [getSearchParam, setSearchParam] = useSearchParams();
+  const { getSearchParam, setSearchParam, getAllParams } = useSearchParams();
 
-  const getParamName = React.useCallback((param: SearchParam) => {
+  const getParamName = React.useCallback((param: SearchParam | string) => {
     return `${param}`;
   }, []);
 
   const getParamValue = React.useCallback(
-    (param: SearchParam) => {
+    (param: SearchParam | string) => {
       return getSearchParam(getParamName(param));
     },
     [getSearchParam],
   );
 
   const setParamValue = React.useCallback(
-    (param: SearchParam, value?: string) => {
+    (param: SearchParam | string, value?: string) => {
       setSearchParam(getParamName(param), value);
     },
     [setSearchParam],
   );
 
+  const resetFilters = React.useCallback(() => {
+    for (const key of Object.keys(getAllParams())) {
+      if (key.startsWith(FILTER_SEARCH_PARAM_PREFIX)) {
+        setParamValue(key, undefined);
+      }
+    }
+  }, [setParamValue]);
+
+  const getFilters = React.useCallback(() => {
+    const filters: Record<string, string | string[] | undefined> = {};
+    Object.keys(getAllParams()).forEach((key) => {
+      if (key.startsWith(FILTER_SEARCH_PARAM_PREFIX)) {
+        filters[key] = getAllParams()[key];
+      }
+    });
+
+    return filters;
+  }, [getAllParams]);
+
   const params = React.useMemo(() => {
-    const page = Number.parseInt(getParamValue(SearchParam.PAGE) ?? '');
+    const _page = getParamValue(SearchParam.PAGE);
+    const page = Number.parseInt(typeof _page === 'string' ? _page : '');
     const search = getParamValue(SearchParam.SEARCH);
 
+    const filtersWithoutPrefix = Object.entries(getAllParams())
+      .filter(([key]) => key.startsWith(FILTER_SEARCH_PARAM_PREFIX))
+      .reduce((acc: Record<string, unknown>, [key, value]) => {
+        const newObject = createNestedObjectFromString(
+          key.replace(FILTER_SEARCH_PARAM_PREFIX, ''),
+          value,
+        );
+        return { ...acc, ...newObject }; // Merge the new object into the accumulator
+      }, {});
+
     return {
+      ...filtersWithoutPrefix,
       ...(!Number.isNaN(page) && { page: page }),
-      ...(search && { search }),
-      // TODO: [pageSizeParam]: paginationState.pageSize,
+      ...(search && typeof search === 'string' && { search }),
+
+      // TODO: [pageSizeParam/limit]: paginationState.pageSize,
     };
   }, [getParamValue]);
 
@@ -152,10 +199,21 @@ export const DataTableProvider = <TData,>({
       getParamName,
       getParamValue,
       setParamValue,
+      resetFilters,
+      getFilters,
       query,
       queryKey,
     }),
-    [name, getParamName, getParamValue, setParamValue, query, queryKey],
+    [
+      name,
+      getParamName,
+      getParamValue,
+      setParamValue,
+      resetFilters,
+      getFilters,
+      query,
+      queryKey,
+    ],
   );
 
   return (

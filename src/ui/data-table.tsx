@@ -4,8 +4,12 @@ import { useDataTablePaginationContext } from '../context/table/pagination-conte
 import { useDataTableContext } from '../context/table/table-context';
 import { cn } from '../lib/utils';
 import type { ColumnDef } from '../types/components/data-table';
+import type { TypedOmit } from '../types/utils';
 import { DataTablePagination } from './data-table-pagination';
-import { DataTableToolbar } from './data-table-toolbar';
+import {
+  DataTableToolbar,
+  type DataTableToolbarProps,
+} from './data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,12 +27,14 @@ import {
 } from '@tanstack/react-table';
 import React from 'react';
 
-interface DataTableProps<TData, TValue> {
+export type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
-}
+  toolbarProps?: TypedOmit<DataTableToolbarProps<TData, TValue>, 'table'>;
+};
 
 export function DataTable<TData, TValue>({
   columns,
+  toolbarProps,
 }: Readonly<DataTableProps<TData, TValue>>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const {
@@ -63,7 +69,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='subi-connect sc-flex sc-flex-col sc-gap-2'>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} {...toolbarProps} />
       <div className='sc-rounded-md sc-border'>
         <Table>
           <TableHeader>
