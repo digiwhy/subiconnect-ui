@@ -36,10 +36,10 @@ export const useDataTablePaginationContext =
  * @param defaultValue the default value to return if the `param` does not exist.
  */
 const handlePageParams = (
-  param: string | undefined | null,
+  param: string | string[] | undefined | null,
   defaultValue: number,
 ): number => {
-  if (!param) {
+  if (!param || typeof param !== 'string') {
     return defaultValue;
   }
   const parsedNumber = Number.parseInt(param, 10);

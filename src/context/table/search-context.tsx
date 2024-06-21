@@ -33,10 +33,10 @@ export const DataTableSearchProvider = ({
 }: DataTableSearchProviderProps) => {
   const { getParamValue, setParamValue } = useDataTableContext();
   const { setPage } = useDataTablePaginationContext();
-  const search = React.useMemo(
-    () => getParamValue(SearchParam.SEARCH) ?? '',
-    [getParamValue],
-  );
+  const search = React.useMemo(() => {
+    const _search = getParamValue(SearchParam.SEARCH);
+    return typeof _search === 'string' ? _search : '';
+  }, [getParamValue]);
 
   const handleSetSearch = React.useCallback(
     (value: string) => {
