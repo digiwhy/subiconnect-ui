@@ -17,20 +17,31 @@ import { Skeleton } from '../../ui/skeleton';
 import { RefreshCwIcon } from 'lucide-react';
 import React from 'react';
 
+const DEFAULT_REFETCH_INTERVAL_TIME = 1000 * 60 * 2;
+
 const OrganisationSyncingComponent = () => {
-  const { data, isLoading } = useSyncingOrganisations();
+  const { data, isLoading } = useSyncingOrganisations({
+    queryOptions: {
+      refetchInterval(q) {
+        // Refretch every 2 minutes until all organisations are synced
+        return (q.state.data?.count ?? 1) > 0
+          ? DEFAULT_REFETCH_INTERVAL_TIME
+          : false;
+      },
+    },
+  });
 
   if (isLoading) return <Skeleton className='sc-h-4 sc-w-32' />;
 
-  if (!data) return;
+  if (!data || data.count === 0) return null;
 
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <div className='sc-flex sc-items-center sc-justify-between sc-gap-2 sc-text-xs sc-text-muted-foreground/50 hover:sc-cursor-pointer'>
+        <div className='sc-flex sc-items-center sc-justify-between sc-gap-2 sc-text-xs sc-text-muted-foreground/50 hover:sc-cursor-help'>
           <div>
-            {data.count > 10 ? 'More than 10' : data.count} Organisations
-            Syncing
+            {data.count > 10 ? 'More than 10' : data.count} Organisation
+            {data.count > 1 ? 's ' : ' '}Syncing
           </div>
           <RefreshCwIcon className='sc-h-3 sc-w-3 sc-animate-spin' />
         </div>
