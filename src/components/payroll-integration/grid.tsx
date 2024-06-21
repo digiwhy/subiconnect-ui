@@ -24,7 +24,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
 
   const handleIntegrateOnSuccess = React.useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ['subi-connect', 'payroll system', 'list', { connected: true }],
+      queryKey: ['subi-connect', 'payroll system', 'list'],
     });
   }, []);
 

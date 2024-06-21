@@ -100,9 +100,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     useInfiniteQuery({
       queryKey: fullQueryKey,
       queryFn: queryFunction,
-      refetchOnWindowFocus: false,
       enabled: listAction !== undefined,
-      staleTime: Infinity,
       initialPageParam: 1,
       getPreviousPageParam: (firstPage) => firstPage.previous ?? undefined,
       getNextPageParam: (lastPage) => lastPage.next ?? undefined,
@@ -140,8 +138,10 @@ export function DataTableFacetedFilter<TData, TValue>({
 
   const finalOptions = React.useMemo(
     () => data?.pages.flatMap((page) => page.results) ?? [],
-    [data],
+    [data?.pageParams, fullQueryKey],
   );
+
+  console.log({ finalOptions });
 
   return (
     <Popover>
