@@ -9,7 +9,7 @@ import {
 } from './data-table-faceted-filter';
 import { Input } from './input';
 import type { Table } from '@tanstack/react-table';
-import { LoaderCircleIcon, RefreshCwIcon, XIcon } from 'lucide-react';
+import { LoaderCircleIcon, RefreshCwIcon } from 'lucide-react';
 import React from 'react';
 
 export type DataTableToolbarFilterOptions<TData, TValue> = Array<
@@ -27,9 +27,8 @@ export type DataTableToolbarProps<TData, TValue = unknown> = {
 export function DataTableToolbar<TData, TCreate>({
   table,
   hideSearchBar = false,
-  filterOptions = [], // TODO: implement filter options
+  filterOptions = [],
 }: Readonly<DataTableToolbarProps<TData, TCreate>>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
   const {
     query: { refetch, data, isRefetching, isLoading },
   } = useDataTableContext();
@@ -63,8 +62,8 @@ export function DataTableToolbar<TData, TCreate>({
   );
 
   return (
-    <div className='sc-flex sc-items-center sc-justify-between'>
-      <div className='sc-flex sc-flex-1 sc-items-center sc-space-x-2'>
+    <div className='sc-flex sc-items-start sc-justify-between'>
+      <div className='sc-flex sc-flex-1 sc-flex-col sc-items-start sc-gap-2 sm:sc-flex-row sm:sc-items-center'>
         {!hideSearchBar && (
           <div className='sc-relative sc-flex sc-flex-row sc-items-center sc-justify-between sc-gap-2'>
             <Input
@@ -79,7 +78,7 @@ export function DataTableToolbar<TData, TCreate>({
                 className={cn(
                   'sc-hidden sc-h-3 sc-w-3 sc-text-muted-foreground/50',
                   {
-                    'sc-block sc-animate-spin': isLoading,
+                    'sc-block sc-animate-spin': isLoading && search !== '',
                   },
                 )}
               />
@@ -87,30 +86,15 @@ export function DataTableToolbar<TData, TCreate>({
           </div>
         )}
 
-        <div>
-          {filterOptions.map(({ title, columnId, options }) => {
-            console.log(columnId);
+        <div className='sc-flex sc-flex-row sc-flex-wrap sc-gap-2'>
+          {filterOptions.map(({ columnId, ...props }) => {
+            const col = table.getColumn(columnId);
+            if (!col) return null;
             return (
-              <DataTableFacetedFilter
-                column={table.getColumn(columnId)}
-                title={title}
-                options={options}
-                key={columnId}
-              />
+              <DataTableFacetedFilter key={columnId} column={col} {...props} />
             );
           })}
         </div>
-
-        {isFiltered && (
-          <Button
-            variant='ghost'
-            onClick={() => table.resetColumnFilters()}
-            className='sc-h-8 sc-px-2 lg:sc-px-3'
-          >
-            Reset
-            <XIcon className='sc-ml-2 sc-h-4 sc-w-4' />
-          </Button>
-        )}
       </div>
       <div className='flex items-center gap-2'>
         <Button

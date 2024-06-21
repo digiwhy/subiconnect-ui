@@ -2,6 +2,16 @@ import React from 'react';
 
 export const SUBI_CONNECT_QUERY_PREFIX = 'sc_';
 export const SEARCH_PARAM_UPDATE_EVENT = 'sc-search-param-update';
+export const FILTER_SEARCH_PARAM_PREFIX = 'f_';
+export const FILTER_SEARCH_PARAM_SPLITTER = ',';
+
+const handleParam = (key: string, value: string) => {
+  if (key.startsWith(FILTER_SEARCH_PARAM_PREFIX)) {
+    return value.split(FILTER_SEARCH_PARAM_SPLITTER);
+  } else {
+    return value;
+  }
+};
 
 const getQuery = () => {
   if (typeof window !== 'undefined') {
@@ -26,10 +36,27 @@ const useSearchParams = () => {
   }, []);
 
   const getSearchParam = (param: string) => {
-    return getQuery().get(`${SUBI_CONNECT_QUERY_PREFIX}${param}`);
+    const value = getQuery().get(`${SUBI_CONNECT_QUERY_PREFIX}${param}`);
+
+    if (!value) return null;
+
+    return handleParam(param, value);
   };
 
-  const updateSearchParams = (param: string, value: string | undefined) => {
+  const getAllParams = () => {
+    const allQueries: Record<string, string | string[]> = {};
+
+    for (const [key, value] of getQuery().entries()) {
+      if (key.startsWith(SUBI_CONNECT_QUERY_PREFIX)) {
+        const _key = key.substring(SUBI_CONNECT_QUERY_PREFIX.length);
+        allQueries[_key] = handleParam(_key, value);
+      }
+    }
+
+    return allQueries;
+  };
+
+  const setSearchParam = (param: string, value: string | undefined) => {
     const query = getQuery();
     const prefixedParam = `${SUBI_CONNECT_QUERY_PREFIX}${param}`;
 
@@ -51,7 +78,12 @@ const useSearchParams = () => {
     }
   };
 
-  return [getSearchParam, updateSearchParams] as const;
+  return {
+    getSearchParam,
+    setSearchParam,
+    getAllParams,
+    getQuery,
+  } as const;
 };
 
 export default useSearchParams;

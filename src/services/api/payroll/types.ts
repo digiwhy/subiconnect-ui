@@ -1,3 +1,5 @@
+import type { Organisation } from '../../../types/organisation';
+
 export enum PayrollConnectionTypeEnum {
   CUSTOM = 'CUSTOM',
   OAUTH2 = 'OAUTH2',
@@ -22,4 +24,11 @@ type ConnectPayrollOAuth2Response = {
 type ConnectPayrollOAuth2AndCustomResponse = {
   redirectUri: string;
   type: PayrollConnectionTypeEnum.OAUTH2_AND_COMPANY_MANUALLY;
+};
+
+export type AllOrganinisationsResponse = Pick<Organisation, 'id' | 'name'>;
+
+export type FindAllSyncingOrganisationsByCompanyIdResult = {
+  count: number;
+  organisations: Array<Pick<Organisation, 'id' | 'name'>>;
 };

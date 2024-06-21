@@ -9,7 +9,6 @@ import { useCompany } from '../../hooks/use-company';
 import { cn } from '../../lib/utils';
 import type { Payroll } from '../../types/payroll';
 import { SearchParam } from '../../types/query';
-import { Button } from '../../ui/button';
 import { Skeleton } from '../../ui/skeleton';
 import PayrollIntegrationManagementPage from '../payroll-integration-management';
 import { RefreshCwIcon } from 'lucide-react';
@@ -20,7 +19,7 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
 }) => {
   const { data: company } = useCompany();
   const { isFetching } = usePayrollSystems();
-  const [getSearchParam] = useSearchParams();
+  const { getSearchParam } = useSearchParams();
   const [payroll, setPayroll] = React.useState<Payroll | null>(null);
 
   React.useEffect(() => {
