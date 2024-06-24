@@ -11,7 +11,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
-    "@subifinancial/subi-connect": "file:../lib/subi-connect@local-b72a2.tgz",
+    "@subifinancial/subi-connect": "file:../lib/subi-connect@local-9ed5a.tgz",
     "@tanstack/react-query": "^5.45.1",
     "@tanstack/react-table": "^8.17.3",
     "@types/node": "20.12.11",

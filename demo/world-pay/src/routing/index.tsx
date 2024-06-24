@@ -7,16 +7,19 @@ import CustomColumnsEmployeesPage from '@/pages/employees/custom-columns-page';
 import EmployeesPage from '@/pages/employees/page';
 import CustomIntegrationsPage from '@/pages/integrations/custom/page';
 import IntegrationsPage from '@/pages/integrations/page';
-import {
-  Navigate,
-  Route,
-  Routes
-} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from '../layout';
 
 function Routing() {
-  const { getToken, isAuthenticated, isLoadingLibrary, login, user } = useAuth();
-  useRoute({ getToken, isAuthenticated, isLoadingLibrary, login, hasUser: !!user, });
+  const { getToken, isAuthenticated, isLoadingLibrary, login, user } =
+    useAuth();
+  useRoute({
+    getToken,
+    isAuthenticated,
+    isLoadingLibrary,
+    login,
+    hasUser: !!user
+  });
 
   return (
     <Routes>

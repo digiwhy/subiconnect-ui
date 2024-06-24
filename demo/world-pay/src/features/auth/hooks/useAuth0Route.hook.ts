@@ -13,7 +13,7 @@ function useAuth0Route(): UseAuth0Route {
 
   const handleOnRedirectCallback = (
     appState?: AppState,
-    _user?: User,
+    _user?: User
   ): void => {
     const authPathname = getLastAuthenticatedRoutes();
     const pageToRedirect: string =
@@ -25,7 +25,7 @@ function useAuth0Route(): UseAuth0Route {
   };
 
   return {
-    handleOnRedirectCallback,
+    handleOnRedirectCallback
   };
 }
 

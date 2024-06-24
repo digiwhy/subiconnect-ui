@@ -5,7 +5,7 @@ const {
   VITE_AUTH0_DOMAIN,
   VITE_BASE_COMPONENTS_API,
   VITE_BASE_PORTAL_API,
-  VITE_BASE_PORTAL_URL,
+  VITE_BASE_PORTAL_URL
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 } = import.meta.env;
@@ -37,7 +37,7 @@ if (!VITE_AUTH0_COOKIE_DOMAIN) {
 if (!VITE_AUTH0_DOMAIN) {
   throw new Error('Missing VITE_AUTH0_DOMAIN env');
 }
-  
+
 export {
   VITE_AUTH0_AUDIENCE,
   VITE_AUTH0_CLIENT_ID,
@@ -47,4 +47,3 @@ export {
   VITE_BASE_PORTAL_API,
   VITE_BASE_PORTAL_URL
 };
-  

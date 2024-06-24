@@ -1,33 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROOT_ROUTE, UNAUTHORISED_TO_REDIRECT_TO_LOGIN } from '../constants';
+import React from 'react';
 
 export interface UseRouteProps {
   hasUser: boolean;
   getToken: () => Promise<string>;
   isAuthenticated: boolean;
   isLoadingLibrary: boolean;
-  login: (customParams?: Record<string, any>) => void;
+  login: (customParams?: Record<string, unknown>) => void;
 }
 
 function useRoute({
   isAuthenticated,
   isLoadingLibrary,
   login,
-  hasUser,
+  hasUser
 }: UseRouteProps): void {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isAuthenticated || isLoadingLibrary) return;
     if (UNAUTHORISED_TO_REDIRECT_TO_LOGIN.includes(pathname)) return;
 
     login();
   }, [isAuthenticated, isLoadingLibrary, login, pathname, hasUser]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (
       !isAuthenticated ||
       isLoadingLibrary ||

@@ -1,4 +1,5 @@
-const AUTHENTICATED_ROUTES_KEY = 'SUBICONNECT_DEMO_AUTHENTICATED_ROUTES_KEY:auth0';
+const AUTHENTICATED_ROUTES_KEY =
+  'SUBICONNECT_DEMO_AUTHENTICATED_ROUTES_KEY:auth0';
 
 interface ITEM_VALUE {
   pathname: string;
@@ -11,12 +12,12 @@ const setLastAuthenticatedRoutes = (pathname: string): void => {
   const now = new Date();
   const itemValueObj: ITEM_VALUE = {
     pathname,
-    expiry: now.getTime() + TTL_MS,
+    expiry: now.getTime() + TTL_MS
   };
 
   window.localStorage.setItem(
     AUTHENTICATED_ROUTES_KEY,
-    JSON.stringify(itemValueObj),
+    JSON.stringify(itemValueObj)
   );
 };
 
