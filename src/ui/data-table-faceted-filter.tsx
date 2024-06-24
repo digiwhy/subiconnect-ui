@@ -141,8 +141,6 @@ export function DataTableFacetedFilter<TData, TValue>({
     [data?.pageParams, fullQueryKey],
   );
 
-  console.log({ finalOptions });
-
   return (
     <Popover>
       <PopoverTrigger asChild>
