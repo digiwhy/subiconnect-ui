@@ -16,8 +16,25 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Primary: Story = {};
+
+export const Salary: Story = {
   args: {
     enabledColumns: [SelectableEmployeeColumns.SALARY],
+  },
+};
+
+export const HourlyRate: Story = {
+  args: {
+    enabledColumns: [SelectableEmployeeColumns.HOURLY_RATE],
+  },
+};
+
+export const ALL: Story = {
+  args: {
+    enabledColumns: [
+      SelectableEmployeeColumns.SALARY,
+      SelectableEmployeeColumns.HOURLY_RATE,
+    ],
   },
 };

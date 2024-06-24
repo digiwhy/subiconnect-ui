@@ -1,12 +1,12 @@
-import { useEffect, useState, type MutableRefObject } from 'react';
+import React from 'react';
 
 const useIntersectionObserver = <T extends Element>(
-  ref: MutableRefObject<T | null>,
+  ref: React.MutableRefObject<T | null>,
   options?: IntersectionObserverInit,
 ): boolean => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       setIsVisible(!!entry?.isIntersecting);
     }, options);
