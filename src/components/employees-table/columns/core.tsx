@@ -1,4 +1,3 @@
-import { getMoneyFromDecimals } from '../../../lib/utils';
 import type { ColumnDef } from '../../../types/components/data-table';
 import type { Employee } from '../../../types/employee';
 import { Button } from '../../../ui/button';
@@ -48,16 +47,6 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
   );
 };
 
-const SalaryColumnCell: React.FC<CellContext<Employee, unknown>> = ({
-  row,
-}) => {
-  if (!row.original.info.salary?.value) return '';
-
-  const value = getMoneyFromDecimals(row.original.info.salary.value);
-
-  return value;
-};
-
 export const emailColumn: ColumnDef<Employee> = {
   accessorKey: 'email',
   id: 'email',
@@ -66,14 +55,6 @@ export const emailColumn: ColumnDef<Employee> = {
   ),
   cell: EmailColum,
   headerClassName: 'sc-w-full',
-};
-
-export const salaryColumn: ColumnDef<Employee> = {
-  accessorKey: 'salary',
-  header: ({ column }) => (
-    <DataTableColumnHeader column={column} title={'Salary'} />
-  ),
-  cell: SalaryColumnCell,
 };
 
 export const actionsColumn: ColumnDef<Employee> = {

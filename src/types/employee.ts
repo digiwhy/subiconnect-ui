@@ -2,8 +2,19 @@ import type { SyncStatus } from './main';
 import type { Payroll } from './payroll';
 
 export interface EmployeeSalary {
-  value: number | null;
+  /**
+   * The decimals for the currency.
+   */
   decimal: number | null;
+  /**
+   * The salary of the employee in the currency.
+   * E.g., value = 5000000; decimal = 2 => $50,000.00
+   */
+  value?: number | null;
+  /**
+   * The calculated hourly rate of the employee based on their yearly salary.
+   */
+  hourlyRate?: number | null;
 }
 
 export interface EmployeeSync {
@@ -48,4 +59,5 @@ export type Employee = {
 
 export enum SelectableEmployeeColumns {
   SALARY = 'salary',
+  HOURLY_RATE = 'hourlyRate',
 }

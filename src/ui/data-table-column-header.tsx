@@ -17,22 +17,28 @@ interface DataTableColumnHeaderProps<TData, TValue>
   title: string;
 }
 
+const BASE_CLASSNAME = `sc-flex sc-items-center sc-space-x-2 sc-text-secondary`;
+
 export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
 }: Readonly<DataTableColumnHeaderProps<TData, TValue>>) {
-  if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>;
-  }
-
   return (
     <div
       className={cn(
-        'sc-flex sc-items-center sc-space-x-2 sc-text-secondary',
+        BASE_CLASSNAME,
+        'sc-h-8 sc-justify-center sc-whitespace-nowrap sc-font-mainMedium sc-text-sm sc-font-normal',
         className,
       )}
     >
+      {title}
+    </div>
+  );
+
+  // TODO: implement server-side sorting.
+  return (
+    <div className={cn(BASE_CLASSNAME, className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
