@@ -1,6 +1,6 @@
 'use client';
 
-import { VITE_BASE_COMPONENTS_API } from "@/envs";
+import { VITE_BASE_COMPONENTS_API } from '@/envs';
 
 export const connectionFn = async (apiKey: string) => {
   const response = await fetch(

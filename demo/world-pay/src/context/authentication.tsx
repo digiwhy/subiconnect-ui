@@ -12,8 +12,7 @@ interface IAutheticationContext {
 }
 
 export const AuthenticationContext = React.createContext<
-  | IAutheticationContext
-  | undefined
+  IAutheticationContext | undefined
 >(undefined);
 
 export const useAuthenticationContext = (): IAutheticationContext => {
@@ -34,7 +33,7 @@ export const useAuthenticationAuthenticatedContext =
         'useAuthenticationAuthenticatedContext must be used within a AuthenticationProvider'
       );
     }
-  
+
     return context;
   };
 
@@ -88,12 +87,7 @@ export const AuthenticationProvider = ({
       apiKeyLocalStorage,
       setApiKeyLocalStorage: handleSetApiKeyLocalStorage
     }),
-    [
-      apiKey,
-      setApiKey,
-      apiKeyLocalStorage,
-      setApiKeyLocalStorage
-    ]
+    [apiKey, setApiKey, apiKeyLocalStorage, setApiKeyLocalStorage]
   );
 
   return (
