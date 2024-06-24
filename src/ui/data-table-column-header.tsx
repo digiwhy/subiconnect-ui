@@ -1,6 +1,6 @@
-import { cn } from '../lib/utils';
 import { type Column } from '@tanstack/react-table';
 import React from 'react';
+import { cn } from '../lib/utils';
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
