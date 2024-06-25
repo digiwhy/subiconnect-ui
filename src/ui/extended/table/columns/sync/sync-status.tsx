@@ -12,7 +12,7 @@ import React from 'react';
 
 const SyncFailed: React.FC = () => {
   return (
-    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-text-left'>
+    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-whitespace-nowrap sc-text-left'>
       <CircleAlertIcon className='sc-h-4 sc-w-4 sc-text-red-500' />
       <span className='sc-text-red-500'>Sync failed</span>
     </div>
@@ -21,7 +21,7 @@ const SyncFailed: React.FC = () => {
 
 const Syncing: React.FC = () => {
   return (
-    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-text-right sc-opacity-50'>
+    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-whitespace-nowrap sc-text-right sc-opacity-50'>
       <LoaderCircleIcon className='sc-h-4 sc-w-4 sc-animate-spin' />
       <span>Syncing</span>
     </div>
@@ -32,7 +32,7 @@ const Success: React.FC<{ lastSynced: Date | null }> = ({ lastSynced }) => {
   if (!lastSynced) return;
 
   return (
-    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-text-left'>
+    <div className='sc-flex sc-flex-row sc-items-center sc-justify-end sc-gap-2 sc-whitespace-nowrap sc-text-left'>
       <CircleCheck className='sc-h-4 sc-w-4 sc-text-green-500' />
       <span className='sc-text-green-500'>Sync success</span>
     </div>
@@ -55,7 +55,7 @@ export const syncStatusColumn = <
       <DataTableColumnHeader
         column={column}
         title={'Sync Status'}
-        className='sc-flex sc-justify-end'
+        className='sc-flex sc-justify-end '
       />
     ),
     cell: ({ row, cell }) => {
