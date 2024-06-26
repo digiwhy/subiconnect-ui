@@ -92,6 +92,11 @@
     * {
       font-family: 'Moderat-Light', sans-serif;
     }
+
+    [data-radix-popper-content-wrapper] {
+      min-width: auto !important;
+      margin-inline: 0.5rem !important;
+    }
   }
 }
 
