@@ -1,5 +1,5 @@
 # This workflow will release the packages with Changesets
-name: 🔗 🚀 [Auto] Release
+name: '[Auto] 🚀 Release'
 
 on:
   push:
