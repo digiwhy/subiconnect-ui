@@ -1,4 +1,4 @@
-name: 🏁 Initiate Release
+name: '[Manual] 🏁 Initiate Release'
 
 on:
   workflow_dispatch:
