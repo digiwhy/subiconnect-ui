@@ -17,8 +17,8 @@ export default function MainLayout() {
   const { liftMode } = useLiftMode();
 
   return (
-    <div className="grid min-h-screen w-dvw sm:grid-cols-[280px_1fr]">
-      <div className="hidden border-r bg-gray-100/40 sm:block dark:bg-gray-800/40">
+    <div className="flex min-h-screen w-dvw max-w-full overflow-hidden">
+      <div className="hidden sm:flex border-r bg-gray-100/40 min-w-fit dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-5">
             <Link className="flex items-center gap-2 font-semibold" to="/">
@@ -62,7 +62,8 @@ export default function MainLayout() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full max-w-full">
+
+      <div className="flex flex-col flex-grow max-w-full overflow-hidden">
         <header className="flex h-14 sm:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40 justify-between lg:justify-end">
           <Link
             className="flex items-center gap-2 font-semibold sm:opacity-0"

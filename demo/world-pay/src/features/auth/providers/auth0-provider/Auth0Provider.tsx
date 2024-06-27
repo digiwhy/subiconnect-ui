@@ -3,7 +3,7 @@ import {
   VITE_AUTH0_AUDIENCE,
   VITE_AUTH0_CLIENT_ID,
   VITE_AUTH0_COOKIE_DOMAIN,
-  VITE_AUTH0_DOMAIN,
+  VITE_AUTH0_DOMAIN
 } from '@/envs';
 import { getOrigin } from '@/helpers/url-helper';
 import { Auth0Provider as Auth0ProviderLibrary } from '@auth0/auth0-react';
@@ -18,7 +18,7 @@ function Auth0Provider({ children }: Auth0ProviderProps) {
     <Auth0ProviderLibrary
       authorizationParams={{
         audience: VITE_AUTH0_AUDIENCE,
-        redirect_uri: getOrigin(),
+        redirect_uri: getOrigin()
       }}
       clientId={VITE_AUTH0_CLIENT_ID}
       cookieDomain={VITE_AUTH0_COOKIE_DOMAIN}

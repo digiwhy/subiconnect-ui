@@ -36,15 +36,14 @@ const getQueryParamsStr = (paramObj: object): string =>
     .join('&');
 
 export {
-    getCurrentPageUrl,
-    getHost,
-    getOrigin,
-    getPathname,
-    getQueryParam,
-    getQueryParams,
-    getQueryParamsStr,
-    redirectToExternalPage,
-    redirectToRoot,
-    reloadCurrentPage
+  getCurrentPageUrl,
+  getHost,
+  getOrigin,
+  getPathname,
+  getQueryParam,
+  getQueryParams,
+  getQueryParamsStr,
+  redirectToExternalPage,
+  redirectToRoot,
+  reloadCurrentPage
 };
-
