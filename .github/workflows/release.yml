@@ -1,12 +1,10 @@
 # This workflow will release the packages with Changesets
-
-name: 🔗 🚀 Release
+name: 🔗 🚀 [Auto] Release
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -32,9 +30,6 @@ jobs:
       - name: 🧩 Install Dependencies
         run: npm ci
 
-      - name: 📖 Check Changesets
-        run: npm run cs:check
-
       - name: 🔏 'Create env file'
         run: |
           touch .env.production
@@ -47,7 +42,6 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: npm run cs:publish
-          version: npm run cs:version
           commit: 'chore(release): version package 🔗🦋'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
