@@ -48,10 +48,10 @@ jobs:
       - name: 🖋️ Update staging branch
         if: ${{ steps.check_changeset_pr.outputs.is_changeset_pr }} == 'true'
         run: |
-          git checkout stg
+          git checkout staging
           git fetch origin ${{ env.COMMIT_SHA }}:refs/remotes/origin/dev-commit
           git reset --hard refs/remotes/origin/dev-commit
-          git push origin stg --force
+          git push origin staging --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -71,8 +71,8 @@ jobs:
 
       - name: 🔁 Reset branch
         run: |
-          git fetch origin stg:stg
-          git reset --hard stg
+          git fetch origin staging:staging
+          git reset --hard staging
 
       - name: 📣 Create a new PR to move the release from staging to main
         uses: peter-evans/create-pull-request@v6
