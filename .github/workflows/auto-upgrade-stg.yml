@@ -46,7 +46,7 @@ jobs:
           $GITHUB_ENV
 
       - name: 🖋️ Update staging branch
-        if: ${{ steps.check_changeset_pr.outputs.is_changeset_pr }} == 'true'
+        if: steps.check_changeset_pr.outputs.is_changeset_pr == 'true'
         run: |
           git checkout staging
           git fetch origin ${{ env.COMMIT_SHA }}:refs/remotes/origin/dev-commit
