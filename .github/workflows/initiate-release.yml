@@ -1,0 +1,44 @@
+name: 🏁 Initiate Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        options:
+          - dev
+
+jobs:
+  create_rc_pr:
+    name: 🏁 Create RC PR
+    runs-on: ubuntu-latest
+    outputs:
+      changes_detected: ${{ steps.check_changes.outputs.changes }}
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: dev
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: 🧩 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Run build
+        run: npm run build
+
+      - name: 📣 Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          title: '[Automated] Version package - RC'
+          commit: 'chore(release): version package 🦋'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
