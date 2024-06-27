@@ -1,4 +1,4 @@
-name: '⏩︎ [Auto] Update Staging'
+name: '[Auto] ⏩︎ Update Staging'
 
 on:
   pull_request:
