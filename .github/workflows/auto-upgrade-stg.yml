@@ -39,8 +39,8 @@ jobs:
         run: |
           git checkout staging
           git fetch origin ${{ env.COMMIT_SHA }}:refs/remotes/origin/dev-commit
-          git reset --hard refs/remotes/origin/dev-commit
-          git push origin staging --force
+          git rebase refs/remotes/origin/dev-commit
+          git push origin staging --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,10 +57,10 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: 🔁 Reset branch
+      - name: 🔁 Rebase main onto staging
         run: |
           git fetch origin staging:staging
-          git reset --hard staging
+          git rebase staging
 
       - name: 📣 Create a new PR to move the release from staging to main
         uses: peter-evans/create-pull-request@v6
