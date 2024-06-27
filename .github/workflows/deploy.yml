@@ -1,12 +1,19 @@
-name: Development
+name: Workflow
 
 on:
-  push:
-    branches:
-      - dev
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        description: 'Select the environment'
+        options:
+          - dev
+          - stg
+          - prod
+        required: true
 
 concurrency:
-  group: dev
+  group: ${{ github.event.inputs.env }}
   cancel-in-progress: true
 
 env:
@@ -17,9 +24,9 @@ env:
 
 jobs:
   build-lib-tgz:
-    name: Build subi-connect lib
+    name: 🏗️ Build subi-connect lib
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: ${{ github.event.inputs.env }}-ap-southeast-2
     env:
       SUBI_CONNECT_IMAGES_BASE_URL: ${{ secrets.SUBI_CONNECT_IMAGES_BASE_URL }}
       SUBI_CONNECT_PUBLIC_BASE_URL: ${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }}
@@ -41,7 +48,7 @@ jobs:
 
       - name: Build
         run: |
-          npm run pack development
+          npm run pack ${{ github.event.inputs.env }}
           export SUBI_CONNECT_TGZ_AUX_FILE_NAME=$(ls -t ${{ env.SUBI_CONNECT_PACK_DESTINATION }}/subi-connect*.tgz | head -n 1)
           echo "Generated package: $SUBI_CONNECT_TGZ_AUX_FILE_NAME"
 
@@ -52,10 +59,10 @@ jobs:
           path: ${{ env.SUBI_CONNECT_PACK_DESTINATION }}
 
   build-demo:
-    name: Build subi-connect demo
+    name: 🏗️ Build subi-connect demo
     runs-on: ubuntu-latest
     needs: [build-lib-tgz]
-    environment: dev-ap-southeast-2
+    environment: ${{ github.event.inputs.env }}-ap-southeast-2
     env:
       VITE_AUTH0_AUDIENCE: ${{ secrets.VITE_AUTH0_AUDIENCE }}
       VITE_AUTH0_CLIENT_ID: ${{ secrets.VITE_AUTH0_CLIENT_ID }}
@@ -99,9 +106,9 @@ jobs:
           path: ./demo/world-pay/dist
 
   deploy-demo:
-    name: Deploy subi-connect demo
+    name: ✈️ Deploy subi-connect demo
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: ${{ github.event.inputs.env }}-ap-southeast-2
     needs: [build-demo]
     permissions:
       id-token: write
@@ -126,9 +133,9 @@ jobs:
           aws s3 cp ./demo-dist s3://${{ secrets.AWS_S3_BUCKET }} --recursive
 
   invalidate-demo-cache:
-    name: Invalidate subi-connect demo cache
+    name: 🧹 Invalidate subi-connect demo cache
     runs-on: ubuntu-latest
-    environment: dev-ap-southeast-2
+    environment: ${{ github.event.inputs.env }}-ap-southeast-2
     needs: [deploy-demo]
     permissions:
       id-token: write

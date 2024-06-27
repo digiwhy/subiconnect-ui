@@ -1,16 +1,20 @@
 # This workflow will release the packages with Changesets
-name: '[Auto] 🚀 Release'
+name: '🔗🚀 Release Package'
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      release:
+        type: boolean
+        description: 'Do you want to create a release PR?'
+        default: false
+        required: true
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
-    name: 🔗 🚀 Release
+    name: 🚀 Release
     runs-on: ubuntu-latest
 
     steps:
@@ -41,6 +45,7 @@ jobs:
       - name: 📣 Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
+          title: '[Automated] Version package 🔗🦋'
           publish: npm run cs:publish
           commit: 'chore(release): version package 🔗🦋'
         env:
