@@ -4,6 +4,7 @@
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
 ###
 
@@ -16,7 +17,7 @@ NO_DELETE=false
 usage() {
  echo "Usage: $0 <Environemnt> [OPTIONS]"
  echo "Environemnt:"
- echo "'local', ['d', 'dev' | 'development'], ['p','prod' | 'production'], or 'all'"
+ echo "'local', ['d' | 'dev' | 'development'], ['s' | 'stg' | 'staging'], ['p' |'prod' | 'production'], or 'all'"
  echo "Options:"
  echo " -n, --no-delete         Do not delete old tarballs"
 }
@@ -26,13 +27,16 @@ usage() {
 # Parse arguments
 for arg in "$@"; do
   case $arg in
-    p | prod)
+    p | prod | production)
       ENV="production"
       ;;
-    d | dev)
+    s | stg | staging)
+      ENV="staging"
+      ;;
+    d | dev | development)
       ENV="development"
       ;;
-    local|production|development|all)
+    local|all)
       ENV=$arg
       ;;
     -n | --no-delete)
@@ -55,6 +59,9 @@ print_env() {
       ;;
     development)
       echo -e "${BLUE}Environment: $ENV${NC}"
+      ;;
+    staging)
+      echo -e "${PURPLE}Environment: $ENV${NC}"
       ;;
     production)
       echo -e "${GREEN}Environment: $ENV${NC}"
@@ -106,7 +113,7 @@ process_env() {
 
 # Process all environments if "all" is specified
 if [ "$ENV" == "all" ]; then
-  for ENV in production development local; do
+  for ENV in production staging development local; do
     process_env $ENV
   done
 else
