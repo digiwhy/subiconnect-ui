@@ -1,5 +1,13 @@
 # @subifinancial/subi-connect
 
+## 1.0.2
+
+### Patch Changes
+
+- [`d51f4b9`](https://github.com/subifinancial/subi-connect/commit/d51f4b90b39a33415b054f44a151c4d9d31ae3c5)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Added more
+  information to the README
+
 ## 1.0.1
 
 ### Patch Changes
