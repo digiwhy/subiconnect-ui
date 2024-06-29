@@ -30,7 +30,7 @@ const Trigger = React.forwardRef<
     ref={ref}
   >
     <PlusIcon className='sc-h-4 sc-w-4' />
-    <span>Add another organisation</span>
+    <span className='sc-hidden sm:sc-block'>Add another organisation</span>
   </Button>
 ));
 
