@@ -15,7 +15,7 @@
     "pack": "./scripts/pack.sh",
     "release": "NODE_ENV=production npm run build && changeset publish --public",
     "cs": "changeset",
-    "cs:check": "changeset status --since=dev",
+    "cs:check": "changeset status --since=main",
     "cs:version": "changeset version",
     "cs:publish": "changeset publish --public",
     "tsc": "tsc",
