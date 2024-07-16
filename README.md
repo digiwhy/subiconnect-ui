@@ -1,10 +1,12 @@
-# Subi Connect - React
+<!-- markdownlint-disable-next-line -->
+<p align="center">
+  <a href="https://subi.au" rel="noopener" target="_blank"><img width="100%" height="auto" src="https://raw.githubusercontent.com/subifinancial/subi-connect/main/assets/subi-connect-banner.png" alt="Subi Connect Banner"></a>
+</p>
 
-<br />
+<h1 align="center">Subi Connect - React</h1>
 
-![Subi Connect Banner](https://raw.githubusercontent.com/subifinancial/subi-connect/main/assets/subi-connect-banner.png)
-
-<br />
+Subi Connect is a React component library that can be used to easily add UI with
+Subi's core business logic.
 
 # 🔗 Links
 
