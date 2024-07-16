@@ -1,5 +1,15 @@
 # @subifinancial/subi-connect
 
+## 1.0.3
+
+### Patch Changes
+
+- [#73](https://github.com/subifinancial/subi-connect/pull/73)
+  [`5d17675`](https://github.com/subifinancial/subi-connect/commit/5d17675faa1ebf759fc8f777c1e9ab484acdfa92)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Added a
+  tooltip to the sync status column headers to better understand what each
+  status means
+
 ## 1.0.2
 
 ### Patch Changes

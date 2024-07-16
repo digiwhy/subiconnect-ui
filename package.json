@@ -1,6 +1,6 @@
 {
   "name": "@subifinancial/subi-connect",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "public": true,
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
