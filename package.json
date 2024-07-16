@@ -13,11 +13,11 @@
     "build": "rimraf dist styles.css && rollup --config rollup.config.mjs --bundleConfigAsCjs",
     "build:prod": "NODE_ENV=production npm run build",
     "pack": "./scripts/pack.sh",
-    "release": "NODE_ENV=production npm run build && changeset publish --public",
+    "release": "NODE_ENV=production npm run build && changeset publish",
     "cs": "changeset",
     "cs:check": "changeset status --since=main",
     "cs:version": "changeset version",
-    "cs:publish": "changeset publish --public",
+    "cs:publish": "changeset publish",
     "tsc": "tsc",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:demos": "eslint demo --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -104,7 +104,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/subifinancial/subi-connect"
+    "url": "git+https://github.com/subifinancial/subi-connect.git"
   },
   "homepage": "https://github.com/subifinancial/subi-connect#readme",
   "bugs": {
