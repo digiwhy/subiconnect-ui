@@ -11,5 +11,14 @@ export type Company = {
   /** The account's reference id of the company. */
   externalReferenceId: string;
 
+  /**
+   * The account associated with the company.
+   */
   account: Account;
+
+  /**
+   * Whether or not the company has an active payroll connection; i.e., whether
+   * or not the company has integrated with a payroll system.
+   */
+  hasConnection?: boolean;
 };

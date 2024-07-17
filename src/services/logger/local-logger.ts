@@ -5,10 +5,16 @@ class LocalLogger implements ILogger {
     key: string,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    const logMessage = `%c [🔗] ${key} ${customData ? JSON.stringify(customData) : ''}`;
+    const logMessage = `%c [🔗] ${key} `;
 
     if (process.env.NODE_ENV === 'local') {
-      console.log(logMessage, 'color: #5E17EB; background: #E6E6EE;');
+      console.log(
+        ...[
+          logMessage,
+          'color: #5E17EB; background: #E6E6EE;',
+          customData,
+        ].filter(Boolean),
+      );
     }
   }
 
@@ -17,10 +23,17 @@ class LocalLogger implements ILogger {
     error: Error,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    const logMessage = `%c [🔗] ${key} ${error.message} ${customData ? JSON.stringify(customData) : ''}`;
+    const logMessage = `%c [🔗] ${key} [${error.message}] `;
 
     if (process.env.NODE_ENV === 'local') {
-      console.error(logMessage, 'color: #000650; background: #FEECEC;');
+      console.error(
+        ...[
+          logMessage,
+          'color: #000650; background: #FEECEC;',
+          { error },
+          customData,
+        ].filter(Boolean),
+      );
     }
   }
 }

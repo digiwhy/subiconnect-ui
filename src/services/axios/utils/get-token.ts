@@ -10,7 +10,7 @@ export const getAccessToken = async (
   try {
     return await connectionFn();
   } catch (error) {
-    logger.error('[getAccessToken] Error getting new token:', error as Error);
+    logger.error('[getAccessToken] Error getting new token', error as Error);
     return null;
   }
 };
