@@ -1,4 +1,4 @@
-import { logOnDev } from '../../../lib/utils';
+import logger from '../../logger';
 import axiosClient from '../config';
 import ConnectionService from '../connection-service';
 import type { InternalAxiosRequestConfig } from '../types';
@@ -10,7 +10,7 @@ const onErrorResponse = async (
 ): Promise<AxiosResponse> => {
   /* Error other than axios. */
   if (!axios.isAxiosError(error)) {
-    logOnDev(`🚨 [API] | Non-Axios Error: ${error.message}`);
+    logger.error(`[🚨 API] | Non-Axios Error: ${error.message}`, error);
     return Promise.reject(error);
   }
 
@@ -20,18 +20,18 @@ const onErrorResponse = async (
   const statusCode = response?.status;
   const statusText = response?.statusText;
 
-  logOnDev(
-    `🚨 [API] ${method?.toUpperCase()} ${url} | Error: ${statusCode} ${statusText}`,
+  logger.error(
+    `[🚨 API] ${method?.toUpperCase()} ${url} | Error: ${statusCode} ${statusText}`,
     error,
   );
 
   if (response === undefined) {
-    logOnDev('Undefined response ERROR:', error);
+    logger.error('[🚨 API] Undefined _response_ ERROR:', error);
     return Promise.reject(error);
   }
 
   if (config === undefined) {
-    logOnDev('Undefined config ERROR:', error);
+    logger.error('[🚨 API] Undefined _config_ ERROR:', error);
     return Promise.reject(error);
   }
 
@@ -65,17 +65,7 @@ const onErrorResponse = async (
         return axiosClient(originalRequest);
       }
       break;
-    case 403:
-      // Handle "Permission Denied" globally if needed
-      break;
-    case 404:
-      // Handle "Not Found" globally if needed
-      break;
-    case 500:
-      // Handle "Server Error" globally if needed
-      break;
     default:
-      // Handle other errors globally if needed
       break;
   }
 

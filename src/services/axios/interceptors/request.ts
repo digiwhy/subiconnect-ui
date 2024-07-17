@@ -1,4 +1,4 @@
-import { logOnDev } from '../../../lib/utils';
+import logger from '../../logger';
 import type { InternalAxiosRequestConfig } from 'axios';
 
 const onRequest = (
@@ -6,7 +6,7 @@ const onRequest = (
 ): InternalAxiosRequestConfig => {
   const { method, url } = config;
 
-  logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Request`);
+  logger.log(`[🚀 API] ${method?.toUpperCase()} ${url} | Request`);
 
   if (method === 'get') {
     config.timeout = 15000;

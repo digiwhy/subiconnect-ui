@@ -1,5 +1,5 @@
-import { logOnDev } from '../../../lib/utils';
 import type { SubiConnectAccessToken } from '../../../types/main';
+import logger from '../../logger';
 
 /**
  * Function to handle token retrieval.
@@ -10,7 +10,7 @@ export const getAccessToken = async (
   try {
     return await connectionFn();
   } catch (error) {
-    logOnDev('Error getting new token:', error);
+    logger.error('[getAccessToken] Error getting new token:', error as Error);
     return null;
   }
 };

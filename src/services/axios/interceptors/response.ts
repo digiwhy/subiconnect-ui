@@ -1,13 +1,12 @@
-import { logOnDev } from '../../../lib/utils';
+import logger from '../../logger';
 import type { AxiosResponse } from 'axios';
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
   const { method, url } = response.config;
   const { status } = response;
-  logOnDev(
-    `🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}`,
+  logger.log(`[🚀 API] ${method?.toUpperCase()} ${url} | Response ${status}`, {
     response,
-  );
+  });
 
   return response;
 };
