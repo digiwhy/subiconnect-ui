@@ -9,7 +9,7 @@ on:
         description: 'Do you want to create a release PR?'
         default: false
         required: true
-  push:
+  pull_request:
     branches:
       - main
 
@@ -20,9 +20,10 @@ jobs:
     name: 🚀 Release
     runs-on: ubuntu-latest
     if: >
-      github.event_name == 'workflow_dispatch' || (github.event_name == 'push'
-      && github.event.ref == 'refs/heads/main' &&  github.event.before ==
-      'refs/heads/changeset-release/main')
+      github.event_name == 'workflow_dispatch' || (github.event_name ==
+      'pull_request' && github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.ref == 'changeset-release/main')
 
     steps:
       - name: ⬇️ Checkout
