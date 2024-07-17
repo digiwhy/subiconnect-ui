@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.1.0
+
+### Minor Changes
+
+- [#77](https://github.com/subifinancial/subi-connect/pull/77)
+  [`955fc83`](https://github.com/subifinancial/subi-connect/commit/955fc832e647123ec9b1a46c932247e52ca1c1f1)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Updated the
+  logger and added debugging options to the SubiConnectProvider.
+
 ## 1.0.3
 
 ### Patch Changes
