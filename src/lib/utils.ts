@@ -10,11 +10,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// For Make Log on Develop Mode
-export const logOnDev = (...message: unknown[]) => {
-  if (process.env.NODE_ENV === 'local') console.log(...message);
-};
-
 export const removeUndefinedValues = (obj: object) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([_, value]) => value !== undefined),

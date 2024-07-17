@@ -1,7 +1,9 @@
 import { ACCESS_TOKEN_NAME } from '../constants';
+import { handleProviderOptions } from '../lib/handle-provider-options';
 import axiosClient from '../services/axios';
 import ConnectionService from '../services/axios/connection-service';
-import type { SubiConnectAccessToken } from '../types/main';
+import logger from '../services/logger';
+import type { SubiConnectAccessToken, SubiConnectOptions } from '../types/main';
 import React from 'react';
 
 type SubiConnectContext = {
@@ -24,11 +26,13 @@ export const useSubiConnectContext = (): SubiConnectContext => {
 
 export type SubiConnectProviderProps = {
   connectionFn: () => Promise<SubiConnectAccessToken>;
+  options?: SubiConnectOptions;
   children: React.ReactNode;
 };
 
 export const SubiConnectProvider = ({
   connectionFn,
+  options,
   children,
 }: SubiConnectProviderProps) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -39,9 +43,21 @@ export const SubiConnectProvider = ({
    */
   React.useEffect(() => {
     setIsLoading(true);
+
+    /**
+     * Set the connection function on the `ConnectionService`.
+     */
     const connectionService = ConnectionService.getInstance();
     connectionService.setConnectionFn(connectionFn);
 
+    /**
+     * Handle options passed to the `SubiConnectProvider`.
+     */
+    if (options) handleProviderOptions(options);
+
+    /**
+     * Initialise the connection between client and Subi Connect.
+     */
     const initConnection = async () => {
       try {
         let accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
@@ -54,14 +70,23 @@ export const SubiConnectProvider = ({
         axiosClient.defaults.headers.common['Authorization'] =
           `Bearer ${accessToken}`;
       } catch (error) {
-        console.error('[Subi Connect] Failed to initialise connection:', error);
+        logger.error(
+          '[SubiConnectProvider] Failed to initialise connection with Subi Connect',
+          error as Error,
+          {
+            accessToken:
+              localStorage.getItem(ACCESS_TOKEN_NAME) !== null
+                ? 'SET (see local storage)'
+                : 'NOT SET',
+          },
+        );
       }
 
       setIsLoading(false);
     };
 
     initConnection();
-  }, [connectionFn]);
+  }, [connectionFn, options]);
 
   const value = React.useMemo(() => ({ isLoading }), [isLoading]);
 
