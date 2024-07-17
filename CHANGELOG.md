@@ -1,5 +1,15 @@
 # @subifinancial/subi-connect
 
+## 1.1.1
+
+### Patch Changes
+
+- [#81](https://github.com/subifinancial/subi-connect/pull/81)
+  [`e9f30b9`](https://github.com/subifinancial/subi-connect/commit/e9f30b9ea574dbe6dce980511a4a9d1c7dd6457e)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Added
+  `hasConnection` field to the useCompany to determine if the company has
+  integrated with a payroll yet.
+
 ## 1.1.0
 
 ### Minor Changes
