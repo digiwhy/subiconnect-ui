@@ -10,8 +10,8 @@ on:
         default: false
         required: true
   pull_request:
-    branches:
-      - main
+    types:
+      - closed
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
