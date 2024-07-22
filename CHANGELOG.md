@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.1.4
+
+### Patch Changes
+
+- [#89](https://github.com/subifinancial/subi-connect/pull/89)
+  [`e70a7de`](https://github.com/subifinancial/subi-connect/commit/e70a7dee642c712722963550dd07c167f2570e2c)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Fix image
+  URLs after build
+
 ## 1.1.3
 
 ### Patch Changes
