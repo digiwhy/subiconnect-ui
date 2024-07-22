@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.1.3
+
+### Patch Changes
+
+- [#86](https://github.com/subifinancial/subi-connect/pull/86)
+  [`a3e0aee`](https://github.com/subifinancial/subi-connect/commit/a3e0aee86b43c7db8115fcb5f2dd6ae58fbcd5d1)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Add correct
+  URL envs to the release build
+
 ## 1.1.2
 
 ### Patch Changes
