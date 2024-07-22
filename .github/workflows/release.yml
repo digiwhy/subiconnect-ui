@@ -42,11 +42,6 @@ jobs:
       - name: 🧩 Install Dependencies
         run: npm ci
 
-      - name: 🔏 'Create env file'
-        run: |
-          touch .env.production
-          echo SUBI_CONNECT_PUBLIC_BASE_URL=${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }} >> .env.production
-
       - name: 🏗️ Build
         run: npm run build:prod
 

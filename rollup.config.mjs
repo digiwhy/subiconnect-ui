@@ -11,6 +11,9 @@ import { dts } from 'rollup-plugin-dts';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 
+// Load .env
+dotenv.config();
+// Override any other environment variables with environment specific .env
 dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.production'});
 
 import packageJson from "./package.json" assert { type: 'json' };
