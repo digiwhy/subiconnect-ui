@@ -46,12 +46,14 @@ const BackLeftChevrons = () => {
 };
 
 const Header: React.FC<{
+  disableBack?: boolean;
   accountPayroll: AccountPayrollSystemExtended | undefined;
-}> = ({ accountPayroll }) => {
+}> = ({ accountPayroll, disableBack = false }) => {
   const queryClient = useQueryClient();
   const { setSearchParam } = useSearchParams();
 
   const handleBack = () => {
+    if (disableBack) return;
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
   };
 
@@ -66,10 +68,21 @@ const Header: React.FC<{
       <div className='sc-flex sc-flex-col sc-gap-1'>
         <div
           onClick={handleBack}
-          className='sc-group sc-relative sc-flex sc-cursor-pointer sc-flex-row sc-items-center [&_*]:sc-transition [&_*]:sc-duration-300 [&_*]:sc-ease-in-out'
+          className={cn(
+            'sc-group sc-relative sc-flex sc-flex-row sc-items-center [&_*]:sc-transition [&_*]:sc-duration-300 [&_*]:sc-ease-in-out',
+            { 'sc-cursor-pointer': !disableBack },
+          )}
         >
-          <BackLeftChevrons />
-          <span className='sc-font-mainMedium sc-text-lg sc-text-secondary sc-delay-100 group-hover:sc-translate-x-4 group-hover:sc-delay-0'>
+          {!disableBack && <BackLeftChevrons />}
+          <span
+            className={cn(
+              'sc-font-mainMedium sc-text-lg sc-text-secondary sc-delay-100',
+              {
+                'group-hover:sc-translate-x-4 group-hover:sc-delay-0':
+                  !disableBack,
+              },
+            )}
+          >
             Connected Integration
           </span>
         </div>
@@ -91,24 +104,15 @@ const Header: React.FC<{
 
 const PayrollIntegrationManagementPage: React.FC<{
   payroll: Payroll;
+  disableBack?: boolean;
   className?: string;
-}> = ({ payroll, className }) => {
+}> = ({ payroll, disableBack = false, className }) => {
   const { setSearchParam } = useSearchParams();
   const {
     data: accountPayroll,
     isLoading,
     isError,
   } = useAccountPayrollSystem(payroll);
-
-  // const handleBack = () => {
-  //   setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
-  // };
-
-  // const handleIntegrateOnSuccess = React.useCallback(() => {
-  //   queryClient.invalidateQueries({
-  //     queryKey: [...BASE_ORGANISATION_QUERY_KEY, 'list'],
-  //   });
-  // }, []);
 
   if (isLoading || !accountPayroll) {
     return (
@@ -118,7 +122,7 @@ const PayrollIntegrationManagementPage: React.FC<{
           className,
         )}
       >
-        <Header accountPayroll={accountPayroll} />
+        <Header disableBack={disableBack} accountPayroll={accountPayroll} />
         <div className='sc-h-full sc-w-full'>
           <Loading title={'Loading Organisations'} />
         </div>
@@ -140,7 +144,7 @@ const PayrollIntegrationManagementPage: React.FC<{
             className,
           )}
         >
-          <Header accountPayroll={accountPayroll} />
+          <Header disableBack={disableBack} accountPayroll={accountPayroll} />
 
           <div className='sc-h-full sc-w-full'>
             <PayrollIntegrationManagementTable
