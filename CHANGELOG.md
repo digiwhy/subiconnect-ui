@@ -1,5 +1,16 @@
 # @subifinancial/subi-connect
 
+## 1.1.6
+
+### Patch Changes
+
+- [#93](https://github.com/subifinancial/subi-connect/pull/93)
+  [`3b991b1`](https://github.com/subifinancial/subi-connect/commit/3b991b1bad33a3fd1f4c26b945b717d0bb23be7b)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Add a
+  `disableBack` flag to the `PayrollIntegrationManagementPage` header component.
+  This is used to remove the ability to 'go back' when using the component
+  outside of the `PayrollIntegrationsPage` component.
+
 ## 1.1.5
 
 ### Patch Changes
