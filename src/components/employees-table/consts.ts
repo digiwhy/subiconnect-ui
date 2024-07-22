@@ -10,7 +10,7 @@ export const EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP: EmployeesTableAllowedColumnsMa
   {
     [SelectableEmployeeColumns.SALARY]: salaryColumn,
     [SelectableEmployeeColumns.HOURLY_RATE]: hourlyRateColumn,
-    [SelectableEmployeeColumns.NEXY_PAYMENT_DATE]: nextPaymentDateColumn,
+    [SelectableEmployeeColumns.NEXT_PAYMENT_DATE]: nextPaymentDateColumn,
     [SelectableEmployeeColumns.START_EMPLOYEMENT_DATE]:
       startEmployementDateColumn,
     [SelectableEmployeeColumns.PAYCYCLE]: payCycleColumn,

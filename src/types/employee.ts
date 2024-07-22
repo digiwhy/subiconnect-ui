@@ -1,6 +1,11 @@
 import type { SyncStatus } from './main';
 import type { Payroll } from './payroll';
 
+/**
+ * Enumeration representing the types of employee calendars for scheduling payroll.
+ * It is based on Xero's API: https://central.xero.com/s/article/Add-a-pay-calendar-AU
+ * @enum {string}
+ */
 export enum EmployeeCalendarType {
   WEEKLY = 'WEEKLY',
   MONTHLY = 'MONTHLY',
@@ -76,7 +81,7 @@ export type Employee = {
 export enum SelectableEmployeeColumns {
   SALARY = 'salary',
   HOURLY_RATE = 'hourlyRate',
-  NEXY_PAYMENT_DATE = 'nextPaymentDate',
+  NEXT_PAYMENT_DATE = 'nextPaymentDate',
   START_EMPLOYEMENT_DATE = 'startEmploymentDate',
   PAYCYCLE = 'paycycle',
 }

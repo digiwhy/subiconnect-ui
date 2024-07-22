@@ -7,9 +7,9 @@ import React from 'react';
 const StartEmploymentDateCell: React.FC<CellContext<Employee, unknown>> = ({
   row,
 }) => {
-  if (!row.original.info.calendar?.startEmploymentDate) return '';
+  if (!row.original.info?.calendar?.startEmploymentDate) return '';
 
-  const value = row.original.info.calendar?.startEmploymentDate;
+  const value = row.original.info?.calendar?.startEmploymentDate;
 
   return value;
 };

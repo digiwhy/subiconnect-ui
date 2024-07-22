@@ -9,7 +9,7 @@ const NextPaymentDateCell: React.FC<CellContext<Employee, unknown>> = ({
 }) => {
   if (!row.original.info.calendar?.nextPaymentDate) return '';
 
-  const value = row.original.info.calendar?.nextPaymentDate;
+  const value = row.original.info?.calendar?.nextPaymentDate;
 
   return value;
 };

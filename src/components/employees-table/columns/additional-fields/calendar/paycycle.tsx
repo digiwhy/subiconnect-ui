@@ -5,9 +5,9 @@ import type { CellContext } from '@tanstack/react-table';
 import React from 'react';
 
 const PayCycleCell: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
-  if (!row.original.info.calendar?.paycycle) return '';
+  if (!row.original.info?.calendar?.paycycle) return '';
 
-  const value = row.original.info.calendar?.paycycle;
+  const value = row.original.info?.calendar?.paycycle;
 
   return value;
 };
