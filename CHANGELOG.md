@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.2.0
+
+### Minor Changes
+
+- [#95](https://github.com/subifinancial/subi-connect/pull/95)
+  [`6f93d5f`](https://github.com/subifinancial/subi-connect/commit/6f93d5f0f67077ed54dfc23cdca0dda5ae99b124)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - New selectable fields
+  in the employees list: Pay Cycle, Next Pay Day and Start Date
+
 ## 1.1.6
 
 ### Patch Changes
