@@ -43,7 +43,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
   return (
     <div
       className={cn(
-        'subi-connect sc-relative sc-grid sc-w-full sc-grid-cols-[repeat(auto-fill,_minmax(16rem,1fr))] sc-gap-4',
+        'subi-connect sc-relative sc-grid sc-w-full sc-grid-cols-[repeat(auto-fill,_minmax(20rem,1fr))] sc-gap-4',
         containerClassName,
       )}
     >

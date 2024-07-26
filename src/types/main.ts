@@ -1,20 +1,29 @@
 export type SubiConnectAccessToken = string;
 
+export type SubiConnectDebugOptions = {
+  /**
+   * Sets the base URL for the SubiConnect API.
+   */
+  baseURL?: string;
+
+  /**
+   * Disables logging to the console when TARGET_ENV = local.
+   */
+  disabledLogging?: boolean;
+};
+
 export type SubiConnectOptions = {
   /**
    * Debugging options.
    */
-  debug: {
-    /**
-     * Sets the base URL for the SubiConnect API.
-     */
-    baseURL?: string;
+  debug?: SubiConnectDebugOptions;
 
-    /**
-     * Disables logging to the console when TARGET_ENV = local.
-     */
-    disabledLogging?: boolean;
-  };
+  /**
+   * Whether or not to bypass the initialisation of the provider before
+   * rendering the children. By default, Subi Connect will wait for the
+   * initialisation process to complete before rendering the children.
+   */
+  bypassInitialisation?: boolean;
 };
 
 export enum SyncStatus {
