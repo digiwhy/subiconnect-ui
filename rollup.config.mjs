@@ -14,7 +14,7 @@ import postcss from 'rollup-plugin-postcss';
 // Load .env
 dotenv.config();
 // Override any other environment variables with environment specific .env
-dotenv.config({path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.production'});
+dotenv.config({path: process.env.TARGET_ENV ? `.env.${process.env.TARGET_ENV}` : '.env.production'});
 
 import packageJson from "./package.json" assert { type: 'json' };
 
@@ -43,6 +43,9 @@ export default [
       replace({
         'process.env.NODE_ENV': JSON.stringify(
           process.env.NODE_ENV ?? 'production',
+        ),
+        'process.env.TARGET_ENV': JSON.stringify(
+          process.env.TARGET_ENV ?? 'production',
         ),
         'process.env.SUBI_CONNECT_PUBLIC_BASE_URL': JSON.stringify(
           process.env.SUBI_CONNECT_PUBLIC_BASE_URL,

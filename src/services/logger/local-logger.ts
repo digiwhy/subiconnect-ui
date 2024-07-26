@@ -7,7 +7,7 @@ class LocalLogger implements ILogger {
   ): Promise<void> {
     const logMessage = `%c [🔗] ${key} `;
 
-    if (process.env.NODE_ENV === 'local') {
+    if (process.env.TARGET_ENV === 'local') {
       console.log(
         ...[
           logMessage,
@@ -25,7 +25,7 @@ class LocalLogger implements ILogger {
   ): Promise<void> {
     const logMessage = `%c [🔗] ${key} [${error.message}] `;
 
-    if (process.env.NODE_ENV === 'local') {
+    if (process.env.TARGET_ENV === 'local') {
       console.error(
         ...[
           logMessage,
