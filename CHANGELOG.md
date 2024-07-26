@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.3.0
+
+### Minor Changes
+
+- [#98](https://github.com/subifinancial/subi-connect/pull/98)
+  [`6b115c9`](https://github.com/subifinancial/subi-connect/commit/6b115c93edc2d4bfd130f6fb8060aee79d35e2b3)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Expose all
+  Subi Connect types
+
 ## 1.2.0
 
 ### Minor Changes
