@@ -7,7 +7,8 @@ export type SubiConnectDebugOptions = {
   baseURL?: string;
 
   /**
-   * Disables logging to the console when TARGET_ENV = local.
+   * Disables logging to the console when NODE_ENV = development. Logging is
+   * not enabled in production environments.
    */
   disabledLogging?: boolean;
 };
