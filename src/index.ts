@@ -7,4 +7,7 @@ export * from './hooks';
 
 export * from './types';
 
-export { SubiConnectProvider } from './context/subi-connect';
+export {
+  SubiConnectProvider,
+  type SubiConnectProviderProps,
+} from './context/subi-connect';

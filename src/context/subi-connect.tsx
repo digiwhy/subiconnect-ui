@@ -8,6 +8,7 @@ import React from 'react';
 
 type SubiConnectContext = {
   isLoading: boolean;
+  initialised: boolean;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -36,6 +37,7 @@ export const SubiConnectProvider = ({
   children,
 }: SubiConnectProviderProps) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [initialised, setInitialised] = React.useState<boolean>(false);
 
   /**
    * Handle the connection between client and Subi Connect. Uses the provided
@@ -45,15 +47,15 @@ export const SubiConnectProvider = ({
     setIsLoading(true);
 
     /**
+     * Handle options passed to the `SubiConnectProvider`.
+     */
+    if (options) handleProviderOptions(options);
+
+    /**
      * Set the connection function on the `ConnectionService`.
      */
     const connectionService = ConnectionService.getInstance();
     connectionService.setConnectionFn(connectionFn);
-
-    /**
-     * Handle options passed to the `SubiConnectProvider`.
-     */
-    if (options) handleProviderOptions(options);
 
     /**
      * Initialise the connection between client and Subi Connect.
@@ -83,16 +85,20 @@ export const SubiConnectProvider = ({
       }
 
       setIsLoading(false);
+      if (!initialised) setInitialised(true);
     };
 
     initConnection();
   }, [connectionFn, options]);
 
-  const value = React.useMemo(() => ({ isLoading }), [isLoading]);
+  const value = React.useMemo(
+    () => ({ isLoading, initialised }),
+    [isLoading, initialised],
+  );
 
   return (
     <SubiConnectContext.Provider value={value}>
-      {children}
+      {initialised || options?.bypassInitialisation ? children : null}
     </SubiConnectContext.Provider>
   );
 };

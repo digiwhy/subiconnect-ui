@@ -5,13 +5,14 @@ class LocalLogger implements ILogger {
     key: string,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    const logMessage = `%c [🔗] ${key} `;
+    const logMessage = `%c [🔗] `;
 
     if (process.env.TARGET_ENV === 'local') {
       console.log(
         ...[
           logMessage,
           'color: #5E17EB; background: #E6E6EE;',
+          key,
           customData,
         ].filter(Boolean),
       );
@@ -23,13 +24,14 @@ class LocalLogger implements ILogger {
     error: Error,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    const logMessage = `%c [🔗] ${key} [${error.message}] `;
+    const logMessage = `%c [🔗🚨] `;
 
     if (process.env.TARGET_ENV === 'local') {
       console.error(
         ...[
           logMessage,
           'color: #000650; background: #FEECEC;',
+          `${key} [${error.message}]`,
           { error },
           customData,
         ].filter(Boolean),
