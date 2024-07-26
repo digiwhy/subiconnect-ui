@@ -11,7 +11,7 @@ export type SubiConnectOptions = {
     baseURL?: string;
 
     /**
-     * Disables logging to the console when NODE_ENV = local.
+     * Disables logging to the console when TARGET_ENV = local.
      */
     disabledLogging?: boolean;
   };

@@ -104,5 +104,5 @@ generated access token.
 2. `npm run build-storybook`
 3. `npm run storybook`
 
-- Ensure you select your `NODE_ENV` with `NODE_ENV=local npm run ...`
+- Ensure you select your `TARGET_ENV` with `TARGET_ENV=local npm run ...`
 - View the README docs in `/demo` for more information
