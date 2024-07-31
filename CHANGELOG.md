@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.0
+
+### Minor Changes
+
+- [#102](https://github.com/subifinancial/subi-connect/pull/102)
+  [`82107e9`](https://github.com/subifinancial/subi-connect/commit/82107e9b94ad45d303adaeaa01a876ef2b7085db)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Sandbox option on the
+  Provider component
+
 ## 1.3.0
 
 ### Minor Changes
