@@ -30,6 +30,8 @@ jobs:
     env:
       SUBI_CONNECT_IMAGES_BASE_URL: ${{ secrets.SUBI_CONNECT_IMAGES_BASE_URL }}
       SUBI_CONNECT_PUBLIC_BASE_URL: ${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }}
+      SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL:
+        ${{ secrets.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL }}
     permissions:
       id-token: write
       contents: read
