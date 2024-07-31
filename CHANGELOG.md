@@ -1,5 +1,11 @@
 # @subifinancial/subi-connect
 
+## 1.4.0
+
+### Minor Changes
+
+- New option to select the environment for the provider at runtime
+
 ## 1.3.0
 
 ### Minor Changes
