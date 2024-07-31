@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.5
+
+### Patch Changes
+
+- [#112](https://github.com/subifinancial/subi-connect/pull/112)
+  [`1882acb`](https://github.com/subifinancial/subi-connect/commit/1882acb8c963f0d6edd007f165d623b4fe32f785)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Remove sandbox
+  baseURL
+
 ## 1.4.4
 
 ### Patch Changes
