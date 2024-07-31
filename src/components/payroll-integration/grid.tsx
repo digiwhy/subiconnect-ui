@@ -15,7 +15,7 @@ export type PayrollIntegrationListGridProps = {
 };
 
 const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
-  payrollSystems,
+  payrollSystems = [],
   containerClassName,
 }) => {
   const { isPending, data, setIsPending, setWindowFailed, windowFailed } =
@@ -72,7 +72,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
         />
       </div>
 
-      {payrollSystems.map((payrollSystem) => {
+      {payrollSystems?.map((payrollSystem) => {
         return (
           <PayrollSystemProvider
             key={payrollSystem.id}
