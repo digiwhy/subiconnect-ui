@@ -20,6 +20,11 @@ export type SubiConnectOptions = {
   debug?: SubiConnectDebugOptions;
 
   /**
+   * Sets the environment for the SubiConnect API.
+   */
+  environment?: SubiConnectEnvironment;
+
+  /**
    * Whether or not to bypass the initialisation of the provider before
    * rendering the children. By default, Subi Connect will wait for the
    * initialisation process to complete before rendering the children.
@@ -35,4 +40,9 @@ export enum SyncStatus {
   SYNCED = 'SYNCED',
   SYNCING = 'SYNCING',
   SYNCING_FIRST = 'SYNCING_FIRST',
+}
+
+export enum SubiConnectEnvironment {
+  PRODUCTION = 'PRODUCTION',
+  SANDBOX = 'SANDBOX',
 }
