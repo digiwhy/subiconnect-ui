@@ -17,6 +17,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release:
+    environment: prod-ap-southeast-2
     name: 🚀 Release
     runs-on: ubuntu-latest
     if: >
