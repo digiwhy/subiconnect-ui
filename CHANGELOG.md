@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.2
+
+### Patch Changes
+
+- [#106](https://github.com/subifinancial/subi-connect/pull/106)
+  [`2435506`](https://github.com/subifinancial/subi-connect/commit/243550617273b82276f8a57b5eaa4932abdcdc13)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Run CI/CD using the
+  production environment on Release
+
 ## 1.4.1
 
 ### Patch Changes
