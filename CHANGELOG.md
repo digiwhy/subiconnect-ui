@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.1
+
+### Patch Changes
+
+- [#104](https://github.com/subifinancial/subi-connect/pull/104)
+  [`4998c8e`](https://github.com/subifinancial/subi-connect/commit/4998c8e84d3c92621214655bea40d1f463422c7b)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Logs for HTTP
+  requests
+
 ## 1.4.0
 
 ### Minor Changes
