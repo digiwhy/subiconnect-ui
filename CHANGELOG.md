@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.4
+
+### Patch Changes
+
+- [#110](https://github.com/subifinancial/subi-connect/pull/110)
+  [`f52ce62`](https://github.com/subifinancial/subi-connect/commit/f52ce6253a0eff4472191e74deb610ca69e4138f)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Set payrollSystems as
+  an empty array as default
+
 ## 1.4.3
 
 ### Patch Changes
