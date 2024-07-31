@@ -4,7 +4,6 @@ import axiosClient from '../services/axios';
 import ConnectionService from '../services/axios/connection-service';
 import logger from '../services/logger';
 import {
-  SubiConnectEnvironment,
   type SubiConnectAccessToken,
   type SubiConnectOptions,
 } from '../types/main';
@@ -61,12 +60,6 @@ export const SubiConnectProvider = ({
     const connectionService = ConnectionService.getInstance();
     connectionService.setConnectionFn(connectionFn);
 
-    /**
-     * Initialise the connection between client and Subi Connect.
-     */
-    const isSandbox =
-      !!options?.environment &&
-      options.environment === SubiConnectEnvironment.SANDBOX;
     const initConnection = async () => {
       try {
         let accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
@@ -76,11 +69,6 @@ export const SubiConnectProvider = ({
           localStorage.setItem(ACCESS_TOKEN_NAME, accessToken);
         }
 
-        logger.log('isSandbox', { isSandbox });
-
-        axiosClient.defaults.baseURL = isSandbox
-          ? process.env.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL
-          : process.env.SUBI_CONNECT_PUBLIC_BASE_URL;
         axiosClient.defaults.headers.common['Authorization'] =
           `Bearer ${accessToken}`;
       } catch (error) {
