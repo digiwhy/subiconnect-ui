@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.4.3
+
+### Patch Changes
+
+- [#108](https://github.com/subifinancial/subi-connect/pull/108)
+  [`ed1c772`](https://github.com/subifinancial/subi-connect/commit/ed1c772d1bc2a5e62fc746c80d9f361176da3881)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - Add the authorization
+  header for GET /company getting the token from local storage
+
 ## 1.4.2
 
 ### Patch Changes
