@@ -76,6 +76,8 @@ export const SubiConnectProvider = ({
           localStorage.setItem(ACCESS_TOKEN_NAME, accessToken);
         }
 
+        logger.log('isSandbox', { isSandbox });
+
         axiosClient.defaults.baseURL = isSandbox
           ? process.env.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL
           : process.env.SUBI_CONNECT_PUBLIC_BASE_URL;
