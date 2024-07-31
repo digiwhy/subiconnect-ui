@@ -49,6 +49,8 @@ jobs:
             ${{ secrets.SUBI_CONNECT_IMAGES_BASE_URL }}
           SUBI_CONNECT_PUBLIC_BASE_URL:
             ${{ secrets.SUBI_CONNECT_PUBLIC_BASE_URL }}
+          SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL:
+            ${{ secrets.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL }}
 
       - name: 📣 Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
