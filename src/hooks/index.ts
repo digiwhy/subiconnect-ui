@@ -1,4 +1,4 @@
-export { useCompany } from './use-company';
+export { useCompany, useCompanyPayrollIntegrations } from './use-company';
 export { useEmployees } from './use-employees';
 export {
   useOrganisations,
