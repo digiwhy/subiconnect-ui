@@ -1,6 +1,6 @@
 {
   "name": "@subifinancial/subi-connect",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "description": "Subi Connect is a React component library that can be used to easily add UI with Subi's core business logic.",
   "public": true,
   "main": "dist/index.cjs.js",
