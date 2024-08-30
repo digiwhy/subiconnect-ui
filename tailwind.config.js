@@ -11,7 +11,9 @@ module.exports = {
       padding: '2rem',
     },
     fontFamily: {
+      main: ['"Moderat-Light"', 'sans-serif'],
       mainMedium: ['"Moderat"', 'sans-serif'],
+      mono: ['"SF Mono"', 'monospace'],
     },
     extend: {
       height: {

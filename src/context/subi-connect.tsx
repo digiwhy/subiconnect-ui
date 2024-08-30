@@ -98,7 +98,9 @@ export const SubiConnectProvider = ({
 
   return (
     <SubiConnectContext.Provider value={value}>
-      {initialised || options?.bypassInitialisation ? children : null}
+      <div className='subi-connect'>
+        {initialised || options?.bypassInitialisation ? children : null}
+      </div>
     </SubiConnectContext.Provider>
   );
 };

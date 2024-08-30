@@ -5,9 +5,7 @@ import React from 'react';
 
 export const formComponentsMap: Record<
   string,
-  React.ForwardRefExoticComponent<
-    React.PropsWithoutRef<React.InputHTMLAttributes<HTMLInputElement>>
-  >
+  React.ForwardRefExoticComponent<any> // eslint-disable-line @typescript-eslint/no-explicit-any
 > = {
   apiKey: ApiKeyInput,
   domain: DomainInput,

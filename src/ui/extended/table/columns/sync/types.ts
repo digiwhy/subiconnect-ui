@@ -1,15 +1,23 @@
 import type { SyncStatus } from '../../../../../types/main';
 
 export function isNestedType(
-  data: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  data: unknown,
 ): data is BaseLastSyncedColumnNestedSyncType {
-  return data && data.status !== undefined && data.lastSyncAt !== undefined;
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'status' in data &&
+    'lastSyncAt' in data
+  );
 }
 
-export function isFlatType(
-  data: any, // eslint-disable-line @typescript-eslint/no-explicit-any
-): data is BaseLastSyncedColumnType {
-  return data && data.syncStatus !== undefined && data.lastSynced !== undefined;
+export function isFlatType(data: unknown): data is BaseLastSyncedColumnType {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    'syncStatus' in data &&
+    'lastSynced' in data
+  );
 }
 
 export type BaseLastSyncedColumnNestedType = {

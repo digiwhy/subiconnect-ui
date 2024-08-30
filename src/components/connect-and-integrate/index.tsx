@@ -7,7 +7,12 @@ import {
 } from '../../services/api/payroll/types';
 import { handleOAuth2OnSuccess } from '../../services/auth2.0/auth-window';
 import { Button } from '../../ui/button';
-import { Dialogue, DialogueTrigger, DialogueContent } from '../../ui/dialogue';
+import {
+  Dialogue,
+  DialogueTrigger,
+  DialogueContent,
+  DialogueTitle,
+} from '../../ui/dialogue';
 import { usePayrollSystemContext } from '../payroll-integration/context';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
@@ -138,7 +143,13 @@ const Integrate: React.FC<{
       <DialogueTrigger asChild>
         <Trigger onClick={handleConnect} disabled={isPending} />
       </DialogueTrigger>
-      <DialogueContent className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-2xl'>
+      <DialogueContent
+        aria-describedby='A dialogue to connect and integrate with a payroll system'
+        className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-2xl'
+      >
+        <DialogueTitle className='sc-sr-only'>
+          Connect and Integrate {payrollSystem.name}
+        </DialogueTitle>
         <CustomPayrollIntegrationWorkflow onSuccess={handleWorkflowOnSuccess} />
       </DialogueContent>
     </Dialogue>
