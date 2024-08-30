@@ -1,5 +1,13 @@
 # @subifinancial/subi-connect
 
+## 1.5.1
+
+### Patch Changes
+
+- [`7df4d4f`](https://github.com/subifinancial/subi-connect/commit/7df4d4fd45f8c841e12d50825cb72cdda9a8d439)
+  Thanks [@gustavosubi](https://github.com/gustavosubi)! - set the input content
+  as the value and apply the mask using the input type
+
 ## 1.5.0
 
 ### Minor Changes
