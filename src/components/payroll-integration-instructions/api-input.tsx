@@ -9,24 +9,20 @@ const ApiKeyInput = React.forwardRef<HTMLInputElement, ApiKeyInputProps>(
     const [internalValue, setInternalValue] = React.useState(value);
     const [isHovered, setIsHovered] = React.useState(false);
 
-    const maskValue = React.useCallback(
-      (val: string) => {
-        return isHovered ? val : '•'.repeat(val.length);
-      },
-      [isHovered],
-    );
+    const inputType: 'text' | 'password' = React.useMemo(() => {
+      return isHovered ? 'text' : 'password';
+    }, [isHovered]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setInternalValue(e.target.value);
       onChange?.(e);
     };
 
-    const maskedValue = maskValue(internalValue as string);
-
     return (
       <Input
         {...props}
-        value={maskedValue}
+        type={inputType}
+        value={internalValue}
         onChange={handleChange}
         placeholder='Enter API Key'
         ref={ref}
