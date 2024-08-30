@@ -1,5 +1,28 @@
 # @subifinancial/subi-connect
 
+## 1.5.0
+
+### Minor Changes
+
+- [#115](https://github.com/subifinancial/subi-connect/pull/115)
+  [`7d4dd66`](https://github.com/subifinancial/subi-connect/commit/7d4dd66836f6e94d606a62db28bb23a63f9248c3)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Updated MDX
+  form components UI/UX. Updated internal typing.
+
+  - Enhanced the API Key Input component with masking functionality
+  - Improved the Domain Input component with subdomain extraction and visual
+    feedback
+  - Added accessibility improvements to the Connect and Integrate dialogue
+  - Updated type definitions for better type safety
+  - Added Storybook stories for API Key Input and Domain Input components
+  - Added 'subi-connect' class directly for better scoping
+
+- [#114](https://github.com/subifinancial/subi-connect/pull/114)
+  [`cee661f`](https://github.com/subifinancial/subi-connect/commit/cee661f920b9fe34a10ee8d9bbcca8fe352e1e41)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Add a new
+  company hook (useCompanyPayrollIntegrations) that is used to get all the
+  integrations the company has connected with.
+
 ## 1.4.5
 
 ### Patch Changes
