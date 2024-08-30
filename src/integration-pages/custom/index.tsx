@@ -13,21 +13,20 @@ import React from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const API_KEY_NOT_VALID =
-  'Please ensure that the API key is correct and try connecting again. If the issue persists, contact us at support@subi.au';
+  'Please ensure that the API key and domain are correct and try connecting again. If the issue persists, contact technical support at support@subi.au';
 
 // Mapping other components
 const otherComponents = Object.keys(otherComponentsMap).reduce(
-  (
-    acc: Record<string, React.FC<any>>, // eslint-disable-line @typescript-eslint/no-explicit-any
-    key,
-  ) => {
+  (acc: Record<string, React.FC<unknown>>, key) => {
     const Component = otherComponentsMap[key];
     if (!Component)
       throw new Error(
         `Component for key "${key}" is not defined in the components map.`,
       );
     // Register each component with its name as the form field key
-    acc[key] = (props: React.FC<any>) => <Component {...props} />; // eslint-disable-line @typescript-eslint/no-explicit-any
+    acc[key] = (props: React.ComponentProps<typeof Component>) => (
+      <Component {...props} />
+    );
     return acc;
   },
   {},
@@ -108,7 +107,11 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
     );
 
     const components = React.useMemo(
-      () => ({ ...formComponents, ...otherComponents }),
+      () =>
+        ({ ...formComponents, ...otherComponents }) as Record<
+          string,
+          React.FC<unknown>
+        >,
       [formComponents],
     );
 
@@ -134,7 +137,7 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
             <FormField name='root' render={() => <FormMessage />}></FormField>
 
             <Button type='submit' className='sc-mt-4' disabled={isPending}>
-              Submit
+              Finish
             </Button>
           </form>
         </Form>

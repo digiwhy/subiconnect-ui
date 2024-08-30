@@ -5,7 +5,7 @@ import * as runtime from 'react/jsx-runtime';
 type RenderMDXProps = {
   mdxString: string;
   components?: {
-    [x: string]: React.FC<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+    [x: string]: React.FC<unknown>;
   };
 };
 

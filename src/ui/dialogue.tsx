@@ -35,7 +35,7 @@ const DialogueContent = React.forwardRef<
     <DialoguePrimitive.Content
       ref={ref}
       className={cn(
-        'sc-fixed sc-left-[50%] sc-top-[50%] sc-z-50 sc-grid sc-w-full sc-max-w-lg sc-translate-x-[-50%] sc-translate-y-[-50%] sc-gap-4 sc-rounded-lg sc-border sc-bg-background sc-p-6 sc-shadow-lg sc-duration-200 data-[state=open]:sc-animate-in data-[state=closed]:sc-animate-out data-[state=closed]:sc-fade-out-0 data-[state=open]:sc-fade-in-0 data-[state=closed]:sc-zoom-out-95 data-[state=open]:sc-zoom-in-95 data-[state=closed]:sc-slide-out-to-left-1/2 data-[state=closed]:sc-slide-out-to-top-[48%] data-[state=open]:sc-slide-in-from-left-1/2 data-[state=open]:sc-slide-in-from-top-[48%]',
+        'subi-connect sc-fixed sc-left-[50%] sc-top-[50%] sc-z-50 sc-grid sc-w-full sc-max-w-lg sc-translate-x-[-50%] sc-translate-y-[-50%] sc-gap-4 sc-rounded-lg sc-border sc-bg-background sc-p-6 sc-shadow-lg sc-duration-200 data-[state=open]:sc-animate-in data-[state=closed]:sc-animate-out data-[state=closed]:sc-fade-out-0 data-[state=open]:sc-fade-in-0 data-[state=closed]:sc-zoom-out-95 data-[state=open]:sc-zoom-in-95 data-[state=closed]:sc-slide-out-to-left-1/2 data-[state=closed]:sc-slide-out-to-top-[48%] data-[state=open]:sc-slide-in-from-left-1/2 data-[state=open]:sc-slide-in-from-top-[48%]',
         className,
       )}
       {...props}
