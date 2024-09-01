@@ -1,5 +1,17 @@
 # @subifinancial/subi-connect
 
+## 1.5.2
+
+### Patch Changes
+
+- [#118](https://github.com/subifinancial/subi-connect/pull/118)
+  [`18055da`](https://github.com/subifinancial/subi-connect/commit/18055dafcc5bccbe70a524da0dca2d0e1f202c51)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Update the
+  input components to not auto-complete.
+  - Update ApiKeyInput
+  - Update DomainInput
+  - Update the stories to correctly test the inputs in a form context
+
 ## 1.5.1
 
 ### Patch Changes
