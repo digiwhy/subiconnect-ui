@@ -7,7 +7,7 @@ import { emailColumn, fullNameColumn } from './core';
 import React from 'react';
 
 const SyncStatusDescription = () => (
-  <div className='_sc-max-w-full _sc-w-auto sc-whitespace-normal sc-text-wrap sc-break-words sc-p-2 sc-text-xs sc-font-normal'>
+  <div className='sc-whitespace-normal sc-text-wrap sc-break-words sc-p-2 sc-text-xs sc-font-normal'>
     <h4 className='sc-text-base sc-font-bold'>Sync Status</h4>
     <ul className='sc-list-inside'>
       <li className='sc-indent-1'>

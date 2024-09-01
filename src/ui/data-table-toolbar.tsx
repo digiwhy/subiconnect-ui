@@ -73,7 +73,7 @@ export function DataTableToolbar<TData, TCreate>({
               className='sc-h-8 sc-w-[150px] sc-pr-7 lg:sc-w-[250px]'
             />
 
-            <div className='_sc-pl-2 sc-absolute sc-right-0 sc-mx-2 sc-flex sc-h-fit sc-w-fit sc-items-center sc-justify-center sc-rounded-full sc-bg-background sc-pt-[0.125rem]'>
+            <div className='sc-absolute sc-right-0 sc-mx-2 sc-flex sc-h-fit sc-w-fit sc-items-center sc-justify-center sc-rounded-full sc-bg-background sc-pt-[0.125rem]'>
               <LoaderCircleIcon
                 className={cn(
                   'sc-hidden sc-h-3 sc-w-3 sc-text-muted-foreground/50',

@@ -1,6 +1,3 @@
-import type { Cell, Column, Row } from '@tanstack/react-table';
-import { CircleAlertIcon, CircleCheck, LoaderCircleIcon } from 'lucide-react';
-import React from 'react';
 import type { ColumnDef } from '../../../../../types/components/data-table';
 import { SyncStatus } from '../../../../../types/main';
 import { DataTableColumnHeader } from '../../../../data-table-column-header';
@@ -16,6 +13,9 @@ import {
   type BaseLastSyncedColumnNestedType,
   type BaseLastSyncedColumnType,
 } from './types';
+import type { Cell, Column, Row } from '@tanstack/react-table';
+import { CircleAlertIcon, CircleCheck, LoaderCircleIcon } from 'lucide-react';
+import React from 'react';
 
 type SyncStatusColumnProps<T> = ColumnDef<T> & {
   accessorKey: `${string}.sync` | keyof T;
@@ -122,7 +122,7 @@ const SyncStatusHeader = <T,>({
             className='sc-flex sc-justify-end'
           />
         </TooltipTrigger>
-        <TooltipContent side='bottom' align='end' className='_sc-mx-2'>
+        <TooltipContent side='bottom' align='end'>
           {description}
         </TooltipContent>
       </Tooltip>
