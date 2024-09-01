@@ -24,18 +24,19 @@ const DomainInput = React.forwardRef<HTMLInputElement, DomainInputProps>(
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const input = e.target.value;
-      const subdomain = extractSubdomain(input);
+
+      const subdomain = extractSubdomain(input.replace(/\s/g, ''));
 
       e.target.value = subdomain;
       setSubDomain(subdomain);
-
       onChange?.(e);
     };
 
     return (
-      <div className='sc-relative sc-flex sc-w-full sc-overflow-clip'>
+      <div className='sc-relative sc-mb-2 sc-flex sc-w-full sc-flex-col sc-items-start sc-gap-4 sc-overflow-clip'>
         <Input
           {...props}
+          type='text'
           placeholder='Enter Subdomain'
           ref={ref}
           onChange={handleInputChange}
@@ -45,7 +46,7 @@ const DomainInput = React.forwardRef<HTMLInputElement, DomainInputProps>(
         />
         <div
           className={cn(
-            'sc-absolute sc-right-2 sc-top-1/2 sc-ml-1 sc-hidden sc-h-4 -sc-translate-y-1/2 sc-items-center sc-justify-center sc-bg-background sc-px-1 sc-text-xs sc-text-gray-500 sm:sc-flex',
+            'sc-relative sc-right-2 sc-top-1/2 sc-ml-1 sc-flex sc-h-3/4 -sc-translate-y-1/2 sc-items-center sc-justify-center sc-bg-background sc-px-1 sc-text-xs sc-text-gray-500 sm:sc-absolute',
             {
               'sc-hidden sm:sc-hidden': !subDomain || !domainContext,
             },

@@ -97,7 +97,15 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
                 React.InputHTMLAttributes<HTMLInputElement>
               >,
             ) => (
-              <Component {...props} {...register(key, { required: true })} />
+              <Component
+                {...props}
+                {...register(key, { required: true })}
+                /**
+                 * search_... is a workaround to prevent the input from being
+                 * autocompleted by some browsers.
+                 */
+                id={`search_subi-connect-payroll-integration-worflow_${key}`}
+              />
             );
             return acc;
           },
@@ -128,13 +136,14 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
             className='sc-flex sc-flex-col sc-gap-2'
+            autoComplete='off'
           >
             <RenderMDX
               mdxString={payrollSystem.mdxIntegrationInstructions}
               components={components}
             />
 
-            <FormField name='root' render={() => <FormMessage />}></FormField>
+            <FormField name='root' render={() => <FormMessage />} />
 
             <Button type='submit' className='sc-mt-4' disabled={isPending}>
               Finish
