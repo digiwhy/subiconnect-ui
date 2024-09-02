@@ -1,7 +1,13 @@
 name: Deploy Demos
-run-name: Deploy Demos → ${{ github.event.inputs.env }}
+run-name: Deploy Demos → ${{ inputs.env }}
 
 on:
+  workflow_call:
+    inputs:
+      env:
+        type: string
+        description: 'Select the environment'
+        required: true
   workflow_dispatch:
     inputs:
       env:
@@ -14,7 +20,7 @@ on:
         required: true
 
 concurrency:
-  group: ${{ github.event.inputs.env }}
+  group: deploy-${{ inputs.env }}
   cancel-in-progress: true
 
 env:

@@ -1,0 +1,17 @@
+name: Deploy Demos to All Environments
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-all:
+    strategy:
+      matrix:
+        env: [dev, stg, prod]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      env: ${{ matrix.env }}
+    secrets: inherit
