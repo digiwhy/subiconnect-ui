@@ -145,7 +145,7 @@ const Integrate: React.FC<{
       </DialogueTrigger>
       <DialogueContent
         aria-describedby='A dialogue to connect and integrate with a payroll system'
-        className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-2xl'
+        className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-4xl'
       >
         <DialogueTitle className='sc-sr-only'>
           Connect and Integrate {payrollSystem.name}
