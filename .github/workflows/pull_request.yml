@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   lint:
-    name: Build subi-connect lib
+    name: 🧼 Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
