@@ -1,4 +1,5 @@
 name: Deploy Demos
+run-name: Deploy Demos → ${{ github.event.inputs.env }}
 
 on:
   workflow_dispatch:
@@ -108,7 +109,7 @@ jobs:
           path: ./demo/world-pay/dist
 
   deploy-demo:
-    name: ✈️ Deploy subi-connect demo
+    name: 🛫 Deploy subi-connect demo
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.env }}-ap-southeast-2
     needs: [build-demo]
