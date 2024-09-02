@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 1.5.4
+
+### Patch Changes
+
+- [#128](https://github.com/subifinancial/subi-connect/pull/128)
+  [`bad7cd0`](https://github.com/subifinancial/subi-connect/commit/bad7cd02402f48b95f16e5bb337be2230320939b)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Increased the
+  maximum width of the dialogue content for larger screens.
+
 ## 1.5.3
 
 ### Patch Changes
