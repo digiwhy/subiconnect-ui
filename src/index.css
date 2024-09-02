@@ -89,9 +89,7 @@
 /* Scoped Styles */
 @layer components {
   .subi-connect {
-    * {
-      font-family: 'Moderat-Light', sans-serif;
-    }
+    font-family: 'Moderat-Light', sans-serif;
 
     [data-radix-popper-content-wrapper] {
       min-width: auto !important;
