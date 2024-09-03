@@ -1,5 +1,17 @@
 # @subifinancial/subi-connect
 
+## 1.5.5
+
+### Patch Changes
+
+- [#130](https://github.com/subifinancial/subi-connect/pull/130)
+  [`2c0064b`](https://github.com/subifinancial/subi-connect/commit/2c0064b953f0ff6860e179133950749128a4c21d)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Remove
+  'subi-connect' class from components inside provider div container.
+  - The 'subi-connect' class is now only applied to the
+    - provider div container [@src/context/subi-connect.tsx]
+    - dialogue component [@src/ui/dialogue.tsx]
+
 ## 1.5.4
 
 ### Patch Changes
