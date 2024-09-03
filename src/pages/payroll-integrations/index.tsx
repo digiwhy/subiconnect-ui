@@ -48,7 +48,7 @@ const PayrollIntegrationsPage: React.FC<{ className?: string }> = ({
   return (
     <div
       className={cn(
-        'subi-connect sc-flex sc-h-full sc-w-full sc-flex-col sc-gap-4 sc-p-4',
+        'sc-flex sc-h-full sc-w-full sc-flex-col sc-gap-4 sc-p-4',
         className,
       )}
     >
