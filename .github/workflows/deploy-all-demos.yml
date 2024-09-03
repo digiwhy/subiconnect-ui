@@ -3,7 +3,7 @@ name: Deploy Demos to All Environments
 on:
   workflow_dispatch:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   deploy-all:
