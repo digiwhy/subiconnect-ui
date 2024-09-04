@@ -1,5 +1,6 @@
 import useSearchParams from '../../../../hooks/internal/use-serach-params';
 import { useCompany } from '../../../../hooks/use-company';
+import { getPayrollFriendlyName } from '../../../../lib/utils';
 import { SearchParam } from '../../../../types/query';
 import { Button } from '../../../../ui/button';
 import { Skeleton } from '../../../../ui/skeleton';
@@ -46,7 +47,10 @@ export const ConnectedCard = () => {
     description = (
       <p className='sc-font-light'>
         You have successfully connected{' '}
-        <span className='sc-font-mainMedium'>{payrollSystem.name}</span> to your{' '}
+        <span className='sc-font-mainMedium'>
+          {getPayrollFriendlyName(payrollSystem)}
+        </span>{' '}
+        to your{' '}
         <span className='sc-font-mainMedium'>{company?.account.name}</span>{' '}
         account.
       </p>

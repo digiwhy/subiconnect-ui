@@ -1,4 +1,5 @@
 import { useCompany } from '../../../../hooks/use-company';
+import { getPayrollFriendlyName } from '../../../../lib/utils';
 import { Button } from '../../../../ui/button';
 import { Skeleton } from '../../../../ui/skeleton';
 import Integrate from '../../../connect-and-integrate';
@@ -51,7 +52,10 @@ export const ConnectCard: React.FC = () => {
   } else {
     description = (
       <p className='sc-font-light'>
-        Connect <span className='sc-font-mainMedium'>{payrollSystem.name}</span>{' '}
+        Connect{' '}
+        <span className='sc-font-mainMedium'>
+          {getPayrollFriendlyName(payrollSystem)}
+        </span>{' '}
         to automatically add employees to your{' '}
         <span className='sc-font-mainMedium'>{company?.account.name}</span>{' '}
         account.

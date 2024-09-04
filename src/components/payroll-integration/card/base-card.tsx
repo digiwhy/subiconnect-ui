@@ -1,4 +1,8 @@
-import { cn, getPayrollBannerImgUrl } from '../../../lib/utils';
+import {
+  cn,
+  getPayrollBannerImgUrl,
+  getPayrollFriendlyName,
+} from '../../../lib/utils';
 import { usePayrollSystemContext } from '../context';
 import React from 'react';
 
@@ -25,7 +29,7 @@ export const BaseCard: React.FC<CardProps> = ({
         style={{ backgroundColor: payrollSystem.backgroundColour }}
       >
         <img
-          alt={`${payrollSystem.name} Logo`}
+          alt={`${getPayrollFriendlyName(payrollSystem)} Logo`}
           src={bannerSrc}
           className='sc-h-full sc-w-full sc-object-contain'
           draggable={false}
@@ -36,7 +40,7 @@ export const BaseCard: React.FC<CardProps> = ({
       <div className='sc-flex sc-h-full sc-flex-col sc-justify-between sc-gap-2 sc-p-4'>
         <div className='sc-flex sc-flex-col sc-gap-2'>
           <h2 className='sc-font-mainMedium sc-text-2xl sc-text-secondary'>
-            {payrollSystem.name}
+            {getPayrollFriendlyName(payrollSystem)}
           </h2>
           {description}
         </div>

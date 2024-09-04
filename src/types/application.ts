@@ -8,6 +8,9 @@ export type AccountPayrollSystemExtended = {
   /** The name of the payroll system. */
   name: Payroll;
 
+  /** The friendly name of the payroll system. */
+  friendlyName?: string;
+
   /** The payroll system logo. */
   bannerImg?: string;
 

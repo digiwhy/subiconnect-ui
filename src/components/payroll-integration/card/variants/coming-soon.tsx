@@ -1,4 +1,5 @@
 import { useCompany } from '../../../../hooks/use-company';
+import { getPayrollFriendlyName } from '../../../../lib/utils';
 import { Button } from '../../../../ui/button';
 import { Skeleton } from '../../../../ui/skeleton';
 import { usePayrollSystemContext } from '../../context';
@@ -40,9 +41,11 @@ export const ComingSoonCard = () => {
     description = (
       <p className='sc-font-light'>
         We are currently working on integrating{' '}
-        <span className='sc-font-mainMedium'>{payrollSystem.name}</span> with{' '}
-        <span className='sc-font-mainMedium'>{company.account.name}</span>. Once
-        enabledm you will be able to automatically add employees to your
+        <span className='sc-font-mainMedium'>
+          {getPayrollFriendlyName(payrollSystem)}
+        </span>{' '}
+        with <span className='sc-font-mainMedium'>{company.account.name}</span>.
+        Once enabledm you will be able to automatically add employees to your
         account.
       </p>
     );
