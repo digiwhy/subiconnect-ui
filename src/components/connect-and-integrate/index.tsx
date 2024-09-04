@@ -1,6 +1,7 @@
 import { usePayrollIntegrationContext } from '../../context/payroll-integration';
 import { CustomPayrollIntegrationWorkflow } from '../../integration-pages/custom';
 import { usePostConnectPayroll } from '../../integration-pages/custom/mutation';
+import { getPayrollFriendlyName } from '../../lib/utils';
 import {
   type ConnectPayrollResponse,
   PayrollConnectionTypeEnum,
@@ -148,7 +149,7 @@ const Integrate: React.FC<{
         className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-4xl'
       >
         <DialogueTitle className='sc-sr-only'>
-          Connect and Integrate {payrollSystem.name}
+          Connect and Integrate {getPayrollFriendlyName(payrollSystem)}
         </DialogueTitle>
         <CustomPayrollIntegrationWorkflow onSuccess={handleWorkflowOnSuccess} />
       </DialogueContent>

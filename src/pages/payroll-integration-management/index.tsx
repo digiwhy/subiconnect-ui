@@ -8,7 +8,7 @@ import { PayrollIntegrationProvider } from '../../context/payroll-integration';
 import useSearchParams from '../../hooks/internal/use-serach-params';
 import { useAccountPayrollSystem } from '../../hooks/use-account-payroll';
 import { BASE_ORGANISATION_QUERY_KEY } from '../../hooks/use-organisations';
-import { cn } from '../../lib/utils';
+import { cn, getPayrollFriendlyName } from '../../lib/utils';
 import type { AccountPayrollSystemExtended } from '../../types/application';
 import type { Payroll } from '../../types/payroll';
 import { SearchParam } from '../../types/query';
@@ -90,7 +90,7 @@ const Header: React.FC<{
           <Skeleton className='sc-h-4 sc-w-10' />
         ) : (
           <span className='sc-font-mainMedium sc-text-xs sc-text-secondary/50'>
-            {accountPayroll.name}
+            {getPayrollFriendlyName(accountPayroll)}
           </span>
         )}
       </div>

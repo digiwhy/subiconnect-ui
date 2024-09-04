@@ -1,3 +1,4 @@
+import type { AccountPayrollSystemExtended } from '../types/application';
 import type { Payroll } from '../types/payroll';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
@@ -47,4 +48,10 @@ export const createNestedObjectFromString = <T>(
     .reduceRight<
       Record<string, unknown>
     >((acc, keyPart) => ({ [keyPart]: acc }), value as unknown as Record<string, unknown>);
+};
+
+export const getPayrollFriendlyName = (
+  application: AccountPayrollSystemExtended,
+) => {
+  return application.friendlyName ?? application.name;
 };
