@@ -2,8 +2,8 @@ name: Deploy Demos to All Environments
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+  push:
+    tags: ['v*.*.*']
 
 jobs:
   deploy-all:
