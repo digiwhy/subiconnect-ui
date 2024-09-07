@@ -20,12 +20,14 @@ const Command = React.forwardRef<
 ));
 Command.displayName = CommandPrimitive.displayName;
 
-interface CommandDialogProps extends DialogProps {}
+interface CommandDialogProps extends DialogProps {
+  children: React.ReactNode;
+}
 
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
     <Dialogue {...props}>
-      <DialogueContent className='sc-overflow-hiddensc- p-0 sc-shadow-lg'>
+      <DialogueContent className='sc-overflow-hidden sc-p-0 sc-shadow-lg'>
         <Command className='[&_[cmdk-group-heading]]:sc-px-2 [&_[cmdk-group-heading]]:sc-font-medium [&_[cmdk-group-heading]]:sc-text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:sc-pt-0 [&_[cmdk-group]]:sc-px-2 [&_[cmdk-input-wrapper]_svg]:sc-h-5 [&_[cmdk-input-wrapper]_svg]:sc-w-5 [&_[cmdk-input]]:sc-h-12 [&_[cmdk-item]]:sc-px-2 [&_[cmdk-item]]:sc-py-3 [&_[cmdk-item]_svg]:sc-h-5 [&_[cmdk-item]_svg]:sc-w-5'>
           {children}
         </Command>
