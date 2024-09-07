@@ -1,12 +1,12 @@
+import { SUBI_CONNECT_PUBLIC_BASE_URL } from '../../envs';
 import { getAllEmployeesURL } from '../../services/api/employee/paths';
-import { BASE_URL } from '../../services/axios/config';
 import type { PaginationResponse } from '../../types/components/data-table';
 import type { Employee } from '../../types/employee';
 import { SyncStatus } from '../../types/main';
 import { Payroll } from '../../types/payroll';
 
 export const useEmployeesMockData = {
-  url: BASE_URL + getAllEmployeesURL(),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + getAllEmployeesURL(),
   method: 'GET',
   status: 200,
   response: {

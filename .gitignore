@@ -394,3 +394,5 @@ styles.css
 .npmrc
 /types
 subifinancial-subi-connect-*.tgz
+**/.yalc
+**/yalc.lock

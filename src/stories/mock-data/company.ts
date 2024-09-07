@@ -1,10 +1,10 @@
+import { SUBI_CONNECT_PUBLIC_BASE_URL } from '../../envs';
 import { constructAPIURL } from '../../services/api';
 import { COMPANY_URL } from '../../services/api/company/paths';
-import { BASE_URL } from '../../services/axios/config';
 import { Payroll } from '../../types/payroll';
 
 export const useCompanyMockData = {
-  url: BASE_URL + constructAPIURL(COMPANY_URL),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + constructAPIURL(COMPANY_URL),
   method: 'GET',
   status: 200,
   response: {
@@ -19,7 +19,7 @@ export const useCompanyMockData = {
 };
 
 export const useCompanyAccessTokenMockData = {
-  url: BASE_URL + `authentication/company-access-token`,
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + `authentication/company-access-token`,
   method: 'POST',
   status: 200,
   response: {
