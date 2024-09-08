@@ -14,7 +14,7 @@ on:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: ${{ github.event.inputs.branch }} != 'main'
 
     steps:
       - name: ⬇️ Checkout
