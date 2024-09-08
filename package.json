@@ -20,7 +20,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
-    "build:prod": "tsup --env.NODE_ENV production",
+    "build:prod": "tsup --env.NODE_ENV production --env.TARGET_ENV production",
     "release": "npm run build:production && changeset publish",
     "pack": "./scripts/pack.sh",
     "cs": "changeset",
