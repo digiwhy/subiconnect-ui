@@ -3,6 +3,9 @@ name: Snapshot Release
 on:
   workflow_dispatch:
     inputs:
+      branch:
+        description: 'Branch to run the snapshot release on'
+        required: true
       tag:
         description: 'Tag for the snapshot release'
         required: true
@@ -17,6 +20,7 @@ jobs:
       - name: ⬇️ Checkout
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.inputs.branch }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
