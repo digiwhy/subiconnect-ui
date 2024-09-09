@@ -13,6 +13,7 @@ on:
 
 jobs:
   snapshot:
+    name: 📸 Snapshot Release
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.branch }} != 'main'
 
@@ -44,7 +45,7 @@ jobs:
           SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL:
             ${{ secrets.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL }}
 
-      - name: 🖼️ Create and publish snapshot
+      - name: 📦 Create and publish snapshot
         run: |
           npx changeset version --snapshot ${{ github.event.inputs.tag }}
           npx changeset publish --tag ${{ github.event.inputs.tag }} --no-git-tag
