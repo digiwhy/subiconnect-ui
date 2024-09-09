@@ -76,6 +76,9 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    defaults:
+      run:
+        working-directory: ./demo/world-pay
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
@@ -93,7 +96,6 @@ jobs:
 
       - name: 🧩 Install Dependencies
         run: |
-          cd ./demo/world-pay
           npm i -g yalc
           yalc add @subifinancial/subi-connect
           npm ci
