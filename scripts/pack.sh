@@ -1,28 +1,26 @@
 #!/bin/bash
 
-### Colours
+# Colours
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 NC='\033[0m' # No Color
-###
 
 # Check for environment argument, default to "local"
 ENV=${1:-local}
-NO_DELETE=false
 
-####
 # Function to display script usage
 usage() {
- echo "Usage: $0 <Environemnt> [OPTIONS]"
- echo "Environemnt:"
- echo "'local', ['d' | 'dev' | 'development'], ['s' | 'stg' | 'staging'], ['p' |'prod' | 'production'], or 'all'"
- echo "Options:"
- echo " -n, --no-delete         Do not delete old tarballs"
+    echo "Usage: $0 <Target Environment>"
+    echo
+    echo "Target Environment options:"
+    echo -e "  ${YELLOW}local${NC}        ['local']"
+    echo -e "  ${BLUE}development${NC}  ['d' | 'dev' | 'development']"
+    echo -e "  ${PURPLE}staging${NC}      ['s' | 'stg' | 'staging']"
+    echo -e "  ${GREEN}production${NC}   ['p' | 'prod' | 'production']"
+    echo
 }
-
-####
 
 # Parse arguments
 for arg in "$@"; do
@@ -36,11 +34,8 @@ for arg in "$@"; do
     d | dev | development)
       ENV="development"
       ;;
-    local|all)
+    local)
       ENV=$arg
-      ;;
-    -n | --no-delete)
-      NO_DELETE=true
       ;;
     *)
       echo "Invalid usage: $1" >&2
@@ -72,50 +67,46 @@ print_env() {
   esac
 }
 
+# Silent logging used to prevent output from being mixed with the build output.
+# Keeps the output colours.
+SILENT_LOG=/tmp/silent_log_$$.txt
+trap "/bin/rm -f $SILENT_LOG" EXIT
+
+function silent {
+    script -q $SILENT_LOG $* > /dev/null;
+    cat "${SILENT_LOG}";
+}
+
 process_env() {
     local ENV=$1
     TARGET_ENV=$ENV 
 
     print_env $ENV
 
-    echo "Building..."
-    NODE_ENV=production npm run build
+    echo -n "⏳ 🔨 Building..."
+    build_output=$(silent npm run build 2>&1)
+    build_exit_code=$?
 
-    # Remove existing tarballs matching the pattern
-    # Remove existing tarballs matching the pattern unless --no-delete is active
-    if [ "$NO_DELETE" = false ]; then
-        echo "Removing existing tarballs..."
-        rm demo/lib/subi-connect@${ENV}-*.tgz
+    if [ $build_exit_code -eq 0 ]; then
+        echo -e "\r\033[0K✅ 🔨 Build successful"
+    else
+        echo -e "\r\033[0K❌ 🔨 Build failed"
+        echo -e "\n🔍 Build Output:"
+        echo "$build_output"
+        exit 1
     fi
 
-    # Run npm pack and capture the output
-    echo "Creating new tarball..."
-    output=$(npm pack)
+    echo -n "📦 ⏳ Publishing locally with yalc..."
+    if output=$(yalc publish --sig); then
+        version=$(echo "$output" | grep -o '@subifinancial/subi-connect@[^ ]*')
+        echo -e "\r\033[0K✅ 📦 Published locally with yalc\n\t$version"
+    else
+        echo -e "\r\033[0K❌ 📦 Failed to publish with yalc"
+    fi
 
-    # Extract the tarball name
-    tarball=$(echo "$output" | tail -n 1)
-
-    # Calculate the SHA-1 hash of the tarball
-    shasum=$(shasum "$tarball" | awk '{print $1}')
-
-    # Get the last 5 characters of the shasum
-    hash=${shasum: -5}
-
-    # Define the new filename
-    new_filename="demo/lib/subi-connect@${ENV}-${hash}.tgz"
-
-    # Rename the tarball
-    mv "$tarball" "$new_filename"
-
-    # Output the new filename for confirmation
-    echo "Created $new_filename"
+    # Print build output with original formatting
+    echo -e "\n🔍 Build Output:"
+    echo "$build_output"
 }
 
-# Process all environments if "all" is specified
-if [ "$ENV" == "all" ]; then
-  for ENV in production staging development local; do
-    process_env $ENV
-  done
-else
-  process_env $ENV
-fi
+process_env $ENV
