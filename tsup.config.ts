@@ -35,6 +35,7 @@ export default defineConfig({
     ),
   },
   sourcemap: true,
+  platform: 'browser',
   format: ['esm'],
   splitting: true,
   treeshake: true,

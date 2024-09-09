@@ -2,7 +2,7 @@
   "name": "@subifinancial/subi-connect",
   "version": "1.5.6",
   "description": "Subi Connect is a React component library that can be used to easily add UI with Subi's core business logic.",
-  "public": true,
+  "private": false,
   "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
   "style": "dist/index.css",
@@ -10,17 +10,15 @@
     "dist"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
-    },
+    ".": "./dist/index.mjs",
     "./styles.css": "./dist/index.css",
     "./dist/styles.css": "./dist/index.css"
   },
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
-    "build:prod": "tsup --env.NODE_ENV production --env.TARGET_ENV production",
+    "build:local": "TARGET_ENV=local tsup --env.NODE_ENV production",
+    "build:prod": "TARGET_ENV=production tsup --env.NODE_ENV production",
     "release": "npm run build:production && changeset publish",
     "pack": "./scripts/pack.sh",
     "cs": "changeset",
