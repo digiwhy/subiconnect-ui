@@ -1,6 +1,5 @@
 import { constructAPIURL } from '..';
 import { COMPANY_PAYROLL_INTEGRATIONS_URL, COMPANY_URL } from './paths';
-import { ACCESS_TOKEN_NAME } from '@/constants';
 import axiosClient from '@/services/axios';
 import type { Payroll } from '@/types';
 import type { Company } from '@/types/company';
@@ -9,11 +8,7 @@ import type { Company } from '@/types/company';
  * Gets the company that is attached to the authorisation headers.
  */
 export const getCompany = async (): Promise<Company> => {
-  const accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
-  const response = await axiosClient.get<Company>(
-    constructAPIURL(COMPANY_URL),
-    { headers: { Authorization: `Bearer ${accessToken}` } },
-  );
+  const response = await axiosClient.get<Company>(constructAPIURL(COMPANY_URL));
   return response.data;
 };
 
