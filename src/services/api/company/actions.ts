@@ -1,9 +1,9 @@
 import { constructAPIURL } from '..';
-import { ACCESS_TOKEN_NAME } from '../../../constants';
-import type { Payroll } from '../../../types';
-import type { Company } from '../../../types/company';
-import axiosClient from '../../axios';
 import { COMPANY_PAYROLL_INTEGRATIONS_URL, COMPANY_URL } from './paths';
+import { ACCESS_TOKEN_NAME } from '@/constants';
+import axiosClient from '@/services/axios';
+import type { Payroll } from '@/types';
+import type { Company } from '@/types/company';
 
 /**
  * Gets the company that is attached to the authorisation headers.

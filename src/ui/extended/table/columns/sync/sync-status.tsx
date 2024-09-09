@@ -1,18 +1,18 @@
-import type { ColumnDef } from '../../../../../types/components/data-table';
-import { SyncStatus } from '../../../../../types/main';
-import { DataTableColumnHeader } from '../../../../data-table-column-header';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../../../../tooltip';
 import {
   isFlatType,
   isNestedType,
   type BaseLastSyncedColumnNestedType,
   type BaseLastSyncedColumnType,
 } from './types';
+import type { ColumnDef } from '@/types/components/data-table';
+import { SyncStatus } from '@/types/main';
+import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/ui/tooltip';
 import type { Cell, Column, Row } from '@tanstack/react-table';
 import { CircleAlertIcon, CircleCheck, LoaderCircleIcon } from 'lucide-react';
 import React from 'react';

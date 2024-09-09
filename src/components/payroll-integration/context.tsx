@@ -1,4 +1,4 @@
-import type { AccountPayrollSystemExtended } from '../../types/application';
+import type { AccountPayrollSystemExtended } from '@/types/application';
 import React from 'react';
 
 const PayrollSystemContext = React.createContext<{

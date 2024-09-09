@@ -1,4 +1,4 @@
-import type { TypedOmit } from '../../types/utils';
+import type { TypedOmit } from '@/types/utils';
 import React from 'react';
 
 type CustomLinkProps = TypedOmit<

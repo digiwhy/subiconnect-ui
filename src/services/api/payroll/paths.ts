@@ -1,5 +1,5 @@
 import { constructAPIURL } from '..';
-import type { Payroll } from '../../../types/payroll';
+import type { Payroll } from '@/types/payroll';
 
 export const PAYROLL_APPLICATIONS_URL = 'payroll';
 

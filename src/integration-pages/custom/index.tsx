@@ -1,14 +1,14 @@
+import { usePostPayrollIntegration } from './mutation';
 import {
   formComponentsMap,
   otherComponentsMap,
-} from '../../components/payroll-integration-instructions/components-map';
-import { usePayrollSystemContext } from '../../components/payroll-integration/context';
-import { Loading } from '../../components/payroll-integration/loading';
-import { removeUndefinedValues } from '../../lib/utils';
-import { RenderMDX } from '../../mdx/render-mdx';
-import { Button } from '../../ui/button';
-import { Form, FormField, FormMessage } from '../../ui/form';
-import { usePostPayrollIntegration } from './mutation';
+} from '@/components/payroll-integration-instructions/components-map';
+import { usePayrollSystemContext } from '@/components/payroll-integration/context';
+import { Loading } from '@/components/payroll-integration/loading';
+import { removeUndefinedValues } from '@/lib/utils';
+import { RenderMDX } from '@/mdx/render-mdx';
+import { Button } from '@/ui/button';
+import { Form, FormField, FormMessage } from '@/ui/form';
 import React from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 

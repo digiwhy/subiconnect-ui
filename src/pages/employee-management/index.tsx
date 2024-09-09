@@ -1,19 +1,15 @@
-import { EmployeesTable } from '../../components';
+import { EmployeesTable } from '@/components';
 import {
   endColumns,
   startColumns,
-} from '../../components/employees-table/columns/company-specific';
-import { EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP } from '../../components/employees-table/consts';
-import { useSyncingOrganisations } from '../../hooks/use-organisations';
-import { cn } from '../../lib/utils';
-import type { SelectableEmployeeColumns } from '../../types/employee';
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from '../../ui/hover-card';
-import { Separator } from '../../ui/separator';
-import { Skeleton } from '../../ui/skeleton';
+} from '@/components/employees-table/columns/company-specific';
+import { EMPLOYEES_TABLE_ALLOWED_COLUMNS_MAP } from '@/components/employees-table/consts';
+import { useSyncingOrganisations } from '@/hooks/use-organisations';
+import { cn } from '@/lib/utils';
+import type { SelectableEmployeeColumns } from '@/types/employee';
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/ui/hover-card';
+import { Separator } from '@/ui/separator';
+import { Skeleton } from '@/ui/skeleton';
 import { RefreshCwIcon } from 'lucide-react';
 import React from 'react';
 

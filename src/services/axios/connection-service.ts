@@ -1,4 +1,4 @@
-import type { SubiConnectAccessToken } from '../../types/main';
+import type { SubiConnectAccessToken } from '@/types/main';
 
 // Singleton to store the connection function
 export default class ConnectionService {

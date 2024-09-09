@@ -1,5 +1,5 @@
-import type { SubiConnectAccessToken } from '../../../types/main';
-import logger from '../../logger';
+import logger from '@/services/logger';
+import type { SubiConnectAccessToken } from '@/types/main';
 
 /**
  * Function to handle token retrieval.

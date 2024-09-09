@@ -1,8 +1,8 @@
-import logger from '../../logger';
-import axiosClient from '../config';
+import axiosClient from '..';
 import ConnectionService from '../connection-service';
 import type { InternalAxiosRequestConfig } from '../types';
 import { getAccessToken } from '../utils/get-token';
+import logger from '@/services/logger';
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 
 const onErrorResponse = async (

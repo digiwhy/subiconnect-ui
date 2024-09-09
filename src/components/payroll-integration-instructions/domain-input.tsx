@@ -1,5 +1,5 @@
-import { cn } from '../../lib/utils';
-import { Input } from '../../ui/input';
+import { cn } from '@/lib/utils';
+import { Input } from '@/ui/input';
 import React from 'react';
 
 /**

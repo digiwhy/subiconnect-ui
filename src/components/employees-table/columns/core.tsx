@@ -1,17 +1,8 @@
-import type { ColumnDef } from '../../../types/components/data-table';
-import type { Employee } from '../../../types/employee';
-import { Button } from '../../../ui/button';
-import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '../../../ui/dropdown-menu';
-import ClipboardButton from '../../../ui/extended/table/columns/copy';
+import type { ColumnDef } from '@/types/components/data-table';
+import type { Employee } from '@/types/employee';
+import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import ClipboardButton from '@/ui/extended/table/columns/copy';
 import type { CellContext } from '@tanstack/react-table';
-import { MoreHorizontal } from 'lucide-react';
 import React from 'react';
 
 export const fullNameColumn: ColumnDef<Employee> = {
@@ -55,27 +46,4 @@ export const emailColumn: ColumnDef<Employee> = {
   ),
   cell: EmailColum,
   headerClassName: 'sc-w-full',
-};
-
-export const actionsColumn: ColumnDef<Employee> = {
-  id: 'actions',
-  accessorKey: undefined,
-  cell: () => {
-    return (
-      <div className='sc-flex sc-justify-end'>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='sc-h-8 sc-w-8 sc-p-0'>
-              <span className='sc-sr-only'>Open menu</span>
-              <MoreHorizontal className='sc-h-4 sc-w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem></DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    );
-  },
 };

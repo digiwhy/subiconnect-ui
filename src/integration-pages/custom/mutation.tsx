@@ -1,8 +1,8 @@
 import {
   connectPayroll,
   integratePayroll,
-} from '../../services/api/payroll/actions';
-import type { Payroll } from '../../types/payroll';
+} from '@/services/api/payroll/actions';
+import type { Payroll } from '@/types/payroll';
 import { useMutation } from '@tanstack/react-query';
 import type { AxiosRequestConfig } from 'axios';
 

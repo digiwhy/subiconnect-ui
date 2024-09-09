@@ -1,9 +1,9 @@
-import type { ColumnDef } from '../../../types/components/data-table';
-import type { Employee } from '../../../types/employee';
-import { DataTableColumnHeader } from '../../../ui/data-table-column-header';
-import { lastSyncedColumn } from '../../../ui/extended/table/columns/sync/sync-date';
-import { syncStatusColumn } from '../../../ui/extended/table/columns/sync/sync-status';
 import { emailColumn, fullNameColumn } from './core';
+import type { ColumnDef } from '@/types/components/data-table';
+import type { Employee } from '@/types/employee';
+import { DataTableColumnHeader } from '@/ui/data-table-column-header';
+import { lastSyncedColumn } from '@/ui/extended/table/columns/sync/sync-date';
+import { syncStatusColumn } from '@/ui/extended/table/columns/sync/sync-status';
 import React from 'react';
 
 const SyncStatusDescription = () => (

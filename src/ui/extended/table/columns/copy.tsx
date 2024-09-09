@@ -1,5 +1,5 @@
-import { cn } from '../../../../lib/utils';
-import { Button } from '../../../button';
+import { cn } from '@/lib/utils';
+import { Button } from '@/ui/button';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 import React from 'react';
 

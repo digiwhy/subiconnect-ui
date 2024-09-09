@@ -1,9 +1,9 @@
+import { usePayrollSystemContext } from '../context';
 import {
   cn,
   getPayrollBannerImgUrl,
   getPayrollFriendlyName,
-} from '../../../lib/utils';
-import { usePayrollSystemContext } from '../context';
+} from '@/lib/utils';
 import React from 'react';
 
 export type CardProps = {

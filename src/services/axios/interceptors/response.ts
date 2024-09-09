@@ -1,4 +1,4 @@
-import logger from '../../logger';
+import logger from '@/services/logger';
 import type { AxiosResponse } from 'axios';
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {

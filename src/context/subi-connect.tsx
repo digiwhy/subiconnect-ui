@@ -1,12 +1,12 @@
-import { ACCESS_TOKEN_NAME } from '../constants';
-import { handleProviderOptions } from '../lib/handle-provider-options';
-import axiosClient from '../services/axios';
-import ConnectionService from '../services/axios/connection-service';
-import logger from '../services/logger';
+import { ACCESS_TOKEN_NAME } from '@/constants';
+import { handleProviderOptions } from '@/lib/handle-provider-options';
+import axiosClient from '@/services/axios';
+import ConnectionService from '@/services/axios/connection-service';
+import logger from '@/services/logger';
 import {
   type SubiConnectAccessToken,
   type SubiConnectOptions,
-} from '../types/main';
+} from '@/types/main';
 import React from 'react';
 
 type SubiConnectContext = {
