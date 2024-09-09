@@ -81,33 +81,41 @@ SILENT_LOG=/tmp/silent_log_$$.txt
 trap "/bin/rm -f $SILENT_LOG" EXIT
 
 function silent {
-    script -q $SILENT_LOG $* > /dev/null;
-    cat "${SILENT_LOG}";
+    env -i HOME="$HOME" PATH="$PATH" NODE_ENV=production TARGET_ENV="$TARGET_ENV" script -q $SILENT_LOG $* > /dev/null
+    cat "${SILENT_LOG}"
 }
 
-process_env() {
+main() {
     local ENV=$1
     TARGET_ENV=$ENV 
 
     print_env $ENV
 
-    echo -n "⏳ 🔨 Building..."
     if [ "$RAW" = true ]; then
-        build_output=$(silent NODE_ENV=production TARGET_ENV=$TARGET_ENV npm run build 2>&1)
-        build_exit_code=$?
-        if [ $build_exit_code -eq 0 ]; then
-            echo -e "\r\033[0K✅ 🔨 Build successful"
-        else
-            echo -e "\r\033[0K❌ 🔨 Build failed"
-            echo -e "\n🔍 Build Output:"
-            echo "$build_output"
-            exit 1
-        fi
+      echo "[RAW] is set"
+    fi
+
+    echo -n "⏳ 🔨 Building..."
+    if [ "$RAW" = false ]; then
+        build_output=$(silent npm run build 2>&1)
     else
         NODE_ENV=production TARGET_ENV=$TARGET_ENV npm run build 2>&1
     fi
 
+    build_exit_code=$?
+    if [ $build_exit_code -eq 0 ]; then
+        echo -e "\r\033[0K✅ 🔨 Build successful"
+    else
+        echo -e "\r\033[0K❌ 🔨 Build failed"
+        echo -e "\n🔍 Build Output:"
+        echo "$build_output"
+        exit 1
+    fi
+
     echo -n "⏳ 📦 Publishing locally with yalc..."
+    if [ "$RAW" = false ]; then
+        sleep 1
+    fi
     if output=$(yalc publish --sig); then
         version=$(echo "$output" | grep -o '@subifinancial/subi-connect@[^ ]*')
         echo -e "\r\033[0K✅ 📦 Published locally with yalc\n\t$version"
@@ -116,10 +124,11 @@ process_env() {
     fi
 
     # Print build output with original formatting
-    if [ "$RAW" = true ]; then
+    if [ "$RAW" = false ]; then
         echo -e "\n🔍 Build Output:"
+        sleep 1
         echo "$build_output"
     fi
 }
 
-process_env $ENV
+main $ENV

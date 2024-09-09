@@ -50,7 +50,7 @@ jobs:
           npm ci
 
       - name: 🏗️ Build
-        run: npm run pack ${{ inputs.env }} -r
+        run: npm run pack ${{ inputs.env }} -- -r
 
       - name: ⬆️💾 Upload Yalc store as artifact
         uses: actions/upload-artifact@v4
