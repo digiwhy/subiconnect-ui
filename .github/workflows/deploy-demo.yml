@@ -47,16 +47,18 @@ jobs:
 
       - name: 🧩 Install packages
         run: |
-          npm clean-install
+          npm ci
 
       - name: 🏗️ Build
-        run: npm run pack ${{ inputs.env }}
+        run: npm run pack ${{ inputs.env }} -r
 
       - name: ⬆️💾 Upload Yalc store as artifact
         uses: actions/upload-artifact@v4
         with:
           name: yalc-store-${{ inputs.env }}
           path: ~/.yalc
+          include-hidden-files: true
+          if-no-files-found: error
 
   build-demo:
     name: 🏗️ Build subi-connect demo
@@ -92,6 +94,7 @@ jobs:
       - name: 🧩 Install Dependencies
         run: |
           cd ./demo/world-pay
+          npm i -g yalc
           yalc add @subifinancial/subi-connect
           npm ci
 

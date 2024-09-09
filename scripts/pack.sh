@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Colours
+RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
@@ -9,10 +10,11 @@ NC='\033[0m' # No Color
 
 # Check for environment argument, default to "local"
 ENV=${1:-local}
+RAW=false
 
 # Function to display script usage
 usage() {
-    echo "Usage: $0 <Target Environment>"
+    echo "Usage: $0 <Target Environment> [--raw]"
     echo
     echo "Target Environment options:"
     echo -e "  ${YELLOW}local${NC}        ['local']"
@@ -20,6 +22,9 @@ usage() {
     echo -e "  ${PURPLE}staging${NC}      ['s' | 'stg' | 'staging']"
     echo -e "  ${GREEN}production${NC}   ['p' | 'prod' | 'production']"
     echo
+    echo "Options:"
+    echo -e "  ${RED}--raw${NC}        ['-r' | '--raw']"
+    echo "    Outputs the build output with original formatting."
 }
 
 # Parse arguments
@@ -36,6 +41,9 @@ for arg in "$@"; do
       ;;
     local)
       ENV=$arg
+      ;;
+    -r | --raw)
+      RAW=true
       ;;
     *)
       echo "Invalid usage: $1" >&2
@@ -84,19 +92,22 @@ process_env() {
     print_env $ENV
 
     echo -n "⏳ 🔨 Building..."
-    build_output=$(silent npm run build 2>&1)
-    build_exit_code=$?
-
-    if [ $build_exit_code -eq 0 ]; then
-        echo -e "\r\033[0K✅ 🔨 Build successful"
+    if [ "$RAW" = true ]; then
+        build_output=$(silent NODE_ENV=production TARGET_ENV=$TARGET_ENV npm run build 2>&1)
+        build_exit_code=$?
+        if [ $build_exit_code -eq 0 ]; then
+            echo -e "\r\033[0K✅ 🔨 Build successful"
+        else
+            echo -e "\r\033[0K❌ 🔨 Build failed"
+            echo -e "\n🔍 Build Output:"
+            echo "$build_output"
+            exit 1
+        fi
     else
-        echo -e "\r\033[0K❌ 🔨 Build failed"
-        echo -e "\n🔍 Build Output:"
-        echo "$build_output"
-        exit 1
+        NODE_ENV=production TARGET_ENV=$TARGET_ENV npm run build 2>&1
     fi
 
-    echo -n "📦 ⏳ Publishing locally with yalc..."
+    echo -n "⏳ 📦 Publishing locally with yalc..."
     if output=$(yalc publish --sig); then
         version=$(echo "$output" | grep -o '@subifinancial/subi-connect@[^ ]*')
         echo -e "\r\033[0K✅ 📦 Published locally with yalc\n\t$version"
@@ -105,8 +116,10 @@ process_env() {
     fi
 
     # Print build output with original formatting
-    echo -e "\n🔍 Build Output:"
-    echo "$build_output"
+    if [ "$RAW" = true ]; then
+        echo -e "\n🔍 Build Output:"
+        echo "$build_output"
+    fi
 }
 
 process_env $ENV
