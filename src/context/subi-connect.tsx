@@ -11,7 +11,7 @@ import React from 'react';
 type SubiConnectContext = {
   isLoading: boolean;
   initialised: boolean;
-  clearToken: () => void;
+  cleanup: () => void;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -92,13 +92,13 @@ export const SubiConnectProvider = ({
   /**
    * Clear the access token from local storage and the connection service.
    */
-  const clearToken = () => {
+  const cleanup = () => {
     const connectionService = ConnectionService.getInstance();
     connectionService.reset();
   };
 
   const value = React.useMemo(
-    () => ({ isLoading, initialised, clearToken }) satisfies SubiConnectContext,
+    () => ({ isLoading, initialised, cleanup }) satisfies SubiConnectContext,
     [isLoading, initialised],
   );
 
