@@ -7,7 +7,8 @@ import type {
 import type { Employee, SelectableEmployeeColumns } from '../types/employee';
 import type { BaseQueryOptions } from '../types/query';
 import type { DeepPartial } from '../types/utils';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
 const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee'] as const;
@@ -45,7 +46,7 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
     [options?.listOptions, params],
   );
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     ...options?.queryOptions,

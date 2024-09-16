@@ -5,7 +5,8 @@ import type {
   PaginationResponse,
 } from '../types/components/data-table';
 import type { BaseQueryOptions } from '../types/query';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
 export const BASE_PAYROLL_APPLICATION_QUERY_KEY = [
@@ -49,7 +50,7 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
     [options?.listOptions, params],
   );
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     ...options?.queryOptions,

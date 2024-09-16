@@ -1,9 +1,9 @@
+import { useSubiConnectMutation } from '@/hooks/use-subi-connect-query';
 import {
   connectPayroll,
   integratePayroll,
 } from '@/services/api/payroll/actions';
 import type { Payroll } from '@/types/payroll';
-import { useMutation } from '@tanstack/react-query';
 import type { AxiosRequestConfig } from 'axios';
 
 type PostPayrollIntegration = {
@@ -16,7 +16,7 @@ export type UsePostPayrollIntegrationProps = {
 };
 
 export const usePostPayrollIntegration = () => {
-  return useMutation({
+  return useSubiConnectMutation({
     mutationFn: ({
       payrollSystem,
       integrationParams,
@@ -34,7 +34,7 @@ export type UsePostConnectPayrollProps = {
 };
 
 export const usePostConnectPayroll = () => {
-  return useMutation({
+  return useSubiConnectMutation({
     mutationFn: ({ payroll }: UsePostConnectPayrollProps) => {
       return connectPayroll({
         payroll,

@@ -16,7 +16,7 @@ const useQueryParam = (
   defaultVal: string,
 ): [string, (val: string) => void] => {
   const [query, setQuery] = React.useState(
-    getQueryStringVal(key) || defaultVal,
+    getQueryStringVal(key) ?? defaultVal,
   );
 
   const updateUrl = (newVal: string) => {
