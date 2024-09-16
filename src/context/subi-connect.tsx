@@ -22,7 +22,7 @@ export const useSubiConnectContext = (): SubiConnectContext => {
   const context = React.useContext(SubiConnectContext);
   if (!context) {
     throw new Error(
-      'useSubiConnectContext must be used within a SubiConnectProvider',
+      'Subi Connect hooks must be used within a SubiConnectProvider',
     );
   }
   return context;

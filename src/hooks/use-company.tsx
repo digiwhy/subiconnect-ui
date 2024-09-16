@@ -5,7 +5,8 @@ import {
 import type { Payroll } from '../types';
 import type { Company } from '../types/company';
 import type { BaseQueryOptions } from '../types/query';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import { type UseQueryOptions } from '@tanstack/react-query';
 
 const BASE_COMPANY_QUERY_KEY = ['subi-connect', 'company'] as const;
 
@@ -19,7 +20,7 @@ export const useCompany = (options?: UseCompanyOptions) => {
    * one company in the context
    */
   const queryKey = [...BASE_COMPANY_QUERY_KEY, 'detail'] as const;
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: getCompany,
     ...options?.queryOptions,
@@ -39,7 +40,7 @@ export const useCompanyPayrollIntegrations = (
   options?: UseCompanyPayrollIntegrationsOptions,
 ) => {
   const queryKey = [...BASE_COMPANY_PAYROLL_INTEGRATIONS_QUERY_KEY] as const;
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: getCompanyPayrollIntegrations,
     ...options?.queryOptions,

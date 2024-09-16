@@ -14,7 +14,8 @@ import type {
 } from '../types/components/data-table';
 import type { Organisation } from '../types/organisation';
 import type { BaseQueryOptions } from '../types/query';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
 export const BASE_ORGANISATION_QUERY_KEY = [
@@ -69,7 +70,7 @@ export const useOrganisations = (
     enabled: true,
   };
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     enabled: !!accountPayrollId && enabled,
@@ -109,7 +110,7 @@ export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
     [options?.listOptions, params],
   );
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     ...options?.queryOptions,
@@ -131,7 +132,7 @@ const useSyncingOrganisationsQueryKey = [
 export const useSyncingOrganisations = (
   options?: UseSyncingOrganisationsOptions,
 ) => {
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: useSyncingOrganisationsQueryKey,
     queryFn: listSyncingOrganisations,
     ...options?.queryOptions,
@@ -161,7 +162,7 @@ export const useOrganisation = (
     enabled: true,
   };
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     enabled: !!organisationId && enabled,

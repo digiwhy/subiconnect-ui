@@ -3,7 +3,8 @@ import type { AccountPayrollSystemExtended } from '../types/application';
 import type { Payroll } from '../types/payroll';
 import type { BaseQueryOptions } from '../types/query';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
-import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import type { UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
 type UsePayrollSystemsOptions = {
@@ -26,7 +27,7 @@ export const useAccountPayrollSystem = (
     [payroll],
   );
 
-  return useQuery({
+  return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
     ...options?.queryOptions,
