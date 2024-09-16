@@ -10,4 +10,5 @@ export * from './types';
 export {
   SubiConnectProvider,
   type SubiConnectProviderProps,
+  useSubiConnectContext,
 } from './context/subi-connect';
