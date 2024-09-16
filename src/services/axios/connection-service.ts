@@ -1,9 +1,13 @@
-import type { SubiConnectAccessToken } from '../../types/main';
+import { ACCESS_TOKEN_NAME } from '@/constants';
+import type { SubiConnectAccessToken } from '@/types/main';
+
+const DEFAULT_CONTEXT = 'NO_CONTEXT';
 
 // Singleton to store the connection function
 export default class ConnectionService {
   private static instance: ConnectionService;
   private connectionFn: (() => Promise<SubiConnectAccessToken>) | null = null;
+  private context: string = DEFAULT_CONTEXT;
 
   private constructor() {}
 
@@ -14,11 +18,69 @@ export default class ConnectionService {
     return ConnectionService.instance;
   }
 
-  setConnectionFn(fn: () => Promise<SubiConnectAccessToken>): void {
-    this.connectionFn = fn;
+  /**
+   * Initialise the connection service with a connection function and context.
+   * @param connectionFn - The function to connect to the SubiConnect API.
+   * @param context - The context to use for the connection.
+   * @returns The connection service.
+   */
+  public initialise({
+    connectionFn,
+    context,
+  }: {
+    connectionFn: (() => Promise<SubiConnectAccessToken>) | null;
+    context: string | undefined;
+  }) {
+    this.setConnectionFn(connectionFn);
+    this.setContext(context);
+
+    return this;
   }
 
-  getConnectionFn(): (() => Promise<SubiConnectAccessToken>) | null {
+  public setConnectionFn(fn: (() => Promise<SubiConnectAccessToken>) | null) {
+    this.connectionFn = fn;
+    return this;
+  }
+
+  public getConnectionFn() {
     return this.connectionFn;
+  }
+
+  public setContext(plainContext: string | undefined) {
+    if (!plainContext) {
+      this.context = DEFAULT_CONTEXT;
+      return this;
+    }
+    this.context = atob(plainContext);
+    return this;
+  }
+
+  public getContext() {
+    return btoa(this.context);
+  }
+
+  public async generateAccessToken(): Promise<string> {
+    if (!this.connectionFn) {
+      throw new Error('No connection function set');
+    }
+
+    const accessToken = await this.connectionFn();
+    this.setAccessToken(accessToken);
+    return accessToken;
+  }
+
+  public getAccessToken() {
+    return localStorage.getItem(`${ACCESS_TOKEN_NAME}__${this.context}`);
+  }
+
+  public setAccessToken(token: string) {
+    localStorage.setItem(`${ACCESS_TOKEN_NAME}__${this.context}`, token);
+    return this;
+  }
+
+  reset() {
+    this.context = DEFAULT_CONTEXT;
+    this.connectionFn = null;
+    return this;
   }
 }

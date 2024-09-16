@@ -1,12 +1,12 @@
-import { DATE_FORMAT } from '../../../../../constants';
-import type { ColumnDef } from '../../../../../types/components/data-table';
-import { DataTableColumnHeader } from '../../../../data-table-column-header';
 import {
   isFlatType,
   isNestedType,
   type BaseLastSyncedColumnNestedType,
   type BaseLastSyncedColumnType,
 } from './types';
+import { DATE_FORMAT } from '@/constants';
+import type { ColumnDef } from '@/types/components/data-table';
+import { DataTableColumnHeader } from '@/ui/data-table-column-header';
 import { format } from 'date-fns';
 import React from 'react';
 

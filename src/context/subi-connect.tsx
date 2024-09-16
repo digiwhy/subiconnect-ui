@@ -1,17 +1,17 @@
-import { ACCESS_TOKEN_NAME } from '../constants';
-import { handleProviderOptions } from '../lib/handle-provider-options';
-import axiosClient from '../services/axios';
-import ConnectionService from '../services/axios/connection-service';
-import logger from '../services/logger';
+import { handleProviderOptions } from '@/lib/handle-provider-options';
+import axiosClient from '@/services/axios';
+import ConnectionService from '@/services/axios/connection-service';
+import logger from '@/services/logger';
 import {
   type SubiConnectAccessToken,
   type SubiConnectOptions,
-} from '../types/main';
+} from '@/types/main';
 import React from 'react';
 
 type SubiConnectContext = {
   isLoading: boolean;
   initialised: boolean;
+  cleanup: () => void;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -57,17 +57,15 @@ export const SubiConnectProvider = ({
     /**
      * Set the connection function on the `ConnectionService`.
      */
-    const connectionService = ConnectionService.getInstance();
-    connectionService.setConnectionFn(connectionFn);
+    const connectionService = ConnectionService.getInstance().initialise({
+      connectionFn,
+      context: options?.context,
+    });
 
     const initConnection = async () => {
       try {
-        let accessToken = localStorage.getItem(ACCESS_TOKEN_NAME);
-
-        if (!accessToken) {
-          accessToken = await connectionFn();
-          localStorage.setItem(ACCESS_TOKEN_NAME, accessToken);
-        }
+        let accessToken = connectionService.getAccessToken();
+        accessToken ??= await connectionService.generateAccessToken();
 
         axiosClient.defaults.headers.common['Authorization'] =
           `Bearer ${accessToken}`;
@@ -77,7 +75,7 @@ export const SubiConnectProvider = ({
           error as Error,
           {
             accessToken:
-              localStorage.getItem(ACCESS_TOKEN_NAME) !== null
+              connectionService.getAccessToken() !== null
                 ? 'SET (see local storage)'
                 : 'NOT SET',
           },
@@ -91,8 +89,16 @@ export const SubiConnectProvider = ({
     initConnection();
   }, [connectionFn, options]);
 
+  /**
+   * Clear the access token from local storage and the connection service.
+   */
+  const cleanup = () => {
+    const connectionService = ConnectionService.getInstance();
+    connectionService.reset();
+  };
+
   const value = React.useMemo(
-    () => ({ isLoading, initialised }),
+    () => ({ isLoading, initialised, cleanup }) satisfies SubiConnectContext,
     [isLoading, initialised],
   );
 

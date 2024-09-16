@@ -1,10 +1,10 @@
-import { SearchParam } from '../../types/query';
 import { useDataTableContext } from './table-context';
+import { SearchParam } from '@/types/query';
 import type { OnChangeFn, PaginationState } from '@tanstack/react-table';
 import React from 'react';
 
-export const DEFAULT_PAGE = 1 as const;
-export const DEFAULT_PAGE_SIZE = 10 as const;
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 10;
 
 interface IDataTablePaginationContext {
   paginationState: PaginationState;
@@ -86,14 +86,17 @@ export const DataTablePaginationProvider = ({
     }
   }, []);
 
+  const contextValue = React.useMemo(
+    () => ({
+      paginationState,
+      onPaginationChange: setPaginationState,
+      setPage: handleSetPage,
+    }),
+    [paginationState, setPaginationState, handleSetPage],
+  );
+
   return (
-    <DataTablePaginationContext.Provider
-      value={{
-        paginationState,
-        onPaginationChange: setPaginationState,
-        setPage: handleSetPage,
-      }}
-    >
+    <DataTablePaginationContext.Provider value={contextValue}>
       {children}
     </DataTablePaginationContext.Provider>
   );

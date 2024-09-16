@@ -1,7 +1,7 @@
-import { getMoneyFromDecimals } from '../../../../lib/utils';
-import type { ColumnDef } from '../../../../types/components/data-table';
-import type { Employee } from '../../../../types/employee';
-import { DataTableColumnHeader } from '../../../../ui/data-table-column-header';
+import { getMoneyFromDecimals } from '@/lib/utils';
+import type { ColumnDef } from '@/types/components/data-table';
+import type { Employee } from '@/types/employee';
+import { DataTableColumnHeader } from '@/ui/data-table-column-header';
 import type { CellContext } from '@tanstack/react-table';
 import React from 'react';
 

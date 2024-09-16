@@ -30,6 +30,12 @@ export type SubiConnectOptions = {
    * initialisation process to complete before rendering the children.
    */
   bypassInitialisation?: boolean;
+
+  /**
+   * The context for the SubiConnect API. This can be something that uniquely
+   * identifies the organisation—for example, the company ID or name.
+   */
+  context?: string;
 };
 
 export enum SyncStatus {

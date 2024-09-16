@@ -1,12 +1,12 @@
 import useSearchParams, {
   FILTER_SEARCH_PARAM_PREFIX,
-} from '../../hooks/internal/use-serach-params';
-import { createNestedObjectFromString } from '../../lib/utils';
+} from '@/hooks/internal/use-serach-params';
+import { createNestedObjectFromString } from '@/lib/utils';
 import type {
   PaginationResponse,
   ListRequest,
-} from '../../types/components/data-table';
-import { SearchParam } from '../../types/query';
+} from '@/types/components/data-table';
+import { SearchParam } from '@/types/query';
 import {
   type QueryFunctionContext,
   type QueryKey,
@@ -123,7 +123,7 @@ export const DataTableProvider = <TData,>({
   );
 
   const setParamValue = React.useCallback(
-    (param: SearchParam | string, value?: string) => {
+    (param: SearchParam | string, value: string | undefined) => {
       setSearchParam(getParamName(param), value);
     },
     [setSearchParam],

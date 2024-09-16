@@ -1,4 +1,4 @@
-import type { SyncStatus } from '../../../../../types/main';
+import type { SyncStatus } from '@/types/main';
 
 export function isNestedType(
   data: unknown,

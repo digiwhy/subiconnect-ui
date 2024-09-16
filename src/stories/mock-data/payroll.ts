@@ -1,3 +1,4 @@
+import { SUBI_CONNECT_PUBLIC_BASE_URL } from '../../envs';
 import { constructAPIURL } from '../../services/api';
 import {
   PAYROLL_APPLICATIONS_URL,
@@ -6,11 +7,10 @@ import {
   getIntegratePayrollURL,
 } from '../../services/api/payroll/paths';
 import { PayrollConnectionTypeEnum } from '../../services/api/payroll/types';
-import { BASE_URL } from '../../services/axios/config';
 import { Payroll } from '../../types/payroll';
 
 export const usePayrollsEmptyMockData = {
-  url: BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
   method: 'GET',
   status: 200,
   response: {
@@ -22,7 +22,7 @@ export const usePayrollsEmptyMockData = {
 };
 
 export const usePayrollsMockData = {
-  url: BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
   method: 'GET',
   status: 200,
   response: {
@@ -89,7 +89,7 @@ export const usePayrollsMockData = {
 };
 
 export const useConnectedPayrollsMockData = {
-  url: BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + constructAPIURL(PAYROLL_APPLICATIONS_URL),
   method: 'GET',
   status: 200,
   response: {
@@ -156,7 +156,9 @@ export const useConnectedPayrollsMockData = {
 };
 
 export const useHasConnectedPayrollsMockData = {
-  url: BASE_URL + constructAPIURL(CONNECTED_PAYROLL_APPLICATIONS_URL),
+  url:
+    SUBI_CONNECT_PUBLIC_BASE_URL +
+    constructAPIURL(CONNECTED_PAYROLL_APPLICATIONS_URL),
   method: 'GET',
   status: 200,
   response: {
@@ -179,7 +181,7 @@ export const useHasConnectedPayrollsMockData = {
 };
 
 export const usePayrollConnectMockData = (payroll: Payroll = Payroll.XERO) => ({
-  url: BASE_URL + getConnectPayrollURL(payroll),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + getConnectPayrollURL(payroll),
   method: 'POST',
   status: 200,
   response: {
@@ -189,7 +191,7 @@ export const usePayrollConnectMockData = (payroll: Payroll = Payroll.XERO) => ({
 });
 
 export const usePayrollIntegrateMockData = (id: number = 1) => ({
-  url: BASE_URL + getIntegratePayrollURL(id),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + getIntegratePayrollURL(id),
   method: 'POST',
   status: 200,
   response: {},

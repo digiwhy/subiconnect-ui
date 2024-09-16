@@ -1,6 +1,6 @@
-import { SearchParam } from '../../types/query';
 import { useDataTablePaginationContext } from './pagination-context';
 import { useDataTableContext } from './table-context';
+import { SearchParam } from '@/types/query';
 import React from 'react';
 
 interface IDataTableSearchContext {

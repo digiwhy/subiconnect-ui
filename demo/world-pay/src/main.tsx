@@ -1,4 +1,4 @@
-import '@subifinancial/subi-connect/dist/styles.css';
+import '@subifinancial/subi-connect/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';

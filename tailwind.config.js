@@ -5,6 +5,7 @@ module.exports = {
     './src/stories/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   prefix: 'sc-',
+  darkMode: ['class', 'html[class~="dark"]'],
   theme: {
     container: {
       center: true,

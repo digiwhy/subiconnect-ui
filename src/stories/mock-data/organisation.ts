@@ -1,9 +1,9 @@
+import { SUBI_CONNECT_PUBLIC_BASE_URL } from '../../envs';
 import { getOrganisationsFromPayrollURL } from '../../services/api/payroll/paths';
-import { BASE_URL } from '../../services/axios/config';
 import { SyncStatus } from '../../types/main';
 
 export const useOrganisationsMockData = (id: number) => ({
-  url: BASE_URL + getOrganisationsFromPayrollURL(id),
+  url: SUBI_CONNECT_PUBLIC_BASE_URL + getOrganisationsFromPayrollURL(id),
   method: 'GET',
   status: 200,
   response: {

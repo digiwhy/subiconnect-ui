@@ -1,6 +1,6 @@
-import type { Organisation } from '../../../types/organisation';
-import axiosClient from '../../axios';
 import { getOrganisationURL } from './paths';
+import axiosClient from '@/services/axios';
+import type { Organisation } from '@/types/organisation';
 
 export const getOrganisation = async (
   organisationId: number | string,

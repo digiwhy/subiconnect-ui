@@ -1,16 +1,16 @@
 'use client';
 
-import { PayrollIntegrationList } from '../../components';
-import { usePayrollSystems } from '../../hooks';
+import PayrollIntegrationManagementPage from '../payroll-integration-management';
+import { PayrollIntegrationList } from '@/components';
+import { usePayrollSystems } from '@/hooks';
 import useSearchParams, {
   SEARCH_PARAM_UPDATE_EVENT,
-} from '../../hooks/internal/use-serach-params';
-import { useCompany } from '../../hooks/use-company';
-import { cn } from '../../lib/utils';
-import type { Payroll } from '../../types/payroll';
-import { SearchParam } from '../../types/query';
-import { Skeleton } from '../../ui/skeleton';
-import PayrollIntegrationManagementPage from '../payroll-integration-management';
+} from '@/hooks/internal/use-serach-params';
+import { useCompany } from '@/hooks/use-company';
+import { cn } from '@/lib/utils';
+import type { Payroll } from '@/types/payroll';
+import { SearchParam } from '@/types/query';
+import { Skeleton } from '@/ui/skeleton';
 import { RefreshCwIcon } from 'lucide-react';
 import React from 'react';
 

@@ -14,11 +14,10 @@
     "jsx": "react",
     "sourceMap": true,
     "allowSyntheticDefaultImports": true,
-    // TODO: Integrate this with rollup config
-    // "baseUrl": ".",
-    // "paths": {
-    //   // "@/*": ["src/*"]
-    // },
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "verbatimModuleSyntax": true,
     "allowJs": true,
     "resolveJsonModule": true,

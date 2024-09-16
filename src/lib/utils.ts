@@ -1,3 +1,4 @@
+import { SUBI_CONNECT_IMAGES_BASE_URL } from '../envs';
 import type { AccountPayrollSystemExtended } from '../types/application';
 import type { Payroll } from '../types/payroll';
 import { clsx, type ClassValue } from 'clsx';
@@ -36,7 +37,7 @@ export const getMoneyFromDecimals = (
 };
 
 export const getPayrollBannerImgUrl = (payrollName: Payroll): string => {
-  return `${process.env.SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
+  return `${SUBI_CONNECT_IMAGES_BASE_URL}images/${payrollName}.svg`;
 };
 
 export const createNestedObjectFromString = <T>(

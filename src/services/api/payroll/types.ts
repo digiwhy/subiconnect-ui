@@ -1,4 +1,4 @@
-import type { Organisation } from '../../../types/organisation';
+import type { Organisation } from '@/types/organisation';
 
 export enum PayrollConnectionTypeEnum {
   CUSTOM = 'CUSTOM',

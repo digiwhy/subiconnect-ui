@@ -1,20 +1,20 @@
-import { usePayrollIntegrationContext } from '../../context/payroll-integration';
-import { CustomPayrollIntegrationWorkflow } from '../../integration-pages/custom';
-import { usePostConnectPayroll } from '../../integration-pages/custom/mutation';
-import { getPayrollFriendlyName } from '../../lib/utils';
+import { usePayrollSystemContext } from '../payroll-integration/context';
+import { usePayrollIntegrationContext } from '@/context/payroll-integration';
+import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
+import { usePostConnectPayroll } from '@/integration-pages/custom/mutation';
+import { getPayrollFriendlyName } from '@/lib/utils';
 import {
   type ConnectPayrollResponse,
   PayrollConnectionTypeEnum,
-} from '../../services/api/payroll/types';
-import { handleOAuth2OnSuccess } from '../../services/auth2.0/auth-window';
-import { Button } from '../../ui/button';
+} from '@/services/api/payroll/types';
+import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
+import { Button } from '@/ui/button';
 import {
   Dialogue,
   DialogueTrigger,
   DialogueContent,
   DialogueTitle,
-} from '../../ui/dialogue';
-import { usePayrollSystemContext } from '../payroll-integration/context';
+} from '@/ui/dialogue';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 

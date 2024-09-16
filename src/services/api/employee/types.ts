@@ -1,9 +1,6 @@
-import type { ListOptions } from '../../../types/components/data-table';
-import type {
-  Employee,
-  SelectableEmployeeColumns,
-} from '../../../types/employee';
-import type { DeepPartial } from '../../../types/utils';
+import type { ListOptions } from '@/types/components/data-table';
+import type { Employee, SelectableEmployeeColumns } from '@/types/employee';
+import type { DeepPartial } from '@/types/utils';
 
 export type GetEmployeesResponse = Employee[];
 

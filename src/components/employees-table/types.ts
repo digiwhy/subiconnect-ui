@@ -1,5 +1,5 @@
-import type { ColumnDef } from '../../types/components/data-table';
-import type { Employee, SelectableEmployeeColumns } from '../../types/employee';
+import type { ColumnDef } from '@/types/components/data-table';
+import type { Employee, SelectableEmployeeColumns } from '@/types/employee';
 
 export type EmployeesTableAllowedColumnsMap = Record<
   SelectableEmployeeColumns,

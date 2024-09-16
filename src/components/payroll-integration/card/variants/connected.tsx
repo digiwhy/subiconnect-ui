@@ -1,11 +1,11 @@
-import useSearchParams from '../../../../hooks/internal/use-serach-params';
-import { useCompany } from '../../../../hooks/use-company';
-import { getPayrollFriendlyName } from '../../../../lib/utils';
-import { SearchParam } from '../../../../types/query';
-import { Button } from '../../../../ui/button';
-import { Skeleton } from '../../../../ui/skeleton';
 import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
+import useSearchParams from '@/hooks/internal/use-serach-params';
+import { useCompany } from '@/hooks/use-company';
+import { getPayrollFriendlyName } from '@/lib/utils';
+import { SearchParam } from '@/types/query';
+import { Button } from '@/ui/button';
+import { Skeleton } from '@/ui/skeleton';
 import { MoveRightIcon } from 'lucide-react';
 import React from 'react';
 
