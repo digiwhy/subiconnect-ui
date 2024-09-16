@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
   push:
     tags: ['v*.*.*']
+  workflow_call:
 
 jobs:
   deploy-all:
     strategy:
       matrix:
         env: [dev, stg, prod]
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy-demo.yml
     with:
       env: ${{ matrix.env }}
     secrets: inherit
