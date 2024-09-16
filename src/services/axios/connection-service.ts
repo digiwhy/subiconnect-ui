@@ -51,12 +51,13 @@ export default class ConnectionService {
       this.context = DEFAULT_CONTEXT;
       return this;
     }
-    this.context = atob(plainContext);
+
+    this.context = this.hexEncodeContext(plainContext);
     return this;
   }
 
   public getContext() {
-    return btoa(this.context);
+    return this.hexDecodeContext(this.context);
   }
 
   public async generateAccessToken(): Promise<string> {
@@ -78,9 +79,17 @@ export default class ConnectionService {
     return this;
   }
 
-  reset() {
+  public reset() {
     this.context = DEFAULT_CONTEXT;
     this.connectionFn = null;
     return this;
+  }
+
+  private hexEncodeContext(context: string) {
+    return Buffer.from(context).toString('hex');
+  }
+
+  private hexDecodeContext(encodedContext: string) {
+    return Buffer.from(encodedContext, 'hex').toString('utf-8');
   }
 }
