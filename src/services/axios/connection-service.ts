@@ -86,10 +86,17 @@ export default class ConnectionService {
   }
 
   private hexEncodeContext(context: string) {
-    return Buffer.from(context).toString('hex');
+    return Array.from(context)
+      .map((char) => char.charCodeAt(0).toString(16).padStart(2, '0'))
+      .join('');
   }
 
   private hexDecodeContext(encodedContext: string) {
-    return Buffer.from(encodedContext, 'hex').toString('utf-8');
+    return (
+      encodedContext
+        .match(/.{1,2}/g)
+        ?.map((hex) => String.fromCharCode(parseInt(hex, 16)))
+        .join('') || ''
+    );
   }
 }
