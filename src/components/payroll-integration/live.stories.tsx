@@ -26,11 +26,11 @@ const connectionFn = async () => {
   return result.data.accessToken;
 };
 
-const Component = () => {
+const Component = ({ error }: { error?: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <SubiConnectProvider connectionFn={connectionFn}>
-        <PayrollIntegrationList />
+        <PayrollIntegrationList error={error} />
       </SubiConnectProvider>
     </QueryClientProvider>
   );
@@ -51,4 +51,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {},
+};
+
+export const Error: Story = {
+  args: {
+    error: <div>Custom Error Node</div>,
+  },
 };

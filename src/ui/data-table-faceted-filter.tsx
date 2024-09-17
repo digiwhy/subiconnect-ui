@@ -219,7 +219,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                   </CommandItem>
                 );
               })}
-              <div ref={ref} className=''></div>
+              <div ref={ref}></div>
             </CommandGroup>
             {localisedFilters.size > 0 && (
               <>
