@@ -1,5 +1,26 @@
 # @subifinancial/subi-connect
 
+## 2.0.1
+
+### Patch Changes
+
+- [#141](https://github.com/subifinancial/subi-connect/pull/141)
+  [`fc03eb0`](https://github.com/subifinancial/subi-connect/commit/fc03eb0744d89685e2e04c73595031558e926e6d)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Wrap queries
+  and mutations in a Subi Connect wrapper to throw an error when used outside of
+  the Subi Connect context.
+
+- [#143](https://github.com/subifinancial/subi-connect/pull/143)
+  [`73c4b7c`](https://github.com/subifinancial/subi-connect/commit/73c4b7c3e998bef95755c184687a9a80fd35175a)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Add
+  onIntegrationSuccess callback to listen when a payroll system was successfully
+  integrated.
+
+- [#142](https://github.com/subifinancial/subi-connect/pull/142)
+  [`f0a4e4e`](https://github.com/subifinancial/subi-connect/commit/f0a4e4ee13bfce9c2879f1d0779495884b0bbc96)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Expose the
+  `useSubiConnectContext` hook.
+
 ## 2.0.0
 
 ### Major Changes
