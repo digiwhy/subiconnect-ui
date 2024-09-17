@@ -47,8 +47,12 @@ export default class ConnectionService {
   }
 
   public setContext(plainContext: string) {
-    this.updateAccessTokenContext(this.context, plainContext);
-    this.context = this.hexEncodeContext(plainContext);
+    const encodedContext = this.hexEncodeContext(plainContext);
+    this.updateAccessTokenContext({
+      oldContext: this.context,
+      newContext: encodedContext,
+    });
+    this.context = encodedContext;
     return this;
   }
 
@@ -75,7 +79,13 @@ export default class ConnectionService {
     return this;
   }
 
-  private updateAccessTokenContext(oldContext: string, newContext: string) {
+  private updateAccessTokenContext({
+    oldContext,
+    newContext,
+  }: {
+    oldContext: string;
+    newContext: string;
+  }) {
     const oldToken = localStorage.getItem(
       `${ACCESS_TOKEN_NAME}__${oldContext}`,
     );
