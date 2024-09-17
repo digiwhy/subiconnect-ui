@@ -1,12 +1,12 @@
 import { ACCESS_TOKEN_NAME } from '@/constants';
-import type { SubiConnectAccessToken } from '@/types/main';
+import type { SubiConnectConnectionFn } from '@/types/main';
 
-const DEFAULT_CONTEXT = 'NO_CONTEXT';
+const DEFAULT_CONTEXT = '';
 
 // Singleton to store the connection function
 export default class ConnectionService {
   private static instance: ConnectionService;
-  private connectionFn: (() => Promise<SubiConnectAccessToken>) | null = null;
+  private connectionFn: SubiConnectConnectionFn | null = null;
   private context: string = DEFAULT_CONTEXT;
 
   private constructor() {}
@@ -28,8 +28,8 @@ export default class ConnectionService {
     connectionFn,
     context,
   }: {
-    connectionFn: (() => Promise<SubiConnectAccessToken>) | null;
-    context: string | undefined;
+    connectionFn: SubiConnectConnectionFn | null;
+    context: string;
   }) {
     this.setConnectionFn(connectionFn);
     this.setContext(context);
@@ -37,7 +37,7 @@ export default class ConnectionService {
     return this;
   }
 
-  public setConnectionFn(fn: (() => Promise<SubiConnectAccessToken>) | null) {
+  public setConnectionFn(fn: SubiConnectConnectionFn | null) {
     this.connectionFn = fn;
     return this;
   }
@@ -46,12 +46,8 @@ export default class ConnectionService {
     return this.connectionFn;
   }
 
-  public setContext(plainContext: string | undefined) {
-    if (!plainContext) {
-      this.context = DEFAULT_CONTEXT;
-      return this;
-    }
-
+  public setContext(plainContext: string) {
+    this.updateAccessTokenContext(this.context, plainContext);
     this.context = this.hexEncodeContext(plainContext);
     return this;
   }
@@ -60,7 +56,7 @@ export default class ConnectionService {
     return this.hexDecodeContext(this.context);
   }
 
-  public async generateAccessToken(): Promise<string> {
+  public async generateAccessToken() {
     if (!this.connectionFn) {
       throw new Error('No connection function set');
     }
@@ -76,6 +72,21 @@ export default class ConnectionService {
 
   public setAccessToken(token: string) {
     localStorage.setItem(`${ACCESS_TOKEN_NAME}__${this.context}`, token);
+    return this;
+  }
+
+  private updateAccessTokenContext(oldContext: string, newContext: string) {
+    const oldToken = localStorage.getItem(
+      `${ACCESS_TOKEN_NAME}__${oldContext}`,
+    );
+
+    if (!oldToken) {
+      return this;
+    }
+
+    localStorage.setItem(`${ACCESS_TOKEN_NAME}__${newContext}`, oldToken);
+    localStorage.removeItem(`${ACCESS_TOKEN_NAME}__${oldContext}`);
+
     return this;
   }
 

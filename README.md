@@ -72,7 +72,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SubiConnectProvider connectionFn={connectionFn}>...</SubiConnectProvider>
+      <SubiConnectProvider
+        connectionFn={connectionFn}
+        companyContext={company.referenceId}
+      >
+        ...
+      </SubiConnectProvider>
     </QueryClientProvider>
   );
 }

@@ -1,11 +1,14 @@
 import logger from '@/services/logger';
-import type { SubiConnectAccessToken } from '@/types/main';
+import type {
+  SubiConnectAccessToken,
+  SubiConnectConnectionFn,
+} from '@/types/main';
 
 /**
  * Function to handle token retrieval.
  */
 export const getAccessToken = async (
-  connectionFn: () => Promise<SubiConnectAccessToken>,
+  connectionFn: SubiConnectConnectionFn,
 ): Promise<SubiConnectAccessToken | null> => {
   try {
     return await connectionFn();

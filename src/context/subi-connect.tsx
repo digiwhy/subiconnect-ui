@@ -3,14 +3,25 @@ import axiosClient from '@/services/axios';
 import ConnectionService from '@/services/axios/connection-service';
 import logger from '@/services/logger';
 import {
-  type SubiConnectAccessToken,
+  type SubiConnectConnectionFn,
   type SubiConnectOptions,
 } from '@/types/main';
 import React from 'react';
 
 type SubiConnectContext = {
+  /**
+   * Whether or not the connection is loading.
+   */
   isLoading: boolean;
+
+  /**
+   * Whether or not the connection has been initialised.
+   */
   initialised: boolean;
+
+  /**
+   * Function to clean up the connection.
+   */
   cleanup: () => void;
 };
 
@@ -28,17 +39,35 @@ export const useSubiConnectContext = (): SubiConnectContext => {
   return context;
 };
 
-export type SubiConnectProviderProps = {
-  connectionFn: () => Promise<SubiConnectAccessToken>;
+export type SubiConnectProviderProps<TCompanyContext extends string> = {
+  /**
+   * The connection function to use to get the access token for the company.
+   */
+  connectionFn: SubiConnectConnectionFn;
+
+  /**
+   * The context for the SubiConnect API. This can be something that uniquely
+   * identifies the company—for example, the company ID or name.
+   */
+  companyContext: TCompanyContext extends '' ? never : TCompanyContext;
+
+  /**
+   * Options to pass to the Subi Connect provider.
+   */
   options?: SubiConnectOptions;
+
+  /**
+   * The children to render within the Subi Connect provider.
+   */
   children: React.ReactNode;
 };
 
-export const SubiConnectProvider = ({
+export const SubiConnectProvider = <TCompanyContext extends string>({
   connectionFn,
+  companyContext,
   options,
   children,
-}: SubiConnectProviderProps) => {
+}: SubiConnectProviderProps<TCompanyContext>) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
 
@@ -59,7 +88,7 @@ export const SubiConnectProvider = ({
      */
     const connectionService = ConnectionService.getInstance().initialise({
       connectionFn,
-      context: options?.context,
+      context: `${window.location.origin}_${companyContext}`,
     });
 
     const initConnection = async () => {
