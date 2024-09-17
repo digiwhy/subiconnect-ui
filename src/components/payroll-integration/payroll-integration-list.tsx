@@ -14,17 +14,30 @@ type OmittedGridProps = keyof Pick<
 >;
 
 export type PayrollIntegrationListProps = {
+  /**
+   * A function to call when an integration is successful.
+   * @param payrollSystem The payroll system that was integrated.
+   * @returns A promise that resolves when the integration is successful.
+   */
   onIntegrationSuccess?: (
     payrollSystem: AccountPayrollSystemExtended,
   ) => Promise<void>;
+
+  /**
+   * The custom error to display if there is an error.
+   */
+  error?: React.ReactNode;
+
+  /**
+   * The props to pass to the grid.
+   */
   gridProps?: Omit<PayrollIntegrationListGridProps, OmittedGridProps>;
-  hideError?: boolean;
 };
 
 const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
   onIntegrationSuccess,
   gridProps,
-  hideError = false,
+  error,
 }) => {
   const { data: payrollSystems, isLoading, isError } = usePayrollSystems();
 
@@ -32,8 +45,8 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
     return <Loading title={'Loading Payroll Integrations'} />;
   }
 
-  if (isError && !hideError) {
-    return <DataTableError context='the payroll integrations' />;
+  if (isError) {
+    return error ?? <DataTableError context='the payroll integrations' />;
   }
 
   if (payrollSystems.count === 0) {

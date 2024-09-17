@@ -38,9 +38,9 @@ Trigger.displayName = 'Trigger';
 
 const BackLeftChevrons = () => {
   return (
-    <div className='pr-2 sc-absolute sc-h-4 sc-w-4 sc-opacity-0 sc-duration-200 group-hover:sc-opacity-100 group-hover:sc-delay-100'>
-      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-top-0 sc-my-auto sc-h-4 sc-w-4 group-hover:-sc-translate-x-1 group-hover:sc-delay-100' />
-      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-h-4 sc-w-4 group-hover:-sc-translate-x-2 group-hover:sc-delay-100' />
+    <div className='pr-2 sc-absolute sc-h-4 sc-w-4 sc-opacity-0 sc-duration-200 group-hover:sc-opacity-100 group-hover:sc-delay-100 max-sm:sc-opacity-100'>
+      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-top-0 sc-my-auto sc-h-4 sc-w-4 group-hover:sc-delay-100 max-sm:-sc-translate-x-1 sm:group-hover:-sc-translate-x-1' />
+      <ChevronLeftIcon className='sc-absolute sc-left-1 sc-h-4 sc-w-4 group-hover:sc-delay-100 max-sm:-sc-translate-x-2 sm:group-hover:-sc-translate-x-2' />
     </div>
   );
 };
@@ -57,8 +57,8 @@ const Header: React.FC<{
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
   };
 
-  const handleIntegrateOnSuccess = React.useCallback(() => {
-    queryClient.invalidateQueries({
+  const handleIntegrateOnSuccess = React.useCallback(async () => {
+    await queryClient.invalidateQueries({
       queryKey: [...BASE_ORGANISATION_QUERY_KEY, 'list'],
     });
   }, []);
@@ -76,9 +76,9 @@ const Header: React.FC<{
           {!disableBack && <BackLeftChevrons />}
           <span
             className={cn(
-              'sc-font-mainMedium sc-text-lg sc-text-secondary sc-delay-100',
+              'sc-font-mainMedium sc-text-lg sc-text-secondary sc-delay-100 max-sm:sc-translate-x-4',
               {
-                'group-hover:sc-translate-x-4 group-hover:sc-delay-0':
+                'sm:group-hover:sc-translate-x-4 sm:group-hover:sc-delay-0':
                   !disableBack,
               },
             )}

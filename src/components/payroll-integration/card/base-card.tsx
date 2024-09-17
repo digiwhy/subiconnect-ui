@@ -21,7 +21,7 @@ export const BaseCard: React.FC<CardProps> = ({
   return (
     <div
       className={cn(
-        'sc-flex sc-h-auto sc-w-auto sc-min-w-80 sc-max-w-md sc-flex-col sc-overflow-hidden sc-rounded-md sc-border sc-shadow-sm',
+        'sc-mx-auto sc-flex sc-h-auto sc-w-auto sc-min-w-80 sc-max-w-md sc-flex-col sc-overflow-hidden sc-rounded-md sc-border sc-shadow-sm',
       )}
     >
       <div
