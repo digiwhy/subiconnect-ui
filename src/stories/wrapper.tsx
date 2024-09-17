@@ -32,7 +32,10 @@ export const withSubiConnectProvider = <T extends object>(
 ) => {
   const WrappedComponent = (props: T) => (
     <QueryClientProvider client={queryClient}>
-      <SubiConnectProvider connectionFn={connectionFn}>
+      <SubiConnectProvider
+        connectionFn={connectionFn}
+        companyContext='storybooks-demo-referenceId-1'
+      >
         <Component {...props} />
       </SubiConnectProvider>
     </QueryClientProvider>

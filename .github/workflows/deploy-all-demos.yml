@@ -14,4 +14,3 @@ jobs:
     uses: ./.github/workflows/deploy-demo.yml
     with:
       env: ${{ matrix.env }}
-    secrets: inherit

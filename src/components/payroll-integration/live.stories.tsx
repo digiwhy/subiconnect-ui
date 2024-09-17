@@ -11,7 +11,6 @@ const connectionFn = async () => {
   const result = await axios.post(
     `${process.env.SUBI_CONNECT_PUBLIC_BASE_URL}authentication/company-access-token`,
     {
-      // company: { referenceId: 'abc', name: 'sample company' }
       company: {
         referenceId: 'world-pay-demo-referenceId-1',
         name: 'Demo Company',
@@ -29,7 +28,10 @@ const connectionFn = async () => {
 const Component = ({ error }: { error?: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <SubiConnectProvider connectionFn={connectionFn}>
+      <SubiConnectProvider
+        connectionFn={connectionFn}
+        companyContext='storybooks-demo-referenceId-1'
+      >
         <PayrollIntegrationList error={error} />
       </SubiConnectProvider>
     </QueryClientProvider>

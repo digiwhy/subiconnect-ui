@@ -33,7 +33,10 @@ const SubiConnectProviderWrapper = ({
   children: React.ReactNode;
 }) => {
   return (
-    <SubiConnectProvider connectionFn={connectionFn}>
+    <SubiConnectProvider
+      connectionFn={connectionFn}
+      companyContext='world-pay-demo-referenceId-1'
+    >
       {children}
     </SubiConnectProvider>
   );
@@ -58,7 +61,10 @@ const SubiConnectProviderWrapper = ({
   }, [company]);
 
   return (
-    <SubiConnectProvider connectionFn={completeConnectionFn}>
+    <SubiConnectProvider
+      connectionFn={completeConnectionFn}
+      companyContext={company.referenceId}
+    >
       {children}
     </SubiConnectProvider>
   );

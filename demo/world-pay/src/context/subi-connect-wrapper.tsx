@@ -17,7 +17,10 @@ const SubiConnectProviderWrapper = ({
   }, [apiKey]);
 
   return (
-    <SubiConnectProvider connectionFn={completeConnectionFn}>
+    <SubiConnectProvider
+      connectionFn={completeConnectionFn}
+      companyContext="worldpay-demo-referenceId-1"
+    >
       {children}
     </SubiConnectProvider>
   );
