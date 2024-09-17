@@ -1,5 +1,14 @@
 # @subifinancial/subi-connect
 
+## 3.0.1
+
+### Patch Changes
+
+- [#149](https://github.com/subifinancial/subi-connect/pull/149)
+  [`d9fc321`](https://github.com/subifinancial/subi-connect/commit/d9fc32119a6e5bec51dd908c788cda77267c3958)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Fix
+  `setContext` not encoding the context during access token context update.
+
 ## 3.0.0
 
 ### Major Changes
