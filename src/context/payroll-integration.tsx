@@ -1,4 +1,5 @@
 import type { ConnectPayrollResponse } from '../services/api/payroll/types';
+import type { AccountPayrollSystemExtended } from '@/types';
 import React from 'react';
 
 type PayrollIntegrationContext = {
@@ -10,6 +11,9 @@ type PayrollIntegrationContext = {
   >;
   windowFailed: boolean;
   setWindowFailed: React.Dispatch<React.SetStateAction<boolean>>;
+  onIntegrationSuccess?: (
+    payrollSystem: AccountPayrollSystemExtended,
+  ) => Promise<void>;
 };
 
 export const PayrollIntegrationContext = React.createContext<
@@ -27,10 +31,14 @@ export const usePayrollIntegrationContext = (): PayrollIntegrationContext => {
 };
 
 type PayrollIntegrationProviderProps = {
+  onIntegrationSuccess?: (
+    payrollSystem: AccountPayrollSystemExtended,
+  ) => Promise<void>;
   children: React.ReactNode;
 };
 
 export const PayrollIntegrationProvider = ({
+  onIntegrationSuccess,
   children,
 }: PayrollIntegrationProviderProps) => {
   const [isPending, setIsPending] = React.useState<boolean>(false);
@@ -38,14 +46,16 @@ export const PayrollIntegrationProvider = ({
   const [windowFailed, setWindowFailed] = React.useState<boolean>(false);
 
   const value = React.useMemo(
-    () => ({
-      isPending,
-      setIsPending,
-      data,
-      setData,
-      windowFailed,
-      setWindowFailed,
-    }),
+    () =>
+      ({
+        onIntegrationSuccess,
+        isPending,
+        setIsPending,
+        data,
+        setData,
+        windowFailed,
+        setWindowFailed,
+      }) satisfies PayrollIntegrationContext,
     [isPending, setIsPending, data, setData, windowFailed, setWindowFailed],
   );
 

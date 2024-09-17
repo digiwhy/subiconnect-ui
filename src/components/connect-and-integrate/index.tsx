@@ -22,12 +22,12 @@ const Integrate: React.FC<{
   Trigger: React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<typeof Button>
   >;
-  onSuccess: () => void;
+  onSuccess: () => Promise<void>;
 }> = React.memo(({ Trigger, onSuccess }) => {
   const { payrollSystem } = usePayrollSystemContext();
   const [open, setOpen] = React.useState<boolean>(false);
   const { mutateAsync, isPending } = usePostConnectPayroll();
-  const { setIsPending, setData, setWindowFailed } =
+  const { setIsPending, setData, setWindowFailed, onIntegrationSuccess } =
     usePayrollIntegrationContext();
   const queryClient = useQueryClient();
 
@@ -43,12 +43,20 @@ const Integrate: React.FC<{
     [setIsPending],
   );
 
-  const handleWorkflowOnSuccess = React.useCallback(() => {
-    onSuccess();
+  /**
+   * Handle the success of the integration workflow. Triggered when the integration
+   * workflow is completed.
+   */
+  const handleWorkflowOnSuccess = React.useCallback(async () => {
+    await onSuccess();
+    await onIntegrationSuccess?.(payrollSystem);
     setOpen(false);
     setIsPending(false);
-  }, [setOpen, setIsPending]);
+  }, [setOpen, setIsPending, onIntegrationSuccess, payrollSystem]);
 
+  /**
+   * Handle the open state of the dialogue.
+   */
   const handleOnOpenChange = React.useCallback(
     (open: boolean) => {
       if (open) {
@@ -61,7 +69,10 @@ const Integrate: React.FC<{
     [setOpen, setIsPending],
   );
 
-  const handleOnSuccess = React.useCallback(
+  /**
+   * Handle the success of the post mutation to connect the payroll.
+   */
+  const handleConnectOnSuccess = React.useCallback(
     async (authWindow: Window | null, data: ConnectPayrollResponse) => {
       switch (data.type) {
         case PayrollConnectionTypeEnum.OAUTH2:
@@ -127,7 +138,7 @@ const Integrate: React.FC<{
           onSuccess: (data) => {
             setData(data);
 
-            handleOnSuccess(authWindow, data);
+            handleConnectOnSuccess(authWindow, data);
           },
           onError: () => {
             // TODO: add error handling
@@ -136,7 +147,7 @@ const Integrate: React.FC<{
         },
       );
     },
-    [setIsPending, handleOnSuccess, mutateAsync, setData, setIsPending],
+    [setIsPending, handleConnectOnSuccess, mutateAsync, setData, setIsPending],
   );
 
   return (
