@@ -5,6 +5,7 @@ import PayrollIntegrationListGrid, {
 import { Loading } from './loading';
 import { PayrollIntegrationProvider } from '@/context/payroll-integration';
 import { usePayrollSystems } from '@/hooks/use-payroll-systems';
+import type { AccountPayrollSystemExtended } from '@/types';
 import React from 'react';
 
 type OmittedGridProps = keyof Pick<
@@ -13,10 +14,17 @@ type OmittedGridProps = keyof Pick<
 >;
 
 export type PayrollIntegrationListProps = {
+  onIntegrationSuccess?: (
+    payrollSystem: AccountPayrollSystemExtended,
+  ) => Promise<void>;
   gridProps?: Omit<PayrollIntegrationListGridProps, OmittedGridProps>;
+  hideError?: boolean;
 };
+
 const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
+  onIntegrationSuccess,
   gridProps,
+  hideError = false,
 }) => {
   const { data: payrollSystems, isLoading, isError } = usePayrollSystems();
 
@@ -24,7 +32,7 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
     return <Loading title={'Loading Payroll Integrations'} />;
   }
 
-  if (isError) {
+  if (isError && !hideError) {
     return <DataTableError context='the payroll integrations' />;
   }
 
@@ -37,7 +45,7 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
   }
 
   return (
-    <PayrollIntegrationProvider>
+    <PayrollIntegrationProvider onIntegrationSuccess={onIntegrationSuccess}>
       <PayrollIntegrationListGrid
         payrollSystems={payrollSystems.results}
         {...gridProps}

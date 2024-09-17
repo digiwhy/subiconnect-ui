@@ -104,9 +104,12 @@ const Header: React.FC<{
 
 const PayrollIntegrationManagementPage: React.FC<{
   payroll: Payroll;
+  onIntegrationSuccess?: (
+    payrollSystem: AccountPayrollSystemExtended,
+  ) => Promise<void>;
   disableBack?: boolean;
   className?: string;
-}> = ({ payroll, disableBack = false, className }) => {
+}> = ({ payroll, onIntegrationSuccess, disableBack = false, className }) => {
   const { setSearchParam } = useSearchParams();
   const {
     data: accountPayroll,
@@ -137,7 +140,7 @@ const PayrollIntegrationManagementPage: React.FC<{
 
   return (
     <PayrollSystemProvider payrollSystem={accountPayroll}>
-      <PayrollIntegrationProvider>
+      <PayrollIntegrationProvider onIntegrationSuccess={onIntegrationSuccess}>
         <div
           className={cn(
             'sc-flex sc-h-full sc-w-full sc-flex-col sc-gap-4 sc-p-4',
