@@ -3,7 +3,7 @@ import IntegrationsPage from '../page';
 const CustomIntegrationsPage = () => {
   return (
     <div id="custom-styles">
-      <IntegrationsPage />
+      <IntegrationsPage subTitle="Custom styling" />
     </div>
   );
 };

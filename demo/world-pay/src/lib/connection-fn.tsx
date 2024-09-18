@@ -1,8 +1,9 @@
 'use client';
 
 import { VITE_BASE_COMPONENTS_API } from '@/envs';
+import { CompanPayload } from '@/types/company';
 
-export const connectionFn = async (apiKey: string) => {
+export const connectionFn = async (apiKey: string, company: CompanPayload) => {
   const response = await fetch(
     `${VITE_BASE_COMPONENTS_API}authentication/company-access-token`,
     {
@@ -12,10 +13,7 @@ export const connectionFn = async (apiKey: string) => {
         'x-api-key': apiKey
       },
       body: JSON.stringify({
-        company: {
-          referenceId: 'world-pay-demo-referenceId-1',
-          name: 'Demo Company'
-        }
+        company: company
       })
     }
   );

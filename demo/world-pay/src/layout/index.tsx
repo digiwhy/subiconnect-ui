@@ -1,93 +1,113 @@
-'use client';
-
-import { Logo } from '@/components/icons';
-import { BlocksIcon, ServerIcon, SkullIcon, UsersIcon } from 'lucide-react';
-import { NavItem } from '../nav-item';
-
-import LiftModeSwitch from '@/components/extended/lift-switch';
-import { useLiftMode } from '@/context/lift-mode';
-import { cn } from '@/lib/utils';
-
-import { Link, Outlet } from 'react-router-dom';
-import SubiConnectProviderWrapper from '@/context/subi-connect-wrapper';
 import { useAuthenticationContext } from '../context/authentication';
+import { NavItem } from '../nav-item';
+import CompanySelector from '@/components/extended/company-selector';
+import LiftModeSwitch from '@/components/extended/lift-switch';
+import { Logo } from '@/components/icons';
+import { useLiftMode } from '@/context/lift-mode';
+import SubiConnectProviderWrapper from '@/context/subi-connect-wrapper';
+import { cn } from '@/lib/utils';
+import { BlocksIcon, ServerIcon, SkullIcon, UsersIcon } from 'lucide-react';
+import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
+
+const ReactQueryDevtoolsProduction = React.lazy(() =>
+  import('@tanstack/react-query-devtools/build/modern/production.js').then(
+    (d) => ({
+      default: d.ReactQueryDevtools,
+    }),
+  ),
+);
 
 export default function MainLayout() {
   const { apiKey, apiKeyLocalStorage } = useAuthenticationContext();
   const { liftMode } = useLiftMode();
+  const ref = React.useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex min-h-screen w-dvw max-w-full overflow-hidden">
-      <div className="hidden sm:flex border-r bg-gray-100/40 min-w-fit dark:bg-gray-800/40">
-        <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-[60px] items-center border-b px-5">
-            <Link className="flex items-center gap-2 font-semibold" to="/">
+    <div className='flex min-h-screen w-dvw max-w-full overflow-hidden'>
+      <div className='hidden min-w-fit border-r bg-gray-100/40 dark:bg-gray-800/40 sm:flex'>
+        <div className='flex h-full max-h-screen flex-col gap-2'>
+          <div className='flex h-[60px] items-center border-b px-5'>
+            <Link className='flex items-center gap-2 font-semibold' to='/'>
               <Logo />
-              <span className="">WorldPay</span>
+              <span className=''>WorldPay</span>
             </Link>
           </div>
-          <div className="flex-1 overflow-auto py-2">
-            <nav className="grid items-start px-4 text-sm font-medium">
-              <NavItem to="/integrations" disabled={!apiKey}>
-                <BlocksIcon className="h-4 w-4" />
+          <div className='flex-1 overflow-auto py-2'>
+            <nav className='grid items-start px-4 text-sm font-medium'>
+              <NavItem to='/integrations' disabled={!apiKey}>
+                <BlocksIcon className='h-4 w-4' />
                 Integrations
               </NavItem>
 
-              <NavItem to="/integrations/custom" disabled={!apiKey}>
-                <BlocksIcon className="h-4 w-4" />
+              <NavItem to='/integrations/custom' disabled={!apiKey}>
+                <BlocksIcon className='h-4 w-4' />
                 Integrations with Custom Styles
               </NavItem>
 
-              <NavItem to="/employees" disabled={!apiKey}>
-                <UsersIcon className="h-4 w-4" />
+              <NavItem to='/employees' disabled={!apiKey}>
+                <UsersIcon className='h-4 w-4' />
                 Employees
               </NavItem>
 
-              <NavItem to="/employees/custom" disabled={!apiKey}>
-                <UsersIcon className="h-4 w-4" />
+              <NavItem to='/employees/custom' disabled={!apiKey}>
+                <UsersIcon className='h-4 w-4' />
                 Employees - Custom Columns
               </NavItem>
 
               <br />
-              <NavItem to="/backend" className="flex flex-row justify-between">
-                <div className="flex flex-row gap-2 items-center">
-                  <ServerIcon className="h-4 w-4" />
+              <NavItem to='/backend' className='flex flex-row justify-between'>
+                <div className='flex flex-row items-center gap-2'>
+                  <ServerIcon className='h-4 w-4' />
                   <span>Simulated Backend</span>
                 </div>
                 {apiKeyLocalStorage && (
-                  <SkullIcon className="w-4 h-4 text-red-500/50" />
+                  <SkullIcon className='h-4 w-4 text-red-500/50' />
                 )}
               </NavItem>
             </nav>
           </div>
+          <div className='justify-betwee flex w-full flex-col items-center gap-2 p-4'>
+            <span className='text-sm font-medium'>Select Company</span>
+            <CompanySelector />
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col flex-grow max-w-full overflow-hidden">
-        <header className="flex h-14 sm:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40 justify-between lg:justify-end">
+      <div className='flex max-w-full flex-grow flex-col overflow-hidden'>
+        <header className='flex h-14 items-center justify-between gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40 sm:h-[60px] lg:justify-end'>
           <Link
-            className="flex items-center gap-2 font-semibold sm:opacity-0"
-            to="/"
+            className='flex items-center gap-2 font-semibold sm:opacity-0'
+            to='/'
           >
             <Logo />
-            <span className="">WorldPay</span>
+            <span className=''>WorldPay</span>
           </Link>
 
           <div>
             <LiftModeSwitch />
           </div>
         </header>
+
+        {/* Add this new div for the shadow element */}
+        <div
+          ref={ref}
+          className='pointer-events-none fixed bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/10 to-transparent'
+        ></div>
+
         <SubiConnectProviderWrapper>
-          <div className="relative">
+          <div className='relative'>
             <div
-              className={cn('absolute w-full h-full z-10 hidden', {
-                'backdrop-blur-sm block': liftMode
+              className={cn('absolute z-10 hidden h-full w-full', {
+                'block backdrop-blur-sm': liftMode,
               })}
             ></div>
             <Outlet />
           </div>
         </SubiConnectProviderWrapper>
       </div>
+
+      <ReactQueryDevtoolsProduction />
     </div>
   );
 }

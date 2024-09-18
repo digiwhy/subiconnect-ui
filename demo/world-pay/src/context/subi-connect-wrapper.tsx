@@ -1,5 +1,3 @@
-'use client';
-
 import { SubiConnectProvider } from '@subifinancial/subi-connect';
 import React from 'react';
 import { useAuthenticationAuthenticatedContext } from './authentication';
@@ -10,16 +8,16 @@ const SubiConnectProviderWrapper = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { apiKey } = useAuthenticationAuthenticatedContext();
+  const { apiKey, company } = useAuthenticationAuthenticatedContext();
 
   const completeConnectionFn = React.useCallback(async () => {
-    return await connectionFn(apiKey);
-  }, [apiKey]);
+    return await connectionFn(apiKey, company);
+  }, [apiKey, company]);
 
   return (
     <SubiConnectProvider
       connectionFn={completeConnectionFn}
-      companyContext="worldpay-demo-referenceId-1"
+      companyContext={company.referenceId}
     >
       {children}
     </SubiConnectProvider>

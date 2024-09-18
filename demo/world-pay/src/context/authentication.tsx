@@ -1,21 +1,24 @@
 'use client';
 
+import { CompanPayload, CompanyA } from '@/types/company';
 import React from 'react';
 
 const API_KEY_STORAGE_NAME = 'sc-api-key';
 
-interface IAutheticationContext {
+type AutheticationContext = {
   apiKey: string;
   setApiKey: (value: string) => void;
   apiKeyLocalStorage: boolean;
   setApiKeyLocalStorage: (value: boolean) => void;
-}
+  company: CompanPayload;
+  setCompany: (value: CompanPayload) => void;
+};
 
 export const AuthenticationContext = React.createContext<
-  IAutheticationContext | undefined
+  AutheticationContext | undefined
 >(undefined);
 
-export const useAuthenticationContext = (): IAutheticationContext => {
+export const useAuthenticationContext = (): AutheticationContext => {
   const context = React.useContext(AuthenticationContext);
   if (!context) {
     throw new Error(
@@ -26,7 +29,7 @@ export const useAuthenticationContext = (): IAutheticationContext => {
 };
 
 export const useAuthenticationAuthenticatedContext =
-  (): IAutheticationContext => {
+  (): AutheticationContext => {
     const context = React.useContext(AuthenticationContext);
     if (!context) {
       throw new Error(
@@ -47,6 +50,7 @@ export const AuthenticationProvider = ({
   const [apiKey, setApiKey] = React.useState<string>('');
   const [apiKeyLocalStorage, setApiKeyLocalStorage] =
     React.useState<boolean>(false);
+  const [company, setCompany] = React.useState<CompanPayload>(CompanyA);
 
   React.useEffect(() => {
     const storedApiKey = localStorage.getItem(API_KEY_STORAGE_NAME);
@@ -81,13 +85,23 @@ export const AuthenticationProvider = ({
   };
 
   const value = React.useMemo(
-    () => ({
+    () =>
+      ({
+        apiKey,
+        setApiKey: handleSetApiKey,
+        apiKeyLocalStorage,
+        setApiKeyLocalStorage: handleSetApiKeyLocalStorage,
+        company,
+        setCompany
+      }) satisfies AutheticationContext,
+    [
       apiKey,
-      setApiKey: handleSetApiKey,
+      setApiKey,
       apiKeyLocalStorage,
-      setApiKeyLocalStorage: handleSetApiKeyLocalStorage
-    }),
-    [apiKey, setApiKey, apiKeyLocalStorage, setApiKeyLocalStorage]
+      setApiKeyLocalStorage,
+      company,
+      setCompany
+    ]
   );
 
   return (
