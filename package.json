@@ -24,6 +24,7 @@
     "cs:check": "changeset status --since=main",
     "cs:version": "changeset version",
     "cs:publish": "changeset publish",
+    "cs:snapshot": "changeset version --snapshot",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint:demos": "eslint demo --report-unused-disable-directives --max-warnings 0",
     "sb": "storybook dev -p 6006",
