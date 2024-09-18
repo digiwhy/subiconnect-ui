@@ -45,5 +45,5 @@ export {
   getQueryParamsStr,
   redirectToExternalPage,
   redirectToRoot,
-  reloadCurrentPage
+  reloadCurrentPage,
 };

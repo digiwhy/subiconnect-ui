@@ -1,7 +1,7 @@
 import { Label } from '../ui/label';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-select';
 import { useAuthenticationContext } from '@/context/authentication';
 import { CompanyA, CompanyB } from '@/types/company';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-select';
 import { useNavigate } from 'react-router-dom';
 
 const CompanySelector = () => {
@@ -15,14 +15,14 @@ const CompanySelector = () => {
 
   return (
     <RadioGroup value={company.referenceId} onValueChange={handleChange}>
-      <div className="flex items-center space-x-2">
+      <div className='flex items-center space-x-2'>
         <RadioGroupItem
           value={CompanyA.referenceId}
           id={CompanyA.referenceId}
         />
         <Label htmlFor={CompanyA.referenceId}>Company A</Label>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className='flex items-center space-x-2'>
         <RadioGroupItem
           value={CompanyB.referenceId}
           id={CompanyB.referenceId}

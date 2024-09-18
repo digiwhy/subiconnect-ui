@@ -9,7 +9,7 @@ interface LiftModeContextType {
 
 export const LiftModeContext = React.createContext<LiftModeContextType>({
   liftMode: false,
-  setLiftMode: () => {}
+  setLiftMode: () => {},
 });
 
 export const useLiftMode = (): LiftModeContextType => {
@@ -22,7 +22,7 @@ export const useLiftMode = (): LiftModeContextType => {
 };
 
 export const LiftModeProvider = ({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) => {

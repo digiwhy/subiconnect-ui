@@ -22,7 +22,7 @@ export const useAuthenticationContext = (): AutheticationContext => {
   const context = React.useContext(AuthenticationContext);
   if (!context) {
     throw new Error(
-      'useAuthenticationContext must be used within a AuthenticationProvider'
+      'useAuthenticationContext must be used within a AuthenticationProvider',
     );
   }
   return context;
@@ -33,7 +33,7 @@ export const useAuthenticationAuthenticatedContext =
     const context = React.useContext(AuthenticationContext);
     if (!context) {
       throw new Error(
-        'useAuthenticationAuthenticatedContext must be used within a AuthenticationProvider'
+        'useAuthenticationAuthenticatedContext must be used within a AuthenticationProvider',
       );
     }
 
@@ -45,7 +45,7 @@ interface AuthenticationProviderProps {
 }
 
 export const AuthenticationProvider = ({
-  children
+  children,
 }: AuthenticationProviderProps) => {
   const [apiKey, setApiKey] = React.useState<string>('');
   const [apiKeyLocalStorage, setApiKeyLocalStorage] =
@@ -73,7 +73,7 @@ export const AuthenticationProvider = ({
 
       setApiKeyLocalStorage(value);
     },
-    [setApiKeyLocalStorage]
+    [setApiKeyLocalStorage],
   );
 
   const handleSetApiKey = (value: string) => {
@@ -92,7 +92,7 @@ export const AuthenticationProvider = ({
         apiKeyLocalStorage,
         setApiKeyLocalStorage: handleSetApiKeyLocalStorage,
         company,
-        setCompany
+        setCompany,
       }) satisfies AutheticationContext,
     [
       apiKey,
@@ -100,8 +100,8 @@ export const AuthenticationProvider = ({
       apiKeyLocalStorage,
       setApiKeyLocalStorage,
       company,
-      setCompany
-    ]
+      setCompany,
+    ],
   );
 
   return (

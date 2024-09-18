@@ -77,7 +77,7 @@ export default SubiConnectProviderWrapper;
 const APIKeyInput = ({
   hide,
   apiKey,
-  setApiKey
+  setApiKey,
 }: {
   hide: boolean;
   apiKey: string;
@@ -87,12 +87,12 @@ const APIKeyInput = ({
     return 'process.env.YOUR_API_KEY as string';
   }
   return (
-    <div className="inline-flex h-full text-xs">
+    <div className='inline-flex h-full text-xs'>
       <input
-        placeholder="Enter your API Key"
-        type="text"
+        placeholder='Enter your API Key'
+        type='text'
         className={cn(
-          'flex rounded-md px-1 py-2 text-sm w-80 bg-transparent h-4 border border-border outline-none'
+          'flex rounded-md px-1 py-2 text-sm w-80 bg-transparent h-4 border border-border outline-none',
         )}
         value={apiKey}
         onChange={(e) => setApiKey(e.target.value)}
@@ -125,7 +125,7 @@ const SimulatedBackendCodeBlock = () => {
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className='flex flex-col gap-10'>
       <CodeBlock
         code={codeTemplate}
         language={'ts'}
@@ -133,16 +133,16 @@ const SimulatedBackendCodeBlock = () => {
         words={[`'x-api-key'`]}
       >
         <div
-          className="relative bg-gray-900 rounded-xl overflow-hidden shadow-lg"
+          className='relative bg-gray-900 rounded-xl overflow-hidden shadow-lg'
           onMouseEnter={handleHoverOn}
           onMouseLeave={handleHoverOff}
           onKeyDown={handleKeyPress}
         >
-          <div className="text-sm text-gray-400 px-6 py-4">
+          <div className='text-sm text-gray-400 px-6 py-4'>
             connection-fn.ts
           </div>
 
-          <CodeBlock.Code className="!px-0 text-sm">
+          <CodeBlock.Code className='!px-0 text-sm'>
             {({ isLineHighlighted, lineNumber }) => (
               <div
                 className={`table-row flex items-center ${
@@ -156,16 +156,16 @@ const SimulatedBackendCodeBlock = () => {
                 >
                   {'\u2713'}
                 </div>
-                <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
+                <CodeBlock.LineNumber className='table-cell pr-4 text-sm text-gray-500 text-right select-none' />
                 {lineNumber === API_KEY_LINE ? (
-                  <CodeBlock.LineContent className="table-cell w-full pr-6 max-h-6">
+                  <CodeBlock.LineContent className='table-cell w-full pr-6 max-h-6'>
                     <CodeBlock.Token>
                       {({ isTokenHighlighted, children }) => {
                         return (
                           <span>
                             {children}
                             {isTokenHighlighted ? (
-                              <span className="flex-nowrap">
+                              <span className='flex-nowrap'>
                                 :{' '}
                                 <APIKeyInput
                                   hide={hide}
@@ -180,7 +180,7 @@ const SimulatedBackendCodeBlock = () => {
                     </CodeBlock.Token>
                   </CodeBlock.LineContent>
                 ) : (
-                  <CodeBlock.LineContent className="table-cell w-full pr-6">
+                  <CodeBlock.LineContent className='table-cell w-full pr-6'>
                     <CodeBlock.Token />
                   </CodeBlock.LineContent>
                 )}
@@ -188,19 +188,19 @@ const SimulatedBackendCodeBlock = () => {
             )}
           </CodeBlock.Code>
 
-          <div className="text-sm text-gray-400 px-6 pb-4 text-right uppercase select-none">
+          <div className='text-sm text-gray-400 px-6 pb-4 text-right uppercase select-none'>
             ts
           </div>
         </div>
       </CodeBlock>
 
       <CodeBlock code={clientComponent} language={'tsx'}>
-        <div className="relative bg-gray-900 rounded-xl overflow-hidden shadow-lg">
-          <div className="text-sm text-gray-400 px-6 py-4">
+        <div className='relative bg-gray-900 rounded-xl overflow-hidden shadow-lg'>
+          <div className='text-sm text-gray-400 px-6 py-4'>
             subi-connect-wrapper.tsx
           </div>
 
-          <CodeBlock.Code className="!px-0 text-sm">
+          <CodeBlock.Code className='!px-0 text-sm'>
             {({ isLineHighlighted }) => (
               <div
                 className={`table-row items-center ${
@@ -214,15 +214,15 @@ const SimulatedBackendCodeBlock = () => {
                 >
                   {'\u2713'}
                 </div>
-                <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
-                <CodeBlock.LineContent className="table-cell w-full pr-6">
+                <CodeBlock.LineNumber className='table-cell pr-4 text-sm text-gray-500 text-right select-none' />
+                <CodeBlock.LineContent className='table-cell w-full pr-6'>
                   <CodeBlock.Token />
                 </CodeBlock.LineContent>
               </div>
             )}
           </CodeBlock.Code>
 
-          <div className="text-sm text-gray-400 px-6 pb-4 text-right uppercase select-none">
+          <div className='text-sm text-gray-400 px-6 pb-4 text-right uppercase select-none'>
             tsx
           </div>
         </div>

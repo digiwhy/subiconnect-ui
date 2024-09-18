@@ -4,9 +4,9 @@ import React from 'react';
 
 const SimulatedBackend = () => {
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div className="flex flex-row gap-4 w-full justify-between items-center">
-        <h1 className="text-2xl">
+    <div className='flex flex-col gap-4 p-4'>
+      <div className='flex flex-row gap-4 w-full justify-between items-center'>
+        <h1 className='text-2xl'>
           WorldPay Simulated Backend / Server Component
         </h1>
         <APIKeySwitch />

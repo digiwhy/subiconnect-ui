@@ -1,10 +1,10 @@
-import { SubiConnectProvider } from '@subifinancial/subi-connect';
-import React from 'react';
 import { useAuthenticationAuthenticatedContext } from './authentication';
 import { connectionFn } from '@/lib/connection-fn';
+import { SubiConnectProvider } from '@subifinancial/subi-connect';
+import React from 'react';
 
 const SubiConnectProviderWrapper = ({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) => {
