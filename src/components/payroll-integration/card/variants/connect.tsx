@@ -26,8 +26,8 @@ Trigger.displayName = 'Trigger';
 const ConnectAction: React.FC = () => {
   const queryClient = useQueryClient();
 
-  const handleIntegrateOnSuccess = React.useCallback(() => {
-    queryClient.invalidateQueries({
+  const handleIntegrateOnSuccess = React.useCallback(async () => {
+    await queryClient.invalidateQueries({
       queryKey: ['subi-connect', 'payroll system', 'list'],
     });
   }, []);

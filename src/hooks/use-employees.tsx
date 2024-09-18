@@ -8,6 +8,7 @@ import type { Employee, SelectableEmployeeColumns } from '../types/employee';
 import type { BaseQueryOptions } from '../types/query';
 import type { DeepPartial } from '../types/utils';
 import { useSubiConnectQuery } from './use-subi-connect-query';
+import ConnectionService from '@/services/axios/connection-service';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -33,7 +34,14 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
   );
 
   const queryKey = React.useMemo(
-    () => [...BASE_EMPLOYEES_QUERY_KEY, 'list', { filters: params }],
+    () => [
+      ...BASE_EMPLOYEES_QUERY_KEY,
+      'list',
+      {
+        filters: params,
+        context: ConnectionService.getInstance().getContext(),
+      },
+    ],
     [params],
   );
 

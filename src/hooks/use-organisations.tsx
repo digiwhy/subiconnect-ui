@@ -15,6 +15,7 @@ import type {
 import type { Organisation } from '../types/organisation';
 import type { BaseQueryOptions } from '../types/query';
 import { useSubiConnectQuery } from './use-subi-connect-query';
+import ConnectionService from '@/services/axios/connection-service';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -52,7 +53,11 @@ export const useOrganisations = (
     () => [
       ...BASE_ORGANISATION_QUERY_KEY,
       'list',
-      { accountPayrollId, filters: params },
+      {
+        accountPayrollId,
+        filters: params,
+        context: ConnectionService.getInstance().getContext(),
+      },
     ],
     [accountPayrollId, params],
   );
@@ -97,7 +102,14 @@ export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
   );
 
   const queryKey = React.useMemo(
-    () => [...BASE_ORGANISATION_QUERY_KEY, 'list', { filters: params }],
+    () => [
+      ...BASE_ORGANISATION_QUERY_KEY,
+      'list',
+      {
+        filters: params,
+        context: ConnectionService.getInstance().getContext(),
+      },
+    ],
     [params],
   );
 
@@ -127,6 +139,7 @@ const useSyncingOrganisationsQueryKey = [
   ...BASE_ORGANISATION_QUERY_KEY,
   'list',
   'syncing',
+  { context: ConnectionService.getInstance().getContext() },
 ] as const;
 
 export const useSyncingOrganisations = (
@@ -149,7 +162,12 @@ export const useOrganisation = (
   options?: UseOrganisationOptions,
 ) => {
   const queryKey = React.useMemo(
-    () => [...BASE_ORGANISATION_QUERY_KEY, 'detail', organisationId],
+    () => [
+      ...BASE_ORGANISATION_QUERY_KEY,
+      'detail',
+      organisationId,
+      { context: ConnectionService.getInstance().getContext() },
+    ],
     [organisationId],
   );
 

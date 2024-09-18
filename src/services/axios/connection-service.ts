@@ -1,3 +1,4 @@
+import type { ConnectionServiceResetOptions } from './types';
 import { ACCESS_TOKEN_NAME } from '@/constants';
 import type { SubiConnectConnectionFn } from '@/types/main';
 
@@ -100,7 +101,11 @@ export default class ConnectionService {
     return this;
   }
 
-  public reset() {
+  public reset({ keepAccessToken = false }: ConnectionServiceResetOptions) {
+    if (!keepAccessToken) {
+      localStorage.removeItem(`${ACCESS_TOKEN_NAME}__${this.context}`);
+    }
+
     this.context = DEFAULT_CONTEXT;
     this.connectionFn = null;
     return this;
