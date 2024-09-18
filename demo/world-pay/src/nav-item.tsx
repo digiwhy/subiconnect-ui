@@ -28,7 +28,7 @@ export function NavItem({
           ? 'bg-gray-50 dark:bg-gray-800'
           : '[&_svg:first-child]:hover:scale-105',
         { 'pointer-events-none opacity-50': disabled },
-        className
+        className,
       )}
       aria-disabled={disabled}
       tabIndex={disabled ? -1 : undefined}
