@@ -1,7 +1,7 @@
 'use client';
 
-import { Switch } from '../ui/switch';
 import { Label } from '../ui/label';
+import { Switch } from '../ui/switch';
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
 
 const APIKeySwitch = () => {
@@ -9,13 +9,13 @@ const APIKeySwitch = () => {
     useAuthenticationAuthenticatedContext();
 
   return (
-    <div className="flex items-center gap-2">
+    <div className='flex items-center gap-2'>
       <Switch
-        id="api-storage-mode"
+        id='api-storage-mode'
         checked={apiKeyLocalStorage}
         onCheckedChange={setApiKeyLocalStorage}
       />
-      <Label htmlFor="api-storage-mode">API Key Storage</Label>
+      <Label htmlFor='api-storage-mode'>API Key Storage</Label>
     </div>
   );
 };

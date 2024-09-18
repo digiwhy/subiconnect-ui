@@ -2,8 +2,8 @@ import IntegrationsPage from '../page';
 
 const CustomIntegrationsPage = () => {
   return (
-    <div id="custom-styles">
-      <IntegrationsPage subTitle="Custom styling" />
+    <div id='custom-styles'>
+      <IntegrationsPage subTitle='Custom styling' />
     </div>
   );
 };

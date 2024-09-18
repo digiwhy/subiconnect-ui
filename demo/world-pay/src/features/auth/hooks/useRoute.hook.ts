@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from 'react-router-dom';
 import { ROOT_ROUTE, UNAUTHORISED_TO_REDIRECT_TO_LOGIN } from '../constants';
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface UseRouteProps {
   hasUser: boolean;
@@ -14,7 +14,7 @@ function useRoute({
   isAuthenticated,
   isLoadingLibrary,
   login,
-  hasUser
+  hasUser,
 }: UseRouteProps): void {
   const { pathname } = useLocation();
   const navigate = useNavigate();

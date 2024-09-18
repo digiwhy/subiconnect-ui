@@ -6,13 +6,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
-    }
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   css: {
-    postcss: './postcss.config.js'
+    postcss: './postcss.config.js',
   },
   server: {
-    port: 3001
-  }
+    port: 3001,
+  },
 });

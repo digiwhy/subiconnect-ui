@@ -1,6 +1,6 @@
 export enum AccountUserRole {
   ADMIN = 'admin',
-  USER = 'user'
+  USER = 'user',
 }
 
 export type Me = {

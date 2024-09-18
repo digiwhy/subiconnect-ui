@@ -12,12 +12,12 @@ const setLastAuthenticatedRoutes = (pathname: string): void => {
   const now = new Date();
   const itemValueObj: ITEM_VALUE = {
     pathname,
-    expiry: now.getTime() + TTL_MS
+    expiry: now.getTime() + TTL_MS,
   };
 
   window.localStorage.setItem(
     AUTHENTICATED_ROUTES_KEY,
-    JSON.stringify(itemValueObj)
+    JSON.stringify(itemValueObj),
   );
 };
 
@@ -39,5 +39,5 @@ const clearLastAuthenticatedRoutes = (): void => {
 export {
   clearLastAuthenticatedRoutes,
   getLastAuthenticatedRoutes,
-  setLastAuthenticatedRoutes
+  setLastAuthenticatedRoutes,
 };

@@ -10,12 +10,12 @@ export const connectionFn = async (apiKey: string, company: CompanPayload) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey
+        'x-api-key': apiKey,
       },
       body: JSON.stringify({
-        company: company
-      })
-    }
+        company: company,
+      }),
+    },
   );
   const result = await response.json();
   return result.accessToken;

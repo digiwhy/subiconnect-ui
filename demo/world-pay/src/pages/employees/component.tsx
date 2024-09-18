@@ -4,7 +4,7 @@ import LiftedComponent from '@/components/lifted';
 import { useAuthenticationAuthenticatedContext } from '@/context/authentication';
 import {
   SelectableEmployeeColumns,
-  EmployeeManagementPage
+  EmployeeManagementPage,
 } from '@subifinancial/subi-connect';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';

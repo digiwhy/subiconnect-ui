@@ -5,7 +5,7 @@ const {
   VITE_AUTH0_DOMAIN,
   VITE_BASE_COMPONENTS_API,
   VITE_BASE_PORTAL_API,
-  VITE_BASE_PORTAL_URL
+  VITE_BASE_PORTAL_URL,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
 } = import.meta.env;
@@ -45,5 +45,5 @@ export {
   VITE_AUTH0_DOMAIN,
   VITE_BASE_COMPONENTS_API,
   VITE_BASE_PORTAL_API,
-  VITE_BASE_PORTAL_URL
+  VITE_BASE_PORTAL_URL,
 };
