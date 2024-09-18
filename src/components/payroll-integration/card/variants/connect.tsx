@@ -2,6 +2,7 @@ import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
 import Integrate from '@/components/connect-and-integrate';
 import { useCompany } from '@/hooks/use-company';
+import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { getPayrollFriendlyName } from '@/lib/utils';
 import { Button } from '@/ui/button';
 import { Skeleton } from '@/ui/skeleton';
@@ -28,7 +29,7 @@ const ConnectAction: React.FC = () => {
 
   const handleIntegrateOnSuccess = React.useCallback(async () => {
     await queryClient.invalidateQueries({
-      queryKey: ['subi-connect', 'payroll system', 'list'],
+      queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
     });
   }, []);
 

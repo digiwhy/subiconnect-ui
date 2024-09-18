@@ -9,8 +9,11 @@ export default class ConnectionService {
   private static instance: ConnectionService;
   private connectionFn: SubiConnectConnectionFn | null = null;
   private context: string = DEFAULT_CONTEXT;
+  private baseUrl: string;
 
-  private constructor() {}
+  private constructor() {
+    this.baseUrl = this.hexEncodeContext(window.location.origin);
+  }
 
   public static getInstance(): ConnectionService {
     if (!ConnectionService.instance) {
@@ -72,11 +75,11 @@ export default class ConnectionService {
   }
 
   public getAccessToken() {
-    return localStorage.getItem(`${ACCESS_TOKEN_NAME}__${this.context}`);
+    return localStorage.getItem(this.getStorageKey());
   }
 
   public setAccessToken(token: string) {
-    localStorage.setItem(`${ACCESS_TOKEN_NAME}__${this.context}`, token);
+    localStorage.setItem(this.getStorageKey(), token);
     return this;
   }
 
@@ -87,23 +90,22 @@ export default class ConnectionService {
     oldContext: string;
     newContext: string;
   }) {
-    const oldToken = localStorage.getItem(
-      `${ACCESS_TOKEN_NAME}__${oldContext}`,
-    );
+    const token = localStorage.getItem(this.getStorageKey(oldContext));
 
-    if (!oldToken) {
+    if (!token) {
       return this;
     }
 
-    localStorage.setItem(`${ACCESS_TOKEN_NAME}__${newContext}`, oldToken);
-    localStorage.removeItem(`${ACCESS_TOKEN_NAME}__${oldContext}`);
+    localStorage.setItem(this.getStorageKey(newContext), token);
+
+    localStorage.removeItem(this.getStorageKey(oldContext));
 
     return this;
   }
 
   public reset({ keepAccessToken = false }: ConnectionServiceResetOptions) {
     if (!keepAccessToken) {
-      localStorage.removeItem(`${ACCESS_TOKEN_NAME}__${this.context}`);
+      localStorage.removeItem(this.getStorageKey());
     }
 
     this.context = DEFAULT_CONTEXT;
@@ -122,7 +124,11 @@ export default class ConnectionService {
       encodedContext
         .match(/.{1,2}/g)
         ?.map((hex) => String.fromCharCode(parseInt(hex, 16)))
-        .join('') || ''
+        .join('') ?? DEFAULT_CONTEXT
     );
+  }
+
+  private getStorageKey(context: string = this.context) {
+    return `${ACCESS_TOKEN_NAME}__${this.baseUrl}_${context}`;
   }
 }

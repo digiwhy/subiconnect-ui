@@ -2,6 +2,18 @@ export type SubiConnectAccessToken = string;
 
 export type SubiConnectConnectionFn = () => Promise<SubiConnectAccessToken>;
 
+export type SubiConnectCleanupProps = {
+  /**
+   * Keeps the access token and query cache.
+   */
+  keepData?: boolean;
+
+  /**
+   * Cleans up the access token and query cache for all contexts.
+   */
+  cleanupAllContexts?: boolean;
+};
+
 export type SubiConnectDebugOptions = {
   /**
    * Sets the base URL for the SubiConnect API.

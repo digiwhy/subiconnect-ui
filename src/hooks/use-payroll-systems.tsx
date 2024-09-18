@@ -12,6 +12,7 @@ import React from 'react';
 
 export const BASE_PAYROLL_APPLICATION_QUERY_KEY = [
   'subi-connect',
+  { context: ConnectionService.getInstance().getContext() },
   'payroll system',
 ] as const;
 
@@ -43,7 +44,6 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
       'list',
       {
         filters: params,
-        context: ConnectionService.getInstance().getContext(),
       },
     ],
     [params],
