@@ -3,6 +3,7 @@ import axiosClient from '@/services/axios';
 import ConnectionService from '@/services/axios/connection-service';
 import logger from '@/services/logger';
 import {
+  SUBI_CONNECT_QUERY_KEY,
   type SubiConnectCleanupProps,
   type SubiConnectConnectionFn,
   type SubiConnectOptions,
@@ -136,7 +137,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
 
     if (!props.keepData) {
       const queryKey = [
-        'subi-connect',
+        SUBI_CONNECT_QUERY_KEY,
         ...(props.cleanupAllContexts
           ? []
           : [{ context: ConnectionService.getInstance().getContext() }]),

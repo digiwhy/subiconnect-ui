@@ -9,7 +9,9 @@ import useSearchParams from '@/hooks/internal/use-serach-params';
 import { useAccountPayrollSystem } from '@/hooks/use-account-payroll';
 import { BASE_ORGANISATION_QUERY_KEY } from '@/hooks/use-organisations';
 import { cn, getPayrollFriendlyName } from '@/lib/utils';
+import ConnectionService from '@/services/axios/connection-service';
 import type { AccountPayrollSystemExtended } from '@/types/application';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import type { Payroll } from '@/types/payroll';
 import { SearchParam } from '@/types/query';
 import { Button } from '@/ui/button';
@@ -59,7 +61,12 @@ const Header: React.FC<{
 
   const handleIntegrateOnSuccess = React.useCallback(async () => {
     await queryClient.invalidateQueries({
-      queryKey: [...BASE_ORGANISATION_QUERY_KEY, 'list'],
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: ConnectionService.getInstance().getContext() },
+        BASE_ORGANISATION_QUERY_KEY,
+        'list',
+      ],
     });
   }, []);
 

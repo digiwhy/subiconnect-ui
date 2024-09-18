@@ -5,7 +5,9 @@ import { usePayrollIntegrationContext } from '@/context/payroll-integration';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { cn } from '@/lib/utils';
 import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
+import ConnectionService from '@/services/axios/connection-service';
 import type { AccountPayrollSystemExtended } from '@/types/application';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
@@ -25,7 +27,12 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
 
   const handleIntegrateOnSuccess = React.useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: ConnectionService.getInstance().getContext() },
+        BASE_PAYROLL_APPLICATION_QUERY_KEY,
+        'list',
+      ],
     });
   }, []);
 

@@ -7,14 +7,11 @@ import type {
 import type { BaseQueryOptions } from '../types/query';
 import { useSubiConnectQuery } from './use-subi-connect-query';
 import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
-export const BASE_PAYROLL_APPLICATION_QUERY_KEY = [
-  'subi-connect',
-  { context: ConnectionService.getInstance().getContext() },
-  'payroll system',
-] as const;
+export const BASE_PAYROLL_APPLICATION_QUERY_KEY = 'payroll system';
 
 type PayrollSystemFields = Pick<
   AccountPayrollSystemExtended,
@@ -40,7 +37,9 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
 
   const queryKey = React.useMemo(
     () => [
-      ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      BASE_PAYROLL_APPLICATION_QUERY_KEY,
       'list',
       {
         filters: params,

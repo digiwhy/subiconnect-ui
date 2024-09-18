@@ -4,6 +4,8 @@ import type { Payroll } from '../types/payroll';
 import type { BaseQueryOptions } from '../types/query';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
 import { useSubiConnectQuery } from './use-subi-connect-query';
+import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import type { UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -18,7 +20,13 @@ export const useAccountPayrollSystem = (
   options?: UsePayrollSystemsOptions,
 ) => {
   const queryKey = React.useMemo(
-    () => [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'detail', payroll],
+    () => [
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      BASE_PAYROLL_APPLICATION_QUERY_KEY,
+      'detail',
+      payroll,
+    ],
     [payroll],
   );
 

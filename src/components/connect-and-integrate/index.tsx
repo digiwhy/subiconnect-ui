@@ -9,6 +9,8 @@ import {
   PayrollConnectionTypeEnum,
 } from '@/services/api/payroll/types';
 import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
+import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import {
   Dialogue,
@@ -41,12 +43,19 @@ const Integrate: React.FC<{
        * Invalidates the list, and all details.
        */
       await queryClient.invalidateQueries({
-        queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
+        queryKey: [
+          SUBI_CONNECT_QUERY_KEY,
+          { context: ConnectionService.getInstance().getContext() },
+          BASE_PAYROLL_APPLICATION_QUERY_KEY,
+          'list',
+        ],
       });
 
       await queryClient.invalidateQueries({
         queryKey: [
-          ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
+          SUBI_CONNECT_QUERY_KEY,
+          { context: ConnectionService.getInstance().getContext() },
+          BASE_PAYROLL_APPLICATION_QUERY_KEY,
           'detail',
           payrollSystem.name,
         ],
