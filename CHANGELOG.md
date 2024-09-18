@@ -1,5 +1,15 @@
 # @subifinancial/subi-connect
 
+## 3.0.2
+
+### Patch Changes
+
+- [#151](https://github.com/subifinancial/subi-connect/pull/151)
+  [`4a12caf`](https://github.com/subifinancial/subi-connect/commit/4a12caf0871e4a2e8d11e8cde306b9bf0939e9cb)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - - Fix cleanup
+  function on `SubiConnectProvider` unmount.
+  - Add context to the queries.
+
 ## 3.0.1
 
 ### Patch Changes
