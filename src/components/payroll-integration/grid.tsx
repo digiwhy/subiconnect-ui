@@ -2,6 +2,7 @@ import { Card } from './card';
 import { PayrollSystemProvider } from './context';
 import { Loading } from './loading';
 import { usePayrollIntegrationContext } from '@/context/payroll-integration';
+import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { cn } from '@/lib/utils';
 import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
 import type { AccountPayrollSystemExtended } from '@/types/application';
@@ -24,7 +25,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
 
   const handleIntegrateOnSuccess = React.useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ['subi-connect', 'payroll system', 'list'],
+      queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
     });
   }, []);
 

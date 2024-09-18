@@ -1,5 +1,6 @@
 import { usePayrollSystemContext } from '../payroll-integration/context';
 import { usePayrollIntegrationContext } from '@/context/payroll-integration';
+import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
 import { usePostConnectPayroll } from '@/integration-pages/custom/mutation';
 import { getPayrollFriendlyName } from '@/lib/utils';
@@ -32,12 +33,23 @@ const Integrate: React.FC<{
   const queryClient = useQueryClient();
 
   const handleSetPending = React.useCallback(
-    (pending: React.SetStateAction<boolean>) => {
+    async (pending: React.SetStateAction<boolean>) => {
       setIsPending(pending);
 
-      // Invalidate query after setting the pending state
-      queryClient.invalidateQueries({
-        queryKey: ['subi-connect', 'payroll system'],
+      /**
+       * Invalidate query after setting the pending state.
+       * Invalidates the list, and all details.
+       */
+      await queryClient.invalidateQueries({
+        queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
+      });
+
+      await queryClient.invalidateQueries({
+        queryKey: [
+          ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
+          'detail',
+          payrollSystem.name,
+        ],
       });
     },
     [setIsPending],

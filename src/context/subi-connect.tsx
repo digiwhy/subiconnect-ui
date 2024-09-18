@@ -1,12 +1,13 @@
 import { handleProviderOptions } from '@/lib/handle-provider-options';
 import axiosClient from '@/services/axios';
 import ConnectionService from '@/services/axios/connection-service';
-import type { ConnectionServiceResetOptions } from '@/services/axios/types';
 import logger from '@/services/logger';
 import {
+  type SubiConnectCleanupProps,
   type SubiConnectConnectionFn,
   type SubiConnectOptions,
 } from '@/types/main';
+import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
 type SubiConnectContext = {
@@ -23,7 +24,7 @@ type SubiConnectContext = {
   /**
    * Function to clean up the connection.
    */
-  cleanup: (props?: ConnectionServiceResetOptions) => void;
+  cleanup: (props?: SubiConnectCleanupProps) => void;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -69,6 +70,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   options,
   children,
 }: SubiConnectProviderProps<TCompanyContext>) => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
 
@@ -89,7 +91,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
      */
     const connectionService = ConnectionService.getInstance().initialise({
       connectionFn,
-      context: `${window.location.origin}_${companyContext}`,
+      context: companyContext,
     });
 
     const initConnection = async () => {
@@ -120,15 +122,30 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
 
     // Cleanup function
     return () => {
-      cleanup({ keepAccessToken: true });
+      cleanup({ keepData: true });
     };
   }, [connectionFn, options]);
 
   /**
    * Clear the access token from local storage and the connection service.
    */
-  const cleanup = (props: ConnectionServiceResetOptions = {}) => {
-    ConnectionService.getInstance().reset(props);
+  const cleanup = (props: SubiConnectCleanupProps = {}) => {
+    ConnectionService.getInstance().reset({
+      keepAccessToken: props.keepData,
+    });
+
+    if (!props.keepData) {
+      const queryKey = [
+        'subi-connect',
+        ...(props.cleanupAllContexts
+          ? []
+          : [{ context: ConnectionService.getInstance().getContext() }]),
+      ];
+
+      queryClient.invalidateQueries({
+        queryKey: queryKey,
+      });
+    }
   };
 
   const value = React.useMemo(

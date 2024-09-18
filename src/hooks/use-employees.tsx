@@ -12,7 +12,11 @@ import ConnectionService from '@/services/axios/connection-service';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
-const BASE_EMPLOYEES_QUERY_KEY = ['subi-connect', 'employee'] as const;
+const BASE_EMPLOYEES_QUERY_KEY = [
+  'subi-connect',
+  { context: ConnectionService.getInstance().getContext() },
+  'employee',
+] as const;
 
 type UseEmployeesOptions = {
   fields?: SelectableEmployeeColumns[];
@@ -39,7 +43,6 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
       'list',
       {
         filters: params,
-        context: ConnectionService.getInstance().getContext(),
       },
     ],
     [params],

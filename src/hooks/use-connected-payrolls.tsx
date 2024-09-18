@@ -5,7 +5,6 @@ import type { BaseQueryOptions } from '../types/query';
 import { useCompany } from './use-company';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
 import { useSubiConnectQuery } from './use-subi-connect-query';
-import ConnectionService from '@/services/axios/connection-service';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -25,7 +24,6 @@ export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
       {
         connected: true,
         companyId: company?.id,
-        context: ConnectionService.getInstance().getContext(),
       },
     ],
     [company?.id],

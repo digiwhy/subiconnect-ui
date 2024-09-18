@@ -21,6 +21,7 @@ import React from 'react';
 
 export const BASE_ORGANISATION_QUERY_KEY = [
   'subi-connect',
+  { context: ConnectionService.getInstance().getContext() },
   'organisation',
 ] as const;
 
@@ -56,7 +57,6 @@ export const useOrganisations = (
       {
         accountPayrollId,
         filters: params,
-        context: ConnectionService.getInstance().getContext(),
       },
     ],
     [accountPayrollId, params],
@@ -107,7 +107,6 @@ export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
       'list',
       {
         filters: params,
-        context: ConnectionService.getInstance().getContext(),
       },
     ],
     [params],
@@ -139,7 +138,6 @@ const useSyncingOrganisationsQueryKey = [
   ...BASE_ORGANISATION_QUERY_KEY,
   'list',
   'syncing',
-  { context: ConnectionService.getInstance().getContext() },
 ] as const;
 
 export const useSyncingOrganisations = (
@@ -162,12 +160,7 @@ export const useOrganisation = (
   options?: UseOrganisationOptions,
 ) => {
   const queryKey = React.useMemo(
-    () => [
-      ...BASE_ORGANISATION_QUERY_KEY,
-      'detail',
-      organisationId,
-      { context: ConnectionService.getInstance().getContext() },
-    ],
+    () => [...BASE_ORGANISATION_QUERY_KEY, 'detail', organisationId],
     [organisationId],
   );
 
