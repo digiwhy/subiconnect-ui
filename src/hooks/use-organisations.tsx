@@ -16,14 +16,11 @@ import type { Organisation } from '../types/organisation';
 import type { BaseQueryOptions } from '../types/query';
 import { useSubiConnectQuery } from './use-subi-connect-query';
 import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
-export const BASE_ORGANISATION_QUERY_KEY = [
-  'subi-connect',
-  { context: ConnectionService.getInstance().getContext() },
-  'organisation',
-] as const;
+export const BASE_ORGANISATION_QUERY_KEY = 'organisation';
 
 type OrganisationFilterFields = Pick<
   Organisation,
@@ -52,7 +49,9 @@ export const useOrganisations = (
 
   const queryKey = React.useMemo(
     () => [
-      ...BASE_ORGANISATION_QUERY_KEY,
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      BASE_ORGANISATION_QUERY_KEY,
       'list',
       {
         accountPayrollId,
@@ -103,7 +102,9 @@ export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
 
   const queryKey = React.useMemo(
     () => [
-      ...BASE_ORGANISATION_QUERY_KEY,
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      BASE_ORGANISATION_QUERY_KEY,
       'list',
       {
         filters: params,
@@ -134,17 +135,19 @@ type UseSyncingOrganisationsOptions = {
   >;
 };
 
-const useSyncingOrganisationsQueryKey = [
-  ...BASE_ORGANISATION_QUERY_KEY,
-  'list',
-  'syncing',
-] as const;
-
 export const useSyncingOrganisations = (
   options?: UseSyncingOrganisationsOptions,
 ) => {
+  const queryKey = [
+    SUBI_CONNECT_QUERY_KEY,
+    { context: ConnectionService.getInstance().getContext() },
+    BASE_ORGANISATION_QUERY_KEY,
+    'list',
+    'syncing',
+  ];
+
   return useSubiConnectQuery({
-    queryKey: useSyncingOrganisationsQueryKey,
+    queryKey: queryKey,
     queryFn: listSyncingOrganisations,
     ...options?.queryOptions,
   });
@@ -160,7 +163,13 @@ export const useOrganisation = (
   options?: UseOrganisationOptions,
 ) => {
   const queryKey = React.useMemo(
-    () => [...BASE_ORGANISATION_QUERY_KEY, 'detail', organisationId],
+    () => [
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      BASE_ORGANISATION_QUERY_KEY,
+      'detail',
+      organisationId,
+    ],
     [organisationId],
   );
 

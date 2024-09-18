@@ -2,6 +2,8 @@ export type SubiConnectAccessToken = string;
 
 export type SubiConnectConnectionFn = () => Promise<SubiConnectAccessToken>;
 
+export const SUBI_CONNECT_QUERY_KEY = 'subi-connect';
+
 export type SubiConnectCleanupProps = {
   /**
    * Keeps the access token and query cache.

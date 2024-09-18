@@ -4,6 +4,8 @@ import Integrate from '@/components/connect-and-integrate';
 import { useCompany } from '@/hooks/use-company';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { getPayrollFriendlyName } from '@/lib/utils';
+import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import { Skeleton } from '@/ui/skeleton';
 import { useQueryClient } from '@tanstack/react-query';
@@ -29,7 +31,12 @@ const ConnectAction: React.FC = () => {
 
   const handleIntegrateOnSuccess = React.useCallback(async () => {
     await queryClient.invalidateQueries({
-      queryKey: [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list'],
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: ConnectionService.getInstance().getContext() },
+        BASE_PAYROLL_APPLICATION_QUERY_KEY,
+        'list',
+      ],
     });
   }, []);
 

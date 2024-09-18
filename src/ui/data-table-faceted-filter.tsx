@@ -16,6 +16,8 @@ import {
 } from './command';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Separator } from './separator';
+import ConnectionService from '@/services/axios/connection-service';
+import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import {
   useInfiniteQuery,
   type QueryFunctionContext,
@@ -60,7 +62,12 @@ export function DataTableFacetedFilter<TData, TValue>({
   const isVisible = useIntersectionObserver(ref);
 
   const mainQueryKey = React.useMemo(() => {
-    return ['subi-connect', column.id, 'list'];
+    return [
+      SUBI_CONNECT_QUERY_KEY,
+      { context: ConnectionService.getInstance().getContext() },
+      column.id,
+      'list',
+    ];
   }, [column.id]);
 
   const fullQueryKey = React.useMemo(() => {

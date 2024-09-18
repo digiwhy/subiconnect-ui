@@ -77,7 +77,7 @@ export default function MainLayout() {
       <div className='flex max-w-full flex-grow flex-col overflow-hidden'>
         <header className='flex h-14 items-center justify-between gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40 sm:h-[60px] lg:justify-end'>
           <Link
-            className='flex items-center gap-2 font-semibold sm:opacity-0'
+            className='flex items-center gap-2 font-semibold sm:hidden'
             to='/'
           >
             <Logo />
