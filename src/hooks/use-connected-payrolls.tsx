@@ -23,10 +23,8 @@ export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
       ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
       'list',
       {
-        filters: {
-          connected: true,
-          companyId: company?.id,
-        },
+        connected: true,
+        companyId: company?.id,
         context: ConnectionService.getInstance().getContext(),
       },
     ],
