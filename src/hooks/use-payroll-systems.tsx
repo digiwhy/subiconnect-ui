@@ -6,6 +6,7 @@ import type {
 } from '../types/components/data-table';
 import type { BaseQueryOptions } from '../types/query';
 import { useSubiConnectQuery } from './use-subi-connect-query';
+import ConnectionService from '@/services/axios/connection-service';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -37,7 +38,14 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
   );
 
   const queryKey = React.useMemo(
-    () => [...BASE_PAYROLL_APPLICATION_QUERY_KEY, 'list', { filters: params }],
+    () => [
+      ...BASE_PAYROLL_APPLICATION_QUERY_KEY,
+      'list',
+      {
+        filters: params,
+        context: ConnectionService.getInstance().getContext(),
+      },
+    ],
     [params],
   );
 

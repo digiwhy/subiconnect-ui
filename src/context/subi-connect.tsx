@@ -1,6 +1,7 @@
 import { handleProviderOptions } from '@/lib/handle-provider-options';
 import axiosClient from '@/services/axios';
 import ConnectionService from '@/services/axios/connection-service';
+import type { ConnectionServiceResetOptions } from '@/services/axios/types';
 import logger from '@/services/logger';
 import {
   type SubiConnectConnectionFn,
@@ -22,7 +23,7 @@ type SubiConnectContext = {
   /**
    * Function to clean up the connection.
    */
-  cleanup: () => void;
+  cleanup: (props?: ConnectionServiceResetOptions) => void;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -116,14 +117,18 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     };
 
     initConnection();
+
+    // Cleanup function
+    return () => {
+      cleanup({ keepAccessToken: true });
+    };
   }, [connectionFn, options]);
 
   /**
    * Clear the access token from local storage and the connection service.
    */
-  const cleanup = () => {
-    const connectionService = ConnectionService.getInstance();
-    connectionService.reset();
+  const cleanup = (props: ConnectionServiceResetOptions = {}) => {
+    ConnectionService.getInstance().reset(props);
   };
 
   const value = React.useMemo(
