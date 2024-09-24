@@ -55,7 +55,8 @@ export default function MainLayout() {
                 Employees - Custom Columns
               </NavItem>
 
-              <br />
+              <div className='w-full border-border border-b my-2 h-0'></div>
+
               <NavItem to='/backend' className='flex flex-row justify-between'>
                 <div className='flex flex-row items-center gap-2'>
                   <ServerIcon className='h-4 w-4' />
@@ -65,11 +66,12 @@ export default function MainLayout() {
                   <SkullIcon className='h-4 w-4 text-red-500/50' />
                 )}
               </NavItem>
+
+              <div className='justify-start flex w-full flex-col items-start gap-2 p-3'>
+                <span className='text-sm font-medium'>Select Company</span>
+                <CompanySelector />
+              </div>
             </nav>
-          </div>
-          <div className='justify-betwee flex w-full flex-col items-center gap-2 p-4'>
-            <span className='text-sm font-medium'>Select Company</span>
-            <CompanySelector />
           </div>
         </div>
       </div>
