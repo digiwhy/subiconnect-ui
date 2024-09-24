@@ -1,8 +1,3 @@
-import { useDataTableContext } from '../context/table/table-context';
-import useIntersectionObserver from '../hooks/internal/use-intersection-observer';
-import { FILTER_SEARCH_PARAM_PREFIX } from '../hooks/internal/use-serach-params';
-import { cn } from '../lib/utils';
-import type { ListOptions, ListRequest } from '../types/components/data-table';
 import { Badge } from './badge';
 import { Button } from './button';
 import {
@@ -16,7 +11,12 @@ import {
 } from './command';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import { Separator } from './separator';
-import ConnectionService from '@/services/axios/connection-service';
+import { useSubiConnectContext } from '@/context/subi-connect';
+import { useDataTableContext } from '@/context/table/table-context';
+import useIntersectionObserver from '@/hooks/internal/use-intersection-observer';
+import { FILTER_SEARCH_PARAM_PREFIX } from '@/hooks/internal/use-serach-params';
+import { cn } from '@/lib/utils';
+import type { ListOptions, ListRequest } from '@/types/components/data-table';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import {
   useInfiniteQuery,
@@ -47,6 +47,7 @@ export function DataTableFacetedFilter<TData, TValue>({
 }: Readonly<DataTableFacetedFilterProps<TData, TValue>>) {
   const [search, setSearch] = React.useState<string>('');
   const { getParamValue, setParamValue } = useDataTableContext();
+  const { connectionService } = useSubiConnectContext();
   const _key = FILTER_SEARCH_PARAM_PREFIX + accessorKey;
   const _value = getParamValue(_key);
 
@@ -64,7 +65,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   const mainQueryKey = React.useMemo(() => {
     return [
       SUBI_CONNECT_QUERY_KEY,
-      { context: ConnectionService.getInstance().getContext() },
+      { context: connectionService.getContext() },
       column.id,
       'list',
     ];

@@ -5,11 +5,11 @@ import Integrate from '@/components/connect-and-integrate';
 import { PayrollSystemProvider } from '@/components/payroll-integration/context';
 import { Loading } from '@/components/payroll-integration/loading';
 import { PayrollIntegrationProvider } from '@/context/payroll-integration';
+import { useSubiConnectContext } from '@/context/subi-connect';
 import useSearchParams from '@/hooks/internal/use-serach-params';
 import { useAccountPayrollSystem } from '@/hooks/use-account-payroll';
 import { BASE_ORGANISATION_QUERY_KEY } from '@/hooks/use-organisations';
 import { cn, getPayrollFriendlyName } from '@/lib/utils';
-import ConnectionService from '@/services/axios/connection-service';
 import type { AccountPayrollSystemExtended } from '@/types/application';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import type { Payroll } from '@/types/payroll';
@@ -51,24 +51,12 @@ const Header: React.FC<{
   disableBack?: boolean;
   accountPayroll: AccountPayrollSystemExtended | undefined;
 }> = ({ accountPayroll, disableBack = false }) => {
-  const queryClient = useQueryClient();
   const { setSearchParam } = useSearchParams();
 
   const handleBack = () => {
     if (disableBack) return;
     setSearchParam(SearchParam.PAYROLL_SYSTEM, undefined);
   };
-
-  const handleIntegrateOnSuccess = React.useCallback(async () => {
-    await queryClient.invalidateQueries({
-      queryKey: [
-        SUBI_CONNECT_QUERY_KEY,
-        { context: ConnectionService.getInstance().getContext() },
-        BASE_ORGANISATION_QUERY_KEY,
-        'list',
-      ],
-    });
-  }, []);
 
   return (
     <div className='sc-flex sc-w-full sc-justify-between sc-gap-4'>
@@ -102,9 +90,7 @@ const Header: React.FC<{
         )}
       </div>
 
-      {!!accountPayroll && (
-        <Integrate Trigger={Trigger} onSuccess={handleIntegrateOnSuccess} />
-      )}
+      {!!accountPayroll && <Integrate Trigger={Trigger} />}
     </div>
   );
 };
@@ -117,12 +103,30 @@ const PayrollIntegrationManagementPage: React.FC<{
   disableBack?: boolean;
   className?: string;
 }> = ({ payroll, onIntegrationSuccess, disableBack = false, className }) => {
+  const queryClient = useQueryClient();
+  const { connectionService } = useSubiConnectContext();
   const { setSearchParam } = useSearchParams();
   const {
     data: accountPayroll,
     isLoading,
     isError,
   } = useAccountPayrollSystem(payroll);
+
+  const handleIntegrationSuccess = React.useCallback(
+    async (accountPayroll: AccountPayrollSystemExtended) => {
+      await queryClient.invalidateQueries({
+        queryKey: [
+          SUBI_CONNECT_QUERY_KEY,
+          { context: connectionService.getContext() },
+          BASE_ORGANISATION_QUERY_KEY,
+          'list',
+        ],
+      });
+
+      await onIntegrationSuccess?.(accountPayroll);
+    },
+    [onIntegrationSuccess, queryClient, connectionService],
+  );
 
   if (isLoading || !accountPayroll) {
     return (
@@ -147,7 +151,9 @@ const PayrollIntegrationManagementPage: React.FC<{
 
   return (
     <PayrollSystemProvider payrollSystem={accountPayroll}>
-      <PayrollIntegrationProvider onIntegrationSuccess={onIntegrationSuccess}>
+      <PayrollIntegrationProvider
+        onIntegrationSuccess={handleIntegrationSuccess}
+      >
         <div
           className={cn(
             'sc-flex sc-h-full sc-w-full sc-flex-col sc-gap-4 sc-p-4',

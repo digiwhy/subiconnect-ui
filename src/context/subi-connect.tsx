@@ -1,6 +1,5 @@
 import { handleProviderOptions } from '@/lib/handle-provider-options';
-import axiosClient from '@/services/axios';
-import ConnectionService from '@/services/axios/connection-service';
+import { ConnectionService } from '@/services/axios/connection-service';
 import logger from '@/services/logger';
 import {
   SUBI_CONNECT_QUERY_KEY,
@@ -26,6 +25,11 @@ type SubiConnectContext = {
    * Function to clean up the connection.
    */
   cleanup: (props?: SubiConnectCleanupProps) => void;
+
+  /**
+   * The connection service.
+   */
+  connectionService: ConnectionService;
 };
 
 export const SubiConnectContext = React.createContext<
@@ -74,6 +78,10 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
+  const connectionService = new ConnectionService({
+    connectionFn,
+    context: companyContext,
+  });
 
   /**
    * Handle the connection between client and Subi Connect. Uses the provided
@@ -85,23 +93,16 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     /**
      * Handle options passed to the `SubiConnectProvider`.
      */
-    if (options) handleProviderOptions(options);
-
-    /**
-     * Set the connection function on the `ConnectionService`.
-     */
-    const connectionService = ConnectionService.getInstance().initialise({
-      connectionFn,
-      context: companyContext,
-    });
+    if (options) handleProviderOptions({ ...options, connectionService });
 
     const initConnection = async () => {
       try {
         let accessToken = connectionService.getAccessToken();
         accessToken ??= await connectionService.generateAccessToken();
 
-        axiosClient.defaults.headers.common['Authorization'] =
-          `Bearer ${accessToken}`;
+        connectionService.getHttpClient().defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${accessToken}`;
       } catch (error) {
         logger.error(
           '[SubiConnectProvider] Failed to initialise connection with Subi Connect',
@@ -120,18 +121,13 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     };
 
     initConnection();
-
-    // Cleanup function
-    return () => {
-      cleanup({ keepData: true });
-    };
-  }, [connectionFn, options]);
+  }, [connectionFn, options, connectionService]);
 
   /**
    * Clear the access token from local storage and the connection service.
    */
   const cleanup = (props: SubiConnectCleanupProps = {}) => {
-    ConnectionService.getInstance().reset({
+    connectionService.reset({
       keepAccessToken: props.keepData,
     });
 
@@ -140,7 +136,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
         SUBI_CONNECT_QUERY_KEY,
         ...(props.cleanupAllContexts
           ? []
-          : [{ context: ConnectionService.getInstance().getContext() }]),
+          : [{ context: connectionService.getContext() }]),
       ];
 
       queryClient.invalidateQueries({
@@ -149,10 +145,14 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     }
   };
 
-  const value = React.useMemo(
-    () => ({ isLoading, initialised, cleanup }) satisfies SubiConnectContext,
-    [isLoading, initialised],
-  );
+  const value = React.useMemo(() => {
+    return {
+      isLoading,
+      initialised,
+      cleanup,
+      connectionService,
+    } satisfies SubiConnectContext;
+  }, [isLoading, initialised, connectionService]);
 
   return (
     <SubiConnectContext.Provider value={value}>

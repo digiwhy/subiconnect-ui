@@ -1,12 +1,12 @@
-import { listConnectedPayrollSystems } from '../services/api/payroll/actions';
-import type { AccountPayrollSystemExtended } from '../types/application';
-import type { PaginationResponse } from '../types/components/data-table';
-import type { BaseQueryOptions } from '../types/query';
 import { useCompany } from './use-company';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
 import { useSubiConnectQuery } from './use-subi-connect-query';
-import ConnectionService from '@/services/axios/connection-service';
+import { useSubiConnectContext } from '@/context/subi-connect';
+import { listConnectedPayrollSystems } from '@/services/api/payroll/actions';
+import type { AccountPayrollSystemExtended } from '@/types/application';
+import type { PaginationResponse } from '@/types/components/data-table';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
+import type { BaseQueryOptions } from '@/types/query';
 import { type UseQueryOptions } from '@tanstack/react-query';
 
 type UseConnectedPayrollsOptions = {
@@ -16,11 +16,13 @@ type UseConnectedPayrollsOptions = {
 };
 
 export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
+  const { connectionService } = useSubiConnectContext();
+
   const { data: company } = useCompany();
 
   const queryKey = [
     SUBI_CONNECT_QUERY_KEY,
-    { context: ConnectionService.getInstance().getContext() },
+    { context: connectionService.getContext() },
     BASE_PAYROLL_APPLICATION_QUERY_KEY,
     'list',
     {
@@ -33,7 +35,7 @@ export const useConnectedPayrolls = (options?: UseConnectedPayrollsOptions) => {
 
   return useSubiConnectQuery({
     queryKey: queryKey,
-    queryFn: listConnectedPayrollSystems,
+    queryFn: listConnectedPayrollSystems(connectionService),
     enabled: !!company?.id && enabled,
     ...rest,
   });

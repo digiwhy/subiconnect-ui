@@ -1,4 +1,5 @@
 import type { ConnectPayrollResponse } from '../services/api/payroll/types';
+import { usePayrollSystemContext } from '@/components/payroll-integration/context';
 import type { AccountPayrollSystemExtended } from '@/types';
 import React from 'react';
 
@@ -11,9 +12,7 @@ type PayrollIntegrationContext = {
   >;
   windowFailed: boolean;
   setWindowFailed: React.Dispatch<React.SetStateAction<boolean>>;
-  onIntegrationSuccess?: (
-    payrollSystem: AccountPayrollSystemExtended,
-  ) => Promise<void>;
+  onIntegrationSuccess: () => Promise<void>;
 };
 
 export const PayrollIntegrationContext = React.createContext<
@@ -41,14 +40,19 @@ export const PayrollIntegrationProvider = ({
   onIntegrationSuccess,
   children,
 }: PayrollIntegrationProviderProps) => {
+  const { payrollSystem } = usePayrollSystemContext();
   const [isPending, setIsPending] = React.useState<boolean>(false);
   const [data, setData] = React.useState<ConnectPayrollResponse | undefined>();
   const [windowFailed, setWindowFailed] = React.useState<boolean>(false);
 
+  const handleOnIntegrationSuccess = React.useCallback(async () => {
+    await onIntegrationSuccess?.(payrollSystem);
+  }, [onIntegrationSuccess, payrollSystem]);
+
   const value = React.useMemo(
     () =>
       ({
-        onIntegrationSuccess,
+        onIntegrationSuccess: handleOnIntegrationSuccess,
         isPending,
         setIsPending,
         data,

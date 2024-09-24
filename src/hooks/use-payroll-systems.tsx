@@ -6,7 +6,7 @@ import type {
 } from '../types/components/data-table';
 import type { BaseQueryOptions } from '../types/query';
 import { useSubiConnectQuery } from './use-subi-connect-query';
-import ConnectionService from '@/services/axios/connection-service';
+import { useSubiConnectContext } from '@/context/subi-connect';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
@@ -27,6 +27,8 @@ type UsePayrollSystemsOptions = {
 };
 
 export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
+  const { connectionService } = useSubiConnectContext();
+
   const params = React.useMemo(
     () => ({
       ...options?.listOptions?.params,
@@ -38,7 +40,7 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
   const queryKey = React.useMemo(
     () => [
       SUBI_CONNECT_QUERY_KEY,
-      { context: ConnectionService.getInstance().getContext() },
+      { context: connectionService.getContext() },
       BASE_PAYROLL_APPLICATION_QUERY_KEY,
       'list',
       {
@@ -50,11 +52,11 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
 
   const queryFn = React.useCallback(
     () =>
-      listPayrollSystems({
+      listPayrollSystems(connectionService)({
         ...options?.listOptions,
         params: params,
       }),
-    [options?.listOptions, params],
+    [options?.listOptions, params, connectionService],
   );
 
   return useSubiConnectQuery({

@@ -1,15 +1,17 @@
 import { usePayrollSystemContext } from '../payroll-integration/context';
+import { Loading } from '../payroll-integration/loading';
 import { usePayrollIntegrationContext } from '@/context/payroll-integration';
+import { useSubiConnectContext } from '@/context/subi-connect';
+import { BASE_COMPANY_QUERY_KEY } from '@/hooks/use-company';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
 import { usePostConnectPayroll } from '@/integration-pages/custom/mutation';
-import { getPayrollFriendlyName } from '@/lib/utils';
+import { cn, getPayrollFriendlyName } from '@/lib/utils';
 import {
   type ConnectPayrollResponse,
   PayrollConnectionTypeEnum,
 } from '@/services/api/payroll/types';
 import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
-import ConnectionService from '@/services/axios/connection-service';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import {
@@ -20,57 +22,113 @@ import {
 } from '@/ui/dialogue';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
+  const { isPending, data, windowFailed, setIsPending, setWindowFailed } =
+    usePayrollIntegrationContext();
+
+  const container = document.getElementById(
+    'subi-connect-payroll-integration-grid',
+  );
+
+  const handleAuthWindow = async () => {
+    if (data) {
+      await handleOAuth2OnSuccess({
+        authWindow: undefined,
+        redirectUri: data.redirectUri!,
+        setIsPending,
+        setWindowFailed,
+        onSuccess: onSuccess,
+      });
+    }
+  };
+
+  if (!isPending) {
+    return null;
+  }
+
+  return ReactDOM.createPortal(
+    <div
+      className={cn(
+        'sc-absolute sc-h-full sc-w-full sc-items-center sc-justify-center sc-gap-2 sc-bg-background/50 sc-backdrop-blur-md',
+        isPending ? 'sc-z-10 sc-flex' : '-sc-z-10 sc-hidden',
+      )}
+    >
+      <Loading
+        title={
+          <div>
+            Please finish your current integration.{' '}
+            {!!data && windowFailed && (
+              <div className='sc-flex sc-flex-col'>
+                <span>
+                  If you can&apos;t see the authenitcation window, please{' '}
+                </span>
+                <Button onClick={handleAuthWindow} variant={'link'}>
+                  click here.
+                </Button>
+              </div>
+            )}
+          </div>
+        }
+      />
+    </div>,
+    container ?? document.body,
+  );
+};
 
 const Integrate: React.FC<{
   Trigger: React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<typeof Button>
   >;
-  onSuccess: () => Promise<void>;
-}> = React.memo(({ Trigger, onSuccess }) => {
+}> = React.memo(({ Trigger }) => {
   const { payrollSystem } = usePayrollSystemContext();
   const [open, setOpen] = React.useState<boolean>(false);
   const { mutateAsync, isPending } = usePostConnectPayroll();
   const { setIsPending, setData, setWindowFailed, onIntegrationSuccess } =
     usePayrollIntegrationContext();
   const queryClient = useQueryClient();
-
-  const handleSetPending = React.useCallback(
-    async (pending: React.SetStateAction<boolean>) => {
-      setIsPending(pending);
-
-      /**
-       * Invalidate query after setting the pending state.
-       * Invalidates the list, and all details.
-       */
-      await queryClient.invalidateQueries({
-        queryKey: [
-          SUBI_CONNECT_QUERY_KEY,
-          { context: ConnectionService.getInstance().getContext() },
-          BASE_PAYROLL_APPLICATION_QUERY_KEY,
-          'list',
-        ],
-      });
-
-      await queryClient.invalidateQueries({
-        queryKey: [
-          SUBI_CONNECT_QUERY_KEY,
-          { context: ConnectionService.getInstance().getContext() },
-          BASE_PAYROLL_APPLICATION_QUERY_KEY,
-          'detail',
-          payrollSystem.name,
-        ],
-      });
-    },
-    [setIsPending],
-  );
+  const { connectionService } = useSubiConnectContext();
 
   /**
    * Handle the success of the integration workflow. Triggered when the integration
    * workflow is completed.
    */
   const handleWorkflowOnSuccess = React.useCallback(async () => {
-    await onSuccess();
-    await onIntegrationSuccess?.(payrollSystem);
+    await onIntegrationSuccess();
+
+    /**
+     * Invalidates the list and all details of the payroll application.
+     * Invalidates the company details.
+     */
+    await queryClient.invalidateQueries({
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: connectionService.getContext() },
+        BASE_PAYROLL_APPLICATION_QUERY_KEY,
+        'list',
+      ],
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: connectionService.getContext() },
+        BASE_PAYROLL_APPLICATION_QUERY_KEY,
+        'detail',
+        payrollSystem.name,
+      ],
+    });
+
+    await queryClient.invalidateQueries({
+      queryKey: [
+        SUBI_CONNECT_QUERY_KEY,
+        { context: connectionService.getContext() },
+        BASE_COMPANY_QUERY_KEY,
+        'detail',
+      ],
+    });
+
     setOpen(false);
     setIsPending(false);
   }, [setOpen, setIsPending, onIntegrationSuccess, payrollSystem]);
@@ -97,13 +155,13 @@ const Integrate: React.FC<{
     async (authWindow: Window | null, data: ConnectPayrollResponse) => {
       switch (data.type) {
         case PayrollConnectionTypeEnum.OAUTH2:
-          await handleOAuth2OnSuccess(
+          await handleOAuth2OnSuccess({
             authWindow,
-            data.redirectUri,
-            handleSetPending,
+            redirectUri: data.redirectUri,
+            setIsPending,
             setWindowFailed,
-            onSuccess,
-          );
+            onSuccess: handleWorkflowOnSuccess,
+          });
           break;
 
         case PayrollConnectionTypeEnum.CUSTOM:
@@ -111,13 +169,13 @@ const Integrate: React.FC<{
           break;
 
         case PayrollConnectionTypeEnum.OAUTH2_AND_COMPANY_MANUALLY:
-          await handleOAuth2OnSuccess(
+          await handleOAuth2OnSuccess({
             authWindow,
-            data.redirectUri,
+            redirectUri: data.redirectUri,
             setIsPending,
             setWindowFailed,
-            onSuccess,
-          );
+            onSuccess: handleWorkflowOnSuccess,
+          });
           setOpen(true);
           break;
       }
@@ -158,7 +216,6 @@ const Integrate: React.FC<{
         {
           onSuccess: (data) => {
             setData(data);
-
             handleConnectOnSuccess(authWindow, data);
           },
           onError: () => {
@@ -172,20 +229,26 @@ const Integrate: React.FC<{
   );
 
   return (
-    <Dialogue modal open={open} onOpenChange={handleOnOpenChange}>
-      <DialogueTrigger asChild>
-        <Trigger onClick={handleConnect} disabled={isPending} />
-      </DialogueTrigger>
-      <DialogueContent
-        aria-describedby='A dialogue to connect and integrate with a payroll system'
-        className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-4xl'
-      >
-        <DialogueTitle className='sc-sr-only'>
-          Connect and Integrate {getPayrollFriendlyName(payrollSystem)}
-        </DialogueTitle>
-        <CustomPayrollIntegrationWorkflow onSuccess={handleWorkflowOnSuccess} />
-      </DialogueContent>
-    </Dialogue>
+    <React.Fragment>
+      <Dialogue modal open={open} onOpenChange={handleOnOpenChange}>
+        <DialogueTrigger asChild>
+          <Trigger onClick={handleConnect} disabled={isPending} />
+        </DialogueTrigger>
+        <DialogueContent
+          aria-describedby='A dialogue to connect and integrate with a payroll system'
+          className='sc-flex sc-h-auto sc-max-h-[80%] sc-w-10/12 sc-max-w-xl sc-flex-col sc-overflow-y-auto md:sc-max-w-4xl'
+        >
+          <DialogueTitle className='sc-sr-only'>
+            Connect and Integrate {getPayrollFriendlyName(payrollSystem)}
+          </DialogueTitle>
+          <CustomPayrollIntegrationWorkflow
+            onSuccess={handleWorkflowOnSuccess}
+          />
+        </DialogueContent>
+      </Dialogue>
+
+      <Portal onSuccess={handleWorkflowOnSuccess} />
+    </React.Fragment>
   );
 });
 

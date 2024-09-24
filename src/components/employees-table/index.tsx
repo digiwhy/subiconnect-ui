@@ -1,3 +1,4 @@
+import { useSubiConnectContext } from '@/context/subi-connect';
 import { listAllEmployees } from '@/services/api/employee/actions';
 import { listAllOrganisations } from '@/services/api/payroll/actions';
 import type { ColumnDef, ListOptions } from '@/types/components/data-table';
@@ -10,13 +11,15 @@ const EmployeesTable: React.FC<{
   columns: ColumnDef<Employee>[];
   enabledColumns?: SelectableEmployeeColumns[];
 }> = ({ columns, enabledColumns = [] }) => {
+  const { connectionService } = useSubiConnectContext();
+
   const listAction = React.useCallback(
     (options: ListOptions | undefined) =>
-      listAllEmployees({
+      listAllEmployees(connectionService)({
         ...options,
         params: { fields: enabledColumns, ...options?.params },
       }),
-    [enabledColumns],
+    [enabledColumns, connectionService],
   );
 
   const filterOptions = [
@@ -24,7 +27,7 @@ const EmployeesTable: React.FC<{
       columnId: 'organisation',
       title: 'Organisation',
       accessorKey: 'payrollCompanyOrganisationId',
-      listAction: listAllOrganisations,
+      listAction: listAllOrganisations(connectionService),
     },
   ] satisfies DataTableToolbarFilterOptions<Employee, unknown>;
 

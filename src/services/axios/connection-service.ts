@@ -1,26 +1,15 @@
+import { httpClient } from '.';
 import type { ConnectionServiceResetOptions } from './types';
 import { ACCESS_TOKEN_NAME } from '@/constants';
 import type { SubiConnectConnectionFn } from '@/types/main';
+import type { AxiosInstance } from 'axios';
 
 const DEFAULT_CONTEXT = '';
 
-// Singleton to store the connection function
-export default class ConnectionService {
-  private static instance: ConnectionService;
+export class ConnectionService {
   private connectionFn: SubiConnectConnectionFn | null = null;
   private context: string = DEFAULT_CONTEXT;
-  private baseUrl: string;
-
-  private constructor() {
-    this.baseUrl = this.hexEncodeContext(window.location.origin);
-  }
-
-  public static getInstance(): ConnectionService {
-    if (!ConnectionService.instance) {
-      ConnectionService.instance = new ConnectionService();
-    }
-    return ConnectionService.instance;
-  }
+  private httpClient: AxiosInstance;
 
   /**
    * Initialise the connection service with a connection function and context.
@@ -28,7 +17,7 @@ export default class ConnectionService {
    * @param context - The context to use for the connection.
    * @returns The connection service.
    */
-  public initialise({
+  constructor({
     connectionFn,
     context,
   }: {
@@ -37,8 +26,7 @@ export default class ConnectionService {
   }) {
     this.setConnectionFn(connectionFn);
     this.setContext(context);
-
-    return this;
+    this.httpClient = httpClient({ connectionService: this });
   }
 
   public setConnectionFn(fn: SubiConnectConnectionFn | null) {
@@ -83,6 +71,10 @@ export default class ConnectionService {
     return this;
   }
 
+  public getHttpClient() {
+    return this.httpClient;
+  }
+
   private updateAccessTokenContext({
     oldContext,
     newContext,
@@ -107,9 +99,6 @@ export default class ConnectionService {
     if (!keepAccessToken) {
       localStorage.removeItem(this.getStorageKey());
     }
-
-    this.context = DEFAULT_CONTEXT;
-    this.connectionFn = null;
     return this;
   }
 
@@ -129,6 +118,6 @@ export default class ConnectionService {
   }
 
   private getStorageKey(context: string = this.context) {
-    return `${ACCESS_TOKEN_NAME}__${this.baseUrl}_${context}`;
+    return `${ACCESS_TOKEN_NAME}__${context}`;
   }
 }

@@ -1,15 +1,15 @@
-import { listAllEmployees } from '../services/api/employee/actions';
-import type { EmployeeFilterFields } from '../services/api/employee/types';
+import { useSubiConnectQuery } from './use-subi-connect-query';
+import { useSubiConnectContext } from '@/context/subi-connect';
+import { listAllEmployees } from '@/services/api/employee/actions';
+import type { EmployeeFilterFields } from '@/services/api/employee/types';
 import type {
   ListOptions,
   PaginationResponse,
-} from '../types/components/data-table';
-import type { Employee, SelectableEmployeeColumns } from '../types/employee';
-import type { BaseQueryOptions } from '../types/query';
-import type { DeepPartial } from '../types/utils';
-import { useSubiConnectQuery } from './use-subi-connect-query';
-import ConnectionService from '@/services/axios/connection-service';
+} from '@/types/components/data-table';
+import type { Employee, SelectableEmployeeColumns } from '@/types/employee';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
+import type { BaseQueryOptions } from '@/types/query';
+import type { DeepPartial } from '@/types/utils';
 import { type UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -25,6 +25,8 @@ type UseEmployeesOptions = {
 };
 
 export const useEmployees = (options?: UseEmployeesOptions) => {
+  const { connectionService } = useSubiConnectContext();
+
   const params = React.useMemo(
     () => ({
       ...options?.listOptions?.params,
@@ -37,7 +39,7 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
   const queryKey = React.useMemo(
     () => [
       SUBI_CONNECT_QUERY_KEY,
-      { context: ConnectionService.getInstance().getContext() },
+      { context: connectionService.getContext() },
       BASE_EMPLOYEES_QUERY_KEY,
       'list',
       {
@@ -49,11 +51,11 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
 
   const queryFn = React.useCallback(
     async () =>
-      listAllEmployees({
+      listAllEmployees(connectionService)({
         ...options?.listOptions,
         params: params,
       }),
-    [options?.listOptions, params],
+    [options?.listOptions, params, connectionService],
   );
 
   return useSubiConnectQuery({
