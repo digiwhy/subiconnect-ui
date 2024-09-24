@@ -1,11 +1,11 @@
-import { getAccountPayroll } from '../services/api/payroll/actions';
-import type { AccountPayrollSystemExtended } from '../types/application';
-import type { Payroll } from '../types/payroll';
-import type { BaseQueryOptions } from '../types/query';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from './use-payroll-systems';
 import { useSubiConnectQuery } from './use-subi-connect-query';
-import ConnectionService from '@/services/axios/connection-service';
+import { useSubiConnectContext } from '@/context/subi-connect';
+import { getAccountPayroll } from '@/services/api/payroll/actions';
+import type { AccountPayrollSystemExtended } from '@/types/application';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
+import type { Payroll } from '@/types/payroll';
+import type { BaseQueryOptions } from '@/types/query';
 import type { UseQueryOptions } from '@tanstack/react-query';
 import React from 'react';
 
@@ -19,10 +19,12 @@ export const useAccountPayrollSystem = (
   payroll: Payroll,
   options?: UsePayrollSystemsOptions,
 ) => {
+  const { connectionService } = useSubiConnectContext();
+
   const queryKey = React.useMemo(
     () => [
       SUBI_CONNECT_QUERY_KEY,
-      { context: ConnectionService.getInstance().getContext() },
+      { context: connectionService.getContext() },
       BASE_PAYROLL_APPLICATION_QUERY_KEY,
       'detail',
       payroll,
@@ -31,8 +33,8 @@ export const useAccountPayrollSystem = (
   );
 
   const queryFn = React.useCallback(
-    async () => getAccountPayroll({ payroll }),
-    [payroll],
+    async () => getAccountPayroll(connectionService)({ payroll }),
+    [payroll, connectionService],
   );
 
   return useSubiConnectQuery({

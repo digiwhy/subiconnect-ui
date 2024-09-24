@@ -1,3 +1,4 @@
+import { useSubiConnectContext } from '@/context/subi-connect';
 import { useSubiConnectMutation } from '@/hooks/use-subi-connect-query';
 import {
   connectPayroll,
@@ -16,12 +17,17 @@ export type UsePostPayrollIntegrationProps = {
 };
 
 export const usePostPayrollIntegration = () => {
+  const { connectionService } = useSubiConnectContext();
+
   return useSubiConnectMutation({
     mutationFn: ({
       payrollSystem,
       integrationParams,
     }: UsePostPayrollIntegrationProps) => {
-      return integratePayroll({ payrollSystem, integrationParams });
+      return integratePayroll(connectionService)({
+        payrollSystem,
+        integrationParams,
+      });
     },
   });
 };
@@ -34,9 +40,11 @@ export type UsePostConnectPayrollProps = {
 };
 
 export const usePostConnectPayroll = () => {
+  const { connectionService } = useSubiConnectContext();
+
   return useSubiConnectMutation({
     mutationFn: ({ payroll }: UsePostConnectPayrollProps) => {
-      return connectPayroll({
+      return connectPayroll(connectionService)({
         payroll,
         options: { params: { authWindow: true } },
       });

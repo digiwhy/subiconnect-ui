@@ -3,7 +3,6 @@ import PayrollIntegrationListGrid, {
   type PayrollIntegrationListGridProps,
 } from './grid';
 import { Loading } from './loading';
-import { PayrollIntegrationProvider } from '@/context/payroll-integration';
 import { usePayrollSystems } from '@/hooks/use-payroll-systems';
 import type { AccountPayrollSystemExtended } from '@/types';
 import React from 'react';
@@ -58,12 +57,11 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
   }
 
   return (
-    <PayrollIntegrationProvider onIntegrationSuccess={onIntegrationSuccess}>
-      <PayrollIntegrationListGrid
-        payrollSystems={payrollSystems.results}
-        {...gridProps}
-      />
-    </PayrollIntegrationProvider>
+    <PayrollIntegrationListGrid
+      payrollSystems={payrollSystems.results}
+      onIntegrationSuccess={onIntegrationSuccess}
+      {...gridProps}
+    />
   );
 };
 

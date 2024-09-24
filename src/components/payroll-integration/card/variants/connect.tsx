@@ -2,13 +2,9 @@ import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
 import Integrate from '@/components/connect-and-integrate';
 import { useCompany } from '@/hooks/use-company';
-import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { getPayrollFriendlyName } from '@/lib/utils';
-import ConnectionService from '@/services/axios/connection-service';
-import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import { Skeleton } from '@/ui/skeleton';
-import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 
 const Trigger = React.forwardRef<
@@ -27,20 +23,7 @@ const Trigger = React.forwardRef<
 Trigger.displayName = 'Trigger';
 
 const ConnectAction: React.FC = () => {
-  const queryClient = useQueryClient();
-
-  const handleIntegrateOnSuccess = React.useCallback(async () => {
-    await queryClient.invalidateQueries({
-      queryKey: [
-        SUBI_CONNECT_QUERY_KEY,
-        { context: ConnectionService.getInstance().getContext() },
-        BASE_PAYROLL_APPLICATION_QUERY_KEY,
-        'list',
-      ],
-    });
-  }, []);
-
-  return <Integrate Trigger={Trigger} onSuccess={handleIntegrateOnSuccess} />;
+  return <Integrate Trigger={Trigger} />;
 };
 
 export const ConnectCard: React.FC = () => {

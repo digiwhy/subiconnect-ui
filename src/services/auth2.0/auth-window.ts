@@ -1,14 +1,18 @@
 import type React from 'react';
 
-const waitForWindowClose = (
-  authWindow: Window | null | undefined,
-  setPending: React.Dispatch<React.SetStateAction<boolean>>,
-  onSuccess: () => void,
-): Promise<void> => {
+const waitForWindowClose = ({
+  authWindow,
+  setIsPending,
+  onSuccess,
+}: {
+  authWindow: Window | null | undefined;
+  setIsPending: React.Dispatch<React.SetStateAction<boolean>>;
+  onSuccess: () => Promise<void>;
+}): Promise<void> => {
   return new Promise((resolve) => {
     const reset = () => {
       clearInterval(checkWindowClosed);
-      setPending(false);
+      setIsPending(false);
       resolve();
     };
 
@@ -18,12 +22,12 @@ const waitForWindowClose = (
       }
     }, 500);
 
-    const handleMessage = (event: MessageEvent) => {
+    const handleMessage = async (event: MessageEvent) => {
       if (event.data === 'auth_complete') {
         authWindow?.close();
         clearInterval(checkWindowClosed);
-        setPending(false);
-        onSuccess();
+        await onSuccess();
+        setIsPending(false);
         resolve();
       }
     };
@@ -38,15 +42,19 @@ const waitForWindowClose = (
   });
 };
 
-export const handleOAuth2OnSuccess = async (
-  authWindow: Window | null | undefined,
-  redirectUri: string,
-  setPending: React.Dispatch<React.SetStateAction<boolean>>,
-  setWindowFailed: React.Dispatch<React.SetStateAction<boolean>>,
-  onSuccess: () => void,
-) => {
-  // Check if the popup was blocked
-
+export const handleOAuth2OnSuccess = async ({
+  authWindow,
+  redirectUri,
+  setIsPending,
+  setWindowFailed,
+  onSuccess,
+}: {
+  authWindow: Window | null | undefined;
+  redirectUri: string;
+  setIsPending: React.Dispatch<React.SetStateAction<boolean>>;
+  setWindowFailed: React.Dispatch<React.SetStateAction<boolean>>;
+  onSuccess: () => Promise<void>;
+}) => {
   if (authWindow === undefined) {
     const width = 600,
       height = 600;
@@ -56,7 +64,7 @@ export const handleOAuth2OnSuccess = async (
     authWindow = window.open(
       redirectUri,
       '',
-      `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+      `popup, toolbar=no, location=no, directories=no, status=no, menubar=no, 
         scrollbars=no, copyhistory=no, width=${width}, 
         height=${height}, top=${top}, left=${left}`,
     );
@@ -73,5 +81,5 @@ export const handleOAuth2OnSuccess = async (
     setWindowFailed(false);
   }
 
-  return await waitForWindowClose(authWindow, setPending, onSuccess);
+  return await waitForWindowClose({ authWindow, setIsPending, onSuccess });
 };

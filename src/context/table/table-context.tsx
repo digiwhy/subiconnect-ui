@@ -1,8 +1,8 @@
+import { useSubiConnectContext } from '../subi-connect';
 import useSearchParams, {
   FILTER_SEARCH_PARAM_PREFIX,
 } from '@/hooks/internal/use-serach-params';
 import { createNestedObjectFromString } from '@/lib/utils';
-import ConnectionService from '@/services/axios/connection-service';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types';
 import type {
   PaginationResponse,
@@ -112,6 +112,7 @@ export const DataTableProvider = <TData,>({
   queryOptions,
 }: DataTableProviderProps<TData>) => {
   const { getSearchParam, setSearchParam, getAllParams } = useSearchParams();
+  const { connectionService } = useSubiConnectContext();
 
   const getParamName = React.useCallback((param: SearchParam | string) => {
     return `${param}`;
@@ -177,7 +178,7 @@ export const DataTableProvider = <TData,>({
   const queryKey: QueryKey = React.useMemo(() => {
     return [
       SUBI_CONNECT_QUERY_KEY,
-      { context: ConnectionService.getInstance().getContext() },
+      { context: connectionService.getContext() },
       name.toLowerCase(),
       'list',
       { filters: { ...params, ...queryKeyFilters } },
