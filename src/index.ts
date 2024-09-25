@@ -7,6 +7,8 @@ export * from './hooks';
 
 export * from './types';
 
+export { cleanupAll } from './lib/cleanup';
+
 export {
   SubiConnectProvider,
   type SubiConnectProviderProps,
