@@ -8,9 +8,13 @@ on:
 
 jobs:
   deploy-all:
+    uses: ./.github/workflows/deploy-demo.yml
     strategy:
       matrix:
         env: [dev, stg, prod]
-    uses: ./.github/workflows/deploy-demo.yml
     with:
       env: ${{ matrix.env }}
+    permissions:
+      id-token: write
+      contents: read
+    secrets: inherit

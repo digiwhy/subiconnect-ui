@@ -72,3 +72,7 @@ jobs:
     needs: release
     if: needs.release.outputs.published == 'true'
     uses: ./.github/workflows/deploy-all-demos.yml
+    secrets: inherit
+    permissions:
+      id-token: write
+      contents: read
