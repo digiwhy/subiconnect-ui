@@ -4,6 +4,7 @@ import LocalLogger from './local-logger';
 class Logger implements ILogger {
   private logger: ILogger;
   private enabled: boolean = true;
+  private env: string | undefined = process.env.NODE_ENV;
 
   constructor(logger: ILogger = new LocalLogger(), enabled: boolean = true) {
     this.enabled = enabled;
@@ -14,7 +15,7 @@ class Logger implements ILogger {
     key: string,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    if (this.enabled) {
+    if (this.env === 'development' && this.enabled) {
       return this.logger.log(key, customData);
     }
   }
@@ -24,7 +25,7 @@ class Logger implements ILogger {
     error: Error,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    if (this.enabled) {
+    if (this.env === 'development' && this.enabled) {
       return this.logger.error(key, error, customData);
     }
   }
@@ -35,6 +36,35 @@ class Logger implements ILogger {
    */
   public setEnabled(enabled: boolean): void {
     this.enabled = enabled;
+  }
+
+  /**
+   * Set the environment.
+   * @param env 'development' or 'production'.
+   */
+  public setEnvironment(env?: 'development' | 'production'): void {
+    this.env = env;
+  }
+
+  /**
+   * Initialise the logger with the provided options.
+   * @param env 'development' or 'production'.
+   * @param enabled true to enable logging.
+   */
+  public initialise({
+    env,
+    enabled,
+  }: {
+    env?: 'development' | 'production';
+    enabled: boolean;
+  }): void {
+    this.setEnvironment(env);
+    this.setEnabled(enabled);
+
+    if (env === 'development' && enabled) {
+      this.log('Subi Connect Logger: [Environment] [development 🔨]');
+      this.log('Subi Connect Logger: [Enabled] [true ✅]');
+    }
   }
 }
 

@@ -7,16 +7,14 @@ class LocalLogger implements ILogger {
   ): Promise<void> {
     const logMessage = `%c [🔗] `;
 
-    if (process.env.NODE_ENV === 'development') {
-      console.log(
-        ...[
-          logMessage,
-          'color: #5E17EB; background: #E6E6EE;',
-          key,
-          customData,
-        ].filter(Boolean),
-      );
-    }
+    console.log(
+      ...[
+        logMessage,
+        'color: #5E17EB; background: #E6E6EE;',
+        key,
+        customData,
+      ].filter(Boolean),
+    );
   }
 
   public async error(
@@ -24,19 +22,17 @@ class LocalLogger implements ILogger {
     error: Error,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    const logMessage = `%c [🔗🚨] `;
+    const logMessage = `%c [🔗][🚨] `;
 
-    if (process.env.NODE_ENV === 'development') {
-      console.error(
-        ...[
-          logMessage,
-          'color: #000650; background: #FEECEC;',
-          `${key} [${error.message}]`,
-          { error },
-          customData,
-        ].filter(Boolean),
-      );
-    }
+    console.error(
+      ...[
+        logMessage,
+        'color: #000650; background: #FEECEC;',
+        `${key} [${error.message}]`,
+        { error },
+        customData,
+      ].filter(Boolean),
+    );
   }
 }
 
