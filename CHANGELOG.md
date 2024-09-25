@@ -1,5 +1,34 @@
 # @subifinancial/subi-connect
 
+## 3.1.0
+
+### Minor Changes
+
+- [#155](https://github.com/subifinancial/subi-connect/pull/155)
+  [`427f161`](https://github.com/subifinancial/subi-connect/commit/427f1615c5be2f6a8e6560e199318ecdc10ac876)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - - Removed all
+  global instances of axios and connection service for better performance on
+  multi-tenant workflows.
+  - Updated the authentication window process.
+  - Introduced a new `cleanupAll` function to clear all access tokens and
+    optionally invalidate the SubiConnect query cache.
+  - **Removed Singleton Pattern**: Removed the singleton instance and static
+    `getInstance` method, allowing for instantiation via the constructor.
+  - **Constructor Changes**:
+    - Introduced constructor to initialise `connectionFn` and `context`.
+    - Initialised `httpClient` using the `httpClient` function from the index
+      module.
+  - **Updated Storage Key Method**: Simplified `getStorageKey()` by removing
+    base URL dependency.
+  - **HTTP Client Creation**: Replaced direct Axios client creation with a new
+    `httpClient` function that accepts a `ConnectionService` instance.
+  - **Interceptors Setup**: Moved the request and response interceptor setup to
+    the new `httpClient` function.
+  - **Auth Window Handling**: Improved handling of the auth window, including
+    better error handling and cleanup.
+  - **Connection Service**: Simplified the `ConnectionService` class, removing
+    unnecessary methods and properties.
+
 ## 3.0.2
 
 ### Patch Changes
