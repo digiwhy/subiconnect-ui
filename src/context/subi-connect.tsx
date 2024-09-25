@@ -78,11 +78,10 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
-  const connectionService = new ConnectionService({
-    connectionFn,
-    context: companyContext,
-  });
-
+  const connectionService = React.useMemo(
+    () => new ConnectionService({ connectionFn, context: companyContext }),
+    [connectionFn, companyContext],
+  );
   /**
    * Handle the connection between client and Subi Connect. Uses the provided
    * `connectionFn` to get the access token for the client, organisation pair.

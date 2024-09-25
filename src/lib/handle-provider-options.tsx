@@ -9,12 +9,16 @@ import type { ConnectionService } from '@/services/axios/connection-service';
  * Handle all the debug options for the SubiConnectProvider.
  */
 const handleDebugOptions = ({
+  NODE_ENV,
   baseURL,
   disabledLogging,
   connectionService,
 }: SubiConnectDebugOptions & { connectionService: ConnectionService }) => {
   if (baseURL) connectionService.getHttpClient().defaults.baseURL = baseURL;
-  logger.setEnabled(!disabledLogging);
+  logger.initialise({
+    env: NODE_ENV,
+    enabled: !disabledLogging,
+  });
 };
 
 /**
