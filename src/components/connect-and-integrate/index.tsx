@@ -12,6 +12,7 @@ import {
   PayrollConnectionTypeEnum,
 } from '@/services/api/payroll/types';
 import { handleOAuth2OnSuccess } from '@/services/auth2.0/auth-window';
+import { getAuthWindowOptions } from '@/services/auth2.0/utils';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import { Button } from '@/ui/button';
 import {
@@ -32,7 +33,7 @@ const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
     'subi-connect-payroll-integration-grid',
   );
 
-  const handleAuthWindow = async () => {
+  const handleAuthWindow = React.useCallback(async () => {
     if (data) {
       await handleOAuth2OnSuccess({
         authWindow: undefined,
@@ -42,17 +43,16 @@ const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
         onSuccess: onSuccess,
       });
     }
-  };
+  }, [data, setIsPending, setWindowFailed, onSuccess]);
 
-  if (!isPending) {
+  if (!isPending || !container) {
     return null;
   }
 
   return ReactDOM.createPortal(
     <div
       className={cn(
-        'sc-absolute sc-h-full sc-w-full sc-items-center sc-justify-center sc-gap-2 sc-bg-background/50 sc-backdrop-blur-md',
-        isPending ? 'sc-z-10 sc-flex' : '-sc-z-10 sc-hidden',
+        'sc-absolute sc-z-50 sc-flex sc-h-full sc-w-full sc-items-center sc-justify-center sc-gap-2 sc-bg-background/50 sc-backdrop-blur-md',
       )}
     >
       <Loading
@@ -84,7 +84,7 @@ const Integrate: React.FC<{
 }> = React.memo(({ Trigger }) => {
   const { payrollSystem } = usePayrollSystemContext();
   const [open, setOpen] = React.useState<boolean>(false);
-  const { mutateAsync, isPending } = usePostConnectPayroll();
+  const { mutateAsync, isPending: isConnecting } = usePostConnectPayroll();
   const { setIsPending, setData, setWindowFailed, onIntegrationSuccess } =
     usePayrollIntegrationContext();
   const queryClient = useQueryClient();
@@ -152,11 +152,17 @@ const Integrate: React.FC<{
    * Handle the success of the post mutation to connect the payroll.
    */
   const handleConnectOnSuccess = React.useCallback(
-    async (authWindow: Window | null, data: ConnectPayrollResponse) => {
+    async ({
+      authWindow,
+      data,
+    }: {
+      authWindow: Window | null | undefined;
+      data: ConnectPayrollResponse;
+    }) => {
       switch (data.type) {
         case PayrollConnectionTypeEnum.OAUTH2:
-          await handleOAuth2OnSuccess({
-            authWindow,
+          handleOAuth2OnSuccess({
+            authWindow: authWindow,
             redirectUri: data.redirectUri,
             setIsPending,
             setWindowFailed,
@@ -169,8 +175,8 @@ const Integrate: React.FC<{
           break;
 
         case PayrollConnectionTypeEnum.OAUTH2_AND_COMPANY_MANUALLY:
-          await handleOAuth2OnSuccess({
-            authWindow,
+          handleOAuth2OnSuccess({
+            authWindow: authWindow,
             redirectUri: data.redirectUri,
             setIsPending,
             setWindowFailed,
@@ -180,7 +186,7 @@ const Integrate: React.FC<{
           break;
       }
     },
-    [setOpen, setIsPending, setWindowFailed],
+    [setOpen, setIsPending, setWindowFailed, handleWorkflowOnSuccess],
   );
 
   const handleConnect = React.useCallback(
@@ -191,22 +197,14 @@ const Integrate: React.FC<{
       setIsPending(true);
 
       // Open auth window on click to avoid pop up blocking
-      let authWindow: Window | null = null;
+      let authWindow: Window | null | undefined;
+
       if (
         payrollSystem.payrollConnectionType !== PayrollConnectionTypeEnum.CUSTOM
       ) {
-        const width = 600,
-          height = 600;
-        const left = window.innerWidth / 2 - width / 2;
-        const top = window.innerHeight / 2 - height / 2;
-
-        authWindow = window.open(
-          undefined,
-          '',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
-        scrollbars=no, copyhistory=no, width=${width}, 
-        height=${height}, top=${top}, left=${left}`,
-        );
+        setTimeout(() => {
+          authWindow = window.open(undefined, '', getAuthWindowOptions());
+        }, 100);
       }
 
       await mutateAsync(
@@ -216,10 +214,10 @@ const Integrate: React.FC<{
         {
           onSuccess: (data) => {
             setData(data);
-            handleConnectOnSuccess(authWindow, data);
+
+            handleConnectOnSuccess({ authWindow, data });
           },
           onError: () => {
-            // TODO: add error handling
             setIsPending(false);
           },
         },
@@ -232,7 +230,7 @@ const Integrate: React.FC<{
     <React.Fragment>
       <Dialogue modal open={open} onOpenChange={handleOnOpenChange}>
         <DialogueTrigger asChild>
-          <Trigger onClick={handleConnect} disabled={isPending} />
+          <Trigger onClick={handleConnect} disabled={isConnecting} />
         </DialogueTrigger>
         <DialogueContent
           aria-describedby='A dialogue to connect and integrate with a payroll system'

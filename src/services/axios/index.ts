@@ -18,6 +18,7 @@ export const httpClient = ({
       'Content-Type': 'application/json',
       accept: 'application/json',
     },
+    withCredentials: true,
   });
 
   client.interceptors.request.use(

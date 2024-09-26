@@ -1,3 +1,4 @@
+import { getAuthWindowOptions } from './utils';
 import type React from 'react';
 
 const waitForWindowClose = ({
@@ -56,18 +57,7 @@ export const handleOAuth2OnSuccess = async ({
   onSuccess: () => Promise<void>;
 }) => {
   if (authWindow === undefined) {
-    const width = 600,
-      height = 600;
-    const left = window.innerWidth / 2 - width / 2;
-    const top = window.innerHeight / 2 - height / 2;
-
-    authWindow = window.open(
-      redirectUri,
-      '',
-      `popup, toolbar=no, location=no, directories=no, status=no, menubar=no, 
-        scrollbars=no, copyhistory=no, width=${width}, 
-        height=${height}, top=${top}, left=${left}`,
-    );
+    authWindow = window.open(redirectUri, '', getAuthWindowOptions());
   }
 
   if (
