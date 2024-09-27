@@ -1,5 +1,25 @@
 # @subifinancial/subi-connect
 
+## 3.1.1
+
+### Patch Changes
+
+- [#160](https://github.com/subifinancial/subi-connect/pull/160)
+  [`11ec1a5`](https://github.com/subifinancial/subi-connect/commit/11ec1a5a479d9800da94336f995e05d50ed6dc3a)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - ## Purpose
+
+  This PR refactors the OAuth2 authentication flow and improves the handling of
+  authentication windows. It introduces a new utility function for generating
+  auth window options and updates the connect and integrate component to use
+  this new approach.
+
+  ## Problem Solved
+
+  The changes aim to enhance the reliability and consistency of the OAuth2
+  authentication process, particularly in handling authentication windows across
+  different scenarios. It also improves code reusability by extracting common
+  logic into a separate utility function.
+
 ## 3.1.0
 
 ### Minor Changes
