@@ -73,7 +73,7 @@ export const AuthenticationProvider = ({
 
       setApiKeyLocalStorage(value);
     },
-    [setApiKeyLocalStorage],
+    [setApiKeyLocalStorage, apiKey],
   );
 
   const handleSetApiKey = (value: string) => {
