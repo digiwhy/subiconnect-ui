@@ -30,11 +30,13 @@ import React from 'react';
 export type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   toolbarProps?: TypedOmit<DataTableToolbarProps<TData, TValue>, 'table'>;
+  rowContexts?: React.FC<{ children: React.ReactNode }>[];
 };
 
 export function DataTable<TData, TValue>({
   columns,
   toolbarProps,
+  rowContexts = [React.Fragment],
 }: Readonly<DataTableProps<TData, TValue>>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const {
@@ -99,21 +101,25 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) =>
+                rowContexts?.map((Context) => (
+                  <Context key={row.id}>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </Context>
+                )),
+              )
             ) : (
               <TableRow>
                 <TableCell

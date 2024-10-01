@@ -30,7 +30,35 @@ export const HourlyRate: Story = {
   },
 };
 
-export const ALL: Story = {
+export const PayCycle: Story = {
+  args: {
+    enabledColumns: [SelectableEmployeeColumns.PAYCYCLE],
+  },
+};
+
+export const NextPaymentDate: Story = {
+  args: {
+    enabledColumns: [SelectableEmployeeColumns.NEXT_PAYMENT_DATE],
+  },
+};
+
+export const StartEmploymentDate: Story = {
+  args: {
+    enabledColumns: [SelectableEmployeeColumns.START_EMPLOYMENT_DATE],
+  },
+};
+
+export const AllCalendars: Story = {
+  args: {
+    enabledColumns: [
+      SelectableEmployeeColumns.PAYCYCLE,
+      SelectableEmployeeColumns.NEXT_PAYMENT_DATE,
+      SelectableEmployeeColumns.START_EMPLOYMENT_DATE,
+    ],
+  },
+};
+
+export const AllSalaries: Story = {
   args: {
     enabledColumns: [
       SelectableEmployeeColumns.SALARY,
