@@ -15,60 +15,84 @@ export enum EmployeeCalendarType {
   QUARTERLY = 'QUARTERLY',
 }
 
-export interface EmployeeSalary {
+export type EmployeeSalary = {
+  /**
+   * The id of the salary.
+   */
+  id: number;
+
   /**
    * The decimals for the currency.
    */
   decimal: number | null;
+
   /**
    * The salary of the employee in the currency.
    * E.g., value = 5000000; decimal = 2 => $50,000.00
    */
   value?: number | null;
+
   /**
    * The calculated hourly rate of the employee based on their yearly salary.
    */
   hourlyRate?: number | null;
-}
+};
 
-export interface EmployeeCalendar {
-  paycycle?: EmployeeCalendarType;
-  nextPaymentDate?: string;
-  startEmploymentDate?: string;
-}
+export type EmployeeCalendar = {
+  /**
+   * The id of the calendar.
+   */
+  id: number;
 
-export interface EmployeeSync {
+  /**
+   * The type of pay cycle for the employee.
+   */
+  paycycle: EmployeeCalendarType;
+
+  /**
+   * The next payment date for the employee.
+   */
+  nextPaymentDate: string;
+
+  /**
+   * The start employment date for the employee.
+   */
+  startEmploymentDate: string;
+};
+
+export type EmployeeSync = {
   lastSyncAt: Date;
   syncedAt?: Date;
   status: SyncStatus;
-}
+};
 
-export interface EmployeeInfo {
+export type EmployeeInfo = {
   firstName: string;
   lastName: string;
   dateOfBirth?: Date;
   tfn?: string;
-  email?: string;
-  salary?: EmployeeSalary;
-  calendar?: EmployeeCalendar;
-}
-export interface EmployeePayrollOrganisation {
+  emails?: string[];
+  salaries?: EmployeeSalary[];
+  calendars?: EmployeeCalendar[];
+};
+
+export type EmployeePayrollOrganisation = {
   id: number;
   name: string;
   referenceId: string;
-}
+};
 
-export interface EmployeeMetadata {
+export type EmployeeMetadata = {
   sync: EmployeeSync;
   createdAt: Date;
   updatedAt?: Date;
-}
+};
 
-export interface EmployeePayroll {
+export type EmployeePayroll = {
   name: Payroll;
   referenceEmployeeId: string;
   organisation: EmployeePayrollOrganisation;
-}
+};
 
 export type Employee = {
   id: number;
@@ -82,6 +106,6 @@ export enum SelectableEmployeeColumns {
   SALARY = 'salary',
   HOURLY_RATE = 'hourlyRate',
   NEXT_PAYMENT_DATE = 'nextPaymentDate',
-  START_EMPLOYEMENT_DATE = 'startEmploymentDate',
+  START_EMPLOYMENT_DATE = 'startEmploymentDate',
   PAYCYCLE = 'paycycle',
 }
