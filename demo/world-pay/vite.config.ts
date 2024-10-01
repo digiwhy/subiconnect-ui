@@ -1,33 +1,34 @@
 import react from '@vitejs/plugin-react-swc';
-import dotenv from 'dotenv';
 import os from 'os';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
-dotenv.config();
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd());
 
-const key = process.env.VITE_KEY;
-const cert = process.env.VITE_CERT;
+  const key = env.VITE_KEY;
+  const cert = env.VITE_CERT;
 
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+  return {
+    plugins: [react()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
     },
-  },
-  css: {
-    postcss: './postcss.config.js',
-  },
-  server: {
-    port: 3001,
-    ...(key && cert
-      ? {
-          https: {
-            key: `${os.homedir()}/${key}`,
-            cert: `${os.homedir()}/${cert}`,
-          },
-        }
-      : {}),
-  },
+    css: {
+      postcss: './postcss.config.js',
+    },
+    server: {
+      port: 3001,
+      ...(key && cert
+        ? {
+            https: {
+              key: `${os.homedir()}/${key}`,
+              cert: `${os.homedir()}/${cert}`,
+            },
+          }
+        : {}),
+    },
+  };
 });
