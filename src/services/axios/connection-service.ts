@@ -105,6 +105,13 @@ export class ConnectionService {
     return this;
   }
 
+  public updateAccessToken(token: string) {
+    this.setAccessToken(token);
+    this.httpClient.defaults.headers.common['Authorization'] =
+      `Bearer ${token}`;
+    return this;
+  }
+
   private hexEncodeContext(context: string) {
     return Array.from(context)
       .map((char) => char.charCodeAt(0).toString(16).padStart(2, '0'))

@@ -67,10 +67,8 @@ const onErrorResponse =
           return Promise.reject(error);
         }
 
-        // Update the token in Axios defaults
-        connectionService.getHttpClient().defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${newToken}`;
+        // Update the token
+        connectionService.updateAccessToken(newToken);
         // Update the token on the original request
         originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
 
