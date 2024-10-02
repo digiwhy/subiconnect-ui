@@ -13,8 +13,12 @@ export function useSubiConnectQuery<
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
 >(options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>) {
-  useSubiConnectContext();
-  return useQuery(options);
+  const { initialised } = useSubiConnectContext();
+  const { enabled, ...queryOptions } = options;
+  return useQuery({
+    ...queryOptions,
+    enabled: initialised && enabled,
+  });
 }
 
 export function useSubiConnectMutation<
