@@ -1,5 +1,28 @@
 # @subifinancial/subi-connect
 
+## 4.0.3
+
+### Patch Changes
+
+- [#170](https://github.com/subifinancial/subi-connect/pull/170)
+  [`57b9156`](https://github.com/subifinancial/subi-connect/commit/57b9156784f2699457cdf5fe58ad7da11885a8d5)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - This change
+  updates the `SubiConnectProvider` and `useSubiConnectQuery` components to
+  improve dependency management and query execution control. The changes address
+  potential issues with stale closures and ensure that queries are only executed
+  when the SubiConnect context is properly initialised.
+
+  - **Query Execution Control**: The `useSubiConnectQuery` hook now checks the
+    `initialised` state of the SubiConnect context before executing a query.
+    This ensures that queries are not executed prematurely.
+
+- [#171](https://github.com/subifinancial/subi-connect/pull/171)
+  [`a322ebb`](https://github.com/subifinancial/subi-connect/commit/a322ebbd3d56b6c932c930aeb48e2ab64d8b6d62)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Added a
+  `updateAccessToken` method in `connection-service.ts` to update the access
+  token in storage, and set the Authorization header with the new token—the
+  error interceptor now uses this method to update the token.
+
 ## 4.0.2
 
 ### Patch Changes
