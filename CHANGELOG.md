@@ -1,5 +1,18 @@
 # @subifinancial/subi-connect
 
+## 4.0.1
+
+### Patch Changes
+
+- [#165](https://github.com/subifinancial/subi-connect/pull/165)
+  [`d77786f`](https://github.com/subifinancial/subi-connect/commit/d77786f70221e5263353c8432d7b959d06bd094c)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - ## Changes
+
+  - Modified the `EmployeesTable` component to return `undefined` when the
+    `contexts` array is empty, instead of returning an empty array. This ensures
+    that when no columns are added, an empty context array isn't provided, so
+    rows show correctly.
+
 ## 4.0.0
 
 ### Major Changes
