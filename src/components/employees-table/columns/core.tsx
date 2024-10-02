@@ -48,12 +48,12 @@ const EmailColum: React.FC<CellContext<Employee, unknown>> = ({ row }) => {
 
   return (
     <Select defaultValue={value}>
-      <div className='sc-flex sc-items-center sc-justify-between sc-gap-2'>
+      <div className='sc-flex sc-items-center sc-justify-between sc-gap-2 sc-overflow-visible'>
         <ClipboardButton id={id} data-email-value={value} getValue={getValue}>
           <SelectValue />
         </ClipboardButton>
-        <SelectTrigger className='sc-group sc-relative sc-flex sc-w-fit sc-flex-col sc-items-center sc-justify-center sc-border-none sc-p-0'>
-          <div className='sc-absolute sc-translate-y-0 sc-text-xs sc-text-muted-foreground sc-opacity-0 sc-transition-all group-hover:-sc-translate-y-3 group-hover:sc-opacity-100'>
+        <SelectTrigger className='sc-group sc-relative sc-flex sc-w-fit sc-flex-col sc-items-center sc-justify-center sc-overflow-visible sc-border-none sc-p-1'>
+          <div className='sc-absolute sc-translate-y-0 sc-text-xs sc-text-muted-foreground sc-opacity-0 sc-transition-[transform,opacity] group-hover:-sc-translate-y-3 group-hover:sc-opacity-100'>
             {row.original.info.emails?.length}
           </div>
         </SelectTrigger>
