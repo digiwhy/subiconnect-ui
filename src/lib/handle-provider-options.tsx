@@ -1,9 +1,14 @@
-import logger from '../services/logger';
 import type {
   SubiConnectDebugOptions,
   SubiConnectOptions,
 } from '../types/main';
 import type { ConnectionService } from '@/services/axios/connection-service';
+import { Logger } from '@/services/logger';
+
+type InternalInitialisationOptions = {
+  connectionService: ConnectionService;
+  logger: Logger;
+};
 
 /**
  * Handle all the debug options for the SubiConnectProvider.
@@ -11,9 +16,10 @@ import type { ConnectionService } from '@/services/axios/connection-service';
 const handleDebugOptions = ({
   NODE_ENV,
   baseURL,
-  disabledLogging,
+  disabledLogging = false,
   connectionService,
-}: SubiConnectDebugOptions & { connectionService: ConnectionService }) => {
+  logger,
+}: SubiConnectDebugOptions & InternalInitialisationOptions) => {
   if (baseURL) connectionService.getHttpClient().defaults.baseURL = baseURL;
   logger.initialise({
     env: NODE_ENV,
@@ -27,6 +33,7 @@ const handleDebugOptions = ({
 export const handleProviderOptions = ({
   debug,
   connectionService,
-}: SubiConnectOptions & { connectionService: ConnectionService }) => {
-  if (debug) handleDebugOptions({ ...debug, connectionService });
+  logger,
+}: SubiConnectOptions & InternalInitialisationOptions) => {
+  if (debug) handleDebugOptions({ ...debug, connectionService, logger });
 };
