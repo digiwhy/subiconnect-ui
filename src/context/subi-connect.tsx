@@ -1,6 +1,6 @@
 import { handleProviderOptions } from '@/lib/handle-provider-options';
 import { ConnectionService } from '@/services/axios/connection-service';
-import logger from '@/services/logger';
+import { Logger } from '@/services/logger';
 import {
   SUBI_CONNECT_QUERY_KEY,
   type SubiConnectCleanupProps,
@@ -78,10 +78,13 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
+  const logger = React.useMemo(() => new Logger(), []);
   const connectionService = React.useMemo(
-    () => new ConnectionService({ connectionFn, context: companyContext }),
-    [connectionFn, companyContext],
+    () =>
+      new ConnectionService({ connectionFn, context: companyContext, logger }),
+    [connectionFn, companyContext, logger],
   );
+
   /**
    * Handle the connection between client and Subi Connect. Uses the provided
    * `connectionFn` to get the access token for the client, organisation pair.
@@ -92,7 +95,8 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     /**
      * Handle options passed to the `SubiConnectProvider`.
      */
-    if (options) handleProviderOptions({ ...options, connectionService });
+    if (options)
+      handleProviderOptions({ ...options, connectionService, logger });
 
     const initConnection = async () => {
       try {

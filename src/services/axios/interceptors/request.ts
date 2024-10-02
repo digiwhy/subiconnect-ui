@@ -1,17 +1,17 @@
-import logger from '@/services/logger';
+import type { ILogger } from '@/services/logger/ILogger';
 import type { InternalAxiosRequestConfig } from 'axios';
 
-const onRequest = (
-  config: InternalAxiosRequestConfig,
-): InternalAxiosRequestConfig => {
-  const { method, url } = config;
+const onRequest =
+  ({ logger }: { logger: ILogger }) =>
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+    const { method, url } = config;
 
-  logger.log(`[🚀 API] ${method?.toUpperCase()} ${url} | Request`);
+    logger.log(`[🚀 API] ${method?.toUpperCase()} ${url} | Request`);
 
-  if (method === 'get') {
-    config.timeout = 15000;
-  }
-  return config;
-};
+    if (method === 'get') {
+      config.timeout = 15000;
+    }
+    return config;
+  };
 
 export default onRequest;

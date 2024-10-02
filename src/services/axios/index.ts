@@ -1,3 +1,4 @@
+import type { ILogger } from '../logger/ILogger';
 import type { ConnectionService } from './connection-service';
 import onErrorResponse from './interceptors/error';
 import onRequest from './interceptors/request';
@@ -8,8 +9,10 @@ export const BASE_URL = process.env.SUBI_CONNECT_PUBLIC_BASE_URL;
 
 export const httpClient = ({
   connectionService,
+  logger,
 }: {
   connectionService: ConnectionService;
+  logger: ILogger;
 }) => {
   const client = axios.create({
     baseURL: BASE_URL,
@@ -22,12 +25,12 @@ export const httpClient = ({
   });
 
   client.interceptors.request.use(
-    onRequest,
-    onErrorResponse(connectionService),
+    onRequest({ logger }),
+    onErrorResponse({ connectionService, logger }),
   );
   client.interceptors.response.use(
-    onResponse,
-    onErrorResponse(connectionService),
+    onResponse({ logger }),
+    onErrorResponse({ connectionService, logger }),
   );
 
   return client;

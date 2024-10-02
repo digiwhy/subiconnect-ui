@@ -1,8 +1,8 @@
 import type { ILogger } from './ILogger';
 import LocalLogger from './local-logger';
 
-class Logger implements ILogger {
-  private logger: ILogger;
+export class Logger implements ILogger {
+  private readonly logger: ILogger;
   private enabled: boolean = true;
   private env: string | undefined = process.env.NODE_ENV;
 
@@ -15,7 +15,7 @@ class Logger implements ILogger {
     key: string,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    if (this.env === 'development' && this.enabled) {
+    if (this.enabled && this.env === 'development') {
       return this.logger.log(key, customData);
     }
   }
@@ -25,7 +25,7 @@ class Logger implements ILogger {
     error: Error,
     customData?: Record<string, unknown>,
   ): Promise<void> {
-    if (this.env === 'development' && this.enabled) {
+    if (this.enabled && this.env === 'development') {
       return this.logger.error(key, error, customData);
     }
   }
@@ -61,11 +61,9 @@ class Logger implements ILogger {
     this.setEnvironment(env);
     this.setEnabled(enabled);
 
-    if (env === 'development' && enabled) {
+    if (enabled && env === 'development') {
       this.log('Subi Connect Logger: [Environment] [development 🔨]');
       this.log('Subi Connect Logger: [Enabled] [true ✅]');
     }
   }
 }
-
-export default new Logger();

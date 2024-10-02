@@ -1,11 +1,16 @@
 import type { ConnectionService } from '../connection-service';
 import type { InternalAxiosRequestConfig } from '../types';
-import { getAccessToken } from '../utils/get-token';
-import logger from '@/services/logger';
+import type { ILogger } from '@/services/logger/ILogger';
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 
 const onErrorResponse =
-  (connectionService: ConnectionService) =>
+  ({
+    connectionService,
+    logger,
+  }: {
+    connectionService: ConnectionService;
+    logger: ILogger;
+  }) =>
   async (error: AxiosError | Error): Promise<AxiosResponse> => {
     /* Error other than axios. */
     if (!axios.isAxiosError(error)) {
@@ -42,12 +47,21 @@ const onErrorResponse =
         originalRequest._retry = true; // Mark it so that we don't try to retry forever
         const connectionFn = connectionService.getConnectionFn();
 
-        // If the axios client was used outside the Subi Connect Provider.
         if (!connectionFn) {
           return Promise.reject(error);
         }
 
-        const newToken = await getAccessToken(connectionFn);
+        let newToken: string | null = null;
+
+        try {
+          newToken = await connectionFn();
+        } catch (error) {
+          logger.error(
+            '[getAccessToken] Error getting new token',
+            error as Error,
+          );
+          return Promise.reject(error as Error);
+        }
 
         if (!newToken) {
           return Promise.reject(error);
