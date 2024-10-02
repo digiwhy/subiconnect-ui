@@ -20,11 +20,19 @@ export const useEmployeesMockData = {
         info: {
           firstName: 'John',
           lastName: 'Doe',
-          email: 'john.doe@example.com',
-          salary: {
-            value: 6323200,
-            decimal: 2,
-          },
+          emails: ['john.doe@example.com', 'john.doex@example.com'],
+          salaries: [
+            {
+              id: 1,
+              value: 6323200,
+              decimal: 2,
+            },
+            {
+              id: 2,
+              value: 5000000,
+              decimal: 2,
+            },
+          ],
         },
         payroll: {
           organisation: {
@@ -54,11 +62,19 @@ export const useEmployeesMockData = {
         info: {
           firstName: 'James',
           lastName: 'May',
-          email: 'james@may.com',
-          salary: {
-            value: 16323200,
-            decimal: 2,
-          },
+          emails: ['james@may.com', 'james.may@example.com'],
+          salaries: [
+            {
+              id: 1,
+              value: 16323200,
+              decimal: 2,
+            },
+            {
+              id: 2,
+              value: 16323200,
+              decimal: 2,
+            },
+          ],
         },
         payroll: {
           organisation: {
@@ -76,59 +92,7 @@ export const useEmployeesMockData = {
             lastSyncAt: new Date(),
           },
         },
-        // organisationId: 10,
-        // organisationName: 'Johns Bricklaying',
-        // syncStatus: OrganisationSyncStatus.SYNCED,
-        // lastSynced: new Date(),
-        // salaries: [6323200, 5000000],
       },
-      // {
-      //   id: 2,
-      //   info: {
-      //     firstName: 'Jane',
-      //     lastName: 'Smith',
-      //     email: 'jane.smith@example.com',
-      //   },
-      //   // emails: ['jane.smith@example.com'],
-      //   organisationId: 10,
-      //   organisationName: 'Johns Bricklaying',
-      //   syncStatus: OrganisationSyncStatus.SYNCED,
-      //   lastSynced: new Date(),
-      //   salaries: [6323200],
-      // },
-      // {
-      //   id: 3,
-      //   firstName: 'Emily',
-      //   lastName: 'Johnson',
-      //   emails: ['emily.johnson@example.com', 'ej.work@example.com'],
-      //   organisationId: 11,
-      //   organisationName: 'Bobs Bricklaying',
-      //   syncStatus: OrganisationSyncStatus.FAILED,
-      //   lastSynced: new Date(),
-      //   salaries: [6323200],
-      // },
-      // {
-      //   id: 4,
-      //   firstName: 'Michael',
-      //   lastName: 'Williams',
-      //   emails: ['michael.williams@example.com'],
-      //   organisationId: 11,
-      //   organisationName: 'Bobs Bricklaying',
-      //   syncStatus: OrganisationSyncStatus.SYNCING,
-      //   lastSynced: null,
-      //   salaries: [6323200],
-      // },
-      // {
-      //   id: 5,
-      //   firstName: 'Sarah',
-      //   lastName: 'Brown',
-      //   emails: ['sarah.brown@example.com'],
-      //   organisationId: 11,
-      //   organisationName: 'Bobs Bricklaying',
-      //   syncStatus: OrganisationSyncStatus.FAILED,
-      //   lastSynced: null,
-      //   salaries: [],
-      // },
     ],
   } satisfies PaginationResponse<Employee>,
 };
