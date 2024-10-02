@@ -78,7 +78,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [initialised, setInitialised] = React.useState<boolean>(false);
-  const logger = React.useMemo(() => new Logger(), []);
+  const logger = React.useMemo(() => new Logger(), [companyContext]);
   const connectionService = React.useMemo(
     () =>
       new ConnectionService({ connectionFn, context: companyContext, logger }),
@@ -124,7 +124,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     };
 
     initConnection();
-  }, [connectionFn, options, connectionService]);
+  }, [connectionFn, companyContext, options, connectionService]);
 
   /**
    * Clear the access token from local storage and the connection service.
