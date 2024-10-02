@@ -77,7 +77,7 @@ const EmployeesTable: React.FC<{
     ) {
       contexts.push(CalendarContext);
     }
-    return contexts;
+    return contexts.length > 0 ? contexts : undefined;
   }, [enabledColumns, SalaryContext, CalendarContext]);
 
   return (
