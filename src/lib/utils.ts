@@ -12,10 +12,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const removeUndefinedValues = (obj: object) => {
+export const removeUndefinedValues = <T extends object>(obj: T): T => {
   return Object.fromEntries(
     Object.entries(obj).filter(([_, value]) => value !== undefined),
-  );
+  ) as T;
 };
 
 const intl = new Intl.NumberFormat('en-AU', {

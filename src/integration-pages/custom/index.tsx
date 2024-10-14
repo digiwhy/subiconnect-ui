@@ -1,19 +1,24 @@
-import { usePostPayrollIntegration } from './mutation';
+import type { CustomPayrollIntegrationWorkflowInputs } from './types';
 import {
   formComponentsMap,
   otherComponentsMap,
 } from '@/components/payroll-integration-instructions/components-map';
 import { usePayrollSystemContext } from '@/components/payroll-integration/context';
 import { Loading } from '@/components/payroll-integration/loading';
+import { useIntegrateCustomPayrollMutation } from '@/hooks/use-custom-payroll-integration-mutation';
 import { removeUndefinedValues } from '@/lib/utils';
 import { RenderMDX } from '@/mdx/render-mdx';
+import {
+  type IntegrateCustomPayrollParams,
+  type UseIntegrateCustomPayrollMutationProps,
+} from '@/types/integration';
 import { Button } from '@/ui/button';
 import { Form, FormField, FormMessage } from '@/ui/form';
 import React from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
 const API_KEY_NOT_VALID =
-  'Please ensure that the API key and domain are correct and try connecting again. If the issue persists, contact technical support at support@subi.au';
+  'Please ensure that the details are correct and try connecting again. If the issue persists, contact technical support at support@subi.au';
 
 // Mapping other components
 const otherComponents = Object.keys(otherComponentsMap).reduce(
@@ -32,8 +37,6 @@ const otherComponents = Object.keys(otherComponentsMap).reduce(
   {},
 );
 
-export type CustomPayrollIntegrationWorkflowInputs = Record<string, string>;
-
 export type CustomPayrollIntegrationWorkflowProps = {
   onSuccess: () => void;
 };
@@ -41,22 +44,24 @@ export type CustomPayrollIntegrationWorkflowProps = {
 export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegrationWorkflowProps> =
   React.memo(({ onSuccess }) => {
     const { payrollSystem } = usePayrollSystemContext();
-    const form = useForm<CustomPayrollIntegrationWorkflowInputs>();
+    const form = useForm<IntegrateCustomPayrollParams>();
 
     const { register, handleSubmit, setError } = form;
 
-    const { mutateAsync, isPending } = usePostPayrollIntegration();
+    const { mutateAsync, isPending } = useIntegrateCustomPayrollMutation();
 
-    const handleOnSubmit: SubmitHandler<CustomPayrollIntegrationWorkflowInputs> =
+    const handleOnSubmit: SubmitHandler<IntegrateCustomPayrollParams> =
       React.useCallback(
         async (data) => {
           const finalData = removeUndefinedValues(data);
 
+          const payroll = payrollSystem.name;
+
           await mutateAsync(
             {
-              payrollSystem: payrollSystem.name,
+              payrollSystem: payroll,
               integrationParams: finalData,
-            },
+            } as UseIntegrateCustomPayrollMutationProps,
             {
               onSuccess: onSuccess,
               onError: () => {
@@ -86,7 +91,8 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
             >,
             key,
           ) => {
-            const Component = formComponentsMap[key];
+            const Component =
+              formComponentsMap[key as CustomPayrollIntegrationWorkflowInputs];
             if (!Component)
               throw new Error(
                 `Component for key "${key}" is not defined in the components map.`,
@@ -99,7 +105,9 @@ export const CustomPayrollIntegrationWorkflow: React.FC<CustomPayrollIntegration
             ) => (
               <Component
                 {...props}
-                {...register(key, { required: true })}
+                {...register(key as CustomPayrollIntegrationWorkflowInputs, {
+                  required: true,
+                })}
                 /**
                  * search_... is a workaround to prevent the input from being
                  * autocompleted by some browsers.

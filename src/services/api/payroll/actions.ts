@@ -15,17 +15,18 @@ import type {
   ConnectPayrollResponse,
   FindAllSyncingOrganisationsByCompanyIdResult,
 } from './types';
-import type {
-  UsePostPayrollIntegrationProps,
-  UsePostConnectPayrollProps,
-} from '@/integration-pages/custom/mutation';
 import { ConnectionService } from '@/services/axios/connection-service';
 import type { AccountPayrollSystemExtended } from '@/types/application';
 import type {
   PaginationResponse,
   ListOptions,
 } from '@/types/components/data-table';
+import type {
+  UseConnectPayrollMutationProps,
+  UseIntegrateCustomPayrollMutationProps,
+} from '@/types/integration';
 import type { Organisation } from '@/types/organisation';
+import type { Payroll } from '@/types/payroll';
 
 export const listPayrollSystems = withConnectionService(
   async (
@@ -59,7 +60,10 @@ export const listConnectedPayrollSystems = withConnectionService(
 export const integratePayroll = withConnectionService(
   async (
     connectionService: ConnectionService,
-    { payrollSystem, integrationParams }: UsePostPayrollIntegrationProps,
+    {
+      payrollSystem,
+      integrationParams,
+    }: UseIntegrateCustomPayrollMutationProps,
   ): Promise<void> => {
     const httpClient = connectionService.getHttpClient();
     const response = await httpClient.post<void>(
@@ -73,7 +77,7 @@ export const integratePayroll = withConnectionService(
 export const connectPayroll = withConnectionService(
   async (
     connectionService: ConnectionService,
-    { payroll, options }: UsePostConnectPayrollProps,
+    { payroll, options }: UseConnectPayrollMutationProps,
   ): Promise<ConnectPayrollResponse> => {
     const httpClient = connectionService.getHttpClient();
     const response = await httpClient.post<ConnectPayrollResponse>(
@@ -129,7 +133,11 @@ export const listSyncingOrganisations = withConnectionService(
 export const getAccountPayroll = withConnectionService(
   async (
     connectionService: ConnectionService,
-    { payroll }: UsePostConnectPayrollProps,
+    {
+      payroll,
+    }: {
+      payroll: Payroll;
+    },
   ): Promise<AccountPayrollSystemExtended> => {
     const httpClient = connectionService.getHttpClient();
     const response = await httpClient.get<AccountPayrollSystemExtended>(
