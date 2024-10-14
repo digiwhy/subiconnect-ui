@@ -3,9 +3,9 @@ import { Loading } from '../payroll-integration/loading';
 import { usePayrollIntegrationContext } from '@/context/payroll-integration';
 import { useSubiConnectContext } from '@/context/subi-connect';
 import { BASE_COMPANY_QUERY_KEY } from '@/hooks/use-company';
+import { useConnectPayrollMutation } from '@/hooks/use-connect-payroll-mutation';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
-import { usePostConnectPayroll } from '@/integration-pages/custom/mutation';
 import { cn, getPayrollFriendlyName } from '@/lib/utils';
 import {
   type ConnectPayrollResponse,
@@ -84,7 +84,7 @@ const Integrate: React.FC<{
 }> = React.memo(({ Trigger }) => {
   const { payrollSystem } = usePayrollSystemContext();
   const [open, setOpen] = React.useState<boolean>(false);
-  const { mutateAsync, isPending: isConnecting } = usePostConnectPayroll();
+  const { mutateAsync, isPending: isConnecting } = useConnectPayrollMutation();
   const { setIsPending, setData, setWindowFailed, onIntegrationSuccess } =
     usePayrollIntegrationContext();
   const queryClient = useQueryClient();
