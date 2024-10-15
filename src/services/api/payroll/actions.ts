@@ -6,6 +6,7 @@ import {
   getAccountPayrollURL,
   getAllOrganisationsURL,
   getConnectPayrollURL,
+  getIntegrateManualPayrollURL,
   getIntegratePayrollURL,
   getOrganisationsFromPayrollURL,
   getSyncingOrganisationsURL,
@@ -24,6 +25,7 @@ import type {
 import type {
   UseConnectPayrollMutationProps,
   UseIntegrateCustomPayrollMutationProps,
+  UseIntegrateManualPayrollMutationProps,
 } from '@/types/integration';
 import type { Organisation } from '@/types/organisation';
 import type { Payroll } from '@/types/payroll';
@@ -84,6 +86,22 @@ export const connectPayroll = withConnectionService(
       getConnectPayrollURL(payroll),
       {},
       options,
+    );
+    return response.data;
+  },
+);
+
+export const integrateManualPayroll = withConnectionService(
+  async (
+    connectionService: ConnectionService,
+    { payrollName }: UseIntegrateManualPayrollMutationProps,
+  ): Promise<void> => {
+    const httpClient = connectionService.getHttpClient();
+    const response = await httpClient.post<void>(
+      getIntegrateManualPayrollURL(),
+      {
+        payrollName,
+      },
     );
     return response.data;
   },

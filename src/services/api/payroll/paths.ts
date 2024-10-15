@@ -1,5 +1,5 @@
 import { constructAPIURL } from '..';
-import type { Payroll } from '@/types/payroll';
+import { Payroll } from '@/types/payroll';
 
 export const PAYROLL_APPLICATIONS_URL = 'payroll';
 
@@ -13,6 +13,12 @@ export const getIntegratePayrollURL = (payrollSystemId: number | string) => {
 
 export const getConnectPayrollURL = (payroll: Payroll) => {
   return constructAPIURL(PAYROLL_APPLICATIONS_URL + `/${payroll}/connect`);
+};
+
+export const getIntegrateManualPayrollURL = () => {
+  return constructAPIURL(
+    PAYROLL_APPLICATIONS_URL + `/${Payroll.MANUAL}/integrate`,
+  );
 };
 
 export const getAccountPayrollURL = (payroll: Payroll) => {
