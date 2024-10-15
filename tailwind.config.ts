@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import { Config } from 'tailwindcss';
+import animatePlugin from 'tailwindcss-animate';
+
+const config = {
   content: [
     './src/**/*.{html,js,jsx,ts,tsx,mdx}',
     './src/stories/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,6 +20,7 @@ module.exports = {
     },
     extend: {
       height: {
+        // @ts-ignore Allowing a list for now
         screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
       },
       colors: {
@@ -84,7 +87,12 @@ module.exports = {
         'spring-back': 'spring-back 0.5s ease-in-out forwards',
         'spring-more': 'spring-more 0.5s ease-in-out forwards',
       },
+      transitionTimingFunction: {
+        cubic: 'cubic-bezier(0.6, 0.6, 0, 1)',
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-};
+  plugins: [animatePlugin],
+} satisfies Config;
+
+export default config;

@@ -1,5 +1,4 @@
 import { SUBI_CONNECT_IMAGES_BASE_URL } from '../envs';
-import type { AccountPayrollSystemExtended } from '../types/application';
 import type { Payroll } from '../types/payroll';
 import { clsx, type ClassValue } from 'clsx';
 import { extendTailwindMerge } from 'tailwind-merge';
@@ -11,6 +10,9 @@ export const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const tw = (className: TemplateStringsArray, ...classNames: string[]) =>
+  String.raw({ raw: className }, ...classNames);
 
 export const removeUndefinedValues = <T extends object>(obj: T): T => {
   return Object.fromEntries(
@@ -51,8 +53,10 @@ export const createNestedObjectFromString = <T>(
     >((acc, keyPart) => ({ [keyPart]: acc }), value as unknown as Record<string, unknown>);
 };
 
-export const getPayrollFriendlyName = (
-  application: AccountPayrollSystemExtended,
+export const getPayrollFriendlyName = <
+  TPayrollSystem extends { friendlyName?: string; name: string },
+>(
+  application: TPayrollSystem,
 ) => {
   return application.friendlyName ?? application.name;
 };

@@ -14,9 +14,6 @@ export type AccountPayrollSystemExtended = {
   /** The payroll system logo. */
   bannerImg?: string;
 
-  /** The background colour for the system banner. */
-  backgroundColour?: string;
-
   /**
    * A boolean flag to determine if the user has connected/integrated with the
    * payroll system.
@@ -33,4 +30,36 @@ export type AccountPayrollSystemExtended = {
    * The type of workflow to integrate the payroll system.
    */
   payrollConnectionType: PayrollConnectionTypeEnum;
+};
+
+export type ManualIntegrationAccountPayrollSystemExtended = {
+  // name: 'MANUAL';
+
+  /** The friendly name of the payroll system. */
+  friendlyName: string;
+
+  /** The banner image URL of the payroll system. */
+  bannerImgUrl: string;
+
+  /** The description of the payroll system. */
+  description: string;
+
+  /** The text of the action button. */
+  actionButtonText: string;
+
+  /**
+   * This function is called when the user clicks on the manual integration.
+   * @param payrollSystem The payroll system the user clicked on.
+   * @param onSuccessCallback The function to call when the integration is successful.
+   * @param onCancelCallback The function to call when the integration is cancelled.
+   */
+  onConnect: ({
+    payrollSystem,
+    onSuccessCallback,
+    onCancelCallback,
+  }: {
+    payrollSystem: ManualIntegrationAccountPayrollSystemExtended;
+    onSuccessCallback: () => Promise<void>;
+    onCancelCallback: () => Promise<void>;
+  }) => void;
 };

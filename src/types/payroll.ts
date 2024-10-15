@@ -4,6 +4,7 @@ export const Payroll = {
   MYOB: 'MYOB',
   QUICKBOOKS: 'QUICKBOOKS',
   XERO: 'XERO',
+  MANUAL: 'MANUAL',
 } as const;
 
 export type Payroll = (typeof Payroll)[keyof typeof Payroll];
