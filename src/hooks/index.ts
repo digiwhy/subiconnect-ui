@@ -9,5 +9,6 @@ export {
 export { usePayrollSystems } from './use-payroll-systems';
 
 // Expose mutation hooks
-export { useIntegrateCustomPayrollMutation } from './use-custom-payroll-integration-mutation';
-export { useConnectPayrollMutation } from './use-connect-payroll-mutation';
+export { useIntegrateCustomPayrollMutation } from './integration/use-integrate-custom-payroll-mutation';
+export { useConnectPayrollMutation } from './integration/use-connect-payroll-mutation';
+export { useIntegrateManualPayrollMutation } from './integration/use-integrate-manual-payroll-mutation';

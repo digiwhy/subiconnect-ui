@@ -1,6 +1,8 @@
 import type { ConnectPayrollResponse } from '../services/api/payroll/types';
-import { usePayrollSystemContext } from '@/components/payroll-integration/context';
-import type { AccountPayrollSystemExtended } from '@/types';
+import type {
+  AccountPayrollSystemExtended,
+  ManualIntegrationAccountPayrollSystemExtended,
+} from '@/types';
 import React from 'react';
 
 type PayrollIntegrationContext = {
@@ -30,17 +32,22 @@ export const usePayrollIntegrationContext = (): PayrollIntegrationContext => {
 };
 
 type PayrollIntegrationProviderProps = {
+  payrollSystem:
+    | AccountPayrollSystemExtended
+    | ManualIntegrationAccountPayrollSystemExtended;
   onIntegrationSuccess?: (
-    payrollSystem: AccountPayrollSystemExtended,
+    payrollSystem:
+      | AccountPayrollSystemExtended
+      | ManualIntegrationAccountPayrollSystemExtended,
   ) => Promise<void>;
   children: React.ReactNode;
 };
 
 export const PayrollIntegrationProvider = ({
+  payrollSystem,
   onIntegrationSuccess,
   children,
 }: PayrollIntegrationProviderProps) => {
-  const { payrollSystem } = usePayrollSystemContext();
   const [isPending, setIsPending] = React.useState<boolean>(false);
   const [data, setData] = React.useState<ConnectPayrollResponse | undefined>();
   const [windowFailed, setWindowFailed] = React.useState<boolean>(false);

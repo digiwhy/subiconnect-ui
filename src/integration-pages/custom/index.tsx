@@ -3,9 +3,9 @@ import {
   formComponentsMap,
   otherComponentsMap,
 } from '@/components/payroll-integration-instructions/components-map';
-import { usePayrollSystemContext } from '@/components/payroll-integration/context';
 import { Loading } from '@/components/payroll-integration/loading';
-import { useIntegrateCustomPayrollMutation } from '@/hooks/use-custom-payroll-integration-mutation';
+import { usePayrollSystemContext } from '@/hooks/integration/context/use-payroll-system-context';
+import { useIntegrateCustomPayrollMutation } from '@/hooks/integration/use-integrate-custom-payroll-mutation';
 import { removeUndefinedValues } from '@/lib/utils';
 import { RenderMDX } from '@/mdx/render-mdx';
 import {

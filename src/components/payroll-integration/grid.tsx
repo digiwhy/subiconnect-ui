@@ -1,15 +1,39 @@
-import { Card } from './card';
-import { PayrollSystemProvider } from './context';
+import { Card, ManualCard } from './card';
+import { ManualPayrollSystemProvider } from '@/context/integration/manual-payroll-system';
+import { PayrollSystemProvider } from '@/context/integration/payroll-system';
 import { PayrollIntegrationProvider } from '@/context/payroll-integration';
 import { cn } from '@/lib/utils';
-import type { AccountPayrollSystemExtended } from '@/types/application';
+import type {
+  AccountPayrollSystemExtended,
+  ManualIntegrationAccountPayrollSystemExtended,
+} from '@/types/application';
 import React from 'react';
 
 export type PayrollIntegrationListGridProps = {
+  /**
+   * The payroll systems to display.
+   */
   payrollSystems: Array<AccountPayrollSystemExtended>;
+
+  /**
+   * A function to call when an integration is successful.
+   * @param payrollSystem The payroll system that was integrated.
+   * @returns A promise that resolves when the integration is successful.
+   */
   onIntegrationSuccess?: (
-    payrollSystem: AccountPayrollSystemExtended,
+    payrollSystem:
+      | AccountPayrollSystemExtended
+      | ManualIntegrationAccountPayrollSystemExtended,
   ) => Promise<void>;
+
+  /**
+   * The manual integrations to display alongside the payroll systems.
+   */
+  manualIntegrations?: Array<ManualIntegrationAccountPayrollSystemExtended>;
+
+  /**
+   * The custom class name to apply to the container.
+   */
   containerClassName?: string;
 };
 
@@ -17,6 +41,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
   payrollSystems = [],
   containerClassName,
   onIntegrationSuccess,
+  manualIntegrations = [],
 }) => {
   return (
     <div
@@ -33,11 +58,28 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
             payrollSystem={payrollSystem}
           >
             <PayrollIntegrationProvider
+              payrollSystem={payrollSystem}
               onIntegrationSuccess={onIntegrationSuccess}
             >
               <Card />
             </PayrollIntegrationProvider>
           </PayrollSystemProvider>
+        );
+      })}
+
+      {manualIntegrations?.map((manualIntegration) => {
+        return (
+          <ManualPayrollSystemProvider
+            key={manualIntegration.friendlyName}
+            payrollSystem={manualIntegration}
+          >
+            <PayrollIntegrationProvider
+              payrollSystem={manualIntegration}
+              onIntegrationSuccess={onIntegrationSuccess}
+            >
+              <ManualCard />
+            </PayrollIntegrationProvider>
+          </ManualPayrollSystemProvider>
         );
       })}
     </div>

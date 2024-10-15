@@ -1,8 +1,8 @@
-import { usePayrollSystemContext } from '../../context';
 import { BaseCard } from '../base-card';
+import { usePayrollSystemContext } from '@/hooks/integration/context/use-payroll-system-context';
 import useSearchParams from '@/hooks/internal/use-serach-params';
 import { useCompany } from '@/hooks/use-company';
-import { getPayrollFriendlyName } from '@/lib/utils';
+import { getPayrollBannerImgUrl, getPayrollFriendlyName } from '@/lib/utils';
 import { SearchParam } from '@/types/query';
 import { Button } from '@/ui/button';
 import { Skeleton } from '@/ui/skeleton';
@@ -21,10 +21,11 @@ const ConnectedAction = () => {
     <Button
       onClick={handleClick}
       variant={'outline'}
-      className='sc-group sc-flex sc-w-full sc-items-center sc-gap-2 sc-whitespace-normal'
+      size={'sm'}
+      className='sc-group sc-flex sc-w-fit sc-items-center sc-gap-2 sc-whitespace-normal'
     >
       Manage
-      <MoveRightIcon className='sc-h-4 sc-w-4 sc-transition-transform group-hover:sc-translate-x-1' />
+      <MoveRightIcon className='sc-h-4 sc-w-4 sc-transition-transform group-hover:sc-translate-x-[2px]' />
     </Button>
   );
 };
@@ -59,6 +60,8 @@ export const ConnectedCard = () => {
 
   return (
     <BaseCard
+      title={getPayrollFriendlyName(payrollSystem)}
+      bannerSrc={getPayrollBannerImgUrl(payrollSystem.name)}
       description={description}
       banner={undefined}
       action={<ConnectedAction />}
