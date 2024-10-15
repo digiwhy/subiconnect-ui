@@ -1,6 +1,7 @@
-import { usePayrollSystemContext } from '../context';
 import { ConnectCard } from './variants/connect';
 import { ConnectedCard } from './variants/connected';
+import { ManualConnectCard } from './variants/manual-connect';
+import { usePayrollSystemContext } from '@/hooks/integration/context/use-payroll-system-context';
 import React from 'react';
 
 export const Card: React.FC = () => {
@@ -11,4 +12,8 @@ export const Card: React.FC = () => {
   }
 
   return <ConnectCard />;
+};
+
+export const ManualCard: React.FC = () => {
+  return <ManualConnectCard />;
 };

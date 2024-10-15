@@ -1,16 +1,19 @@
 'use client';
 
 import { PayrollIntegrationManagementTable } from '@/components';
-import Integrate from '@/components/connect-and-integrate';
-import { PayrollSystemProvider } from '@/components/payroll-integration/context';
+import ConnectAndIntegrate from '@/components/connect-and-integrate';
 import { Loading } from '@/components/payroll-integration/loading';
+import { PayrollSystemProvider } from '@/context/integration/payroll-system';
 import { PayrollIntegrationProvider } from '@/context/payroll-integration';
 import { useSubiConnectContext } from '@/context/subi-connect';
 import useSearchParams from '@/hooks/internal/use-serach-params';
 import { useAccountPayrollSystem } from '@/hooks/use-account-payroll';
 import { BASE_ORGANISATION_QUERY_KEY } from '@/hooks/use-organisations';
 import { cn, getPayrollFriendlyName } from '@/lib/utils';
-import type { AccountPayrollSystemExtended } from '@/types/application';
+import type {
+  AccountPayrollSystemExtended,
+  ManualIntegrationAccountPayrollSystemExtended,
+} from '@/types/application';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types/main';
 import type { Payroll } from '@/types/payroll';
 import { SearchParam } from '@/types/query';
@@ -90,7 +93,7 @@ const Header: React.FC<{
         )}
       </div>
 
-      {!!accountPayroll && <Integrate Trigger={Trigger} />}
+      {!!accountPayroll && <ConnectAndIntegrate Trigger={Trigger} />}
     </div>
   );
 };
@@ -98,7 +101,9 @@ const Header: React.FC<{
 const PayrollIntegrationManagementPage: React.FC<{
   payroll: Payroll;
   onIntegrationSuccess?: (
-    payrollSystem: AccountPayrollSystemExtended,
+    payrollSystem:
+      | AccountPayrollSystemExtended
+      | ManualIntegrationAccountPayrollSystemExtended,
   ) => Promise<void>;
   disableBack?: boolean;
   className?: string;
@@ -113,7 +118,11 @@ const PayrollIntegrationManagementPage: React.FC<{
   } = useAccountPayrollSystem(payroll);
 
   const handleIntegrationSuccess = React.useCallback(
-    async (accountPayroll: AccountPayrollSystemExtended) => {
+    async (
+      accountPayroll:
+        | AccountPayrollSystemExtended
+        | ManualIntegrationAccountPayrollSystemExtended,
+    ) => {
       await queryClient.invalidateQueries({
         queryKey: [
           SUBI_CONNECT_QUERY_KEY,
@@ -152,6 +161,7 @@ const PayrollIntegrationManagementPage: React.FC<{
   return (
     <PayrollSystemProvider payrollSystem={accountPayroll}>
       <PayrollIntegrationProvider
+        payrollSystem={accountPayroll}
         onIntegrationSuccess={handleIntegrationSuccess}
       >
         <div
