@@ -4,39 +4,19 @@ import PayrollIntegrationListGrid, {
 } from './grid';
 import { Loading } from './loading';
 import { usePayrollSystems } from '@/hooks/use-payroll-systems';
-import type { AccountPayrollSystemExtended } from '@/types';
+import type { TypedOmit } from '@/types/utils';
 import React from 'react';
 
-type OmittedGridProps = keyof Pick<
-  PayrollIntegrationListGridProps,
-  'payrollSystems'
->;
-
 export type PayrollIntegrationListProps = {
-  /**
-   * A function to call when an integration is successful.
-   * @param payrollSystem The payroll system that was integrated.
-   * @returns A promise that resolves when the integration is successful.
-   */
-  onIntegrationSuccess?: (
-    payrollSystem: AccountPayrollSystemExtended,
-  ) => Promise<void>;
-
   /**
    * The custom error to display if there is an error.
    */
   error?: React.ReactNode;
-
-  /**
-   * The props to pass to the grid.
-   */
-  gridProps?: Omit<PayrollIntegrationListGridProps, OmittedGridProps>;
-};
+} & TypedOmit<PayrollIntegrationListGridProps, 'payrollSystems'>;
 
 const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
-  onIntegrationSuccess,
-  gridProps,
   error,
+  ...gridProps
 }) => {
   const { data: payrollSystems, isLoading, isError } = usePayrollSystems();
 
@@ -59,7 +39,6 @@ const PayrollIntegrationList: React.FC<PayrollIntegrationListProps> = ({
   return (
     <PayrollIntegrationListGrid
       payrollSystems={payrollSystems.results}
-      onIntegrationSuccess={onIntegrationSuccess}
       {...gridProps}
     />
   );

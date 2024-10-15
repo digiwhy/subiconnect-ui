@@ -33,8 +33,6 @@ export type AccountPayrollSystemExtended = {
 };
 
 export type ManualIntegrationAccountPayrollSystemExtended = {
-  // name: 'MANUAL';
-
   /** The friendly name of the payroll system. */
   friendlyName: string;
 

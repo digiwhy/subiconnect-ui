@@ -1,12 +1,12 @@
-import { usePayrollSystemContext } from '../payroll-integration/context';
-import { Loading } from '../payroll-integration/loading';
+import { Portal as BasePortal } from './portal';
 import { usePayrollIntegrationContext } from '@/context/payroll-integration';
 import { useSubiConnectContext } from '@/context/subi-connect';
+import { usePayrollSystemContext } from '@/hooks/integration/context/use-payroll-system-context';
+import { useConnectPayrollMutation } from '@/hooks/integration/use-connect-payroll-mutation';
 import { BASE_COMPANY_QUERY_KEY } from '@/hooks/use-company';
-import { useConnectPayrollMutation } from '@/hooks/use-connect-payroll-mutation';
 import { BASE_PAYROLL_APPLICATION_QUERY_KEY } from '@/hooks/use-payroll-systems';
 import { CustomPayrollIntegrationWorkflow } from '@/integration-pages/custom';
-import { cn, getPayrollFriendlyName } from '@/lib/utils';
+import { getPayrollFriendlyName } from '@/lib/utils';
 import {
   type ConnectPayrollResponse,
   PayrollConnectionTypeEnum,
@@ -23,15 +23,10 @@ import {
 } from '@/ui/dialogue';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
-  const { isPending, data, windowFailed, setIsPending, setWindowFailed } =
+  const { data, windowFailed, setIsPending, setWindowFailed } =
     usePayrollIntegrationContext();
-
-  const container = document.getElementById(
-    'subi-connect-payroll-integration-grid',
-  );
 
   const handleAuthWindow = React.useCallback(async () => {
     if (data) {
@@ -45,39 +40,25 @@ const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
     }
   }, [data, setIsPending, setWindowFailed, onSuccess]);
 
-  if (!isPending || !container) {
-    return null;
-  }
-
-  return ReactDOM.createPortal(
-    <div
-      className={cn(
-        'sc-absolute sc-z-50 sc-flex sc-h-full sc-w-full sc-items-center sc-justify-center sc-gap-2 sc-bg-background/50 sc-backdrop-blur-md',
-      )}
-    >
-      <Loading
-        title={
-          <div>
-            Please finish your current integration.{' '}
-            {!!data && windowFailed && (
-              <div className='sc-flex sc-flex-col'>
-                <span>
-                  If you can&apos;t see the authenitcation window, please{' '}
-                </span>
-                <Button onClick={handleAuthWindow} variant={'link'}>
-                  click here.
-                </Button>
-              </div>
-            )}
+  return (
+    <BasePortal>
+      {!!data &&
+        data.type === PayrollConnectionTypeEnum.OAUTH2 &&
+        windowFailed && (
+          <div className='sc-flex sc-flex-col'>
+            <span>
+              If you can&apos;t see the authenitcation window, please{' '}
+            </span>
+            <Button onClick={handleAuthWindow} variant={'link'}>
+              click here.
+            </Button>
           </div>
-        }
-      />
-    </div>,
-    container ?? document.body,
+        )}
+    </BasePortal>
   );
 };
 
-const Integrate: React.FC<{
+const ConnectAndIntegrate: React.FC<{
   Trigger: React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<typeof Button>
   >;
@@ -250,6 +231,6 @@ const Integrate: React.FC<{
   );
 });
 
-Integrate.displayName = 'Integrate';
+ConnectAndIntegrate.displayName = 'ConnectAndIntegrate';
 
-export default Integrate;
+export default ConnectAndIntegrate;

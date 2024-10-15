@@ -66,3 +66,7 @@ export type UseConnectPayrollMutationProps = {
     params: { authWindow: boolean | undefined };
   };
 };
+
+export type UseIntegrateManualPayrollMutationProps = {
+  payrollName: string;
+};
