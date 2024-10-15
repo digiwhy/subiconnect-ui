@@ -1,4 +1,4 @@
-import { cn } from '../lib/utils';
+import { cn, tw } from '../lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -8,23 +8,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'sc-bg-secondary sc-text-secondary-foreground hover:sc-bg-secondary/90',
-        destructive:
-          'sc-bg-destructive sc-text-destructive-foreground hover:sc-bg-destructive/90',
-        outline:
-          'sc-border sc-border-secondary sc-bg-background hover:sc-bg-accent hover:sc-text-accent-foreground',
-        secondary:
-          'sc-bg-secondary sc-text-secondary-foreground hover:sc-bg-secondary/80',
-        ghost: 'hover:sc-bg-accent hover:sc-text-accent-foreground',
-        none: `hover:sc-bg-transparent hover:sc-text-accent-foreground`,
-        link: 'sc-text-secondary sc-underline-offset-4 hover:sc-underline',
+        default: tw`sc-bg-secondary sc-text-secondary-foreground hover:sc-bg-secondary/90`,
+        destructive: tw`sc-bg-destructive sc-text-destructive-foreground hover:sc-bg-destructive/90`,
+        outline: tw`sc-border sc-border-secondary sc-bg-background hover:sc-bg-accent hover:sc-text-accent-foreground`,
+        secondary: tw`sc-bg-secondary sc-text-secondary-foreground hover:sc-bg-secondary/80`,
+        ghost: tw`hover:sc-bg-accent hover:sc-text-accent-foreground`,
+        none: tw`hover:sc-bg-transparent hover:sc-text-accent-foreground`,
+        link: tw`sc-text-secondary sc-underline-offset-4 hover:sc-underline`,
       },
       size: {
-        default: 'sc-h-10 sc-px-4 sc-py-2',
-        sm: 'sc-h-9 sc-rounded-md sc-px-3',
-        lg: 'sc-h-11 sc-rounded-md sc-px-8',
-        icon: 'sc-h-10 sc-w-10',
+        default: tw`sc-h-10 sc-px-4 sc-py-2`,
+        sm: tw`sc-h-9 sc-rounded-md sc-px-3`,
+        lg: tw`sc-h-11 sc-rounded-md sc-px-8`,
+        icon: tw`sc-h-10 sc-w-10`,
       },
     },
     defaultVariants: {
