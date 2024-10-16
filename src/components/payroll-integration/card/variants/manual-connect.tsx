@@ -5,8 +5,8 @@ import { getPayrollFriendlyName } from '@/lib/utils';
 import { Button } from '@/ui/button';
 import React from 'react';
 
-const manualConnectTrigger = ({ title }: { title: string }) =>
-  React.forwardRef<
+const manualConnectTrigger = ({ title }: { title: string }) => {
+  const Trigger = React.forwardRef<
     HTMLButtonElement,
     React.ComponentPropsWithoutRef<typeof Button>
   >(({ ...props }, ref) => (
@@ -18,6 +18,11 @@ const manualConnectTrigger = ({ title }: { title: string }) =>
       {title}
     </Button>
   ));
+
+  Trigger.displayName = 'ManualConnectTrigger';
+
+  return Trigger;
+};
 
 const ManualConnectAction: React.FC<{ title: string }> = ({ title }) => {
   const Trigger = React.useMemo(() => manualConnectTrigger({ title }), [title]);
