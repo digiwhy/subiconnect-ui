@@ -3,6 +3,7 @@ import { ManualPayrollSystemProvider } from '@/context/integration/manual-payrol
 import { PayrollSystemProvider } from '@/context/integration/payroll-system';
 import { PayrollIntegrationProvider } from '@/context/payroll-integration';
 import { cn } from '@/lib/utils';
+import { PayrollConnectionTypeEnum } from '@/services/api/payroll/types';
 import type {
   AccountPayrollSystemExtended,
   ManualIntegrationAccountPayrollSystemExtended,
@@ -35,6 +36,11 @@ export type PayrollIntegrationListGridProps = {
    * The custom class name to apply to the container.
    */
   containerClassName?: string;
+
+  /**
+   * Whether to show the manual connection types returned from Subi Connect.
+   */
+  showManualConnectionTypes?: boolean;
 };
 
 const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
@@ -42,6 +48,7 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
   containerClassName,
   onIntegrationSuccess,
   manualIntegrations = [],
+  showManualConnectionTypes = false,
 }) => {
   return (
     <div
@@ -52,6 +59,14 @@ const PayrollIntegrationListGrid: React.FC<PayrollIntegrationListGridProps> = ({
       )}
     >
       {payrollSystems?.map((payrollSystem) => {
+        if (
+          !showManualConnectionTypes &&
+          payrollSystem.payrollConnectionType ===
+            PayrollConnectionTypeEnum.MANUALLY
+        ) {
+          return null;
+        }
+
         return (
           <PayrollSystemProvider
             key={payrollSystem.id}

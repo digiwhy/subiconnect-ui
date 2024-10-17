@@ -1,7 +1,7 @@
 import type { Organisation } from '@/types/organisation';
 
 export enum PayrollConnectionTypeEnum {
-  MANUAL = 'MANUAL',
+  MANUALLY = 'MANUALLY',
   CUSTOM = 'CUSTOM',
   OAUTH2 = 'OAUTH2',
   OAUTH2_AND_COMPANY_MANUALLY = 'OAUTH2_AND_COMPANY_MANUALLY',
