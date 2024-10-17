@@ -2,6 +2,7 @@ import { BaseCard } from '../base-card';
 import ManualConnectAndIntegrate from '@/components/connect-and-integrate/manual';
 import { useManualPayrollSystemContext } from '@/hooks/integration/context/use-manual-payroll-system-context';
 import { getPayrollFriendlyName } from '@/lib/utils';
+import { Payroll } from '@/types/payroll';
 import { Button } from '@/ui/button';
 import React from 'react';
 
@@ -35,7 +36,7 @@ export const ManualConnectCard: React.FC = () => {
   return (
     <BaseCard
       title={getPayrollFriendlyName({
-        name: 'MANUAL',
+        name: Payroll.MANUAL,
         friendlyName: payrollSystem.friendlyName,
       })}
       bannerSrc={payrollSystem.bannerImgUrl}
