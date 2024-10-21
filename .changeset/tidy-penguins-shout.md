@@ -58,27 +58,27 @@ These changes significantly improve the flexibility, maintainability, and user e
 
 ```tsx
 const manualIntegrations: [
-      {
-        onConnect: ({ payrollSystem, onSuccessCallback, onCancelCallback }) => {
-          setTimeout(() => {
-            const result = window.confirm('Are you sure you want to connect?');
-            if (result) {
-              console.log('Connected', { payrollSystem });
-              onSuccessCallback(); // Call this to complete the integration workflow
-            } else {
-              console.log('Cancelled', { payrollSystem });
-              onCancelCallback(); // Call this to cancel the integration workflow
-            }
-          }, 200);
-        },
-        friendlyName: 'ADP',
-        bannerImgUrl:
-          'https://au.adp.com/-/media/adp/redesign2018/ui/logo-adp-fy19.svg?rev=0769ecbf84a9412a93e2cd52b7319a13&hash=C2451A542096BF16BC40698417D5A6FD',
-        description:
-          'Import from ADP to securely share your payroll data with Your Company.',
-        actionButtonText: 'Upload',
-      },
-    ],
+  {
+    onConnect: ({ payrollSystem, onSuccessCallback, onCancelCallback }) => {
+      setTimeout(() => {
+        const result = window.confirm('Are you sure you want to connect?');
+        if (result) {
+          console.log('Connected', { payrollSystem });
+          onSuccessCallback(); // Call this to complete the integration workflow
+        } else {
+          console.log('Cancelled', { payrollSystem });
+          onCancelCallback(); // Call this to cancel the integration workflow
+        }
+      }, 200);
+    },
+    friendlyName: 'ADP',
+    bannerImgUrl:
+      'https://au.adp.com/-/media/adp/redesign2018/ui/logo-adp-fy19.svg?rev=0769ecbf84a9412a93e2cd52b7319a13&hash=C2451A542096BF16BC40698417D5A6FD',
+    description:
+      'Import from ADP to securely share your payroll data with Your Company.',
+    actionButtonText: 'Upload',
+  },
+];
 
 const Component = () => {
   const onIntegrationSuccess = () => {
