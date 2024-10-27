@@ -1,45 +1,76 @@
+import { getIntegrationStatus } from '../api/payroll/actions';
+import type { ConnectionService } from '../axios/connection-service';
 import { getAuthWindowOptions } from './utils';
 import type React from 'react';
+
+const checkIntegrationSuccess = async ({
+  connectionService,
+  onSuccess,
+}: {
+  connectionService: ConnectionService;
+  onSuccess: () => Promise<void>;
+}) => {
+  try {
+    const success = await getIntegrationStatus(connectionService)();
+
+    if (success) {
+      await onSuccess();
+    }
+  } catch (error) {
+    console.error('[Subi Connect] Error checking OAuth status:', error);
+  }
+};
 
 const waitForWindowClose = ({
   authWindow,
   setIsPending,
   onSuccess,
+  connectionService,
 }: {
   authWindow: Window | null | undefined;
   setIsPending: React.Dispatch<React.SetStateAction<boolean>>;
   onSuccess: () => Promise<void>;
+  connectionService: ConnectionService;
 }): Promise<void> => {
   return new Promise((resolve) => {
-    const reset = () => {
-      clearInterval(checkWindowClosed);
+    // Cleanup function to be called when the window is closed or the component unmounts
+    const cleanup = async () => {
+      clearInterval(windowCheckInterval);
+      window.removeEventListener('message', handleMessage);
       setIsPending(false);
       resolve();
     };
 
-    const checkWindowClosed = setInterval(() => {
+    // Function to check integration status and close the window
+    const finaliseAuth = async () => {
+      clearInterval(windowCheckInterval);
+
+      await checkIntegrationSuccess({
+        connectionService,
+        onSuccess: async () => {
+          authWindow?.close();
+          await onSuccess();
+        },
+      });
+      cleanup();
+    };
+
+    const windowCheckInterval = setInterval(async () => {
       if (authWindow?.closed) {
-        reset();
+        await finaliseAuth();
       }
     }, 500);
 
     const handleMessage = async (event: MessageEvent) => {
       if (event.data === 'auth_complete') {
         authWindow?.close();
-        clearInterval(checkWindowClosed);
         await onSuccess();
-        setIsPending(false);
-        resolve();
+        cleanup();
       }
     };
 
     // Listen for messages from the auth window
     window.addEventListener('message', handleMessage, { once: true });
-
-    // Cleanup listener in case of resolve or unmount
-    return () => {
-      window.removeEventListener('message', reset);
-    };
   });
 };
 
@@ -49,12 +80,14 @@ export const handleOAuth2OnSuccess = async ({
   setIsPending,
   setWindowFailed,
   onSuccess,
+  connectionService,
 }: {
   authWindow: Window | null | undefined;
   redirectUri: string;
   setIsPending: React.Dispatch<React.SetStateAction<boolean>>;
   setWindowFailed: React.Dispatch<React.SetStateAction<boolean>>;
   onSuccess: () => Promise<void>;
+  connectionService: ConnectionService;
 }) => {
   if (authWindow === undefined) {
     authWindow = window.open(redirectUri, '', getAuthWindowOptions());
@@ -71,5 +104,10 @@ export const handleOAuth2OnSuccess = async ({
     setWindowFailed(false);
   }
 
-  return await waitForWindowClose({ authWindow, setIsPending, onSuccess });
+  return await waitForWindowClose({
+    authWindow,
+    setIsPending,
+    onSuccess,
+    connectionService,
+  });
 };
