@@ -27,6 +27,7 @@ import React from 'react';
 const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
   const { data, windowFailed, setIsPending, setWindowFailed } =
     usePayrollIntegrationContext();
+  const { connectionService } = useSubiConnectContext();
 
   const handleAuthWindow = React.useCallback(async () => {
     if (data) {
@@ -36,9 +37,10 @@ const Portal = ({ onSuccess }: { onSuccess: () => Promise<void> }) => {
         setIsPending,
         setWindowFailed,
         onSuccess: onSuccess,
+        connectionService,
       });
     }
-  }, [data, setIsPending, setWindowFailed, onSuccess]);
+  }, [data, setIsPending, setWindowFailed, onSuccess, connectionService]);
 
   return (
     <BasePortal>
@@ -119,10 +121,9 @@ const ConnectAndIntegrate: React.FC<{
    */
   const handleOnOpenChange = React.useCallback(
     (open: boolean) => {
-      if (open) {
-        setOpen(true);
-      } else {
-        setOpen(false);
+      setOpen(open);
+
+      if (!open) {
         setIsPending(false);
       }
     },
@@ -142,12 +143,13 @@ const ConnectAndIntegrate: React.FC<{
     }) => {
       switch (data.type) {
         case PayrollConnectionTypeEnum.OAUTH2:
-          handleOAuth2OnSuccess({
+          void handleOAuth2OnSuccess({
             authWindow: authWindow,
             redirectUri: data.redirectUri,
             setIsPending,
             setWindowFailed,
             onSuccess: handleWorkflowOnSuccess,
+            connectionService,
           });
           break;
 
@@ -156,12 +158,13 @@ const ConnectAndIntegrate: React.FC<{
           break;
 
         case PayrollConnectionTypeEnum.OAUTH2_AND_COMPANY_MANUALLY:
-          handleOAuth2OnSuccess({
+          void handleOAuth2OnSuccess({
             authWindow: authWindow,
             redirectUri: data.redirectUri,
             setIsPending,
             setWindowFailed,
             onSuccess: handleWorkflowOnSuccess,
+            connectionService,
           });
           setOpen(true);
           break;
