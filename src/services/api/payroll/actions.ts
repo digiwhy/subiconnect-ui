@@ -5,6 +5,7 @@ import {
   PAYROLL_APPLICATIONS_URL,
   getAccountPayrollURL,
   getAllOrganisationsURL,
+  getCheckIntegrationStatusURL,
   getConnectPayrollURL,
   getIntegrateManualPayrollURL,
   getIntegratePayrollURL,
@@ -13,6 +14,7 @@ import {
 } from './paths';
 import type {
   AllOrganinisationsResponse,
+  CheckIntegrationStatusResponse,
   ConnectPayrollResponse,
   FindAllSyncingOrganisationsByCompanyIdResult,
 } from './types';
@@ -162,5 +164,15 @@ export const getAccountPayroll = withConnectionService(
       getAccountPayrollURL(payroll),
     );
     return response.data;
+  },
+);
+
+export const getIntegrationStatus = withConnectionService(
+  async (connectionService: ConnectionService): Promise<boolean> => {
+    const httpClient = connectionService.getHttpClient();
+    const response = await httpClient.get<CheckIntegrationStatusResponse>(
+      getCheckIntegrationStatusURL(),
+    );
+    return response.data.success;
   },
 );

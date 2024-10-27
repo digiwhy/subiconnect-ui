@@ -33,3 +33,7 @@ export type FindAllSyncingOrganisationsByCompanyIdResult = {
   count: number;
   organisations: Array<Pick<Organisation, 'id' | 'name'>>;
 };
+
+export type CheckIntegrationStatusResponse = {
+  success: boolean;
+};

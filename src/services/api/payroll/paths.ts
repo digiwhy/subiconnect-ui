@@ -40,3 +40,7 @@ export const getAllOrganisationsURL = () => {
 export const getSyncingOrganisationsURL = () => {
   return constructAPIURL(`${PAYROLL_APPLICATIONS_URL}/organisations/syncing`);
 };
+
+export const getCheckIntegrationStatusURL = () => {
+  return constructAPIURL(`${PAYROLL_APPLICATIONS_URL}/integrate-status`);
+};
