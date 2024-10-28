@@ -1,5 +1,19 @@
 # @subifinancial/subi-connect
 
+## 5.0.2
+
+### Patch Changes
+
+- [#184](https://github.com/subifinancial/subi-connect/pull/184)
+  [`8cbf42b`](https://github.com/subifinancial/subi-connect/commit/8cbf42be72ec0b4cdedeaa02f8bc2ee749db9508)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - - Changed
+  query invalidation to query removal for better cache management
+  - Added sandbox environment support with new
+    `SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL` configuration
+  - Enhanced environment handling with automatic base URL switching for sandbox
+    mode
+  - Improved TypeScript documentation for debug options
+
 ## 5.0.1
 
 ### Patch Changes
