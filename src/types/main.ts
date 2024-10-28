@@ -18,12 +18,13 @@ export type SubiConnectCleanupProps = {
 
 export type SubiConnectDebugOptions = {
   /**
-   *
+   * The environment the application is running in.
    */
   NODE_ENV?: 'development' | 'production';
 
   /**
-   * Sets the base URL for the SubiConnect API.
+   * Sets the base URL for the SubiConnect API. Overrides the default base URL
+   * for the environment.
    */
   baseURL?: string;
 

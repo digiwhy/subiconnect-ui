@@ -1,7 +1,9 @@
-import type {
-  SubiConnectDebugOptions,
-  SubiConnectOptions,
+import {
+  SubiConnectEnvironment,
+  type SubiConnectDebugOptions,
+  type SubiConnectOptions,
 } from '../types/main';
+import { SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL } from '@/envs';
 import type { ConnectionService } from '@/services/axios/connection-service';
 import { Logger } from '@/services/logger';
 
@@ -32,8 +34,16 @@ const handleDebugOptions = ({
  */
 export const handleProviderOptions = ({
   debug,
+  environment,
   connectionService,
   logger,
 }: SubiConnectOptions & InternalInitialisationOptions) => {
-  if (debug) handleDebugOptions({ ...debug, connectionService, logger });
+  if (environment && environment === SubiConnectEnvironment.SANDBOX) {
+    connectionService.getHttpClient().defaults.baseURL =
+      SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL;
+  }
+
+  if (debug) {
+    handleDebugOptions({ ...debug, connectionService, logger });
+  }
 };

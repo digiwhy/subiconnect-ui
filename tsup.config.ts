@@ -30,6 +30,9 @@ export default defineConfig({
     'process.env.SUBI_CONNECT_PUBLIC_BASE_URL': JSON.stringify(
       process.env.SUBI_CONNECT_PUBLIC_BASE_URL,
     ),
+    'process.env.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL': JSON.stringify(
+      process.env.SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL,
+    ),
     'process.env.SUBI_CONNECT_IMAGES_BASE_URL': JSON.stringify(
       process.env.SUBI_CONNECT_IMAGES_BASE_URL,
     ),

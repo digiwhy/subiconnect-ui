@@ -142,7 +142,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
           : [{ context: connectionService.getContext() }]),
       ];
 
-      queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: queryKey,
       });
     }

@@ -17,6 +17,6 @@ export const cleanupAll = (queryClient?: QueryClient) => {
   }
 
   if (queryClient) {
-    queryClient.invalidateQueries({ queryKey: [SUBI_CONNECT_QUERY_KEY] });
+    queryClient.removeQueries({ queryKey: [SUBI_CONNECT_QUERY_KEY] });
   }
 };
