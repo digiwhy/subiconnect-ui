@@ -124,7 +124,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
     };
 
     initConnection();
-  }, [connectionFn, companyContext, options, connectionService]);
+  }, [options, connectionService]);
 
   /**
    * Clear the access token from local storage and the connection service.
