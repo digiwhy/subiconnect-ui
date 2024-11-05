@@ -1,5 +1,15 @@
 # @subifinancial/subi-connect
 
+## 5.0.3
+
+### Patch Changes
+
+- [#186](https://github.com/subifinancial/subi-connect/pull/186)
+  [`216735d`](https://github.com/subifinancial/subi-connect/commit/216735dfcead6e521545b92df61a90717bee9d0c)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Remove
+  unnecessary dependencies from `useEffect` dependency array in
+  `SubiConnectProvider`.
+
 ## 5.0.2
 
 ### Patch Changes
