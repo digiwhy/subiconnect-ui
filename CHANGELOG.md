@@ -1,5 +1,23 @@
 # @subifinancial/subi-connect
 
+## 5.0.5
+
+### Patch Changes
+
+- [#190](https://github.com/subifinancial/subi-connect/pull/190)
+  [`4bc6776`](https://github.com/subifinancial/subi-connect/commit/4bc677649cb0b2d338176e39b8482535bdab7d69)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Improved
+  initialisation and configuration handling:
+
+  - Changed `initialised` state to use `useRef` instead of `useState` for better
+    state management
+  - Moved provider options handling into `ConnectionService` constructor
+  - Simplified provider options handling by passing `httpClient` directly
+    instead of `ConnectionService`
+  - Fixed dependency array in `SubiConnectProvider`'s `useMemo`
+  - Removed redundant initialisation code and improved initialisation flow
+  - Added `providerOptions` to `ConnectionService` constructor parameters
+
 ## 5.0.4
 
 ### Patch Changes
