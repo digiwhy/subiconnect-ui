@@ -1,5 +1,18 @@
 # @subifinancial/subi-connect
 
+## 5.0.4
+
+### Patch Changes
+
+- [#188](https://github.com/subifinancial/subi-connect/pull/188)
+  [`49f0fee`](https://github.com/subifinancial/subi-connect/commit/49f0fee80e0bf01a48a5bb9da29db0481771f0d7)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Optimise
+  `SubiConnect` provider initialisation and cleanup:
+  - Set `initialised` state immediately when loading starts
+  - Remove redundant `initialised` check and set
+  - Memoise cleanup function with `useCallback` to prevent unnecessary rerenders
+  - Update dependency array in value memo to include cleanup function
+
 ## 5.0.3
 
 ### Patch Changes
