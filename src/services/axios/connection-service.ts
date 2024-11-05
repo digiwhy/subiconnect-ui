@@ -1,8 +1,9 @@
 import { httpClient } from '.';
-import type { ILogger } from '../logger/ILogger';
+import type { Logger } from '../logger';
 import type { ConnectionServiceResetOptions } from './types';
 import { ACCESS_TOKEN_NAME } from '@/constants';
-import type { SubiConnectConnectionFn } from '@/types/main';
+import { handleProviderOptions } from '@/lib/handle-provider-options';
+import type { SubiConnectConnectionFn, SubiConnectOptions } from '@/types/main';
 import type { AxiosInstance } from 'axios';
 
 const DEFAULT_CONTEXT = '';
@@ -22,14 +23,22 @@ export class ConnectionService {
     connectionFn,
     context,
     logger,
+    providerOptions,
   }: {
     connectionFn: SubiConnectConnectionFn | null;
     context: string;
-    logger: ILogger;
+    logger: Logger;
+    providerOptions?: SubiConnectOptions;
   }) {
     this.setConnectionFn(connectionFn);
     this.setContext(context);
     this.httpClient = httpClient({ connectionService: this, logger });
+
+    handleProviderOptions({
+      httpClient: this.httpClient,
+      logger,
+      ...providerOptions,
+    });
   }
 
   public setConnectionFn(fn: SubiConnectConnectionFn | null) {

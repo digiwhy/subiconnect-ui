@@ -1,4 +1,3 @@
-import { handleProviderOptions } from '@/lib/handle-provider-options';
 import { ConnectionService } from '@/services/axios/connection-service';
 import { Logger } from '@/services/logger';
 import {
@@ -77,12 +76,17 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
 }: SubiConnectProviderProps<TCompanyContext>) => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const [initialised, setInitialised] = React.useState<boolean>(false);
+  const initialised = React.useRef<boolean>(false);
   const logger = React.useMemo(() => new Logger(), [companyContext]);
   const connectionService = React.useMemo(
     () =>
-      new ConnectionService({ connectionFn, context: companyContext, logger }),
-    [connectionFn, companyContext, logger],
+      new ConnectionService({
+        connectionFn,
+        context: companyContext,
+        logger,
+        providerOptions: options,
+      }),
+    [connectionFn, companyContext, logger, options],
   );
 
   /**
@@ -91,13 +95,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
    */
   React.useEffect(() => {
     setIsLoading(true);
-    setInitialised(true);
-
-    /**
-     * Handle options passed to the `SubiConnectProvider`.
-     */
-    if (options)
-      handleProviderOptions({ ...options, connectionService, logger });
+    initialised.current = false;
 
     const initConnection = async () => {
       try {
@@ -121,7 +119,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
       }
 
       setIsLoading(false);
-      setInitialised(true);
+      initialised.current = true;
     };
 
     initConnection();
@@ -155,16 +153,16 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   const value = React.useMemo(() => {
     return {
       isLoading,
-      initialised,
+      initialised: initialised.current,
       cleanup,
       connectionService,
     } satisfies SubiConnectContext;
-  }, [isLoading, initialised, cleanup, connectionService]);
+  }, [isLoading, initialised, cleanup, connectionService, initialised.current]);
 
   return (
     <SubiConnectContext.Provider value={value}>
       <div className='subi-connect'>
-        {initialised || options?.bypassInitialisation ? children : null}
+        {initialised.current || options?.bypassInitialisation ? children : null}
       </div>
     </SubiConnectContext.Provider>
   );

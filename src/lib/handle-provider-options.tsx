@@ -4,11 +4,11 @@ import {
   type SubiConnectOptions,
 } from '../types/main';
 import { SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL } from '@/envs';
-import type { ConnectionService } from '@/services/axios/connection-service';
 import { Logger } from '@/services/logger';
+import type { AxiosInstance } from 'axios';
 
 type InternalInitialisationOptions = {
-  connectionService: ConnectionService;
+  httpClient: AxiosInstance;
   logger: Logger;
 };
 
@@ -19,10 +19,10 @@ const handleDebugOptions = ({
   NODE_ENV,
   baseURL,
   disabledLogging = false,
-  connectionService,
+  httpClient,
   logger,
 }: SubiConnectDebugOptions & InternalInitialisationOptions) => {
-  if (baseURL) connectionService.getHttpClient().defaults.baseURL = baseURL;
+  if (baseURL) httpClient.defaults.baseURL = baseURL;
   logger.initialise({
     env: NODE_ENV,
     enabled: !disabledLogging,
@@ -35,15 +35,14 @@ const handleDebugOptions = ({
 export const handleProviderOptions = ({
   debug,
   environment,
-  connectionService,
+  httpClient,
   logger,
 }: SubiConnectOptions & InternalInitialisationOptions) => {
   if (environment && environment === SubiConnectEnvironment.SANDBOX) {
-    connectionService.getHttpClient().defaults.baseURL =
-      SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL;
+    httpClient.defaults.baseURL = SUBI_CONNECT_SANDBOX_PUBLIC_BASE_URL;
   }
 
   if (debug) {
-    handleDebugOptions({ ...debug, connectionService, logger });
+    handleDebugOptions({ ...debug, httpClient, logger });
   }
 };
