@@ -91,6 +91,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
    */
   React.useEffect(() => {
     setIsLoading(true);
+    setInitialised(true);
 
     /**
      * Handle options passed to the `SubiConnectProvider`.
@@ -120,7 +121,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
       }
 
       setIsLoading(false);
-      if (!initialised) setInitialised(true);
+      setInitialised(true);
     };
 
     initConnection();
@@ -129,24 +130,27 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
   /**
    * Clear the access token from local storage and the connection service.
    */
-  const cleanup = (props: SubiConnectCleanupProps = {}) => {
-    connectionService.reset({
-      keepAccessToken: props.keepData,
-    });
-
-    if (!props.keepData) {
-      const queryKey = [
-        SUBI_CONNECT_QUERY_KEY,
-        ...(props.cleanupAllContexts
-          ? []
-          : [{ context: connectionService.getContext() }]),
-      ];
-
-      queryClient.removeQueries({
-        queryKey: queryKey,
+  const cleanup = React.useCallback(
+    (props: SubiConnectCleanupProps = {}) => {
+      connectionService.reset({
+        keepAccessToken: props.keepData,
       });
-    }
-  };
+
+      if (!props.keepData) {
+        const queryKey = [
+          SUBI_CONNECT_QUERY_KEY,
+          ...(props.cleanupAllContexts
+            ? []
+            : [{ context: connectionService.getContext() }]),
+        ];
+
+        queryClient.removeQueries({
+          queryKey: queryKey,
+        });
+      }
+    },
+    [connectionService, queryClient],
+  );
 
   const value = React.useMemo(() => {
     return {
@@ -155,7 +159,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
       cleanup,
       connectionService,
     } satisfies SubiConnectContext;
-  }, [isLoading, initialised, connectionService]);
+  }, [isLoading, initialised, cleanup, connectionService]);
 
   return (
     <SubiConnectContext.Provider value={value}>
