@@ -157,7 +157,7 @@ export const SubiConnectProvider = <TCompanyContext extends string>({
       cleanup,
       connectionService,
     } satisfies SubiConnectContext;
-  }, [isLoading, initialised, cleanup, connectionService, initialised.current]);
+  }, [isLoading, cleanup, connectionService, initialised.current]);
 
   return (
     <SubiConnectContext.Provider value={value}>

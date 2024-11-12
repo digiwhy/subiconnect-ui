@@ -33,7 +33,7 @@ export const useAccountPayrollSystem = (
   );
 
   const queryFn = React.useCallback(
-    async () => getAccountPayroll(connectionService)({ payroll }),
+    () => getAccountPayroll(connectionService)({ payroll }),
     [payroll, connectionService],
   );
 
