@@ -2,6 +2,7 @@ import { useSubiConnectContext } from '../subi-connect';
 import useSearchParams, {
   FILTER_SEARCH_PARAM_PREFIX,
 } from '@/hooks/internal/use-serach-params';
+import { useSubiConnectQuery } from '@/hooks/use-subi-connect-query';
 import { createNestedObjectFromString } from '@/lib/utils';
 import { SUBI_CONNECT_QUERY_KEY } from '@/types';
 import type {
@@ -14,7 +15,6 @@ import {
   type QueryKey,
   type UseQueryOptions,
   type UseQueryResult,
-  useQuery,
 } from '@tanstack/react-query';
 import React from 'react';
 
@@ -191,10 +191,10 @@ export const DataTableProvider = <TData,>({
     });
   };
 
-  const query = useQuery({
-    ...queryOptions,
+  const query = useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFunction,
+    ...queryOptions,
   });
 
   const value = React.useMemo(

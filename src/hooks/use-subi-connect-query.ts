@@ -14,7 +14,9 @@ export function useSubiConnectQuery<
   TQueryKey extends QueryKey = QueryKey,
 >(options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>) {
   const { initialised } = useSubiConnectContext();
+
   const { enabled, ...queryOptions } = options;
+
   return useQuery({
     ...queryOptions,
     enabled: initialised && enabled,

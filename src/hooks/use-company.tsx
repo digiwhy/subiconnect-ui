@@ -29,6 +29,7 @@ export const useCompany = (options?: UseCompanyOptions) => {
     BASE_COMPANY_QUERY_KEY,
     'detail',
   ] as const;
+
   return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: getCompany(connectionService),
@@ -53,6 +54,7 @@ export const useCompanyPayrollIntegrations = (
     { context: connectionService.getContext() },
     BASE_COMPANY_PAYROLL_INTEGRATIONS_QUERY_KEY,
   ] as const;
+
   return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: getCompanyPayrollIntegrations(connectionService),
