@@ -1,5 +1,111 @@
 # @subifinancial/subi-connect
 
+## 6.0.0
+
+### Major Changes
+
+- [#193](https://github.com/subifinancial/subi-connect/pull/193)
+  [`3864b98`](https://github.com/subifinancial/subi-connect/commit/3864b9878f2b1d66a0eed2797fd672aa0643a832)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - ### Breaking
+  Changes
+
+  #### Query Key Filters Structure Change
+
+  - Changed `queryKeyFilters` type from array to object structure across all
+    table components
+  - Updated `DataTableProviderProps` interface to use `Record<string, unknown>`
+    instead of `QueryKey`
+  - This affects all components using `GenericTable` and `DataTableProvider`
+
+  #### Payroll Integration Parameter Changes
+
+  - Changed `accountPayrollId` to `payrollSystemId` throughout the codebase
+  - This affects:
+    - `PayrollIntegrationManagementTable` component
+    - `useOrganisations` hook
+    - `listOrganisationsFromPayroll` action
+    - `getOrganisationsFromPayrollURL` path helper
+
+  ### Migration Guide
+
+  #### Query Key Filters
+
+  Before:
+
+  ```tsx
+  queryKeyFilters={[{ enabledColumns }]}
+  ```
+
+  After:
+
+  ```tsx
+  queryKeyFilters={{ enabledColumns }}
+  ```
+
+  #### Payroll System ID
+
+  Before:
+
+  ```tsx
+  const App = () => {
+    const { data: accountPayroll } = useAccountPayrollSystem(payroll);
+    const { data: organisations } = useOrganisations(accountPayroll.id);
+
+    return (
+      <PayrollIntegrationManagementTable accountPayrollId={accountPayroll.id} />
+    );
+  };
+  ```
+
+  After:
+
+  ```tsx
+  const App = () => {
+    const { data: accountPayroll } = useAccountPayrollSystem(payroll);
+    const { data: organisations } = useOrganisations(accountPayroll.payrollId);
+
+    return (
+      <PayrollIntegrationManagementTable
+        payrollSystemId={accountPayroll.payrollId}
+      />
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#194](https://github.com/subifinancial/subi-connect/pull/194)
+  [`653a415`](https://github.com/subifinancial/subi-connect/commit/653a4156304676a75d03b84ffaed0a3ee95ba73d)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - ### Bug Fixes
+
+  - Fixed dependency array in `SubiConnectProvider` by removing duplicate
+    `initialised` dependency
+  - Updated `DataTableProvider` to use `useSubiConnectQuery` instead of raw
+    `useQuery`
+  - Removed unnecessary `async` wrapper in `useAccountPayrollSystem` query
+    function
+  - Improved code formatting and readability in hooks with consistent spacing
+
+  ### Internal Changes
+
+  - Refactored query implementation in table context to use
+    `useSubiConnectQuery`
+  - Added proper type handling for query options in `useSubiConnectQuery`
+  - Enhanced query key organisation in company-related hooks
+
+- [#192](https://github.com/subifinancial/subi-connect/pull/192)
+  [`319fe2a`](https://github.com/subifinancial/subi-connect/commit/319fe2a7bd60b44e10f77e3bbc504ff9558976cf)
+  Thanks [@keeganpotgieter](https://github.com/keeganpotgieter)! - Added
+  `connectionService` context to dependency arrays in React hooks to ensure
+  proper cache invalidation when the connection context changes. Updated hooks
+  include:
+  - `useAccountPayrollSystem`
+  - `useEmployees`
+  - `useOrganisations`
+  - `useAllOrganisations`
+  - `useOrganisation`
+  - `usePayrollSystems`
+
 ## 5.0.5
 
 ### Patch Changes
