@@ -29,7 +29,7 @@ export const useAccountPayrollSystem = (
       'detail',
       payroll,
     ],
-    [payroll],
+    [payroll, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(

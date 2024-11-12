@@ -60,7 +60,7 @@ export const useOrganisations = (
         filters: params,
       },
     ],
-    [accountPayrollId, params],
+    [accountPayrollId, params, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(
@@ -114,7 +114,7 @@ export const useAllOrganisations = (options?: UseAllOrganisationsOptions) => {
         filters: params,
       },
     ],
-    [params],
+    [params, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(
@@ -178,7 +178,7 @@ export const useOrganisation = (
       'detail',
       organisationId,
     ],
-    [organisationId],
+    [organisationId, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(
