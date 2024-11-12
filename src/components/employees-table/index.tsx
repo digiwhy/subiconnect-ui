@@ -84,7 +84,7 @@ const EmployeesTable: React.FC<{
     <GenericTable
       name='Employee'
       listAction={listAction}
-      queryKeyFilters={[{ enabledColumns }]}
+      queryKeyFilters={{ enabledColumns }}
       dataTableProps={{
         toolbarProps: { filterOptions, hideSearchBar: false },
         rowContexts: rowContexts,

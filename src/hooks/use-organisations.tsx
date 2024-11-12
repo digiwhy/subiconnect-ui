@@ -36,7 +36,7 @@ type UseOrganisationsOptions = {
 };
 
 export const useOrganisations = (
-  accountPayrollId: number | undefined,
+  payrollSystemId: number | undefined,
   options?: UseOrganisationsOptions,
 ) => {
   const { connectionService } = useSubiConnectContext();
@@ -56,20 +56,20 @@ export const useOrganisations = (
       BASE_ORGANISATION_QUERY_KEY,
       'list',
       {
-        accountPayrollId,
+        payrollSystemId,
         filters: params,
       },
     ],
-    [accountPayrollId, params, connectionService.getContext()],
+    [payrollSystemId, params, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(
     () =>
-      listOrganisationsFromPayroll(connectionService)(accountPayrollId!, {
+      listOrganisationsFromPayroll(connectionService)(payrollSystemId!, {
         ...options?.listOptions,
         params: params,
       }),
-    [accountPayrollId, options?.listOptions, params, connectionService],
+    [payrollSystemId, options?.listOptions, params, connectionService],
   );
 
   const { enabled, ...restOfQueryOptions } = options?.queryOptions ?? {
@@ -79,7 +79,7 @@ export const useOrganisations = (
   return useSubiConnectQuery({
     queryKey: queryKey,
     queryFn: queryFn,
-    enabled: !!accountPayrollId && enabled,
+    enabled: !!payrollSystemId && enabled,
     ...restOfQueryOptions,
   });
 };
