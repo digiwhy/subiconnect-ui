@@ -46,7 +46,7 @@ export const useEmployees = (options?: UseEmployeesOptions) => {
         filters: params,
       },
     ],
-    [params],
+    [params, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(

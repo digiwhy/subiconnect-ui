@@ -47,7 +47,7 @@ export const usePayrollSystems = (options?: UsePayrollSystemsOptions) => {
         filters: params,
       },
     ],
-    [params],
+    [params, connectionService.getContext()],
   );
 
   const queryFn = React.useCallback(
