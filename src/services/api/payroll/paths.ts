@@ -27,9 +27,11 @@ export const getAccountPayrollURL = (payroll: Payroll) => {
   );
 };
 
-export const getOrganisationsFromPayrollURL = (payrollId: number | string) => {
+export const getOrganisationsFromPayrollURL = (
+  payrollSystemId: number | string,
+) => {
   return constructAPIURL(
-    `${PAYROLL_APPLICATIONS_URL}/${payrollId}/organisations`,
+    `${PAYROLL_APPLICATIONS_URL}/${payrollSystemId}/organisations`,
   );
 };
 

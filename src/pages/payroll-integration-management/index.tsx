@@ -174,7 +174,7 @@ const PayrollIntegrationManagementPage: React.FC<{
 
           <div className='sc-h-full sc-w-full'>
             <PayrollIntegrationManagementTable
-              accountPayrollId={accountPayroll.id}
+              payrollSystemId={accountPayroll.payrollId}
             />
           </div>
         </div>

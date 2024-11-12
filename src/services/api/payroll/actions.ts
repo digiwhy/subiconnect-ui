@@ -112,12 +112,12 @@ export const integrateManualPayroll = withConnectionService(
 export const listOrganisationsFromPayroll = withConnectionService(
   async (
     connectionService: ConnectionService,
-    accountPayrollId: number | string,
+    payrollSystemId: number | string,
     options?: ListOptions,
   ): Promise<PaginationResponse<Organisation>> => {
     const httpClient = connectionService.getHttpClient();
     const response = await httpClient.get<PaginationResponse<Organisation>>(
-      getOrganisationsFromPayrollURL(accountPayrollId),
+      getOrganisationsFromPayrollURL(payrollSystemId),
       options,
     );
     return response.data;

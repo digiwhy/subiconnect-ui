@@ -88,11 +88,11 @@ export const useDataTableContext = <TData,>(): IDataTableContext<TData> => {
   return context;
 };
 
-interface DataTableProviderProps<TData> {
+export type DataTableProviderProps<TData> = {
   children: React.ReactNode;
   name: string;
   listAction: ListRequest<never, TData>;
-  queryKeyFilters?: QueryKey;
+  queryKeyFilters?: Record<string, unknown>;
   queryOptions?: Omit<
     UseQueryOptions<
       PaginationResponse<TData>,
@@ -102,13 +102,13 @@ interface DataTableProviderProps<TData> {
     >,
     'initialData' | 'queryKey'
   >;
-}
+};
 
 export const DataTableProvider = <TData,>({
   children,
   name,
   listAction,
-  queryKeyFilters = [],
+  queryKeyFilters = {},
   queryOptions,
 }: DataTableProviderProps<TData>) => {
   const { getSearchParam, setSearchParam, getAllParams } = useSearchParams();

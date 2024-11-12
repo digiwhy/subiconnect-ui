@@ -6,17 +6,14 @@ import GenericTable from '@/ui/extended/table/generic-table';
 import React from 'react';
 
 const PayrollIntegrationManagementTable: React.FC<{
-  accountPayrollId: number;
-}> = ({ accountPayrollId }) => {
+  payrollSystemId: number;
+}> = ({ payrollSystemId }) => {
   const { connectionService } = useSubiConnectContext();
 
   const listAction = React.useCallback(
     (options: ListOptions | undefined) =>
-      listOrganisationsFromPayroll(connectionService)(
-        accountPayrollId,
-        options,
-      ),
-    [accountPayrollId, connectionService],
+      listOrganisationsFromPayroll(connectionService)(payrollSystemId, options),
+    [payrollSystemId, connectionService],
   );
 
   return (
@@ -24,7 +21,7 @@ const PayrollIntegrationManagementTable: React.FC<{
       name={'Organisation'}
       listAction={listAction}
       columns={columns}
-      queryKeyFilters={[{ accountPayrollId }]}
+      queryKeyFilters={{ payrollSystemId }}
     />
   );
 };
